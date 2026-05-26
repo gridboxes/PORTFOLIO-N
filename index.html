@@ -404,17 +404,17 @@
     .contact-pill:hover {
       background: var(--bg-card-hover);
       box-shadow: 0 0 0 1px rgba(248,248,248,0.22);
-      padding-right: 88px;
+      padding-right: 82px;
     }
     .contact-pill .icon { width: 16px; height: 16px; color: var(--text-sec); }
     @keyframes pillBtnIn {
-      0%   { opacity: 0; transform: scale(0.55) translateX(6px); }
-      55%  { opacity: 1; transform: scale(1.12); }
+      0%   { opacity: 0; transform: scale(0.6) translateX(6px); }
+      60%  { opacity: 1; transform: scale(1.04); }
       100% { opacity: 1; transform: scale(1) translateX(0); }
     }
     .pill-btns {
       position: absolute;
-      right: 6px;
+      right: 3px;
       top: 50%;
       transform: translateY(-50%);
       display: flex;
@@ -446,10 +446,21 @@
     .pill-btn svg { width: 15px; height: 15px; stroke: var(--text-sec); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
     .pill-btn:hover svg { stroke: var(--text-pri); }
     .pill-btn.pill-copied svg { stroke: #4ade80; }
+    @keyframes iconOut {
+      from { opacity: 1; transform: scale(1) rotate(0deg); }
+      to   { opacity: 0; transform: scale(0.2) rotate(25deg); }
+    }
+    @keyframes iconIn {
+      from { opacity: 0; transform: scale(0.2) rotate(-20deg); }
+      60%  { transform: scale(1.15) rotate(3deg); }
+      to   { opacity: 1; transform: scale(1) rotate(0deg); }
+    }
+    .pill-btn.icon-out svg { animation: iconOut 0.14s ease forwards; }
+    .pill-btn.icon-in  svg { animation: iconIn  0.28s var(--ease-spring) forwards; }
 
     /* ── Touch devices: always show action buttons ── */
     @media (hover: none) {
-      .contact-pill { padding-right: 88px; }
+      .contact-pill { padding-right: 82px; }
       .pill-btns { pointer-events: auto; }
       .pill-btn {
         opacity: 1;
@@ -1323,10 +1334,35 @@
 
   function pillCopy(text, btn) {
     navigator.clipboard.writeText(text).then(() => {
+      if (btn.dataset.copying) return;
+      btn.dataset.copying = '1';
       const prev = btn.innerHTML;
-      btn.classList.add('pill-copied');
-      btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
-      setTimeout(() => { btn.innerHTML = prev; btn.classList.remove('pill-copied'); }, 1600);
+      const CHECK = `<svg viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
+
+      // 1. Spin current icon out
+      btn.classList.add('icon-out');
+
+      setTimeout(() => {
+        // 2. Swap to checkmark, spin in
+        btn.innerHTML = CHECK;
+        btn.classList.remove('icon-out');
+        btn.classList.add('pill-copied', 'icon-in');
+
+        setTimeout(() => {
+          // 3. Spin checkmark out
+          btn.classList.remove('icon-in');
+          btn.classList.add('icon-out');
+
+          setTimeout(() => {
+            // 4. Restore copy icon, spin in
+            btn.innerHTML = prev;
+            btn.classList.remove('icon-out', 'pill-copied');
+            btn.classList.add('icon-in');
+            delete btn.dataset.copying;
+            setTimeout(() => btn.classList.remove('icon-in'), 320);
+          }, 140);
+        }, 1300);
+      }, 140);
     });
   }
 </script>
