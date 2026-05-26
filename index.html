@@ -46,7 +46,8 @@
       to   { opacity: 1; transform: none; }
     }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; scrollbar-width: none; }
+    html::-webkit-scrollbar { display: none; }
 
     body {
       background: var(--bg);
@@ -1197,7 +1198,6 @@
 <!-- ── Project Modal ── -->
 <div id="project-modal" class="project-modal" role="dialog" aria-modal="true">
   <div class="modal-sheet">
-    <div class="modal-accent-strip" id="modal-accent"></div>
     <button class="modal-close" id="modal-close-btn" aria-label="Close">
       <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="1" y1="1" x2="13" y2="13"/><line x1="13" y1="1" x2="1" y2="13"/></svg>
     </button>
@@ -1250,7 +1250,6 @@
 
     const modal = document.getElementById('project-modal');
     modal.style.setProperty('--modal-accent', p.accent);
-    document.getElementById('modal-accent').style.background = p.accent;
 
     const metaHTML = p.meta.map(m => `
       <div class="modal-meta-item">
@@ -1259,7 +1258,7 @@
       </div>`).join('');
 
     document.getElementById('modal-body').innerHTML = `
-      <div class="modal-eyebrow">${p.category} &nbsp;·&nbsp; ${p.num}</div>
+      <div class="modal-eyebrow">${p.category}</div>
       <h2 class="modal-title">${p.title}</h2>
       <div class="modal-meta">${metaHTML}</div>
       ${getBody(id)}
