@@ -1,0 +1,15 @@
+<svg width="210" height="210" viewBox="0 0 210 210" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="105" cy="105" r="105" fill="#171717"/>
+<circle cx="105" cy="105" r="95.2079" stroke="#333333" stroke-width="0.707865"/>
+<circle cx="105" cy="105" r="86.9494" stroke="#333333" stroke-width="0.707865"/>
+<circle cx="105" cy="105" r="78.691" stroke="#333333" stroke-width="0.707865"/>
+<circle cx="105" cy="105" r="70.4326" stroke="#333333" stroke-width="0.707865"/>
+<circle cx="105" cy="105" r="62.1742" stroke="#333333" stroke-width="0.707865"/>
+<circle cx="105" cy="105" r="53.9157" stroke="#333333" stroke-width="0.707865"/>
+<circle cx="105" cy="105" r="42.4719" fill="#C8624A"/>
+<circle opacity="0.3" cx="105" cy="105" r="36.986" stroke="white" stroke-width="0.353933"/>
+<text x="105" y="95" text-anchor="middle" font-family="Inter, sans-serif" font-weight="700" font-size="8" fill="white" letter-spacing="1">SLOW RIVER</text>
+<text x="105" y="108" text-anchor="middle" font-family="Inter, sans-serif" font-weight="400" font-size="5.5" fill="rgba(255,255,255,0.85)">June Halberd</text>
+<text x="105" y="118" text-anchor="middle" font-family="Inter, sans-serif" font-weight="400" font-size="4.5" fill="rgba(255,255,255,0.6)">SIDE K  ·  33⅓ RPM</text>
+<circle cx="105" cy="105" r="2.94944" fill="#121212"/>
+</svg>
