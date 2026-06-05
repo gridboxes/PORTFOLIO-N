@@ -1259,8 +1259,8 @@
         <div class="cs-3d-viewer">
           <model-viewer src="./projects/hera/model.glb" alt="RISA robot 3D model"
             camera-controls auto-rotate auto-rotate-delay="800" rotation-per-second="14deg"
-            shadow-intensity="1.2" shadow-softness="0.85" environment-image="neutral"
-            exposure="0.78" tone-mapping="neutral" style="background:#5a6a72;">
+            shadow-intensity="1.4" shadow-softness="0.6" environment-image="legacy"
+            exposure="0.52" tone-mapping="commerce" style="background:#3a4448;">
           </model-viewer>
         </div>
         <img class="cs-img" src="./projects/hera/Screenshot_2569-04-20_at_10.52.02.png" alt="Fusion 360 render side" style="margin-top:16px;" />

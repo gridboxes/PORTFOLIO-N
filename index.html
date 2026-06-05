@@ -3,8 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio — SS</title>
+  <title>Sivakorn (Kong) — Portfolio</title>
+  <meta name="description" content="Sivakorn (Kong) Samorkam — UX/UI designer with a Robotics &amp; AI engineering background. Designing effortless digital experiences across mobile, web, and physical products.">
+  <meta name="author" content="Sivakorn Samorkam">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <!-- Open Graph / social preview. NOTE: set the two absolute URLs below to your
+       deployed domain (e.g. https://your-site.vercel.app) so LinkedIn/Twitter
+       render the preview card — most crawlers require absolute URLs. -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Sivakorn (Kong) — Portfolio">
+  <meta property="og:description" content="UX/UI designer with a Robotics &amp; AI engineering background. Designing effortless experiences across mobile, web, and physical products.">
+  <meta property="og:image" content="projects/thaipass/cover.png">
+  <!-- <meta property="og:url" content="https://your-domain.com/"> -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Sivakorn (Kong) — Portfolio">
+  <meta name="twitter:description" content="UX/UI designer with a Robotics &amp; AI engineering background.">
+  <meta name="twitter:image" content="projects/thaipass/cover.png">
   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400&display=swap');
@@ -50,6 +65,14 @@
     html { scroll-behavior: smooth; scrollbar-width: none; }
     html::-webkit-scrollbar { display: none; }
 
+    /* Visible keyboard focus (mouse clicks stay clean via :focus-visible) */
+    :focus-visible {
+      outline: 2px solid rgba(248,248,248,0.6);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+    :focus:not(:focus-visible) { outline: none; }
+
     body {
       background: var(--bg);
       color: var(--text-pri);
@@ -62,7 +85,7 @@
 
     /* ── Layout ── */
     .page {
-      max-width: 750px;
+      max-width: 800px;
       margin: 0 auto;
       padding: 0 24px 100px;
     }
@@ -71,7 +94,7 @@
       font-size: 44px;
       font-weight: 400;
       line-height: 1.15;
-      padding: 120px 8px 32px;
+      padding: 120px 0 32px;
       animation: fadeUp 0.9s var(--ease-spring) both;
     }
     .section {
@@ -91,13 +114,13 @@
       font-family: 'KyivTypeSerif', Georgia, serif;
       font-size: 28px;
       font-weight: 400;
-      padding: 28px 6px 8px;
+      padding: 28px 0 8px;
     }
     .h2-icon {
       font-family: 'KyivTypeSerif', Georgia, serif;
       font-size: 28px;
       font-weight: 400;
-      padding: 28px 6px 8px;
+      padding: 28px 0 8px;
       display: flex;
       align-items: center;
       gap: 12px;
@@ -107,33 +130,123 @@
       font-family: 'KyivTypeSerif', Georgia, serif;
       font-size: 22px;
       font-weight: 400;
-      padding: 22px 6px 8px;
+      padding: 22px 0 8px;
     }
     .divider { height: 1px; background: var(--border-mid); }
 
     /* ── Introduction ── */
     .intro-row {
       display: flex;
-      gap: 46px;
+      gap: 24px;
       padding: 12px 0;
       align-items: flex-start;
     }
     .intro-left  { flex: 0 0 calc(68.75% - 23px); }
     .intro-right { flex: 0 0 calc(31.25% - 23px); padding-top: 4px; }
-    .intro-right img {
+    .dither-box {
       width: 100%;
-      border-radius: 16px;
+      aspect-ratio: 1 / 1;
+      border-radius: 0;
+      overflow: hidden;
+      background: #0e0e0e;
+      position: relative;
+    }
+    .dither-box canvas {
+      width: 100%;
+      height: 100%;
       display: block;
-      background: #fff;
     }
     blockquote {
       border-left: 2px solid var(--border-mid);
       padding: 10px 18px;
       font-size: 15px;
       color: var(--text-sec);
-      line-height: 1.75;
+      line-height: 1.6;
     }
     blockquote p + p { margin-top: 10px; }
+    .intro-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      padding-bottom: 14px;
+    }
+    .intro-statement {
+      font-family: 'KyivTypeSerif', Georgia, serif;
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--text-pri);
+      line-height: 1.4;
+      padding-bottom: 14px;
+    }
+    .intro-sub {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--text-sec);
+      padding-bottom: 4px;
+    }
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      height: 40px;
+      padding: 0 20px;
+      border-radius: 99px;
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.03em;
+      text-decoration: none;
+      transition: transform 0.3s var(--ease-spring), background 0.25s, box-shadow 0.25s, color 0.25s;
+    }
+    .hero-cta svg {
+      width: 14px; height: 14px;
+      stroke: currentColor; fill: none;
+      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+      transition: transform 0.3s var(--ease-spring);
+    }
+    .hero-cta--primary { background: var(--text-pri); color: #191919; }
+    .hero-cta--primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(248,248,248,0.14); }
+    .hero-cta--primary:hover svg { transform: translateY(3px); }
+    .hero-cta--ghost {
+      background: transparent;
+      color: var(--text-pri);
+      box-shadow: inset 0 0 0 1px var(--border-mid);
+    }
+    .hero-cta--ghost:hover {
+      background: var(--bg-card);
+      box-shadow: inset 0 0 0 1px rgba(248,248,248,0.22);
+      transform: translateY(-2px);
+    }
+    .hero-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      color: var(--text-sec);
+    }
+    .hero-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #4ade80;
+      flex-shrink: 0;
+      animation: heroPulse 2.4s var(--ease-smooth) infinite;
+    }
+    @keyframes heroPulse {
+      0%   { box-shadow: 0 0 0 0   rgba(74,222,128,0.45); }
+      70%  { box-shadow: 0 0 0 7px rgba(74,222,128,0); }
+      100% { box-shadow: 0 0 0 0   rgba(74,222,128,0); }
+    }
+    @media (prefers-reduced-motion: reduce) { .hero-dot { animation: none; } }
 
     /* ── Lucide icon base ── */
     .icon {
@@ -854,14 +967,21 @@
   <section class="section" id="intro">
     <div class="intro-row">
       <div class="intro-left">
-        <h2 class="h2" style="padding-top:0">Introduction</h2>
-        <blockquote>
-          <p>Hi, I'm Sivakorn (Kong), a UX/UI designer passionate about creating simple, thoughtful digital experiences.</p>
-          <p>Here, you'll find highlights of my background and a selection of my work, along with the thinking behind each project.</p>
-        </blockquote>
+        <p class="intro-eyebrow">Introduction</p>
+        <p class="intro-statement">I'm Kong — I design experiences &amp; interfaces</p>
+        <p class="intro-sub">Here, you'll find highlights of my background and a selection of my work, along with the thinking behind each project.</p>
+        <div class="hero-actions">
+          <a class="hero-cta hero-cta--primary" href="#ux-projects">
+            View work
+            <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="6 13 12 19 18 13"/></svg>
+          </a>
+          <a class="hero-cta hero-cta--ghost" href="#about">Get in touch</a>
+        </div>
       </div>
       <div class="intro-right">
-        <img src="assets/phone-illustration.svg" alt="Phone illustration">
+        <div class="dither-box">
+          <canvas id="dither-canvas" aria-hidden="true"></canvas>
+        </div>
       </div>
     </div>
   </section>
@@ -1105,10 +1225,6 @@
         <svg class="icon" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
         iOS
       </button>
-      <button class="tab-btn" onclick="switchTab(this,'sw-web')">
-        <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-        HTML/CSS/JS
-      </button>
     </div>
     <div id="sw-flutter" class="tab-panel active">
       <div class="gallery-grid">
@@ -1128,7 +1244,6 @@
         <div class="gallery-card" data-project="guessflag"><div class="card-cover-ph"><img src="./projects/guessflag/11.png" loading="lazy" alt="GuessFlag"></div><div class="card-body"><span class="card-emoji">🏳️</span><span class="card-title">Guess the Flag</span></div></div>
       </div>
     </div>
-    <div id="sw-web" class="tab-panel"><div class="gap"></div><div class="callout">No HTML/CSS/JS projects listed yet.</div></div>
   </section>
 
   <!-- ══ INDUSTRIAL DESIGN ══ -->
@@ -1219,18 +1334,59 @@
   </div>
 </div>
 
-<!-- Lucide icons (MIT licence) -->
-<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <script src="cs-data.js"></script>
 <script>
   /* ── Tab switching ── */
   function switchTab(btn, panelId) {
     const section = btn.closest('section');
-    section.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    section.querySelectorAll('.tab-btn').forEach(b => {
+      b.classList.remove('active');
+      b.setAttribute('aria-selected', 'false');
+      b.setAttribute('tabindex', '-1');
+    });
     btn.classList.add('active');
-    section.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-    document.getElementById(panelId).classList.add('active');
+    btn.setAttribute('aria-selected', 'true');
+    btn.setAttribute('tabindex', '0');
+    section.querySelectorAll('.tab-panel').forEach(p => {
+      p.classList.remove('active');
+      p.hidden = true;
+    });
+    const panel = document.getElementById(panelId);
+    panel.classList.add('active');
+    panel.hidden = false;
   }
+
+  /* ── Tab ARIA wiring + arrow-key navigation ── */
+  document.querySelectorAll('.tab-bar').forEach(bar => {
+    bar.setAttribute('role', 'tablist');
+    const tabs = [...bar.querySelectorAll('.tab-btn')];
+    tabs.forEach((tab, i) => {
+      const active = tab.classList.contains('active');
+      tab.setAttribute('role', 'tab');
+      tab.setAttribute('aria-selected', active ? 'true' : 'false');
+      tab.setAttribute('tabindex', active ? '0' : '-1');
+      // Link tab → panel from its onclick target id.
+      const m = /switchTab\(this,\s*'([^']+)'\)/.exec(tab.getAttribute('onclick') || '');
+      if (m) {
+        const panel = document.getElementById(m[1]);
+        if (panel) {
+          tab.id ||= 'tab-' + m[1];
+          panel.setAttribute('role', 'tabpanel');
+          panel.setAttribute('aria-labelledby', tab.id);
+          panel.hidden = !active;
+        }
+      }
+      tab.addEventListener('keydown', e => {
+        let next;
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = tabs[(i + 1) % tabs.length];
+        else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = tabs[(i - 1 + tabs.length) % tabs.length];
+        else return;
+        e.preventDefault();
+        next.focus();
+        next.click();
+      });
+    });
+  });
 
   /* ── TOC scroll tracking ── */
   const tocBtns    = document.querySelectorAll('.toc-item[data-target]');
@@ -1258,11 +1414,15 @@
 
 
   /* ── Modal logic ── */
+  let modalTrigger = null;
+
   function openProjectModal(id) {
     const p = projects[id];
     if (!p) return;
 
     const modal = document.getElementById('project-modal');
+    modalTrigger = document.activeElement;
+    modal.setAttribute('aria-label', p.title);
     modal.style.setProperty('--modal-accent', p.accent);
 
     const metaHTML = p.meta.map(m => `
@@ -1281,6 +1441,7 @@
     modal.classList.add('open');
     document.body.style.overflow = 'hidden';
     modal.querySelector('.modal-body').scrollTop = 0;
+    document.getElementById('modal-close-btn').focus();
 
     // model-viewer is in the HTML string; wait for both the slide-up animation
     // AND the custom element to be defined (first load: module script is still
@@ -1303,9 +1464,28 @@
   }
 
   function closeProjectModal() {
-    document.getElementById('project-modal').classList.remove('open');
+    const modal = document.getElementById('project-modal');
+    if (!modal.classList.contains('open')) return;
+    modal.classList.remove('open');
     document.body.style.overflow = '';
+    if (modalTrigger && typeof modalTrigger.focus === 'function') modalTrigger.focus();
+    modalTrigger = null;
   }
+
+  /* ── Trap focus inside the open modal ── */
+  document.getElementById('project-modal').addEventListener('keydown', function(e) {
+    if (e.key !== 'Tab' || !this.classList.contains('open')) return;
+    const focusable = this.querySelectorAll(
+      'button, a[href], [tabindex]:not([tabindex="-1"]), model-viewer'
+    );
+    if (!focusable.length) return;
+    const first = focusable[0], last = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault(); last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault(); first.focus();
+    }
+  });
 
   document.getElementById('modal-close-btn').addEventListener('click', closeProjectModal);
 
@@ -1320,6 +1500,20 @@
   document.addEventListener('click', function(e) {
     const card = e.target.closest('.gallery-card[data-project]');
     if (card) openProjectModal(card.dataset.project);
+  });
+
+  /* ── Make gallery cards keyboard-accessible ── */
+  document.querySelectorAll('.gallery-card[data-project]').forEach(card => {
+    card.setAttribute('role', 'button');
+    card.setAttribute('tabindex', '0');
+    const title = card.querySelector('.card-title');
+    if (title) card.setAttribute('aria-label', title.textContent.trim() + ' — open case study');
+    card.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openProjectModal(card.dataset.project);
+      }
+    });
   });
 
   function pillCopy(text, btn) {
@@ -1355,6 +1549,210 @@
       }, 140);
     });
   }
+</script>
+
+<!-- ── Dither background (vanilla WebGL2 port of reactbits.dev/backgrounds/dither) ── -->
+<script>
+(() => {
+  const canvas = document.getElementById('dither-canvas');
+  if (!canvas) return;
+  const box = canvas.parentElement;
+  const gl = canvas.getContext('webgl2', { antialias: false, premultipliedAlpha: false });
+
+  // Graceful fallback if WebGL2 is unavailable.
+  if (!gl) {
+    box.style.background =
+      'radial-gradient(120% 120% at 30% 20%, #2a2a2a 0%, #161616 60%, #0e0e0e 100%)';
+    return;
+  }
+
+  const VERT = `#version 300 es
+  in vec2 aPos;
+  void main() { gl_Position = vec4(aPos, 0.0, 1.0); }`;
+
+  const FRAG = `#version 300 es
+  precision highp float;
+  out vec4 fragColor;
+
+  uniform vec2  uResolution;   // canvas size in device px
+  uniform float uTime;
+  uniform vec2  uMouse;        // device px, bottom-up
+  uniform float uMouseActive;  // 0..1
+  uniform vec3  uWaveColor;
+  uniform float uPixelSize;    // dither block size in device px
+  uniform float uColorNum;     // posterize levels
+
+  // ── Ashima simplex noise ──
+  vec3 mod289(vec3 x){ return x - floor(x*(1.0/289.0))*289.0; }
+  vec2 mod289(vec2 x){ return x - floor(x*(1.0/289.0))*289.0; }
+  vec3 permute(vec3 x){ return mod289(((x*34.0)+1.0)*x); }
+  float snoise(vec2 v){
+    const vec4 C = vec4(0.211324865405187, 0.366025403784439,
+                       -0.577350269189626, 0.024390243902439);
+    vec2 i  = floor(v + dot(v, C.yy));
+    vec2 x0 = v -   i + dot(i, C.xx);
+    vec2 i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+    vec4 x12 = x0.xyxy + C.xxzz;
+    x12.xy -= i1;
+    i = mod289(i);
+    vec3 p = permute(permute(i.y + vec3(0.0, i1.y, 1.0))
+                          + i.x + vec3(0.0, i1.x, 1.0));
+    vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy), dot(x12.zw,x12.zw)), 0.0);
+    m = m*m; m = m*m;
+    vec3 x = 2.0 * fract(p * C.www) - 1.0;
+    vec3 h = abs(x) - 0.5;
+    vec3 ox = floor(x + 0.5);
+    vec3 a0 = x - ox;
+    m *= 1.79284291400159 - 0.85373472095314 * (a0*a0 + h*h);
+    vec3 g;
+    g.x  = a0.x  * x0.x  + h.x  * x0.y;
+    g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+    return 130.0 * dot(m, g);
+  }
+
+  // fractal brownian motion — 3 octaves
+  float fbm(vec2 p){
+    float v = 0.0, a = 0.55;
+    for (int i = 0; i < 3; i++) { v += a * snoise(p); p = p * 2.0 + 19.7; a *= 0.5; }
+    return v;
+  }
+
+  // ── Bayer 8x8 ordered-dither matrix ──
+  const float bayer[64] = float[64](
+     0.0,32.0, 8.0,40.0, 2.0,34.0,10.0,42.0,
+    48.0,16.0,56.0,24.0,50.0,18.0,58.0,26.0,
+    12.0,44.0, 4.0,36.0,14.0,46.0, 6.0,38.0,
+    60.0,28.0,52.0,20.0,62.0,30.0,54.0,22.0,
+     3.0,35.0,11.0,43.0, 1.0,33.0, 9.0,41.0,
+    51.0,19.0,59.0,27.0,49.0,17.0,57.0,25.0,
+    15.0,47.0, 7.0,39.0,13.0,45.0, 5.0,37.0,
+    63.0,31.0,55.0,23.0,61.0,29.0,53.0,21.0);
+
+  void main(){
+    // Pixelate: snap to dither-block centres.
+    vec2 block  = floor(gl_FragCoord.xy / uPixelSize);
+    vec2 pixel  = block * uPixelSize + 0.5 * uPixelSize;
+    vec2 uv = (pixel - 0.5 * uResolution) / uResolution.y; // aspect-correct, centred
+
+    // Drifting wave field.
+    vec2 q = uv * 1.9 + vec2(uTime * 0.10, uTime * 0.07);
+    float n = fbm(q);
+    float f = 0.5 + n * 0.62;
+
+    // Soft glow that follows the cursor.
+    if (uMouseActive > 0.001) {
+      vec2 m = (uMouse - 0.5 * uResolution) / uResolution.y;
+      float d = length(uv - m);
+      f += (1.0 - smoothstep(0.0, 0.34, d)) * 0.45 * uMouseActive;
+    }
+    f = clamp(f, 0.0, 1.0);
+
+    // Ordered dithering + posterize to uColorNum levels.
+    int ix = int(mod(block.x, 8.0));
+    int iy = int(mod(block.y, 8.0));
+    float threshold = (bayer[iy * 8 + ix] + 0.5) / 64.0 - 0.5;
+    float steps = max(uColorNum - 1.0, 1.0);
+    float v = clamp(floor(f * steps + threshold + 0.5) / steps, 0.0, 1.0);
+
+    fragColor = vec4(uWaveColor * v, 1.0);
+  }`;
+
+  function compile(type, src){
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
+      console.error('Dither shader error:', gl.getShaderInfoLog(s));
+      return null;
+    }
+    return s;
+  }
+
+  const vs = compile(gl.VERTEX_SHADER, VERT);
+  const fs = compile(gl.FRAGMENT_SHADER, FRAG);
+  if (!vs || !fs) return;
+
+  const prog = gl.createProgram();
+  gl.attachShader(prog, vs); gl.attachShader(prog, fs);
+  gl.linkProgram(prog);
+  if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
+    console.error('Dither link error:', gl.getProgramInfoLog(prog));
+    return;
+  }
+  gl.useProgram(prog);
+
+  // Full-screen triangle.
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 3,-1, -1,3]), gl.STATIC_DRAW);
+  const aPos = gl.getAttribLocation(prog, 'aPos');
+  gl.enableVertexAttribArray(aPos);
+  gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
+
+  const U = {
+    res:    gl.getUniformLocation(prog, 'uResolution'),
+    time:   gl.getUniformLocation(prog, 'uTime'),
+    mouse:  gl.getUniformLocation(prog, 'uMouse'),
+    active: gl.getUniformLocation(prog, 'uMouseActive'),
+    color:  gl.getUniformLocation(prog, 'uWaveColor'),
+    pixel:  gl.getUniformLocation(prog, 'uPixelSize'),
+    colorN: gl.getUniformLocation(prog, 'uColorNum'),
+  };
+
+  const DPR_CAP = 2;
+  let dpr = Math.min(window.devicePixelRatio || 1, DPR_CAP);
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Tunables (CSS-px values scaled by DPR where relevant).
+  gl.uniform3f(U.color, 0.78, 0.80, 0.82);
+  gl.uniform1f(U.colorN, 4.0);
+
+  let W = 0, H = 0;
+  function resize(){
+    dpr = Math.min(window.devicePixelRatio || 1, DPR_CAP);
+    W = Math.max(1, Math.round(box.clientWidth  * dpr));
+    H = Math.max(1, Math.round(box.clientHeight * dpr));
+    if (canvas.width !== W || canvas.height !== H) {
+      canvas.width = W; canvas.height = H;
+      gl.viewport(0, 0, W, H);
+    }
+    gl.uniform2f(U.res, W, H);
+    gl.uniform1f(U.pixel, 2.5 * dpr);
+  }
+  new ResizeObserver(resize).observe(box);
+  resize();
+
+  // Mouse: glow target + smoothed activation.
+  let mx = 0, my = 0, target = 0, active = 0;
+  box.addEventListener('pointermove', e => {
+    const r = box.getBoundingClientRect();
+    mx = (e.clientX - r.left) * dpr;
+    my = H - (e.clientY - r.top) * dpr; // bottom-up to match gl_FragCoord
+    target = 1;
+  });
+  box.addEventListener('pointerleave', () => { target = 0; });
+
+  // Pause when the hero is scrolled out of view.
+  let visible = true;
+  new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible) loop(); })
+    .observe(box);
+
+  const start = performance.now();
+  let running = false;
+  function frame(now){
+    running = true;
+    if (!visible) { running = false; return; }
+    active += (target - active) * 0.08;
+    gl.uniform2f(U.mouse, mx, my);
+    gl.uniform1f(U.active, active);
+    gl.uniform1f(U.time, reduce ? 0 : (now - start) / 1000);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+    if (reduce && active < 0.001) { running = false; return; } // static unless interacting
+    requestAnimationFrame(frame);
+  }
+  function loop(){ if (!running) requestAnimationFrame(frame); }
+  loop();
+})();
 </script>
 </body>
 </html>
