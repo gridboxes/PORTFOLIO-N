@@ -8,18 +8,16 @@
   <meta name="author" content="Sivakorn Samorkam">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
-  <!-- Open Graph / social preview. NOTE: set the two absolute URLs below to your
-       deployed domain (e.g. https://your-site.vercel.app) so LinkedIn/Twitter
-       render the preview card — most crawlers require absolute URLs. -->
+  <!-- Open Graph / social preview. Absolute URLs so LinkedIn/Twitter render the card. -->
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://gridboxes-portfolio-n.vercel.app/">
   <meta property="og:title" content="Sivakorn (Kong) — Portfolio">
   <meta property="og:description" content="UX/UI designer with a Robotics &amp; AI engineering background. Designing effortless experiences across mobile, web, and physical products.">
-  <meta property="og:image" content="projects/thaipass/cover.png">
-  <!-- <meta property="og:url" content="https://your-domain.com/"> -->
+  <meta property="og:image" content="https://gridboxes-portfolio-n.vercel.app/projects/thaipass/cover.webp">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Sivakorn (Kong) — Portfolio">
   <meta name="twitter:description" content="UX/UI designer with a Robotics &amp; AI engineering background.">
-  <meta name="twitter:image" content="projects/thaipass/cover.png">
+  <meta name="twitter:image" content="https://gridboxes-portfolio-n.vercel.app/projects/thaipass/cover.webp">
   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400&display=swap');
@@ -62,7 +60,7 @@
       to   { opacity: 1; transform: none; }
     }
 
-    html { scroll-behavior: smooth; scrollbar-width: none; }
+    html { scroll-behavior: smooth; scrollbar-width: none; overscroll-behavior-x: none; }
     html::-webkit-scrollbar { display: none; }
 
     /* Visible keyboard focus (mouse clicks stay clean via :focus-visible) */
@@ -81,6 +79,7 @@
       font-size: 16px;
       line-height: 1.5;
       -webkit-font-smoothing: antialiased;
+      overscroll-behavior-x: none;
     }
 
     /* ── Layout ── */
@@ -430,60 +429,206 @@
     /* ── Gallery grid ── */
     .gallery-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-      padding: 16px 0 4px;
+      /* minmax(0,·) so single-line captions can never inflate a column */
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 32px 22px;
+      padding: 20px 0 8px;
     }
+    /* Unboxed editorial card: hairline-framed cover, typographic caption below */
     .gallery-card {
-      background: var(--bg-card);
-      border-radius: 16px;
-      box-shadow: 0 0 0 1px var(--border), var(--shadow-card);
-      overflow: hidden;
       display: flex;
       flex-direction: column;
       text-decoration: none;
       color: inherit;
       cursor: pointer;
-      transition: box-shadow 0.35s var(--ease-spring), transform 0.35s var(--ease-spring);
+      transition: transform 0.4s var(--ease-spring);
+      will-change: transform;
     }
-    .gallery-card:hover {
-      box-shadow: 0 0 0 1px var(--border-mid), var(--shadow-card-up);
-      transform: translateY(-3px);
-    }
+    .gallery-card:hover { transform: translateY(-3px); }
     .card-cover-ph {
       width: 100%;
-      aspect-ratio: 16 / 9;
+      aspect-ratio: 16 / 10;
       position: relative;
       overflow: hidden;
+      border-radius: 14px;
       background: var(--bg-card);
     }
+    .gallery-soon {
+      grid-column: 1 / -1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 120px;
+      border-radius: 16px;
+      border: 1px dashed var(--border-mid);
+      color: var(--text-dim);
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .gallery-soon .icon { width: 18px; height: 18px; }
     .card-cover-ph img {
       width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform 0.55s var(--ease-spring);
+      will-change: transform;
+      backface-visibility: hidden;
     }
+    .gallery-card:hover .card-cover-ph img,
+    .gallery-card:focus-visible .card-cover-ph img { transform: scale(1.025); }
+    /* hairline frame over the image; warms toward the project accent on hover */
     .card-cover-ph::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: rgba(248,248,248,0.04);
-      opacity: 0;
-      transition: opacity 0.25s var(--ease-smooth);
+      border-radius: inherit;
+      box-shadow: inset 0 0 0 1px var(--border-mid);
+      pointer-events: none;
+      transition: box-shadow 0.35s var(--ease-smooth);
     }
-    .gallery-card:hover .card-cover-ph::after { opacity: 1; }
+    .gallery-card:hover .card-cover-ph::after,
+    .gallery-card:focus-visible .card-cover-ph::after {
+      box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--card-accent, #888) 45%, transparent);
+    }
     .card-body {
-      padding: 10px 14px 14px;
+      padding: 13px 2px 0;
       display: flex;
-      align-items: flex-start;
-      gap: 8px;
+      flex-direction: column;
+      gap: 6px;
     }
-    .card-emoji { font-size: 16px; flex-shrink: 0; margin-top: 1px; line-height: 1.3; }
+    /* category · status, prefixed by a small accent rule that grows on hover */
+    .card-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-family: 'DM Mono', monospace;
+      font-size: 9.5px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      transition: color 0.25s var(--ease-smooth);
+    }
+    .card-eyebrow::before {
+      content: '';
+      width: 18px;
+      height: 1px;
+      flex-shrink: 0;
+      background: var(--card-accent, var(--border-mid));
+      transition: width 0.45s var(--ease-spring);
+    }
+    .gallery-card:hover .card-eyebrow,
+    .gallery-card:focus-visible .card-eyebrow { color: var(--text-sec); }
+    .gallery-card:hover .card-eyebrow::before,
+    .gallery-card:focus-visible .card-eyebrow::before { width: 32px; }
+    .card-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    /* single-line captions — every card in a row stays the same height */
+    .card-title-row .card-title {
+      flex: 1;
+      min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
     .card-title {
-      font-size: 14px;
-      font-weight: 500;
-      line-height: 1.4;
-      color: var(--text-sec);
-      transition: color 0.2s var(--ease-smooth);
+      font-family: 'KyivTypeSerif', Georgia, serif;
+      font-size: 17px;
+      font-weight: 400;
+      line-height: 1.3;
+      color: var(--text-pri);
     }
-    .gallery-card:hover .card-title { color: var(--text-pri); }
+    /* descriptor after the em-dash — dimmer than the project name */
+    .card-title-desc { color: var(--text-dim); transition: color 0.25s var(--ease-smooth); }
+    .gallery-card:hover .card-title-desc,
+    .gallery-card:focus-visible .card-title-desc { color: var(--text-sec); }
+    .card-arrow {
+      flex-shrink: 0;
+      width: 15px;
+      height: 15px;
+      color: var(--text-dim);
+      transition: transform 0.35s var(--ease-spring), color 0.25s var(--ease-smooth);
+    }
+    .card-arrow svg { width: 100%; height: 100%; display: block; }
+    .gallery-card:hover .card-arrow,
+    .gallery-card:focus-visible .card-arrow {
+      color: var(--card-accent, var(--text-pri));
+      transform: translate(2px, -2px);
+    }
+    /* ── Feature card — flagship project, spans the full grid width ── */
+    .card-feature {
+      grid-column: 1 / -1;
+      flex-direction: row;
+      align-items: center;
+      gap: 28px;
+    }
+    .card-feature .card-cover-ph {
+      flex: 0 0 58%;
+      width: auto;
+      aspect-ratio: 16 / 10;
+    }
+    .card-feature .card-body { flex: 1; min-width: 0; padding: 0; gap: 11px; }
+    .card-feature .card-title { font-size: 24px; line-height: 1.25; }
+    .card-hook {
+      font-size: 13.5px;
+      line-height: 1.65;
+      color: var(--text-sec);
+    }
+    .card-feature-meta {
+      font-family: 'DM Mono', monospace;
+      font-size: 10.5px;
+      letter-spacing: 0.05em;
+      color: var(--text-dim);
+    }
+    .card-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 5px;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-sec);
+      transition: color 0.25s var(--ease-smooth);
+    }
+    .gallery-card:hover .card-cta,
+    .gallery-card:focus-visible .card-cta { color: var(--text-pri); }
+    @media (max-width: 720px) {
+      .card-feature { flex-direction: column; align-items: stretch; gap: 13px; }
+      .card-feature .card-cover-ph { flex: none; width: 100%; }
+      .card-feature .card-title { font-size: 19px; }
+    }
+    /* ── Mosaic gallery — flagship tall-left, pair stacked right, rest below ── */
+    .gallery-grid--mosaic { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 22px; }
+    .mosaic-main .card-cover-ph { aspect-ratio: 4 / 3.45; }
+    .mosaic-main .card-title { font-size: 20px; }
+    .mosaic-side { display: flex; flex-direction: column; gap: 22px; min-width: 0; }
+    .mosaic-side .gallery-card { min-width: 0; }
+    .mosaic-side .card-cover-ph { aspect-ratio: 16 / 9; }
+    .mosaic-side .card-title { font-size: 15px; }
+    .mosaic-rest {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 26px 22px;
+    }
+    .mosaic-rest .card-title { font-size: 15px; }
+    @media (max-width: 720px) {
+      .gallery-grid--mosaic, .mosaic-rest { grid-template-columns: minmax(0, 1fr); }
+      .mosaic-main .card-title { font-size: 17px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .card-overlay, .card-overlay-rule,
+      .card-overlay-cta, .card-overlay-cta .arrow {
+        transition-duration: 0.01ms; transition-delay: 0s;
+      }
+    }
 
     /* ── About / Afterwards ── */
     .about-body p { font-size: 16px; color: var(--text-sec); line-height: 1.75; }
@@ -609,7 +754,18 @@
       top: 14px;
       bottom: 14px;
       width: 1px;
-      background: rgba(248,248,248,0.1);
+      background: #2d2d2d; /* solid — avoids opacity stacking with the fill/dots */
+    }
+    /* Progress fill — grows from the top down to the active dot */
+    .toc-progress {
+      position: absolute;
+      right: 3px;
+      top: 14px;
+      width: 1px;
+      height: 0;
+      background: #565656; /* solid, clearly brighter than the track */
+      transition: height 0.4s var(--ease-smooth);
+      z-index: 0;
     }
     .toc-item {
       display: flex;
@@ -651,8 +807,12 @@
       pointer-events: auto;
     }
     .toc:hover .toc-item.active .toc-label       { color: rgba(248,248,248,0.88); }
-    .toc:hover .toc-item:not(.active) .toc-label { color: rgba(248,248,248,0.30); }
-    .toc:hover .toc-item:not(.active):hover .toc-label { color: rgba(248,248,248,0.55); }
+    .toc:hover .toc-item:not(.active) .toc-label { color: rgba(248,248,248,0.42); }
+    .toc:hover .toc-item:not(.active):hover .toc-label { color: rgba(248,248,248,0.62); }
+    /* Intro flash — briefly reveal labels on load so the nav is discoverable */
+    .toc.toc-reveal .toc-label { opacity: 1; transform: translateX(0); }
+    .toc.toc-reveal .toc-item.active .toc-label       { color: rgba(248,248,248,0.88); }
+    .toc.toc-reveal .toc-item:not(.active) .toc-label { color: rgba(248,248,248,0.42); }
     /* Dot — solid, centred on track */
     .toc-item::after {
       content: '';
@@ -663,18 +823,18 @@
       width: 5px;
       height: 5px;
       border-radius: 50%;
-      background: rgba(248,248,248,0.16);
+      background: #6b6b6b; /* solid — reads as a node above the line, no stacking */
       transition: background 0.25s var(--ease-smooth),
                   transform  0.25s var(--ease-spring);
       z-index: 1;
     }
-    .toc-item.lvl2::after { width: 3px; height: 3px; right: 2px; }
+    /* Uniform dot size for an even rhythm — hierarchy lives in the label sizing */
     .toc-item.active::after {
-      background: rgba(248,248,248,0.85);
+      background: #d6d6d6;
       transform: translateY(-50%) scale(1.3);
     }
     .toc:hover .toc-item:not(.active):hover::after {
-      background: rgba(248,248,248,0.32);
+      background: #828282;
     }
 
     .gap { height: 16px; }
@@ -694,6 +854,8 @@
     }
     .project-modal.open {
       background: rgba(0,0,0,0.72);
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
       pointer-events: all;
       visibility: visible;
     }
@@ -701,38 +863,111 @@
       position: relative;
       width: calc(100% - 20px);
       max-width: 800px;
-      max-height: 90vh;
+      max-height: 92vh;
       background: #1c1c1c;
-      border-radius: 20px 20px 0 0;
+      border-radius: 22px 22px 0 0;
+      border: 1px solid var(--border-mid);
+      border-bottom: none;
       overflow: hidden;
       transform: translateY(100%);
       transition: transform 0.45s var(--ease-spring);
       display: flex;
       flex-direction: column;
-      box-shadow: 0 -12px 60px rgba(0,0,0,0.5);
+      box-shadow: 0 -16px 70px rgba(0,0,0,0.55);
+    }
+    /* Project-coloured hairline across the very top of the sheet */
+    .modal-sheet::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--modal-accent, #888);
+      z-index: 6;
     }
     .project-modal.open .modal-sheet { transform: translateY(0); }
-    .modal-accent-strip { height: 3px; flex-shrink: 0; }
+
+    /* ── Pinned top bar: grab handle, condensed title, close, progress ── */
+    .modal-topbar {
+      position: relative;
+      flex-shrink: 0;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 56px;
+      background: transparent;
+      border-bottom: 1px solid transparent;
+      transition: background 0.3s ease, border-color 0.3s ease;
+      z-index: 5;
+    }
+    .modal-topbar.is-scrolled {
+      background: rgba(24,24,24,0.82);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom-color: var(--border-mid);
+    }
+    .modal-topbar-title {
+      font-family: 'KyivTypeSerif', Georgia, serif;
+      font-size: 15px;
+      color: var(--text-pri);
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      opacity: 0;
+      transform: translateY(3px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      pointer-events: none;
+    }
+    .modal-topbar-title::before {
+      content: '';
+      flex: 0 0 7px;
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--modal-accent, #888);
+    }
+    .modal-topbar.is-scrolled .modal-topbar-title { opacity: 1; transform: translateY(0); }
+    .modal-progress {
+      position: absolute;
+      left: 0; bottom: -1px;
+      height: 2px; width: 0;
+      background: var(--modal-accent, #888);
+      transition: width 0.12s linear;
+      z-index: 7;
+    }
     .modal-close {
       position: absolute;
-      top: 14px; right: 14px;
+      top: 50%; right: 16px;
+      transform: translateY(-50%);
       z-index: 10;
-      width: 30px; height: 30px;
+      width: 34px; height: 34px;
       border-radius: 50%;
-      background: rgba(248,248,248,0.08);
-      border: none;
+      background: rgba(248,248,248,0.06);
+      border: 1px solid var(--border-mid);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: background 0.2s;
+      transition: background 0.2s ease, transform 0.3s var(--ease-spring), border-color 0.2s ease;
       color: var(--text-sec);
     }
-    .modal-close:hover { background: rgba(248,248,248,0.15); }
+    .modal-close:hover {
+      background: rgba(248,248,248,0.14);
+      border-color: rgba(248,248,248,0.25);
+      transform: translateY(-50%) rotate(90deg);
+      color: var(--text-pri);
+    }
     .modal-body {
       overflow-y: auto;
+      overflow-x: hidden;
       flex: 1;
-      padding: 36px 36px 56px;
+      padding: 30px 36px 40px;
+      scroll-behavior: smooth;
       scrollbar-width: thin;
       scrollbar-color: rgba(248,248,248,0.1) transparent;
     }
@@ -741,7 +976,7 @@
       font-size: 10px;
       letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: var(--text-dim);
+      color: var(--modal-accent, #888);
       margin-bottom: 14px;
       display: flex;
       align-items: center;
@@ -752,6 +987,7 @@
       flex: 0 0 24px;
       height: 1px;
       background: currentColor;
+      opacity: 0.7;
     }
     .modal-title {
       font-family: 'KyivTypeSerif', Georgia, serif;
@@ -883,10 +1119,17 @@
       color: var(--text-pri); margin-bottom: 14px; line-height: 1.2;
     }
     .section-text {
-      font-size: 15px; line-height: 1.8;
-      color: var(--text-sec); max-width: 640px;
+      font-size: 15.5px; line-height: 1.82;
+      color: rgba(248,248,248,0.8); max-width: 640px;
     }
-    .cs-img { width: 100%; height: auto; border-radius: 12px; display: block; margin-top: 24px; }
+    /* Tighten the gap between the meta block and the cover image */
+    .modal-meta + .cs-img { margin-top: 40px !important; }
+    .cs-img {
+      width: 100%; height: auto; display: block; margin-top: 24px;
+      border-radius: 12px;
+      border: 1px solid var(--border-mid);
+      box-shadow: 0 18px 50px rgba(0,0,0,0.38);
+    }
     .cs-img-full {
       width: 100%; aspect-ratio: 16/9; background: rgba(248,248,248,0.03);
       border-radius: 16px; display: flex; align-items: center; justify-content: center;
@@ -930,8 +1173,54 @@
     .cs-3d-viewer { width: 100%; height: 420px; border-radius: 14px; overflow: hidden; margin-top: 24px; background: #111; }
     .cs-3d-viewer model-viewer { width: 100%; height: 100%; display: block; --poster-color: #111; }
 
+    /* ── "Up next" footer — flow between case studies ── */
+    .modal-next {
+      width: 100%;
+      margin-top: 64px;
+      padding: 26px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      text-align: left;
+      background: rgba(248,248,248,0.03);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      cursor: pointer;
+      transition: background 0.25s ease, border-color 0.25s ease, transform 0.3s var(--ease-spring);
+      font-family: inherit;
+    }
+    .modal-next:hover {
+      background: rgba(248,248,248,0.06);
+      border-color: var(--modal-accent, #888);
+      transform: translateY(-2px);
+    }
+    .modal-next-text { display: flex; flex-direction: column; gap: 7px; min-width: 0; }
+    .modal-next-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--modal-accent, #888);
+    }
+    .modal-next-title {
+      font-family: 'KyivTypeSerif', Georgia, serif;
+      font-size: clamp(18px, 3.5vw, 22px); font-weight: 400;
+      color: var(--text-pri); line-height: 1.2;
+    }
+    .modal-next-arrow {
+      flex: 0 0 42px;
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--modal-accent, #888);
+      border: 1px solid var(--border-mid);
+      transition: transform 0.3s var(--ease-spring), background 0.25s ease;
+    }
+    .modal-next:hover .modal-next-arrow { transform: translateX(4px); background: rgba(248,248,248,0.05); }
+    .modal-next-arrow svg { width: 18px; height: 18px; }
+
     @media (max-width: 720px) {
       .cs-col2 { grid-template-columns: 1fr; }
+      .modal-body { padding: 26px 22px 36px; }
     }
 
     @media (max-width: 720px) {
@@ -943,10 +1232,20 @@
       .dither-box { width: 100px; height: 100px; aspect-ratio: unset; border-radius: 10px; }
       .hero-actions { flex-direction: column; align-items: stretch; }
       .hero-cta { justify-content: center; }
+      .tab-bar {
+        height: auto;
+        min-height: 48px;
+        flex-wrap: wrap;
+        align-content: center;
+        row-gap: 4px;
+        padding: 8px 4px;
+      }
       .exp-grid, .gallery-grid { grid-template-columns: 1fr; }
       .skills-grid, .cert-grid { grid-template-columns: repeat(2, 1fr); }
     }
-    @media (max-width: 720px) {
+    /* Hide the floating section nav up to the iPad landscape breakpoint —
+       below this the centered content collides with the right-edge nav. */
+    @media (max-width: 1024px) {
       .toc { display: none !important; }
     }
   </style>
@@ -960,9 +1259,11 @@
     <li class="toc-item lvl2"        data-target="experience">  <span class="toc-label">Experience</span></li>
     <li class="toc-item lvl2"        data-target="skills">      <span class="toc-label">Skills</span></li>
     <li class="toc-item lvl1"        data-target="ux-projects"> <span class="toc-label">UX / UI</span></li>
+    <li class="toc-item lvl1"        data-target="ai-projects"> <span class="toc-label">AI-Built</span></li>
     <li class="toc-item lvl1"        data-target="software">    <span class="toc-label">Software</span></li>
     <li class="toc-item lvl1"        data-target="industrial">  <span class="toc-label">Industrial</span></li>
     <li class="toc-item lvl1"        data-target="about">       <span class="toc-label">About</span></li>
+    <span class="toc-progress" aria-hidden="true"></span>
   </ul>
 </nav>
 
@@ -1015,7 +1316,7 @@
           </div>
           <div>
             <div class="exp-name">Mtel Thailand</div>
-            <div class="exp-meta">Position : UX/UI Designer<br>2025 – 2026 [1 Year]</div>
+            <div class="exp-meta">Position : UX/UI Designer<br>2025 – Present [~1 Year]</div>
           </div>
         </div>
         <div class="exp-card">
@@ -1114,27 +1415,27 @@
     <div id="sk-cert" class="tab-panel">
       <div class="cert-grid">
         <div class="cert-card">
-          <img src="assets/cert-google-ux.png" alt="Google UX Design Certificate">
+          <img src="assets/cert-google-ux.webp" alt="Google UX Design Certificate">
           <div class="cert-label">Google UX Design</div>
         </div>
         <div class="cert-card">
-          <img src="assets/cert-google-data.png" alt="Google Data Analytics Certificate">
+          <img src="assets/cert-google-data.webp" alt="Google Data Analytics Certificate">
           <div class="cert-label">Google Data Analytics</div>
         </div>
         <div class="cert-card">
-          <img src="assets/cert-aws.png" alt="AWS Certificate">
+          <img src="assets/cert-aws.webp" alt="AWS Certificate">
           <div class="cert-label">AWS</div>
         </div>
         <div class="cert-card">
-          <img src="assets/cert-unity.png" alt="Unity Certificate">
+          <img src="assets/cert-unity.webp" alt="Unity Certificate">
           <div class="cert-label">Unity</div>
         </div>
         <div class="cert-card">
-          <img src="assets/cert-ielts.png" alt="IELTS Certificate">
+          <img src="assets/cert-ielts.webp" alt="IELTS Certificate">
           <div class="cert-label">IELTS</div>
         </div>
         <div class="cert-card">
-          <img src="assets/cert-sat.png" alt="SAT Certificate">
+          <img src="assets/cert-sat.webp" alt="SAT Certificate">
           <div class="cert-label">SAT</div>
         </div>
       </div>
@@ -1197,19 +1498,48 @@
       </button>
     </div>
     <div id="ux-mtel" class="tab-panel active">
-      <div class="gallery-grid">
-        <div class="gallery-card" data-project="thaipass"><div class="card-cover-ph"><img src="./projects/thaipass/cover.png" loading="lazy" alt="ThaiPass"></div><div class="card-body"><span class="card-emoji">🇹🇭</span><span class="card-title">ThaiPass App — Travel Companion</span></div></div>
-        <div class="gallery-card" data-project="bcc"><div class="card-cover-ph"><img src="./projects/bcc/cover.png" loading="lazy" alt="BCC"></div><div class="card-body"><span class="card-emoji">✨</span><span class="card-title">BCC Website — Calculation Program</span></div></div>
-        <div class="gallery-card" data-project="netzero"><div class="card-cover-ph"><img src="./projects/netzero/Frame_(1).png" loading="lazy" alt="Net Zero"></div><div class="card-body"><span class="card-emoji">🌱</span><span class="card-title">Net Zero — Government Carbon Platform</span></div></div>
-        <div class="gallery-card" data-project="myanmarpass"><div class="card-cover-ph"><img src="./projects/myanmarpass/Frame-1.png" loading="lazy" alt="MyanmarPass"></div><div class="card-body"><span class="card-emoji">🇲🇲</span><span class="card-title">MyanmarPass App</span></div></div>
-        <div class="gallery-card" data-project="jaga"><div class="card-cover-ph"><img src="./projects/jaga/Frame.png" loading="lazy" alt="JAGA"></div><div class="card-body"><span class="card-emoji">🔗</span><span class="card-title">JAGA App — CometChat Feature</span></div></div>
-        <div class="gallery-card" data-project="onebangkok"><div class="card-cover-ph"><img src="./projects/onebangkok/cover.png" loading="lazy" alt="One Bangkok"></div><div class="card-body"><span class="card-emoji">🏙️</span><span class="card-title">One Bangkok App — Showcase Video</span></div></div>
+      <div class="gallery-grid gallery-grid--mosaic">
+        <div class="gallery-card mosaic-main" data-project="thaipass"><div class="card-cover-ph"><img src="./projects/thaipass/cover.webp" loading="lazy" alt="ThaiPass"></div><div class="card-body"><span class="card-eyebrow">UX / UI &middot; Production</span><div class="card-title-row"><span class="card-title">ThaiPass App <span class="card-title-desc">— Travel Companion</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+        <div class="mosaic-side">
+          <div class="gallery-card" data-project="bcc"><div class="card-cover-ph"><img src="./projects/bcc/cover.webp" loading="lazy" alt="BCC"></div><div class="card-body"><span class="card-eyebrow">UX / UI &middot; Production</span><div class="card-title-row"><span class="card-title">BCC Website <span class="card-title-desc">— Calculation Program</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+          <div class="gallery-card" data-project="netzero"><div class="card-cover-ph"><img src="./projects/netzero/Frame_(1).webp" loading="lazy" alt="Net Zero"></div><div class="card-body"><span class="card-eyebrow">UX / UI &middot; Concept</span><div class="card-title-row"><span class="card-title">Net Zero <span class="card-title-desc">— Carbon Platform</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+        </div>
+        <div class="mosaic-rest">
+          <div class="gallery-card" data-project="myanmarpass"><div class="card-cover-ph"><img src="./projects/myanmarpass/Frame-1.webp" loading="lazy" alt="MyanmarPass"></div><div class="card-body"><span class="card-eyebrow">UX / UI &middot; Concept</span><div class="card-title-row"><span class="card-title">MyanmarPass App</span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+          <div class="gallery-card" data-project="jaga"><div class="card-cover-ph"><img src="./projects/jaga/Frame.webp" loading="lazy" alt="JAGA"></div><div class="card-body"><span class="card-eyebrow">UX / UI &middot; Production</span><div class="card-title-row"><span class="card-title">JAGA App</span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+          <div class="gallery-card" data-project="onebangkok"><div class="card-cover-ph"><img src="./projects/onebangkok/cover.webp" loading="lazy" alt="One Bangkok"></div><div class="card-body"><span class="card-eyebrow">Motion &middot; Production</span><div class="card-title-row"><span class="card-title">One Bangkok App</span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+        </div>
       </div>
     </div>
     <div id="ux-nipa" class="tab-panel">
       <div class="gallery-grid">
-        <div class="gallery-card" data-project="nipa"><div class="card-cover-ph"><img src="./projects/nipa/image 7.png" loading="lazy" alt="NIPA Payment"></div><div class="card-body"><span class="card-emoji">💳</span><span class="card-title">NIPA Payment System</span></div></div>
-        <div class="gallery-card" data-project="nipalb"><div class="card-cover-ph"><img src="./projects/nipalb/image 1.png" loading="lazy" alt="NIPA LB"></div><div class="card-body"><span class="card-emoji">⚖️</span><span class="card-title">NIPA Load Balancing Service</span></div></div>
+        <div class="gallery-card" data-project="nipa"><div class="card-cover-ph"><img src="./projects/nipa/image 7.webp" loading="lazy" alt="NIPA Payment"></div><div class="card-body"><span class="card-eyebrow">UX / UI &middot; Production</span><div class="card-title-row"><span class="card-title">NIPA Payment System</span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+        <div class="gallery-card" data-project="nipalb"><div class="card-cover-ph"><img src="./projects/nipalb/image 1.webp" loading="lazy" alt="NIPA LB"></div><div class="card-body"><span class="card-eyebrow">UX / UI &middot; Concept</span><div class="card-title-row"><span class="card-title">NIPA Load Balancing Service</span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ AI-BUILT PROJECTS ══ -->
+  <section class="section" id="ai-projects">
+    <h2 class="h2-icon">
+      <svg class="icon" viewBox="0 0 24 24" style="width:22px;height:22px"><path d="M12 8V4H8"/><rect x="4" y="8" width="16" height="12" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
+      AI-Built Projects
+    </h2>
+    <div class="callout">Designing the screen is only half the work. These are projects I took end-to-end — from design to a working build — using AI to bridge the gap to code.</div>
+    <div class="gap"></div>
+    <div class="divider"></div>
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="switchTab(this,'ai-all')">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M12 8V4H8"/><rect x="4" y="8" width="16" height="12" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/></svg>
+        Design to Build
+      </button>
+    </div>
+    <div id="ai-all" class="tab-panel active">
+      <div class="gallery-grid">
+        <div class="gallery-soon">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          First project in the works — coming soon
+        </div>
       </div>
     </div>
   </section>
@@ -1220,7 +1550,7 @@
       <svg class="icon" viewBox="0 0 24 24" style="width:22px;height:22px"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
       Software Experiments
     </h2>
-    <div class="callout">To bridge the gap between design and development, I started learning to code—allowing me to better understand how ideas translate into real products.</div>
+    <div class="callout">To bridge the gap between design and development, I started learning to code — allowing me to better understand how ideas translate into real products.</div>
     <div class="gap"></div>
     <div class="divider"></div>
     <div class="tab-bar">
@@ -1235,20 +1565,20 @@
     </div>
     <div id="sw-flutter" class="tab-panel active">
       <div class="gallery-grid">
-        <div class="gallery-card" data-project="plantcollect"><div class="card-cover-ph"><img src="./projects/plantcollect/15.png" loading="lazy" alt="Plant Collect"></div><div class="card-body"><span class="card-emoji">🌿</span><span class="card-title">Plant Collection App</span></div></div>
-        <div class="gallery-card" data-project="software"><div class="card-cover-ph"><img src="./projects/weather/18.png" loading="lazy" alt="Weather App"></div><div class="card-body"><span class="card-emoji">☁️</span><span class="card-title">Simple Weather App</span></div></div>
-        <div class="gallery-card" data-project="onboarding"><div class="card-cover-ph"><img src="./projects/onboarding/20.png" loading="lazy" alt="Onboarding"></div><div class="card-body"><span class="card-emoji">🛒</span><span class="card-title">Onboarding Screen</span></div></div>
-        <div class="gallery-card" data-project="loginscreen"><div class="card-cover-ph"><img src="./projects/loginscreen/23.png" loading="lazy" alt="Login Screen"></div><div class="card-body"><span class="card-emoji">👤</span><span class="card-title">Login / SignUp Screen</span></div></div>
+        <div class="gallery-card" data-project="plantcollect"><div class="card-cover-ph"><img src="./projects/plantcollect/15.webp" loading="lazy" alt="Plant Collect"></div><div class="card-body"><span class="card-eyebrow">Flutter &middot; Practice</span><div class="card-title-row"><span class="card-title">Plant Collection App</span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+        <div class="gallery-card" data-project="software"><div class="card-cover-ph"><img src="./projects/weather/18.webp" loading="lazy" alt="Weather App"></div><div class="card-body"><span class="card-eyebrow">Flutter &middot; Practice</span><div class="card-title-row"><span class="card-title">Simple Weather App</span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+        <div class="gallery-card" data-project="onboarding"><div class="card-cover-ph"><img src="./projects/onboarding/20.webp" loading="lazy" alt="Onboarding"></div><div class="card-body"><span class="card-eyebrow">Flutter &middot; Practice</span><div class="card-title-row"><span class="card-title">Onboarding Screen</span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+        <div class="gallery-card" data-project="loginscreen"><div class="card-cover-ph"><img src="./projects/loginscreen/23.webp" loading="lazy" alt="Login Screen"></div><div class="card-body"><span class="card-eyebrow">Flutter &middot; Practice</span><div class="card-title-row"><span class="card-title">Login / SignUp Screen</span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
       </div>
     </div>
     <div id="sw-ios" class="tab-panel">
       <div class="gallery-grid">
-        <div class="gallery-card" data-project="apollo"><div class="card-cover-ph"><img src="./projects/apollo/Untitled_design.png" loading="lazy" alt="Apollo"></div><div class="card-body"><span class="card-emoji">🌙</span><span class="card-title">MoonShot — Apollo Info App</span></div></div>
-        <div class="gallery-card" data-project="px500"><div class="card-cover-ph"><img src="./projects/px500/4.png" loading="lazy" alt="500px"></div><div class="card-body"><span class="card-emoji">📷</span><span class="card-title">500px API App</span></div></div>
-        <div class="gallery-card" data-project="iexpense"><div class="card-cover-ph"><img src="./projects/iexpense/Untitled_design_(1).png" loading="lazy" alt="iExpense"></div><div class="card-body"><span class="card-emoji">💰</span><span class="card-title">iExpense — Expense Tracker</span></div></div>
-        <div class="gallery-card" data-project="multiquiz"><div class="card-cover-ph"><img src="./projects/multiquiz/8.png" loading="lazy" alt="MultiQuiz"></div><div class="card-body"><span class="card-emoji">✖️</span><span class="card-title">Multiplication Quiz</span></div></div>
-        <div class="gallery-card" data-project="bettersleep"><div class="card-cover-ph"><img src="./projects/bettersleep/13.png" loading="lazy" alt="BetterSleep"></div><div class="card-body"><span class="card-emoji">😴</span><span class="card-title">BetterSleep App</span></div></div>
-        <div class="gallery-card" data-project="guessflag"><div class="card-cover-ph"><img src="./projects/guessflag/11.png" loading="lazy" alt="GuessFlag"></div><div class="card-body"><span class="card-emoji">🏳️</span><span class="card-title">Guess the Flag</span></div></div>
+        <div class="gallery-card" data-project="apollo"><div class="card-cover-ph"><img src="./projects/apollo/Untitled_design.webp" loading="lazy" alt="Apollo"></div><div class="card-body"><span class="card-eyebrow">SwiftUI &middot; Practice</span><div class="card-title-row"><span class="card-title">MoonShot <span class="card-title-desc">— Apollo Info App</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+        <div class="gallery-card" data-project="px500"><div class="card-cover-ph"><img src="./projects/px500/4.webp" loading="lazy" alt="500px"></div><div class="card-body"><span class="card-eyebrow">SwiftUI &middot; Practice</span><div class="card-title-row"><span class="card-title">500px API App</span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+        <div class="gallery-card" data-project="iexpense"><div class="card-cover-ph"><img src="./projects/iexpense/Untitled_design_(1).webp" loading="lazy" alt="iExpense"></div><div class="card-body"><span class="card-eyebrow">SwiftUI &middot; Practice</span><div class="card-title-row"><span class="card-title">iExpense <span class="card-title-desc">— Expense Tracker</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+        <div class="gallery-card" data-project="multiquiz"><div class="card-cover-ph"><img src="./projects/multiquiz/8.webp" loading="lazy" alt="MultiQuiz"></div><div class="card-body"><span class="card-eyebrow">SwiftUI &middot; Practice</span><div class="card-title-row"><span class="card-title">Multiplication Quiz</span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+        <div class="gallery-card" data-project="bettersleep"><div class="card-cover-ph"><img src="./projects/bettersleep/13.webp" loading="lazy" alt="BetterSleep"></div><div class="card-body"><span class="card-eyebrow">SwiftUI &middot; Practice</span><div class="card-title-row"><span class="card-title">BetterSleep App</span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+        <div class="gallery-card" data-project="guessflag"><div class="card-cover-ph"><img src="./projects/guessflag/11.webp" loading="lazy" alt="GuessFlag"></div><div class="card-body"><span class="card-eyebrow">SwiftUI &middot; Practice</span><div class="card-title-row"><span class="card-title">Guess the Flag</span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
       </div>
     </div>
   </section>
@@ -1269,8 +1599,8 @@
       </button>
     </div>    <div id="ind-all" class="tab-panel active">
       <div class="gallery-grid">
-        <div class="gallery-card" data-project="hera"><div class="card-cover-ph"><img src="./projects/hera/Screenshot_2569-04-20_at_10.51.40.png" loading="lazy" alt="RISA Robot"></div><div class="card-body"><span class="card-emoji">🤖</span><span class="card-title">RISA — Robotic Interactive Smart Assistant</span></div></div>
-        <div class="gallery-card" data-project="submarine"><div class="card-cover-ph"><img src="./projects/submarine/image.png" loading="lazy" alt="Submarine"></div><div class="card-body"><span class="card-emoji">🤿</span><span class="card-title">Piston Ballast Tank Submarine</span></div></div>
+        <div class="gallery-card" data-project="hera"><div class="card-cover-ph"><img src="./projects/hera/Screenshot_2569-04-20_at_10.51.40.webp" loading="lazy" alt="RISA Robot"></div><div class="card-body"><span class="card-eyebrow">Industrial &middot; Concept</span><div class="card-title-row"><span class="card-title">RISA <span class="card-title-desc">— Robotic Interactive Smart Assistant</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+        <div class="gallery-card" data-project="submarine"><div class="card-cover-ph"><img src="./projects/submarine/image.webp" loading="lazy" alt="Submarine"></div><div class="card-body"><span class="card-eyebrow">Industrial &middot; Concept</span><div class="card-title-row"><span class="card-title">Piston Ballast Tank Submarine</span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
       </div>
     </div>
   </section>
@@ -1334,9 +1664,13 @@
 <!-- ── Project Modal ── -->
 <div id="project-modal" class="project-modal" role="dialog" aria-modal="true">
   <div class="modal-sheet">
-    <button class="modal-close" id="modal-close-btn" aria-label="Close">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="1" y1="1" x2="13" y2="13"/><line x1="13" y1="1" x2="1" y2="13"/></svg>
-    </button>
+    <header class="modal-topbar" id="modal-topbar">
+      <span class="modal-topbar-title" id="modal-topbar-title"></span>
+      <button class="modal-close" id="modal-close-btn" aria-label="Close">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="1" y1="1" x2="13" y2="13"/><line x1="13" y1="1" x2="1" y2="13"/></svg>
+      </button>
+      <span class="modal-progress" id="modal-progress" aria-hidden="true"></span>
+    </header>
     <div class="modal-body" id="modal-body"></div>
   </div>
 </div>
@@ -1396,8 +1730,18 @@
   });
 
   /* ── TOC scroll tracking ── */
+  const toc        = document.querySelector('.toc');
   const tocBtns    = document.querySelectorAll('.toc-item[data-target]');
-  const sectionIds = ['intro','experience','skills','ux-projects','software','industrial','about'];
+  const tocProgress = document.querySelector('.toc-progress');
+  const sectionIds = ['intro','experience','skills','ux-projects','ai-projects','software','industrial','about'];
+
+  // Grow the progress fill from the track top down to the active dot's centre.
+  function updateTocProgress() {
+    const active = document.querySelector('.toc-item.active');
+    if (!active || !tocProgress) return;
+    const dotCentre = active.offsetTop + active.offsetHeight / 2;
+    tocProgress.style.height = Math.max(0, dotCentre - 14) + 'px';
+  }
 
   tocBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -1410,6 +1754,7 @@
       if (entry.isIntersecting) {
         const id = entry.target.id;
         tocBtns.forEach(b => b.classList.toggle('active', b.dataset.target === id));
+        updateTocProgress();
       }
     });
   }, { rootMargin: '-20% 0px -60% 0px' });
@@ -1418,6 +1763,13 @@
     const el = document.getElementById(id);
     if (el) io.observe(el);
   });
+
+  // Intro flash — reveal labels briefly on load, then settle back to dots.
+  updateTocProgress();
+  if (toc) {
+    setTimeout(() => toc.classList.add('toc-reveal'), 600);
+    setTimeout(() => toc.classList.remove('toc-reveal'), 2400);
+  }
 
 
   /* ── Modal logic ── */
@@ -1438,17 +1790,44 @@
         <span class="modal-meta-value">${m.value}</span>
       </div>`).join('');
 
-    document.getElementById('modal-body').innerHTML = `
+    const nextHTML = p.next ? `
+      <button class="modal-next" onclick="modalNext('${p.next.id}')">
+        <span class="modal-next-text">
+          <span class="modal-next-label">Up next</span>
+          <span class="modal-next-title">${p.next.title}</span>
+        </span>
+        <span class="modal-next-arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </span>
+      </button>` : '';
+
+    const body = document.getElementById('modal-body');
+    body.innerHTML = `
       <div class="modal-eyebrow">${p.category}</div>
       <h2 class="modal-title">${p.title}</h2>
       <div class="modal-meta">${metaHTML}</div>
       ${getBody(id)}
+      ${nextHTML}
     `;
+
+    // Condensed title shown in the pinned top bar
+    document.getElementById('modal-topbar-title').textContent = p.title;
+
+    // Reading progress + sticky-header reveal driven by body scroll
+    const topbar = document.getElementById('modal-topbar');
+    const progress = document.getElementById('modal-progress');
+    body.onscroll = () => {
+      const max = body.scrollHeight - body.clientHeight;
+      progress.style.width = (max > 0 ? (body.scrollTop / max) * 100 : 0) + '%';
+      topbar.classList.toggle('is-scrolled', body.scrollTop > 110);
+    };
 
     modal.classList.add('open');
     document.body.style.overflow = 'hidden';
-    modal.querySelector('.modal-body').scrollTop = 0;
-    document.getElementById('modal-close-btn').focus();
+    body.scrollTop = 0;
+    topbar.classList.remove('is-scrolled');
+    progress.style.width = '0%';
+    setTimeout(() => document.getElementById('modal-close-btn').focus(), 80);
 
     // model-viewer is in the HTML string; wait for both the slide-up animation
     // AND the custom element to be defined (first load: module script is still
@@ -1468,6 +1847,18 @@
         });
       });
     });
+  }
+
+  /* "Up next": open the next case study, or if the target is a page section
+     (not a project), close the modal and scroll to it. */
+  function modalNext(id) {
+    if (typeof projects !== 'undefined' && projects[id]) {
+      openProjectModal(id);
+    } else {
+      closeProjectModal();
+      const el = document.getElementById(id);
+      if (el) setTimeout(() => el.scrollIntoView({ behavior: 'smooth' }), 120);
+    }
   }
 
   function closeProjectModal() {
@@ -1521,6 +1912,10 @@
         openProjectModal(card.dataset.project);
       }
     });
+
+    /* Project accent drives the eyebrow rule, cover frame, and arrow on hover */
+    const p = projects[card.dataset.project];
+    if (p && p.accent) card.style.setProperty('--card-accent', p.accent);
   });
 
   function pillCopy(text, btn) {

@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Card Design × Layout — Explorations II</title>
+  <style>
+    @font-face {
+      font-family: 'KyivTypeSerif';
+      src: url('fonts/KyivTypeSerif-Regular.woff2') format('woff2'),
+           url('fonts/KyivTypeSerif-Regular.woff') format('woff');
+      font-weight: 400; font-display: swap;
+    }
+    @font-face {
+      font-family: 'KyivTypeSerif';
+      src: url('fonts/KyivTypeSerif-Medium.woff2') format('woff2'),
+           url('fonts/KyivTypeSerif-Medium.woff') format('woff');
+      font-weight: 500; font-display: swap;
+    }
+    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
+
+    :root {
+      --bg:           #191919;
+      --bg-card:      #222222;
+      --text-pri:     #f8f8f8;
+      --text-sec:     rgba(248,248,248,0.72);
+      --text-dim:     rgba(248,248,248,0.40);
+      --border:       rgba(248,248,248,0.07);
+      --border-mid:   rgba(248,248,248,0.12);
+      --ease-spring:  cubic-bezier(0.22, 1, 0.36, 1);
+      --ease-smooth:  cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg); color: var(--text-pri);
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 16px; line-height: 1.5; -webkit-font-smoothing: antialiased;
+    }
+    .page { max-width: 800px; margin: 0 auto; padding: 64px 24px 140px; }
+    .page-kicker { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-dim); }
+    .page-title  { font-family: 'KyivTypeSerif', Georgia, serif; font-weight: 500; font-size: clamp(28px, 5vw, 40px); margin-top: 10px; line-height: 1.1; }
+    .page-sub    { color: var(--text-sec); font-size: 15px; max-width: 640px; margin-top: 14px; line-height: 1.7; }
+
+    .part {
+      margin-top: 110px; padding-top: 26px;
+      border-top: 1px solid var(--border-mid);
+    }
+    .part-label { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--text-dim); }
+    .part-name  { font-family: 'KyivTypeSerif', Georgia, serif; font-weight: 500; font-size: 26px; margin-top: 8px; }
+
+    .explore { margin-top: 72px; }
+    .explore-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 6px; }
+    .explore-num  { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text-dim); letter-spacing: 0.1em; }
+    .explore-name { font-family: 'KyivTypeSerif', Georgia, serif; font-weight: 500; font-size: 20px; }
+    .explore-desc { color: var(--text-sec); font-size: 14px; line-height: 1.6; max-width: 640px; margin-bottom: 24px; }
+
+    /* ── layout shells ── */
+    /* minmax(0,·) so nowrap captions can never inflate their column */
+    .lay-base { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px 22px; }
+    .lay-base .feat { grid-column: 1 / -1; }
+    .lay-mosaic { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 22px; }
+    .lay-mosaic .side { display: flex; flex-direction: column; gap: 22px; }
+    .lay-mosaic .side .card { min-width: 0; }
+    .lay-mosaic .rest { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 26px 22px; }
+
+    /* ── shared card bones ── */
+    .card { display: flex; flex-direction: column; cursor: pointer; transition: transform 0.4s var(--ease-spring); }
+    .card:hover { transform: translateY(-3px); }
+    .feat.card { flex-direction: row; align-items: center; gap: 28px; }
+    .feat.card:hover { transform: translateY(-2px); }
+    .feat .covbox { flex: 0 0 58%; min-width: 0; }
+    .feat .body { flex: 1; min-width: 0; }
+    .cover { position: relative; overflow: hidden; border-radius: 14px; background: var(--bg-card); }
+    .cover img { width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform 0.55s var(--ease-spring); backface-visibility: hidden; }
+    .card:hover .cover img { transform: scale(1.025); }
+    .asp-1610 { aspect-ratio: 16/10; }
+    .asp-169  { aspect-ratio: 16/9; }
+    .asp-tall { aspect-ratio: 4/3.45; }
+
+    .stitle { font-family: 'KyivTypeSerif', Georgia, serif; font-weight: 400; line-height: 1.3; color: var(--text-pri); }
+    .stitle small { color: var(--text-dim); font-weight: 400; transition: color 0.25s; }
+    .card:hover .stitle small { color: var(--text-sec); }
+    .t-f { font-size: 24px; line-height: 1.25; }
+    .t-m { font-size: 20px; }
+    .t-g { font-size: 17px; }
+    .t-s { font-size: 15px; }
+
+    .mono { font-family: 'DM Mono', monospace; letter-spacing: 0.05em; }
+    .hook { font-size: 13.5px; line-height: 1.65; color: var(--text-sec); }
+    .meta { font-family: 'DM Mono', monospace; font-size: 10.5px; letter-spacing: 0.05em; color: var(--text-dim); }
+    .cta  { display: inline-flex; align-items: center; gap: 8px; margin-top: 5px;
+      font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.06em;
+      text-transform: uppercase; color: var(--text-sec); transition: color 0.25s; }
+    .card:hover .cta { color: var(--text-pri); }
+    .arr { width: 15px; height: 15px; color: var(--text-dim); flex-shrink: 0;
+      transition: transform 0.35s var(--ease-spring), color 0.25s; }
+    .arr svg { width: 100%; height: 100%; display: block; }
+    .card:hover .arr { color: var(--a); transform: translate(2px, -2px); }
+    .trow { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    /* single-line captions — keeps every card the same height */
+    .trow .stitle, .ruledrow .stitle, .plaque .stitle {
+      flex: 1; min-width: 0;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    /* feature rows have room — let their titles breathe */
+    .feat .stitle { white-space: normal; overflow: visible; }
+
+    .verdict {
+      margin-top: 20px; padding: 12px 16px;
+      background: rgba(248,248,248,0.03); border: 1px solid var(--border); border-radius: 10px;
+      font-size: 13px; line-height: 1.65; color: var(--text-sec);
+    }
+    .verdict b { color: var(--text-pri); font-weight: 500; }
+
+    /* ════ V1 · SETTLED — the live card (reference) ════ */
+    .v1 .cover::after { content: ''; position: absolute; inset: 0; border-radius: inherit;
+      box-shadow: inset 0 0 0 1px var(--border-mid); pointer-events: none; transition: box-shadow 0.35s; }
+    .v1.card:hover .cover::after { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--a, #888) 45%, transparent); }
+    .v1 .body { padding: 13px 2px 0; display: flex; flex-direction: column; gap: 6px; }
+    .v1.feat .body { padding: 0; gap: 11px; }
+    .v1 .eyebrow { display: flex; align-items: center; gap: 9px;
+      font-family: 'DM Mono', monospace; font-size: 9.5px; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--text-dim); transition: color 0.25s; }
+    .v1 .eyebrow::before { content: ''; width: 18px; height: 1px; flex-shrink: 0;
+      background: var(--a, var(--border-mid)); transition: width 0.45s var(--ease-spring); }
+    .v1.card:hover .eyebrow { color: var(--text-sec); }
+    .v1.card:hover .eyebrow::before { width: 32px; }
+
+    /* ════ V2 · INSET PLAQUE — caption lives inside the frame ════ */
+    .v2 .cover::after { content: ''; position: absolute; inset: 0; border-radius: inherit;
+      box-shadow: inset 0 0 0 1px var(--border-mid); pointer-events: none; z-index: 3; transition: box-shadow 0.35s; }
+    .v2.card:hover .cover::after { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--a, #888) 45%, transparent); }
+    .v2 .plaque {
+      position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
+      padding: 36px 16px 14px;
+      background: linear-gradient(to top, rgba(10,10,10,0.86) 0%, rgba(10,10,10,0.55) 55%, rgba(10,10,10,0) 100%);
+      display: flex; flex-direction: column; gap: 5px;
+    }
+    .v2 .plaque .stitle { color: #fff; }
+    .v2 .plaque .stitle small { color: rgba(255,255,255,0.55); }
+    .v2 .pl-eyebrow { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.18em;
+      text-transform: uppercase; color: rgba(255,255,255,0.62); display: flex; align-items: center; gap: 8px; }
+    .v2 .pl-eyebrow::before { content: ''; width: 16px; height: 1px; background: var(--a, rgba(255,255,255,0.4));
+      transition: width 0.45s var(--ease-spring); }
+    .v2.card:hover .pl-eyebrow::before { width: 28px; }
+    .v2 .body { padding: 0; }
+    .v2.feat .body { display: flex; flex-direction: column; gap: 11px; }
+
+    /* ════ V3 · RULED CAPTION — raw cover, caption on a hairline ════ */
+    .v3 .cover { border-radius: 12px; }
+    .v3 .body { margin-top: 13px; padding: 11px 2px 0; border-top: 1px solid var(--border-mid);
+      display: flex; flex-direction: column; gap: 6px; transition: border-color 0.3s; }
+    .v3.card:hover .body { border-top-color: color-mix(in srgb, var(--a, #888) 55%, transparent); }
+    .v3 .ruledrow { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; }
+    .v3 .rtag { font-family: 'DM Mono', monospace; font-size: 9.5px; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--text-dim); flex-shrink: 0; }
+    .v3.feat .body { margin-top: 0; }
+
+    /* ════ V4 · FOLIO — ghost serif number on the cover ════ */
+    .v4 .cover::after { content: ''; position: absolute; inset: 0; border-radius: inherit;
+      box-shadow: inset 0 0 0 1px var(--border-mid); pointer-events: none; transition: box-shadow 0.35s; }
+    .v4.card:hover .cover::after { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--a, #888) 45%, transparent); }
+    .v4 .folio {
+      position: absolute; top: 8px; left: 14px; z-index: 2;
+      font-family: 'KyivTypeSerif', Georgia, serif; font-weight: 400;
+      font-size: 40px; line-height: 1; color: #fff;
+      mix-blend-mode: difference; opacity: 0.85;
+      transition: opacity 0.3s;
+    }
+    .v4.card:hover .folio { opacity: 1; }
+    .v4 .body { padding: 12px 2px 0; display: flex; flex-direction: column; gap: 5px; }
+    .v4.feat .body { padding: 0; gap: 11px; }
+    .v4 .sub { font-family: 'DM Mono', monospace; font-size: 9.5px; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--text-dim); }
+    .v4.feat .folio { font-size: 56px; }
+
+    /* ════ V5 · MATTED PRINT — image inset in a visible mat ════ */
+    .v5 .mat {
+      padding: 10px; border-radius: 16px; background: #1e1e1e;
+      box-shadow: inset 0 0 0 1px var(--border);
+      transition: box-shadow 0.35s, background 0.3s;
+    }
+    .v5.card:hover .mat { background: #212121;
+      box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--a, #888) 35%, transparent); }
+    .v5 .cover { border-radius: 8px; }
+    .v5 .body { padding: 12px 4px 0; display: flex; flex-direction: column; gap: 7px; }
+    .v5.feat .body { padding: 0; gap: 11px; }
+    .v5 .label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.06em;
+      line-height: 1.8; color: var(--text-dim); }
+    .v5 .card:not(.feat) .label, .v5.card:not(.feat) .label {
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .v5 .label b { color: var(--text-sec); font-weight: 400; }
+
+    @media (max-width: 720px) {
+      .lay-base, .lay-mosaic, .lay-mosaic .rest { grid-template-columns: minmax(0, 1fr); }
+      .feat.card { flex-direction: column; align-items: stretch; gap: 13px; }
+      .feat .covbox { flex: none; }
+      .t-f { font-size: 19px; }
+      .t-m { font-size: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="page-head">
+      <div class="page-kicker">Sandbox · not linked from the live site</div>
+      <h1 class="page-title">Card Design &times; Layout</h1>
+      <p class="page-sub">Five card directions — each rendered twice: once in the Baseline arrangement (feature + grid), once in the Mosaic. Same projects, same 800px measure as the live site. Hover everything; the motion is half the design.</p>
+    </div>
+
+    <div class="part">
+      <div class="part-label">Part A</div>
+      <div class="part-name">Baseline — Feature + Grid</div>
+    </div>
+    <div id="partA"></div>
+
+    <div class="part">
+      <div class="part-label">Part B</div>
+      <div class="part-name">Mosaic</div>
+    </div>
+    <div id="partB"></div>
+  </div>
+
+  <script>
+    const ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg>';
+
+    const P = [
+      { name:'ThaiPass App', desc:'Travel Companion', cover:'./projects/thaipass/cover.webp', a:'#C8783A',
+        tag:'Production', cat:'UX / UI', role:'UX / UI Designer', time:'6 Months', num:'01',
+        hook:'Everything a traveller needs before landing in Thailand — vouchers, FastPass, transport, eSIM, and insurance in one guided journey.' },
+      { name:'BCC Website', desc:'Calculation Program', cover:'./projects/bcc/cover.webp', a:'#4C91DB',
+        tag:'Production', cat:'UX / UI', role:'Designer & PO', time:'3 Months', num:'02' },
+      { name:'Net Zero', desc:'Carbon Platform', cover:'./projects/netzero/Frame_(1).webp', a:'#56AE7C',
+        tag:'Concept', cat:'UX / UI', role:'Designer & PO', time:'2 Weeks', num:'03' },
+      { name:'MyanmarPass App', desc:'', cover:'./projects/myanmarpass/Frame-1.webp', a:'#C4556A',
+        tag:'Concept', cat:'UX / UI', role:'UX / UI Designer', time:'10 Days', num:'04' },
+      { name:'JAGA App', desc:'CometChat Feature', cover:'./projects/jaga/Frame.webp', a:'#58B05A',
+        tag:'Production', cat:'UX / UI', role:'UX / UI Designer', time:'3 Weeks', num:'05' },
+      { name:'One Bangkok App', desc:'Showcase Video', cover:'./projects/onebangkok/cover.webp', a:'#D4A050',
+        tag:'Production', cat:'Motion', role:'Motion Designer', time:'1 Week', num:'06' },
+      { name:'NIPA Payment System', desc:'', cover:'./projects/nipa/image 7.webp', a:'#5B82D8',
+        tag:'Production', cat:'UX / UI', role:'UX / UI Designer', time:'2 Months', num:'07' },
+      { name:'NIPA Load Balancing', desc:'', cover:'./projects/nipalb/image 1.webp', a:'#30AECE',
+        tag:'Concept', cat:'UX / UI', role:'UX / UI Designer', time:'5 Days', num:'08' },
+    ];
+    const T = p => p.desc ? `${p.name} <small>— ${p.desc}</small>` : p.name;
+
+    /* ── per-variant renderers ──
+       size: 'f' feature row · 'm' mosaic main · 'g' grid · 's' mosaic side */
+    const ASPECT = { f:'asp-1610', m:'asp-tall', g:'asp-1610', s:'asp-169' };
+    const TITLE  = { f:'t-f', m:'t-m', g:'t-g', s:'t-s' };
+
+    function featBody(extraTop, p) {
+      return `${extraTop}
+        <span class="stitle t-f">${T(p)}</span>
+        <p class="hook">${p.hook}</p>
+        <span class="meta">${p.role} &middot; ${p.time} &middot; Mobile App</span>
+        <span class="cta">View case study <span class="arr">${ARROW}</span></span>`;
+    }
+
+    const V = {
+      /* V1 · Settled */
+      v1(p, sz) {
+        const cover = `<div class="covbox"><div class="cover ${ASPECT[sz]}"><img src="${p.cover}" alt="${p.name}" loading="lazy"></div></div>`;
+        const eyebrow = x => `<span class="eyebrow">${x ? x + ' &middot; ' : ''}${p.cat} &middot; ${p.tag}</span>`;
+        if (sz === 'f') return `<div class="card feat v1" style="--a:${p.a}">${cover}<div class="body">${featBody(eyebrow('Featured'), p)}</div></div>`;
+        return `<div class="card v1" style="--a:${p.a}">${cover}
+          <div class="body">${eyebrow('')}
+            <div class="trow"><span class="stitle ${TITLE[sz]}">${T(p)}</span><span class="arr">${ARROW}</span></div>
+          </div></div>`;
+      },
+
+      /* V2 · Inset Plaque */
+      v2(p, sz) {
+        const plaque = `<div class="plaque">
+          <span class="pl-eyebrow">${p.cat} &middot; ${p.tag}</span>
+          <span class="stitle ${TITLE[sz === 'f' ? 'm' : sz]}">${T(p)}</span>
+        </div>`;
+        const cover = `<div class="covbox"><div class="cover ${ASPECT[sz]}"><img src="${p.cover}" alt="${p.name}" loading="lazy">${plaque}</div></div>`;
+        if (sz === 'f') return `<div class="card feat v2" style="--a:${p.a}">
+          <div class="covbox"><div class="cover asp-1610"><img src="${p.cover}" alt="${p.name}" loading="lazy">${plaque}</div></div>
+          <div class="body">
+            <p class="hook">${p.hook}</p>
+            <span class="meta">${p.role} &middot; ${p.time} &middot; Mobile App</span>
+            <span class="cta">View case study <span class="arr">${ARROW}</span></span>
+          </div></div>`;
+        return `<div class="card v2" style="--a:${p.a}">${cover}<div class="body"></div></div>`;
+      },
+
+      /* V3 · Ruled Caption */
+      v3(p, sz) {
+        const cover = `<div class="covbox"><div class="cover ${ASPECT[sz]}"><img src="${p.cover}" alt="${p.name}" loading="lazy"></div></div>`;
+        if (sz === 'f') return `<div class="card feat v3" style="--a:${p.a}">${cover}
+          <div class="body">
+            <div class="ruledrow"><span class="stitle t-f">${T(p)}</span><span class="rtag">${p.tag}</span></div>
+            <p class="hook">${p.hook}</p>
+            <span class="meta">${p.role} &middot; ${p.time}</span>
+            <span class="cta">View case study <span class="arr">${ARROW}</span></span>
+          </div></div>`;
+        return `<div class="card v3" style="--a:${p.a}">${cover}
+          <div class="body">
+            <div class="ruledrow"><span class="stitle ${TITLE[sz]}">${T(p)}</span><span class="rtag">${p.tag}</span></div>
+          </div></div>`;
+      },
+
+      /* V4 · Folio */
+      v4(p, sz) {
+        const cover = `<div class="covbox"><div class="cover ${ASPECT[sz]}">
+          <img src="${p.cover}" alt="${p.name}" loading="lazy"><span class="folio">${p.num}</span></div></div>`;
+        if (sz === 'f') return `<div class="card feat v4" style="--a:${p.a}">${cover}
+          <div class="body">${featBody(`<span class="sub">${p.cat} &middot; ${p.tag}</span>`, p)}</div></div>`;
+        return `<div class="card v4" style="--a:${p.a}">${cover}
+          <div class="body">
+            <div class="trow"><span class="stitle ${TITLE[sz]}">${T(p)}</span><span class="arr">${ARROW}</span></div>
+            <span class="sub">${p.cat} &middot; ${p.tag}</span>
+          </div></div>`;
+      },
+
+      /* V5 · Matted Print */
+      v5(p, sz) {
+        const cover = `<div class="covbox"><div class="mat"><div class="cover ${ASPECT[sz]}"><img src="${p.cover}" alt="${p.name}" loading="lazy"></div></div></div>`;
+        if (sz === 'f') return `<div class="card feat v5" style="--a:${p.a}">${cover}
+          <div class="body">
+            <span class="stitle t-f">${T(p)}</span>
+            <p class="hook">${p.hook}</p>
+            <span class="label"><b>${p.role}</b> &middot; ${p.time}<br>${p.cat} &middot; ${p.tag} &middot; Mobile App</span>
+            <span class="cta">View case study <span class="arr">${ARROW}</span></span>
+          </div></div>`;
+        return `<div class="card v5" style="--a:${p.a}">${cover}
+          <div class="body">
+            <div class="trow"><span class="stitle ${TITLE[sz]}">${T(p)}</span><span class="arr">${ARROW}</span></div>
+            <span class="label">${p.role} &middot; ${p.time} &middot; ${p.tag}</span>
+          </div></div>`;
+      },
+    };
+
+    const META = [
+      { v:'v1', name:'Settled', desc:'The live card, as reference — hairline frame, accent-rule eyebrow, serif title, persistent ↗.',
+        verdict:'<b>Reads:</b> calm, systematic. The benchmark the other four have to beat.' },
+      { v:'v2', name:'Inset Plaque', desc:'The caption moves inside the frame on a soft scrim — title and eyebrow live on the image, like a gallery plaque. Always visible, not hover-revealed.',
+        verdict:'<b>Reads:</b> immersive, poster-like; covers get the full cell. <b>Risk:</b> text legibility depends on each cover&rsquo;s bottom edge; busy screenshots fight the title.' },
+      { v:'v3', name:'Ruled Caption', desc:'Frameless cover; the caption hangs from a full-width hairline rule — title left, status right on the same line. Accent only appears in the rule on hover.',
+        verdict:'<b>Reads:</b> the most editorial-minimal of the five; print-like. <b>Risk:</b> without the frame, light covers bleed into neighbours; relies on the rule for structure.' },
+      { v:'v4', name:'Folio', desc:'A large serif index number sits on the cover in blend-mode, like a printed folio mark. Caption stays minimal below.',
+        verdict:'<b>Reads:</b> distinctive, collectible — the numbering implies a curated series. <b>Risk:</b> the number can collide with cover content; blend-mode is moody and unpredictable per image.' },
+      { v:'v5', name:'Matted Print', desc:'The image sits inset within a visible mat — a framed print on the wall. The caption becomes a two-line museum label in mono.',
+        verdict:'<b>Reads:</b> crafted, physical, gallery-like. <b>Risk:</b> reintroduces a box (the mat); loses some of the unboxed lightness you just bought.' },
+    ];
+
+    function baselineDemo(v) {
+      return `<div class="lay-base">
+        ${V[v](P[0], 'f')}
+        ${P.slice(1).map(p => V[v](p, 'g')).join('')}
+      </div>`;
+    }
+    function mosaicDemo(v) {
+      return `<div class="lay-mosaic">
+        ${V[v](P[0], 'm')}
+        <div class="side">${V[v](P[1], 's')}${V[v](P[2], 's')}</div>
+        <div class="rest">${P.slice(3).map(p => V[v](p, 's')).join('')}</div>
+      </div>`;
+    }
+
+    function section(num, m, demo) {
+      return `<section class="explore">
+        <div class="explore-head"><span class="explore-num">${num}</span><span class="explore-name">${m.name}</span></div>
+        <p class="explore-desc">${m.desc}</p>
+        ${demo}
+        <div class="verdict">${m.verdict}</div>
+      </section>`;
+    }
+
+    document.getElementById('partA').innerHTML =
+      META.map((m, i) => section('A' + (i + 1), m, baselineDemo(m.v))).join('');
+    document.getElementById('partB').innerHTML =
+      META.map((m, i) => section('B' + (i + 1), m, mosaicDemo(m.v))).join('');
+  </script>
+</body>
+</html>

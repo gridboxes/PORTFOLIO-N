@@ -259,9 +259,9 @@
       title:    'Piston Ballast Tank Submarine',
       meta: [
         { label: 'Role',     value: 'Industrial Designer' },
-        { label: 'Timeline', value: 'University Project' },
         { label: 'Tools',    value: 'Autodesk Fusion 360' },
         { label: 'Type',     value: 'University Project' },
+        { label: 'Output',   value: '3D Model &amp; Concept' },
       ],
       next: { id: 'hera', title: 'RISA — Robotic Interactive Smart Assistant' },
     },
@@ -284,7 +284,7 @@
 
   function getBody(id) {
     if (id === 'thaipass') return `
-      <img class="cs-img" src="./projects/thaipass/cover.png" alt="ThaiPass cover" style="border-radius:16px;margin-top:60px;" />
+      <img class="cs-img" src="./projects/thaipass/cover.webp" alt="ThaiPass cover" style="border-radius:16px;margin-top:60px;" />
 
       <div class="cs-section">
         <p class="section-label">Overview</p>
@@ -348,49 +348,49 @@
         <p class="section-label">Home &amp; Account</p>
         <h2 class="section-heading">One dashboard for everything.</h2>
         <p class="section-text">The home screen gives travellers an instant overview of all active services, upcoming arrivals, and quick access to support &mdash; without noise.</p>
-        <img class="cs-img" src="./projects/thaipass/home.png" alt="Home screens" />
+        <img class="cs-img" src="./projects/thaipass/home.webp" alt="Home screens" />
       </div>
 
       <div class="cs-section">
         <p class="section-label">Voucher Packages</p>
         <h2 class="section-heading">Bundled for convenience.</h2>
         <p class="section-text">Pre-packaged service bundles reduce decision fatigue and offer cost savings &mdash; making it easy to get everything in one purchase.</p>
-        <img class="cs-img" src="./projects/thaipass/voucher-packages.png" alt="Voucher Packages screens" />
+        <img class="cs-img" src="./projects/thaipass/voucher-packages.webp" alt="Voucher Packages screens" />
       </div>
 
       <div class="cs-section">
         <p class="section-label">FastPass</p>
         <h2 class="section-heading">Skip the queue.</h2>
         <p class="section-text">FastPass gives travellers access to the fast-track immigration lane &mdash; a premium arrival experience that dramatically reduces waiting time at the airport.</p>
-        <img class="cs-img" src="./projects/thaipass/fastpass.png" alt="FastPass screens" />
+        <img class="cs-img" src="./projects/thaipass/fastpass.webp" alt="FastPass screens" />
       </div>
 
       <div class="cs-section">
         <p class="section-label">Transport</p>
         <h2 class="section-heading">Your ride, ready on arrival.</h2>
         <p class="section-text">Pre-book airport transfers before landing. No confusion, no negotiation &mdash; a reliable, verified driver waiting at the gate.</p>
-        <img class="cs-img" src="./projects/thaipass/transport.png" alt="Transport screens" />
+        <img class="cs-img" src="./projects/thaipass/transport.webp" alt="Transport screens" />
       </div>
 
       <div class="cs-section">
         <p class="section-label">eSIM</p>
         <h2 class="section-heading">Online the moment you land.</h2>
         <p class="section-text">Instant connectivity via eSIM &mdash; no hunting for SIM card stalls at the airport. Activated in seconds, ready before you leave the gate.</p>
-        <img class="cs-img" src="./projects/thaipass/esim.png" alt="eSIM screens" />
+        <img class="cs-img" src="./projects/thaipass/esim.webp" alt="eSIM screens" />
       </div>
 
       <div class="cs-section">
         <p class="section-label">Insurance &amp; TDAC</p>
         <h2 class="section-heading">Protected and prepared.</h2>
         <p class="section-text">Travel insurance gives peace of mind. TDAC support links directly to the official Thailand Digital Arrival Card process &mdash; building trust and preventing scams.</p>
-        <img class="cs-img" src="./projects/thaipass/insurance.png" alt="Insurance screens" />
-        <img class="cs-img" src="./projects/thaipass/tdac.png" alt="TDAC screens" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/thaipass/insurance.webp" alt="Insurance screens" />
+        <img class="cs-img" src="./projects/thaipass/tdac.webp" alt="TDAC screens" style="margin-top:16px;" />
       </div>
 
       <div class="cs-accent-band">
         <p class="section-label">Outcome</p>
         <h2 class="section-heading">A smoother start to every trip.</h2>
-        <p class="section-text">ThaiPass simplified the travel preparation process for first-time and returning visitors alike &mdash; reducing stress, cutting airport friction, and building confidence through verified, trusted services.</p>
+        <p class="section-text">ThaiPass brings everything a traveller used to arrange across separate platforms &mdash; vouchers, FastPass, transport, eSIM, and insurance &mdash; into one guided journey from purchase to arrival, built throughout on verified providers and clear trust signals.</p>
       </div>
 
       <div class="cs-section">
@@ -404,7 +404,7 @@
     `;
 
     if (id === 'bcc') return `
-      <img class="cs-img" src="./projects/bcc/cover.png" alt="BCC cover" style="border-radius:16px;margin-top:60px;" />
+      <img class="cs-img" src="./projects/bcc/cover.webp" alt="BCC cover" style="border-radius:16px;margin-top:60px;" />
 
       <div class="cs-section">
         <p class="section-label">Overview</p>
@@ -462,35 +462,35 @@
         <p class="section-label">Design Process</p>
         <h2 class="section-heading">From Excel sheets to a guided flow.</h2>
         <p class="section-text">Started by deeply understanding the electrical logic &mdash; reviewing Excel sheets, formulas, and flowcharts with engineers. Then structured the experience into 4 clear phases: Insight Hub &rarr; Main Calculator &rarr; User Info Form &rarr; Calculation Report.</p>
-        <img class="cs-img" src="./projects/bcc/flow.png" alt="User flow diagram" />
+        <img class="cs-img" src="./projects/bcc/flow.webp" alt="User flow diagram" />
       </div>
 
       <div class="cs-section">
         <p class="section-label">Main Calculator</p>
         <h2 class="section-heading">Three tools, one guided system.</h2>
         <p class="section-text">The calculator supports Voltage Drop, Minimum Conductor Size, and Maximum Circuit Distance &mdash; each with step-by-step input and conditional logic that adapts to the user&rsquo;s selections.</p>
-        <img class="cs-img" src="./projects/bcc/calculator.png" alt="Main calculator screens" />
+        <img class="cs-img" src="./projects/bcc/calculator.webp" alt="Main calculator screens" />
       </div>
 
       <div class="cs-section">
         <p class="section-label">Smart Input System</p>
         <h2 class="section-heading">Only what you need, when you need it.</h2>
         <p class="section-text">Dynamic fields reveal based on previous inputs. Visual indicators for cable types and built-in validation prevent errors before they happen.</p>
-        <img class="cs-img" src="./projects/bcc/smart-input.png" alt="Smart input system" />
+        <img class="cs-img" src="./projects/bcc/smart-input.webp" alt="Smart input system" />
       </div>
 
       <div class="cs-section">
         <p class="section-label">Report & Export</p>
         <h2 class="section-heading">From calculation to professional document.</h2>
         <p class="section-text">An auto-generated A4 report captures all results &mdash; Voltage Drop, Conductor Size, and Circuit Distance &mdash; formatted for professional sharing and download.</p>
-        <img class="cs-img" src="./projects/bcc/report.png" alt="Calculation report" />
+        <img class="cs-img" src="./projects/bcc/report.webp" alt="Calculation report" />
       </div>
 
       <div class="cs-section">
         <p class="section-label">Responsive Design</p>
         <h2 class="section-heading">Optimized for every screen.</h2>
         <p class="section-text">The full experience is designed for both desktop and mobile &mdash; with responsive layouts, spacing rules, and component behavior defined for every breakpoint.</p>
-        <img class="cs-img" src="./projects/bcc/responsive.png" alt="Responsive design" />
+        <img class="cs-img" src="./projects/bcc/responsive.webp" alt="Responsive design" />
       </div>
 
       <div class="cs-section">
@@ -509,7 +509,7 @@
       <div class="cs-accent-band">
         <p class="section-label">Outcome</p>
         <h2 class="section-heading">Complex made clear.</h2>
-        <p class="section-text">The redesign simplified a highly technical workflow, reduced input errors, improved usability across devices, and enabled accurate, professional report generation for engineering teams.</p>
+        <p class="section-text">The redesign turns a dense, formula-heavy workflow into a guided step-by-step flow &mdash; with validation built in to catch mistakes and a clean A4 report at the end &mdash; without ever compromising the underlying engineering accuracy.</p>
       </div>
 
       <div class="cs-section">
@@ -523,7 +523,7 @@
     `;
 
     if (id === 'netzero') return `
-      <img class="cs-img" src="./projects/netzero/Frame_(1).png" alt="Net Zero cover" style="border-radius:16px;margin-top:60px;" />
+      <img class="cs-img" src="./projects/netzero/Frame_(1).webp" alt="Net Zero cover" style="border-radius:16px;margin-top:60px;" />
 
       <div class="cs-section">
         <p class="section-label">Overview</p>
@@ -587,52 +587,52 @@
         <p class="section-label">Phase 1</p>
         <h2 class="section-heading">Registration &amp; basic MRV intake.</h2>
         <p class="section-text">The foundation phase focuses on onboarding Thai factories and capturing initial emissions data through a guided MRV intake flow. Designed to be accessible to factory operators with minimal technical background.</p>
-        <img class="cs-img" src="./projects/netzero/8.png" alt="Phase 1 screens" />
-        <img class="cs-img" src="./projects/netzero/9.png" alt="Phase 1 screens" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/netzero/10.png" alt="Phase 1 screens" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/netzero/11.png" alt="Phase 1 screens" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/netzero/12.png" alt="Phase 1 screens" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/netzero/8.webp" alt="Phase 1 screens" />
+        <img class="cs-img" src="./projects/netzero/9.webp" alt="Phase 1 screens" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/netzero/10.webp" alt="Phase 1 screens" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/netzero/11.webp" alt="Phase 1 screens" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/netzero/12.webp" alt="Phase 1 screens" style="margin-top:16px;" />
       </div>
 
       <div class="cs-section">
         <p class="section-label">Phase 2</p>
         <h2 class="section-heading">Advanced analytics &amp; compliance support.</h2>
         <p class="section-text">Phase 2 introduces emissions analytics dashboards, a consultant network for expert guidance, and integration with tax incentive and compliance workflows &mdash; helping factories move from data collection to active compliance.</p>
-        <img class="cs-img" src="./projects/netzero/Slide-0.png" alt="Phase 2 screens" />
-        <img class="cs-img" src="./projects/netzero/Slide-3.png" alt="Phase 2 screens" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/netzero/Slide-4.png" alt="Phase 2 screens" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/netzero/Slide-1.png" alt="Phase 2 screens" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/netzero/Slide-2.png" alt="Phase 2 screens" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/netzero/Slide-0.webp" alt="Phase 2 screens" />
+        <img class="cs-img" src="./projects/netzero/Slide-3.webp" alt="Phase 2 screens" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/netzero/Slide-4.webp" alt="Phase 2 screens" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/netzero/Slide-1.webp" alt="Phase 2 screens" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/netzero/Slide-2.webp" alt="Phase 2 screens" style="margin-top:16px;" />
       </div>
 
       <div class="cs-section">
         <p class="section-label">Phase 3</p>
         <h2 class="section-heading">Certification &amp; pilot marketplace.</h2>
         <p class="section-text">Compliant factories receive official carbon certificates. A pilot marketplace allows them to list and trade verified carbon credits &mdash; unlocking financial value from their compliance investments.</p>
-        <img class="cs-img" src="./projects/netzero/Slide-1 1.png" alt="Phase 3 screens" />
-        <img class="cs-img" src="./projects/netzero/Slide-2 1.png" alt="Phase 3 screens" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/netzero/Slide-3 1.png" alt="Phase 3 screens" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/netzero/Slide-4 1.png" alt="Phase 3 screens" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/netzero/Slide-5.png" alt="Phase 3 screens" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/netzero/Slide-0 1.png" alt="Phase 3 screens" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/netzero/Slide-1 1.webp" alt="Phase 3 screens" />
+        <img class="cs-img" src="./projects/netzero/Slide-2 1.webp" alt="Phase 3 screens" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/netzero/Slide-3 1.webp" alt="Phase 3 screens" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/netzero/Slide-4 1.webp" alt="Phase 3 screens" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/netzero/Slide-5.webp" alt="Phase 3 screens" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/netzero/Slide-0 1.webp" alt="Phase 3 screens" style="margin-top:16px;" />
       </div>
 
       <div class="cs-section">
         <p class="section-label">Phase 4</p>
         <h2 class="section-heading">National dashboard &amp; global marketplace.</h2>
         <p class="section-text">The final phase delivers a Ministry-level dashboard for national emissions oversight and a full-scale carbon marketplace enabling global trading &mdash; positioning Thailand as a trusted partner in international carbon frameworks.</p>
-        <img class="cs-img" src="./projects/netzero/Slide-5 1.png" alt="Phase 4 screens" />
-        <img class="cs-img" src="./projects/netzero/Slide-0 2.png" alt="Phase 4 screens" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/netzero/Slide-1 2.png" alt="Phase 4 screens" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/netzero/Slide-2 2.png" alt="Phase 4 screens" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/netzero/Slide-3 2.png" alt="Phase 4 screens" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/netzero/Slide-4 2.png" alt="Phase 4 screens" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/netzero/Slide-5 1.webp" alt="Phase 4 screens" />
+        <img class="cs-img" src="./projects/netzero/Slide-0 2.webp" alt="Phase 4 screens" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/netzero/Slide-1 2.webp" alt="Phase 4 screens" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/netzero/Slide-2 2.webp" alt="Phase 4 screens" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/netzero/Slide-3 2.webp" alt="Phase 4 screens" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/netzero/Slide-4 2.webp" alt="Phase 4 screens" style="margin-top:16px;" />
       </div>
 
       <div class="cs-accent-band">
         <p class="section-label">Outcome</p>
         <h2 class="section-heading">Thailand's path to trusted carbon compliance.</h2>
-        <p class="section-text">Net Zero provides a scalable framework for national carbon management &mdash; reducing factory export risk, increasing compliance rates, growing Thailand's carbon credit market, and improving environmental transparency at a national level.</p>
+        <p class="section-text">As a two-week sprint, Net Zero maps a national carbon platform across four pillars and four delivery phases &mdash; a framework shaped so a system this large could roll out one achievable step at a time, rather than all at once.</p>
       </div>
 
       <div class="cs-section">
@@ -646,7 +646,7 @@
     `;
 
     if (id === 'nipalb') return `
-      <img class="cs-img" src="./projects/nipalb/image 1.png" alt="NIPA Load Balancing cover" style="border-radius:16px;margin-top:60px;" />
+      <img class="cs-img" src="./projects/nipalb/image 1.webp" alt="NIPA Load Balancing cover" style="border-radius:16px;margin-top:60px;" />
 
       <div class="cs-section">
         <p class="section-label">Overview</p>
@@ -698,29 +698,29 @@
             <span class="cs-col2-text">Users care about performance, not infrastructure. Peak traffic is the biggest stress point. Pricing transparency and simplicity are what drive adoption.</span>
           </div>
         </div>
-        <img class="cs-img" src="./projects/nipalb/image.png" alt="Research and wireframes" />
-        <img class="cs-img" src="./projects/nipalb/Screenshot_2569-04-16_at_15.28.18.png" alt="Early wireframes" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/nipalb/image.webp" alt="Research and wireframes" />
+        <img class="cs-img" src="./projects/nipalb/Screenshot_2569-04-16_at_15.28.18.webp" alt="Early wireframes" style="margin-top:16px;" />
       </div>
 
       <div class="cs-section">
         <p class="section-label">Main Page</p>
         <h2 class="section-heading">A clear entry point to the service.</h2>
         <p class="section-text">The main page gives an overview of features and benefits with a clear call-to-action to begin configuration &mdash; without overwhelming users with technical details upfront.</p>
-        <img class="cs-img" src="./projects/nipalb/1.png" alt="Main page" />
+        <img class="cs-img" src="./projects/nipalb/1.webp" alt="Main page" />
       </div>
 
       <div class="cs-section">
         <p class="section-label">Pricing Page</p>
         <h2 class="section-heading">Compare options without guesswork.</h2>
         <p class="section-text">A side-by-side pricing view for Standard and Dedicated Load Balancers. Designed to help users understand the difference and choose confidently &mdash; without needing to read documentation.</p>
-        <img class="cs-img" src="./projects/nipalb/3.png" alt="Pricing page" />
+        <img class="cs-img" src="./projects/nipalb/3.webp" alt="Pricing page" />
       </div>
 
       <div class="cs-section">
         <p class="section-label">Calculator Page</p>
         <h2 class="section-heading">Configure and see the cost in real time.</h2>
         <p class="section-text">The main interaction page. Users configure their load balancer settings and see pricing update dynamically &mdash; making the relationship between choices and cost immediately clear.</p>
-        <img class="cs-img" src="./projects/nipalb/2.png" alt="Calculator page" />
+        <img class="cs-img" src="./projects/nipalb/2.webp" alt="Calculator page" />
       </div>
 
       <div class="cs-section">
@@ -739,7 +739,7 @@
       <div class="cs-accent-band">
         <p class="section-label">Outcome</p>
         <h2 class="section-heading">Cloud services, simplified.</h2>
-        <p class="section-text">Easier onboarding for cloud services, reduced setup errors, and a clear path from configuration to pricing &mdash; making load balancing accessible to users who previously would have been blocked by technical complexity.</p>
+        <p class="section-text">A five-day proposal that reframes engineer-facing load-balancer setup as a few clear choices &mdash; an overview, a pricing comparison, and a live cost calculator &mdash; so the people who actually need it can scale without touching infrastructure.</p>
       </div>
 
       <div class="cs-section">
@@ -753,7 +753,7 @@
     `;
 
     if (id === 'nipa') return `
-      <img class="cs-img" src="./projects/nipa/image 7.png" alt="NIPA Payment System cover" style="border-radius:16px;margin-top:60px;" />
+      <img class="cs-img" src="./projects/nipa/image 7.webp" alt="NIPA Payment System cover" style="border-radius:16px;margin-top:60px;" />
 
       <div class="cs-section">
         <p class="section-label">Overview</p>
@@ -811,45 +811,45 @@
         <p class="section-label">Credit Top-Up</p>
         <h2 class="section-heading">Simple, guided, and clear.</h2>
         <p class="section-text">The top-up flow follows a clear step-by-step structure: Select Payment Method &rarr; Enter Details &rarr; Confirm Payment &rarr; Success / Receipt. Each step shows only what's needed, reducing cognitive load and friction.</p>
-        <img class="cs-img" src="./projects/nipa/image.png" alt="Credit top-up screens" />
-        <img class="cs-img" src="./projects/nipa/image 1.png" alt="Credit top-up screens" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/nipa/image.webp" alt="Credit top-up screens" />
+        <img class="cs-img" src="./projects/nipa/image 1.webp" alt="Credit top-up screens" style="margin-top:16px;" />
       </div>
 
       <div class="cs-section">
         <p class="section-label">Multi-Payment Support</p>
         <h2 class="section-heading">Five methods, each optimized.</h2>
         <p class="section-text">QR PromptPay for fast scan-and-pay. Card payment with a familiar input flow. Mobile Banking with app-based redirection. Alipay for international users. Manual Transfer as a fallback. Each method designed around its own mental model.</p>
-        <img class="cs-img" src="./projects/nipa/image 2.png" alt="Payment method screens" />
-        <img class="cs-img" src="./projects/nipa/image 3.png" alt="Payment method screens" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/nipa/image 2.webp" alt="Payment method screens" />
+        <img class="cs-img" src="./projects/nipa/image 3.webp" alt="Payment method screens" style="margin-top:16px;" />
       </div>
 
       <div class="cs-section">
         <p class="section-label">Responsive Design</p>
         <h2 class="section-heading">Consistent across every breakpoint.</h2>
         <p class="section-text">Designed across XL, LG, MD, SM, and XS breakpoints. Layouts adapt fluidly, components resize predictably, and the mobile experience is treated as a first-class use case &mdash; not an afterthought.</p>
-        <img class="cs-img" src="./projects/nipa/Frame-3.png" alt="Responsive design" />
-        <img class="cs-img" src="./projects/nipa/Frame.png" alt="Responsive design" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/nipa/Frame-1.png" alt="Responsive design" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/nipa/Frame-2.png" alt="Responsive design" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/nipa/Frame-4.png" alt="Responsive design" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/nipa/Frame-3.webp" alt="Responsive design" />
+        <img class="cs-img" src="./projects/nipa/Frame.webp" alt="Responsive design" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/nipa/Frame-1.webp" alt="Responsive design" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/nipa/Frame-2.webp" alt="Responsive design" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/nipa/Frame-4.webp" alt="Responsive design" style="margin-top:16px;" />
       </div>
 
       <div class="cs-section">
         <p class="section-label">Flow Preview</p>
         <h2 class="section-heading">End-to-end in motion.</h2>
-        <img class="cs-img" src="./projects/nipa/image 4.png" alt="Flow preview" />
-        <img class="cs-img" src="./projects/nipa/image 5.png" alt="Flow preview" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/nipa/image 6.png" alt="Flow preview" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/nipa/image 4.webp" alt="Flow preview" />
+        <img class="cs-img" src="./projects/nipa/image 5.webp" alt="Flow preview" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/nipa/image 6.webp" alt="Flow preview" style="margin-top:16px;" />
       </div>
 
       <div class="cs-section">
-        <img class="cs-img" src="./projects/nipa/Display_case_LG_(1).png" alt="NIPA display case" style="border-radius:16px;" />
+        <img class="cs-img" src="./projects/nipa/Display_case_LG_(1).webp" alt="NIPA display case" style="border-radius:16px;" />
       </div>
 
       <div class="cs-accent-band">
         <p class="section-label">Outcome</p>
         <h2 class="section-heading">A payment experience the platform can grow on.</h2>
-        <p class="section-text">Improved flow clarity, reduced friction during transactions, full Design System 2.0 alignment, and a scalable structure ready for future payment methods and features &mdash; all while improving usability across every device.</p>
+        <p class="section-text">One top-up flow spanning five payment methods, each shaped to its own habits, then migrated to Design System 2.0 and rebuilt responsively across every breakpoint &mdash; a single, consistent experience the platform can keep building on.</p>
       </div>
 
       <div class="cs-section">
@@ -863,7 +863,7 @@
     `;
 
     if (id === 'onebangkok') return `
-      <img class="cs-img" src="./projects/onebangkok/cover.png" alt="One Bangkok App cover" style="border-radius:16px;margin-top:60px;" />
+      <img class="cs-img" src="./projects/onebangkok/cover.webp" alt="One Bangkok App cover" style="border-radius:16px;margin-top:60px;" />
 
       <div class="cs-section">
         <p class="section-label">Overview</p>
@@ -928,7 +928,7 @@
       <div class="cs-accent-band">
         <p class="section-label">Outcome</p>
         <h2 class="section-heading">A new skill, a polished deliverable.</h2>
-        <p class="section-text">Delivered a polished showcase video for the company website, improved how the app is presented to clients, and added motion design as a new capability &mdash; all within a single week, starting from zero.</p>
+        <p class="section-text">A polished showcase video for the company website &mdash; built in a single week, starting from zero motion-design experience, after trading After Effects for the faster, UI-focused workflow of Jitter. A new capability, added to the toolkit.</p>
       </div>
 
       <div class="cs-section">
@@ -942,7 +942,7 @@
     `;
 
     if (id === 'jaga') return `
-      <img class="cs-img" src="./projects/jaga/Frame.png" alt="JAGA App cover" style="border-radius:16px;margin-top:60px;" />
+      <img class="cs-img" src="./projects/jaga/Frame.webp" alt="JAGA App cover" style="border-radius:16px;margin-top:60px;" />
 
       <div class="cs-section">
         <p class="section-label">Overview</p>
@@ -1000,42 +1000,42 @@
         <p class="section-label">Chats</p>
         <h2 class="section-heading">1:1, groups, and broadcasts.</h2>
         <p class="section-text">Full messaging between students and coaches, training group chats, and broadcast messaging for announcements. Includes media sharing, reactions, stickers, and read receipts &mdash; all consistent with JAGA&rsquo;s existing design language.</p>
-        <img class="cs-img" src="./projects/jaga/image.png" alt="Chat screens" />
-        <img class="cs-img" src="./projects/jaga/image 1.png" alt="Chat screens" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/jaga/image 2.png" alt="Chat screens" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/jaga/image 3.png" alt="Chat screens" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/jaga/image.webp" alt="Chat screens" />
+        <img class="cs-img" src="./projects/jaga/image 1.webp" alt="Chat screens" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/jaga/image 2.webp" alt="Chat screens" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/jaga/image 3.webp" alt="Chat screens" style="margin-top:16px;" />
       </div>
 
       <div class="cs-section">
         <p class="section-label">Calls</p>
         <h2 class="section-heading">Voice, video, and screen sharing.</h2>
         <p class="section-text">Voice and video calls for 1:1 coaching and group sessions. Call history, details view, and screen sharing support &mdash; enabling remote coaching with the same depth as in-person feedback.</p>
-        <img class="cs-img" src="./projects/jaga/image 4.png" alt="Calls screens" />
-        <img class="cs-img" src="./projects/jaga/image 5.png" alt="Calls screens" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/jaga/image 4.webp" alt="Calls screens" />
+        <img class="cs-img" src="./projects/jaga/image 5.webp" alt="Calls screens" style="margin-top:16px;" />
       </div>
 
       <div class="cs-section">
         <p class="section-label">Users</p>
         <h2 class="section-heading">Coach&ndash;student discovery.</h2>
         <p class="section-text">Browse and select users to start conversations. A simple, focused view that makes it easy for students to reach their coaches and vice versa &mdash; without extra friction.</p>
-        <img class="cs-img" src="./projects/jaga/image 6.png" alt="Users screens" />
-        <img class="cs-img" src="./projects/jaga/image 7.png" alt="Users screens" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/jaga/image 6.webp" alt="Users screens" />
+        <img class="cs-img" src="./projects/jaga/image 7.webp" alt="Users screens" style="margin-top:16px;" />
       </div>
 
       <div class="cs-section">
         <p class="section-label">Groups</p>
         <h2 class="section-heading">Organized by class, team, or program.</h2>
         <p class="section-text">Create and manage training groups, add or remove members, edit group details, and view group info &mdash; all within the same navigation flow as the rest of the app.</p>
-        <img class="cs-img" src="./projects/jaga/image 8.png" alt="Groups screens" />
-        <img class="cs-img" src="./projects/jaga/image 9.png" alt="Groups screens" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/jaga/image 10.png" alt="Groups screens" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/jaga/image 11.png" alt="Groups screens" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/jaga/image 8.webp" alt="Groups screens" />
+        <img class="cs-img" src="./projects/jaga/image 9.webp" alt="Groups screens" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/jaga/image 10.webp" alt="Groups screens" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/jaga/image 11.webp" alt="Groups screens" style="margin-top:16px;" />
       </div>
 
       <div class="cs-accent-band">
         <p class="section-label">Outcome</p>
         <h2 class="section-heading">Communication that stays inside the app.</h2>
-        <p class="section-text">By integrating CometChat&rsquo;s components into JAGA&rsquo;s own navigation, we delivered a fully native-feeling communication system &mdash; reducing reliance on external apps, improving coach&ndash;student engagement, and keeping training sessions better organized.</p>
+        <p class="section-text">Chat, calls, and group messaging now live inside JAGA itself &mdash; built by mapping CometChat&rsquo;s components into the app&rsquo;s own navigation, so a third-party system feels native rather than bolted on, and conversations no longer scatter across LINE and WhatsApp.</p>
       </div>
 
       <div class="cs-section">
@@ -1049,7 +1049,7 @@
     `;
 
     if (id === 'myanmarpass') return `
-      <img class="cs-img" src="./projects/myanmarpass/Frame-1.png" alt="MyanmarPass cover" style="border-radius:16px;margin-top:60px;" />
+      <img class="cs-img" src="./projects/myanmarpass/Frame-1.webp" alt="MyanmarPass cover" style="border-radius:16px;margin-top:60px;" />
 
       <div class="cs-section">
         <p class="section-label">Overview</p>
@@ -1114,42 +1114,42 @@
         <p class="section-label">Registration &amp; Worker Protection</p>
         <h2 class="section-heading">A safe place to start.</h2>
         <p class="section-text">A centralized hub for workers to register legally and report issues &mdash; abuse, unpaid wages, unfair treatment &mdash; with direct connection to government agencies through official, verified channels.</p>
-        <img class="cs-img" src="./projects/myanmarpass/image.png" alt="Registration and worker protection screens" />
+        <img class="cs-img" src="./projects/myanmarpass/image.webp" alt="Registration and worker protection screens" />
       </div>
 
       <div class="cs-section">
         <p class="section-label">Digital Identity</p>
         <h2 class="section-heading">A 13-digit ID for the undocumented.</h2>
         <p class="section-text">Workers without existing documentation can apply for a government-issued 13-digit ID directly through the app &mdash; with real-time application tracking so they always know where they stand.</p>
-        <img class="cs-img" src="./projects/myanmarpass/image 1.png" alt="Digital identity screens" />
+        <img class="cs-img" src="./projects/myanmarpass/image 1.webp" alt="Digital identity screens" />
       </div>
 
       <div class="cs-section">
         <p class="section-label">Healthcare Access</p>
         <h2 class="section-heading">Health checks built into onboarding.</h2>
         <p class="section-text">Mandatory health screening is integrated directly into the registration flow. After onboarding, workers have 24/7 access to licensed doctors and a nationwide hospital network &mdash; no separate system needed.</p>
-        <img class="cs-img" src="./projects/myanmarpass/image 2.png" alt="Healthcare access screens" />
+        <img class="cs-img" src="./projects/myanmarpass/image 2.webp" alt="Healthcare access screens" />
       </div>
 
       <div class="cs-section">
         <p class="section-label">Digital Wallet &amp; Financial Services</p>
         <h2 class="section-heading">Banking without a bank account.</h2>
         <p class="section-text">A secure in-app wallet gives unbanked workers access to financial services &mdash; including cross-border money transfers home to Myanmar, through partnerships with licensed financial institutions.</p>
-        <img class="cs-img" src="./projects/myanmarpass/image 3.png" alt="Digital wallet screens" />
+        <img class="cs-img" src="./projects/myanmarpass/image 3.webp" alt="Digital wallet screens" />
       </div>
 
       <div class="cs-section">
         <p class="section-label">Cross-Border Delivery &amp; Work Permit</p>
         <h2 class="section-heading">More than identity &mdash; a full support system.</h2>
         <p class="section-text">Workers can send goods safely to Myanmar with real-time tracking and multiple payment options. Work permit status and renewal reminders are tracked in the same app, with verified employer profiles to reduce exploitation.</p>
-        <img class="cs-img" src="./projects/myanmarpass/image 4.png" alt="Cross-border delivery screens" />
-        <img class="cs-img" src="./projects/myanmarpass/image 5.png" alt="Work permit management screens" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/myanmarpass/image 4.webp" alt="Cross-border delivery screens" />
+        <img class="cs-img" src="./projects/myanmarpass/image 5.webp" alt="Work permit management screens" style="margin-top:16px;" />
       </div>
 
       <div class="cs-accent-band">
         <p class="section-label">Outcome</p>
         <h2 class="section-heading">Visibility, safety, and dignity at scale.</h2>
-        <p class="section-text">MyanmarPass aims to increase legal worker registration, reduce exploitation and illegal employment, improve access to healthcare and financial services, and strengthen government visibility &mdash; all while enabling safer cross-border support for workers&rsquo; families.</p>
+        <p class="section-text">A ten-day sprint that gathers four essential journeys for migrant workers &mdash; registration, healthcare, sending money home, and reporting abuse &mdash; into one mobile-first app, designed so trust and clarity carry every step for users who can take neither for granted.</p>
       </div>
 
       <div class="cs-section">
@@ -1163,7 +1163,7 @@
     `;
 
     if (id === 'submarine') return `
-      <img class="cs-img" src="./projects/submarine/image.png" alt="Piston Ballast Tank Submarine cover" style="border-radius:16px;margin-top:60px;" />
+      <img class="cs-img" src="./projects/submarine/image.webp" alt="Piston Ballast Tank Submarine cover" style="border-radius:16px;margin-top:60px;" />
 
       <div class="cs-section">
         <p class="section-label">Overview</p>
@@ -1207,27 +1207,27 @@
       <div class="cs-section">
         <p class="section-label">Design Process</p>
         <h2 class="section-heading">From first iteration to final concept.</h2>
-        <img class="cs-img" src="./projects/submarine/slide-first-iteration.png" alt="First iteration — dual cylinder layout with engineering drawings" />
-        <img class="cs-img" src="./projects/submarine/slide-exploded.png" alt="Exploded assembly view of the ballast tank system" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/submarine/slide-final-concept.png" alt="Final concept engineering drawings" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/submarine/slide-first-iteration.webp" alt="First iteration — dual cylinder layout with engineering drawings" />
+        <img class="cs-img" src="./projects/submarine/slide-exploded.webp" alt="Exploded assembly view of the ballast tank system" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/submarine/slide-final-concept.webp" alt="Final concept engineering drawings" style="margin-top:16px;" />
       </div>
 
       <div class="cs-section">
         <p class="section-label">Final Design</p>
         <h2 class="section-heading">Four-cylinder modular assembly.</h2>
-        <img class="cs-img" src="./projects/submarine/slide-final-design.png" alt="Final design render" />
-        <img class="cs-img" src="./projects/submarine/slide-final-detail.png" alt="Final design — piston extended and retracted states" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/submarine/slide-top-view.png" alt="Top and bottom views of final assembly" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/submarine/Screenshot_2569-04-20_at_11.02.26.png" alt="Submarine assembly view" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/submarine/Screenshot_2569-04-20_at_11.02.03.png" alt="Submarine detail" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/submarine/Screenshot_2569-04-20_at_11.02.15.png" alt="Submarine detail" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/submarine/Screenshot_2569-04-20_at_11.04.03.png" alt="Submarine section view" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/submarine/Screenshot_2569-04-20_at_11.03.38.png" alt="Submarine section view" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/submarine/slide-final-design.webp" alt="Final design render" />
+        <img class="cs-img" src="./projects/submarine/slide-final-detail.webp" alt="Final design — piston extended and retracted states" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/submarine/slide-top-view.webp" alt="Top and bottom views of final assembly" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/submarine/Screenshot_2569-04-20_at_11.02.26.webp" alt="Submarine assembly view" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/submarine/Screenshot_2569-04-20_at_11.02.03.webp" alt="Submarine detail" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/submarine/Screenshot_2569-04-20_at_11.02.15.webp" alt="Submarine detail" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/submarine/Screenshot_2569-04-20_at_11.04.03.webp" alt="Submarine section view" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/submarine/Screenshot_2569-04-20_at_11.03.38.webp" alt="Submarine section view" style="margin-top:16px;" />
       </div>
     `;
 
     if (id === 'hera') return `
-      <img class="cs-img" src="./projects/hera/Screenshot_2569-04-20_at_10.51.40.png" alt="RISA robot render" style="border-radius:16px;margin-top:60px;" />
+      <img class="cs-img" src="./projects/hera/Screenshot_2569-04-20_at_10.51.40.webp" alt="RISA robot render" style="border-radius:16px;margin-top:60px;" />
 
       <div class="cs-section">
         <p class="section-label">Overview</p>
@@ -1246,10 +1246,10 @@
         <p class="section-label">Body Design</p>
         <h2 class="section-heading">Four floors. Everything in its place.</h2>
         <p class="section-text">The cylindrical body is organized into four stacked floors: the bottom floor houses the battery and power components, the second holds the LiDAR sensor at the ideal scanning height, the third carries the main processing board, and the top floor anchors the wheel attachment system. A separate rotating head unit — a screen mount designed for face-level interaction — sits above the body.</p>
-        <img class="cs-img" src="./projects/hera/KG.png" alt="Robot body 3D render" style="margin-top:28px;" />
-        <img class="cs-img" src="./projects/hera/KG_(3).png" alt="Floor breakdown diagram" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/hera/KG_(4).png" alt="Head and display unit renders" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/hera/KG_(2).png" alt="Shelf carrier variant design" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/hera/KG.webp" alt="Robot body 3D render" style="margin-top:28px;" />
+        <img class="cs-img" src="./projects/hera/KG_(3).webp" alt="Floor breakdown diagram" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/hera/KG_(4).webp" alt="Head and display unit renders" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/hera/KG_(2).webp" alt="Shelf carrier variant design" style="margin-top:16px;" />
       </div>
 
       <div class="cs-section">
@@ -1263,46 +1263,46 @@
             exposure="0.52" tone-mapping="commerce" style="background:#3a4448;">
           </model-viewer>
         </div>
-        <img class="cs-img" src="./projects/hera/Screenshot_2569-04-20_at_10.52.02.png" alt="Fusion 360 render side" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/hera/Screenshot_2569-04-20_at_11.05.48.png" alt="Component detail view" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/hera/Screenshot_2569-04-20_at_11.06.00.png" alt="Component detail view" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/hera/Screenshot_2569-04-20_at_11.06.22.png" alt="Assembly exploded view" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/hera/Screenshot_2569-04-20_at_10.52.02.webp" alt="Fusion 360 render side" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/hera/Screenshot_2569-04-20_at_11.05.48.webp" alt="Component detail view" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/hera/Screenshot_2569-04-20_at_11.06.00.webp" alt="Component detail view" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/hera/Screenshot_2569-04-20_at_11.06.22.webp" alt="Assembly exploded view" style="margin-top:16px;" />
       </div>
 
       <div class="cs-section">
         <p class="section-label">Build</p>
         <h2 class="section-heading">3D printed, then assembled.</h2>
         <p class="section-text">Shell panels were 3D printed in sections and assembled around the mechanical frame. Multiple print iterations were needed to dial in tolerances between the curved panels and the internal hardware mounts.</p>
-        <img class="cs-img" src="./projects/hera/KG_(5).png" alt="3D printing process" style="margin-top:28px;" />
-        <img class="cs-img" src="./projects/hera/KG_(6).png" alt="Assembly and integration" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/hera/KG_(5).webp" alt="3D printing process" style="margin-top:28px;" />
+        <img class="cs-img" src="./projects/hera/KG_(6).webp" alt="Assembly and integration" style="margin-top:16px;" />
       </div>
 
       <div class="cs-section">
         <p class="section-label">System</p>
         <h2 class="section-heading">Hardware and software working together.</h2>
         <p class="section-text">RISA's navigation runs on ROS, fed by a LiDAR and IMU. For conversation, OpenAI Whisper handles speech recognition and BotNoi handles TTS output. Questions are answered by Llama 3.2 + Mistral, backed by a RAG pipeline — program data loaded from PDFs, split, embedded, and stored in Chroma vector DB via MongoDB.</p>
-        <img class="cs-img" src="./projects/hera/13.png" alt="System flow diagram" style="margin-top:28px;" />
-        <img class="cs-img" src="./projects/hera/Nanon.png" alt="Full methodology diagram" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/hera/Phoom.png" alt="ROS navigation stack" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/hera/Phoom_(2).png" alt="LiDAR map of HM Robotic Lab" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/hera/13.webp" alt="System flow diagram" style="margin-top:28px;" />
+        <img class="cs-img" src="./projects/hera/Nanon.webp" alt="Full methodology diagram" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/hera/Phoom.webp" alt="ROS navigation stack" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/hera/Phoom_(2).webp" alt="LiDAR map of HM Robotic Lab" style="margin-top:16px;" />
       </div>
 
       <div class="cs-section">
         <p class="section-label">Interface</p>
         <h2 class="section-heading">Two modes: talk or navigate.</h2>
         <p class="section-text">The React + Flask interface starts with an animated welcome screen, then lets users choose between Interactive Mode (conversational Q&amp;A) and Navigation Mode (autonomous pathfinding inside the lab).</p>
-        <img class="cs-img" src="./projects/hera/Phoom_(6).png" alt="Welcome screen and mode selection" style="margin-top:28px;" />
-        <img class="cs-img" src="./projects/hera/Phoom_(7).png" alt="Interactive and navigation mode screens" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/hera/Phoom_(6).webp" alt="Welcome screen and mode selection" style="margin-top:28px;" />
+        <img class="cs-img" src="./projects/hera/Phoom_(7).webp" alt="Interactive and navigation mode screens" style="margin-top:16px;" />
       </div>
 
       <div class="cs-section">
         <p class="section-label">Results</p>
         <h2 class="section-heading">Tested, validated, and presented internationally.</h2>
         <p class="section-text">Human detection achieved over 90% confidence under natural indoor lighting using YOLOv5s. Face recognition reached 70–75% accuracy at recommended dataset sizes. The LLM with RAG pipeline correctly answered 9 of 10 unit test questions on curriculum and department data. The project was presented at an International Symposium at VISTEC (Vidyasirimedhi Institute of Science and Technology).</p>
-        <img class="cs-img" src="./projects/hera/Phoom_(8).png" alt="Detection and recognition results" style="margin-top:28px;" />
-        <img class="cs-img" src="./projects/hera/Nanon_(4).png" alt="LLM with RAG unit test results" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/hera/Jn_(5).png" alt="International Symposium at VISTEC" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/hera/video.png" alt="RISA team with robot" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/hera/Phoom_(8).webp" alt="Detection and recognition results" style="margin-top:28px;" />
+        <img class="cs-img" src="./projects/hera/Nanon_(4).webp" alt="LLM with RAG unit test results" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/hera/Jn_(5).webp" alt="International Symposium at VISTEC" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/hera/video.webp" alt="RISA team with robot" style="margin-top:16px;" />
       </div>
 
       <div class="cs-accent-band">
@@ -1313,7 +1313,7 @@
     `;
 
     if (id === 'software') return `
-      <img class="cs-img" src="./projects/weather/18.png" alt="Simple Weather App" style="border-radius:16px;margin-top:60px;" />
+      <img class="cs-img" src="./projects/weather/18.webp" alt="Simple Weather App" style="border-radius:16px;margin-top:60px;" />
 
       <div class="cs-section">
         <p class="section-label">Overview</p>
@@ -1372,7 +1372,7 @@
 )</code></pre>
       </div>
 
-      <img class="cs-img" src="./projects/weather/19.png" alt="Weather App screens" style="margin-top:40px;" />
+      <img class="cs-img" src="./projects/weather/19.webp" alt="Weather App screens" style="margin-top:40px;" />
 
       <div class="cs-accent-band">
         <p class="section-label">Takeaway</p>
@@ -1382,7 +1382,7 @@
     `;
 
     if (id === 'onboarding') return `
-      <img class="cs-img" src="./projects/onboarding/20.png" alt="Onboarding Screen" style="border-radius:16px;margin-top:60px;" />
+      <img class="cs-img" src="./projects/onboarding/20.webp" alt="Onboarding Screen" style="border-radius:16px;margin-top:60px;" />
 
       <div class="cs-section">
         <p class="section-label">Overview</p>
@@ -1436,8 +1436,8 @@
 }</code></pre>
       </div>
 
-      <img class="cs-img" src="./projects/onboarding/21.png" alt="Onboarding screens" style="margin-top:40px;" />
-      <img class="cs-img" src="./projects/onboarding/22.png" alt="Onboarding detail" style="margin-top:16px;" />
+      <img class="cs-img" src="./projects/onboarding/21.webp" alt="Onboarding screens" style="margin-top:40px;" />
+      <img class="cs-img" src="./projects/onboarding/22.webp" alt="Onboarding detail" style="margin-top:16px;" />
 
       <div class="cs-accent-band">
         <p class="section-label">Takeaway</p>
@@ -1447,7 +1447,7 @@
     `;
 
     if (id === 'loginscreen') return `
-      <img class="cs-img" src="./projects/loginscreen/23.png" alt="Login screen" style="border-radius:16px;margin-top:60px;" />
+      <img class="cs-img" src="./projects/loginscreen/23.webp" alt="Login screen" style="border-radius:16px;margin-top:60px;" />
 
       <div class="cs-section">
         <p class="section-label">Overview</p>
@@ -1506,10 +1506,10 @@
 )</code></pre>
       </div>
 
-      <img class="cs-img" src="./projects/loginscreen/24.png" alt="Signup screen" style="margin-top:40px;" />
-      <img class="cs-img" src="./projects/loginscreen/25.png" alt="Verification screen" style="margin-top:16px;" />
-      <img class="cs-img" src="./projects/loginscreen/26.png" alt="Password recovery" style="margin-top:16px;" />
-      <img class="cs-img" src="./projects/loginscreen/27.png" alt="Reset password screen" style="margin-top:16px;" />
+      <img class="cs-img" src="./projects/loginscreen/24.webp" alt="Signup screen" style="margin-top:40px;" />
+      <img class="cs-img" src="./projects/loginscreen/25.webp" alt="Verification screen" style="margin-top:16px;" />
+      <img class="cs-img" src="./projects/loginscreen/26.webp" alt="Password recovery" style="margin-top:16px;" />
+      <img class="cs-img" src="./projects/loginscreen/27.webp" alt="Reset password screen" style="margin-top:16px;" />
 
       <div class="cs-accent-band">
         <p class="section-label">Takeaway</p>
@@ -1519,7 +1519,7 @@
     `;
 
     if (id === 'apollo') return `
-      <img class="cs-img" src="./projects/apollo/Untitled_design.png" alt="MoonShot app" style="border-radius:16px;margin-top:60px;" />
+      <img class="cs-img" src="./projects/apollo/Untitled_design.webp" alt="MoonShot app" style="border-radius:16px;margin-top:60px;" />
 
       <div class="cs-section">
         <p class="section-label">Overview</p>
@@ -1580,8 +1580,8 @@
 }</code></pre>
       </div>
 
-      <img class="cs-img" src="./projects/apollo/1.png" alt="MoonShot grid view" style="margin-top:40px;" />
-      <img class="cs-img" src="./projects/apollo/3.png" alt="MoonShot mission detail" style="margin-top:16px;" />
+      <img class="cs-img" src="./projects/apollo/1.webp" alt="MoonShot grid view" style="margin-top:40px;" />
+      <img class="cs-img" src="./projects/apollo/3.webp" alt="MoonShot mission detail" style="margin-top:16px;" />
 
       <div class="cs-accent-band">
         <p class="section-label">Takeaway</p>
@@ -1591,7 +1591,7 @@
     `;
 
     if (id === 'px500') return `
-      <img class="cs-img" src="./projects/px500/4.png" alt="500px API App" style="border-radius:16px;margin-top:60px;" />
+      <img class="cs-img" src="./projects/px500/4.webp" alt="500px API App" style="border-radius:16px;margin-top:60px;" />
 
       <div class="cs-section">
         <p class="section-label">Overview</p>
@@ -1640,7 +1640,7 @@
     .<span class="tok-fn">refreshable</span> { <span class="tok-kw">await</span> <span class="tok-fn">fetchData</span>() }</code></pre>
       </div>
 
-      <img class="cs-img" src="./projects/px500/5.png" alt="500px app list" style="margin-top:40px;" />
+      <img class="cs-img" src="./projects/px500/5.webp" alt="500px app list" style="margin-top:40px;" />
 
       <div class="cs-accent-band">
         <p class="section-label">Takeaway</p>
@@ -1650,7 +1650,7 @@
     `;
 
     if (id === 'iexpense') return `
-      <img class="cs-img" src="./projects/iexpense/Untitled_design_(1).png" alt="iExpense App" style="border-radius:16px;margin-top:60px;" />
+      <img class="cs-img" src="./projects/iexpense/Untitled_design_(1).webp" alt="iExpense App" style="border-radius:16px;margin-top:60px;" />
 
       <div class="cs-section">
         <p class="section-label">Overview</p>
@@ -1703,7 +1703,7 @@
 }</code></pre>
       </div>
 
-      <img class="cs-img" src="./projects/iexpense/7.png" alt="iExpense list view" style="margin-top:40px;" />
+      <img class="cs-img" src="./projects/iexpense/7.webp" alt="iExpense list view" style="margin-top:40px;" />
 
       <div class="cs-accent-band">
         <p class="section-label">Takeaway</p>
@@ -1713,7 +1713,7 @@
     `;
 
     if (id === 'multiquiz') return `
-      <img class="cs-img" src="./projects/multiquiz/8.png" alt="Multiplication Quiz" style="border-radius:16px;margin-top:60px;" />
+      <img class="cs-img" src="./projects/multiquiz/8.webp" alt="Multiplication Quiz" style="border-radius:16px;margin-top:60px;" />
 
       <div class="cs-section">
         <p class="section-label">Overview</p>
@@ -1774,8 +1774,8 @@
 }</code></pre>
       </div>
 
-      <img class="cs-img" src="./projects/multiquiz/9.png" alt="Quiz question" style="margin-top:40px;" />
-      <img class="cs-img" src="./projects/multiquiz/10.png" alt="Quiz result" style="margin-top:16px;" />
+      <img class="cs-img" src="./projects/multiquiz/9.webp" alt="Quiz question" style="margin-top:40px;" />
+      <img class="cs-img" src="./projects/multiquiz/10.webp" alt="Quiz result" style="margin-top:16px;" />
 
       <div class="cs-accent-band">
         <p class="section-label">Takeaway</p>
@@ -1785,7 +1785,7 @@
     `;
 
     if (id === 'bettersleep') return `
-      <img class="cs-img" src="./projects/bettersleep/13.png" alt="BetterSleep App" style="border-radius:16px;margin-top:60px;" />
+      <img class="cs-img" src="./projects/bettersleep/13.webp" alt="BetterSleep App" style="border-radius:16px;margin-top:60px;" />
 
       <div class="cs-section">
         <p class="section-label">Overview</p>
@@ -1837,7 +1837,7 @@
 }</code></pre>
       </div>
 
-      <img class="cs-img" src="./projects/bettersleep/14.png" alt="BetterSleep result" style="margin-top:40px;" />
+      <img class="cs-img" src="./projects/bettersleep/14.webp" alt="BetterSleep result" style="margin-top:40px;" />
 
       <div class="cs-accent-band">
         <p class="section-label">Takeaway</p>
@@ -1847,7 +1847,7 @@
     `;
 
     if (id === 'guessflag') return `
-      <img class="cs-img" src="./projects/guessflag/11.png" alt="Guess the Flag" style="border-radius:16px;margin-top:60px;" />
+      <img class="cs-img" src="./projects/guessflag/11.webp" alt="Guess the Flag" style="border-radius:16px;margin-top:60px;" />
 
       <div class="cs-section">
         <p class="section-label">Overview</p>
@@ -1901,7 +1901,7 @@
                   axis: (x: <span class="tok-num">0</span>, y: <span class="tok-num">1</span>, z: <span class="tok-num">0</span>))</code></pre>
       </div>
 
-      <img class="cs-img" src="./projects/guessflag/12.png" alt="Flag game answer" style="margin-top:40px;" />
+      <img class="cs-img" src="./projects/guessflag/12.webp" alt="Flag game answer" style="margin-top:40px;" />
 
       <div class="cs-accent-band">
         <p class="section-label">Takeaway</p>
@@ -1911,7 +1911,7 @@
     `;
 
     if (id === 'plantcollect') return `
-      <img class="cs-img" src="./projects/plantcollect/15.png" alt="Plant Collection App" style="border-radius:16px;margin-top:60px;" />
+      <img class="cs-img" src="./projects/plantcollect/15.webp" alt="Plant Collection App" style="border-radius:16px;margin-top:60px;" />
 
       <div class="cs-section">
         <p class="section-label">Overview</p>
@@ -1965,8 +1965,8 @@
 }</code></pre>
       </div>
 
-      <img class="cs-img" src="./projects/plantcollect/16.png" alt="Plant detail page" style="margin-top:40px;" />
-      <img class="cs-img" src="./projects/plantcollect/17.png" alt="Cart page" style="margin-top:16px;" />
+      <img class="cs-img" src="./projects/plantcollect/16.webp" alt="Plant detail page" style="margin-top:40px;" />
+      <img class="cs-img" src="./projects/plantcollect/17.webp" alt="Cart page" style="margin-top:16px;" />
 
       <div class="cs-accent-band">
         <p class="section-label">Takeaway</p>

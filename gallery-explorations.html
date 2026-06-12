@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery Layout — Explorations</title>
+  <style>
+    @font-face {
+      font-family: 'KyivTypeSerif';
+      src: url('fonts/KyivTypeSerif-Regular.woff2') format('woff2'),
+           url('fonts/KyivTypeSerif-Regular.woff') format('woff');
+      font-weight: 400; font-display: swap;
+    }
+    @font-face {
+      font-family: 'KyivTypeSerif';
+      src: url('fonts/KyivTypeSerif-Medium.woff2') format('woff2'),
+           url('fonts/KyivTypeSerif-Medium.woff') format('woff');
+      font-weight: 500; font-display: swap;
+    }
+    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
+
+    :root {
+      --bg:              #191919;
+      --bg-card:         #222222;
+      --bg-card-hover:   #2a2a2a;
+      --text-pri:        #f8f8f8;
+      --text-sec:        rgba(248,248,248,0.72);
+      --text-dim:        rgba(248,248,248,0.40);
+      --border:          rgba(248,248,248,0.07);
+      --border-mid:      rgba(248,248,248,0.12);
+      --ease-spring:     cubic-bezier(0.22, 1, 0.36, 1);
+      --ease-smooth:     cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg); color: var(--text-pri);
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 16px; line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+    /* 800px column = same measure as the live site, so proportions are honest */
+    .page { max-width: 800px; margin: 0 auto; padding: 64px 24px 140px; }
+
+    .page-kicker {
+      font-family: 'DM Mono', monospace; font-size: 11px;
+      letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-dim);
+    }
+    .page-title {
+      font-family: 'KyivTypeSerif', Georgia, serif; font-weight: 500;
+      font-size: clamp(28px, 5vw, 40px); margin-top: 10px; line-height: 1.1;
+    }
+    .page-sub { color: var(--text-sec); font-size: 15px; max-width: 640px; margin-top: 14px; line-height: 1.7; }
+
+    .explore { margin-top: 96px; }
+    .explore-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 6px; }
+    .explore-num { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text-dim); letter-spacing: 0.1em; }
+    .explore-name { font-family: 'KyivTypeSerif', Georgia, serif; font-weight: 500; font-size: 21px; }
+    .explore-desc { color: var(--text-sec); font-size: 14px; line-height: 1.6; max-width: 640px; margin-bottom: 26px; }
+    .explore-rule { height: 1px; background: var(--border-mid); margin: 18px 0 26px; }
+
+    /* ── shared card language (matches the live site) ── */
+    .cover {
+      position: relative; overflow: hidden; border-radius: 14px; background: var(--bg-card);
+    }
+    .cover img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform 0.55s var(--ease-spring); backface-visibility: hidden;
+    }
+    .cover::after {
+      content: ''; position: absolute; inset: 0; border-radius: inherit;
+      box-shadow: inset 0 0 0 1px var(--border-mid); pointer-events: none;
+      transition: box-shadow 0.35s var(--ease-smooth);
+    }
+    .eyebrow {
+      display: flex; align-items: center; gap: 9px;
+      font-family: 'DM Mono', monospace; font-size: 9.5px;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-dim);
+      transition: color 0.25s var(--ease-smooth);
+    }
+    .eyebrow::before {
+      content: ''; width: 18px; height: 1px; flex-shrink: 0;
+      background: var(--a, var(--border-mid));
+      transition: width 0.45s var(--ease-spring);
+    }
+    .stitle {
+      font-family: 'KyivTypeSerif', Georgia, serif; font-weight: 400;
+      font-size: 17px; line-height: 1.3; color: var(--text-pri);
+    }
+    .stitle small { color: var(--text-dim); font-size: inherit; font-weight: 400; transition: color 0.25s; }
+    .arrow15 { width: 15px; height: 15px; color: var(--text-dim); flex-shrink: 0;
+      transition: transform 0.35s var(--ease-spring), color 0.25s; }
+    .arrow15 svg { width: 100%; height: 100%; display: block; }
+    .hov:hover .cover img { transform: scale(1.025); }
+    .hov:hover .cover::after { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--a, #888) 45%, transparent); }
+    .hov:hover .eyebrow { color: var(--text-sec); }
+    .hov:hover .eyebrow::before { width: 32px; }
+    .hov:hover .stitle small { color: var(--text-sec); }
+    .hov:hover .arrow15 { color: var(--a); transform: translate(2px,-2px); }
+    .hov { cursor: pointer; }
+
+    /* ════ 01 · BASELINE — what's live now ════ */
+    .g1 { display: grid; grid-template-columns: 1fr 1fr; gap: 32px 22px; }
+    .g1-feature { grid-column: 1 / -1; display: flex; align-items: center; gap: 28px; }
+    .g1-feature .cover { flex: 0 0 58%; aspect-ratio: 16/10; }
+    .g1-feature .g1-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 11px; }
+    .g1-feature .stitle { font-size: 24px; line-height: 1.25; }
+    .g1-hook { font-size: 13.5px; line-height: 1.65; color: var(--text-sec); }
+    .g1-meta { font-family: 'DM Mono', monospace; font-size: 10.5px; letter-spacing: 0.05em; color: var(--text-dim); }
+    .g1-cta { display: inline-flex; align-items: center; gap: 8px; margin-top: 5px;
+      font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.06em;
+      text-transform: uppercase; color: var(--text-sec); transition: color 0.25s; }
+    .hov:hover .g1-cta { color: var(--text-pri); }
+    .g1-card { display: flex; flex-direction: column; }
+    .g1-card .cover { aspect-ratio: 16/10; }
+    .g1-card .g1-body { padding: 13px 2px 0; display: flex; flex-direction: column; gap: 6px; }
+    .g1-trow { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+
+    /* ════ 02 · MOSAIC — flagship tall-left, pair stacked right ════ */
+    .g2 { display: grid; grid-template-columns: 1.6fr 1fr; gap: 22px; }
+    .g2-main { display: flex; flex-direction: column; }
+    .g2-main .cover { aspect-ratio: 4/3.45; }
+    .g2-side { display: flex; flex-direction: column; gap: 22px; }
+    .g2-card { display: flex; flex-direction: column; }
+    .g2-card .cover { aspect-ratio: 16/9; }
+    .g2 .gbody { padding: 12px 2px 0; display: flex; flex-direction: column; gap: 6px; }
+    .g2-main .stitle { font-size: 21px; }
+    .g2-card .stitle { font-size: 15px; }
+    .g2-rest { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 22px; }
+    .g2-rest .g2-card .cover { aspect-ratio: 16/10; }
+    .g2-rest .stitle { font-size: 14.5px; }
+
+    /* ════ 03 · EDITORIAL INDEX — ruled rows, framed thumb ════ */
+    .g3 { display: flex; flex-direction: column; }
+    .g3-row {
+      display: flex; align-items: center; gap: 22px;
+      padding: 20px 2px; border-bottom: 1px solid var(--border);
+    }
+    .g3-row:first-child { border-top: 1px solid var(--border); }
+    .g3-num {
+      font-family: 'KyivTypeSerif', Georgia, serif; font-size: 15px;
+      color: var(--text-dim); flex: 0 0 30px; transition: color 0.25s;
+    }
+    .g3-row:hover .g3-num { color: var(--a); }
+    .g3-mid { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 5px; }
+    .g3-role { font-family: 'DM Mono', monospace; font-size: 10.5px; color: var(--text-dim); letter-spacing: 0.04em; }
+    .g3-thumb { flex: 0 0 132px; }
+    .g3-thumb .cover { aspect-ratio: 16/10; }
+    .g3-feature .g3-thumb { flex: 0 0 264px; }
+    .g3-feature { padding: 26px 2px; }
+    .g3-feature .stitle { font-size: 21px; }
+
+    /* ════ 04 · ZIGZAG — alternating feature rows ════ */
+    .g4 { display: flex; flex-direction: column; gap: 56px; }
+    .g4-row { display: flex; align-items: center; gap: 30px; }
+    .g4-row:nth-child(even) { flex-direction: row-reverse; }
+    .g4-row .cover { flex: 0 0 55%; aspect-ratio: 16/10; }
+    .g4-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 11px; }
+    .g4-row .stitle { font-size: 22px; line-height: 1.25; }
+    .g4-num {
+      font-family: 'KyivTypeSerif', Georgia, serif; font-size: 13px; color: var(--text-dim);
+    }
+
+    /* ════ 05 · TYPOGRAPHIC INDEX + floating preview ════ */
+    .g5 { position: relative; }
+    .g5-row {
+      display: flex; align-items: baseline; gap: 18px;
+      padding: 17px 2px; border-bottom: 1px solid var(--border);
+      cursor: pointer; position: relative;
+    }
+    .g5-row:first-child { border-top: 1px solid var(--border); }
+    .g5-num { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-dim); flex: 0 0 26px; }
+    .g5-title {
+      font-family: 'KyivTypeSerif', Georgia, serif; font-size: 26px; font-weight: 400;
+      line-height: 1.2; color: var(--text-sec); flex: 1; min-width: 0;
+      transition: color 0.25s, transform 0.4s var(--ease-spring);
+    }
+    .g5-row:hover .g5-title { color: var(--text-pri); transform: translateX(6px); }
+    .g5-tag { font-family: 'DM Mono', monospace; font-size: 9.5px; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--text-dim); flex: 0 0 auto; }
+    .g5-preview {
+      position: fixed; z-index: 50; width: 300px; aspect-ratio: 16/10;
+      border-radius: 12px; overflow: hidden; pointer-events: none;
+      opacity: 0; transform: scale(0.96); transition: opacity 0.25s var(--ease-smooth), transform 0.35s var(--ease-spring);
+      box-shadow: 0 18px 50px rgba(0,0,0,0.55), inset 0 0 0 1px var(--border-mid);
+      background: var(--bg-card);
+    }
+    .g5-preview img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .g5-preview.on { opacity: 1; transform: scale(1); }
+
+    /* ════ 06 · SHELF — horizontal scroll, tall plates ════ */
+    .g6-wrap { position: relative; }
+    .g6 {
+      display: flex; gap: 18px; overflow-x: auto; padding: 4px 2px 18px;
+      scroll-snap-type: x mandatory; scrollbar-width: none;
+    }
+    .g6::-webkit-scrollbar { display: none; }
+    .g6-card { flex: 0 0 252px; scroll-snap-align: start; display: flex; flex-direction: column; }
+    .g6-card .cover { aspect-ratio: 4/5; }
+    .g6-card .gbody { padding: 12px 2px 0; display: flex; flex-direction: column; gap: 6px; }
+    .g6-card .stitle { font-size: 15px; }
+    .g6-hint { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--text-dim); margin-top: 4px; }
+
+    .verdict {
+      margin-top: 22px; padding: 13px 16px;
+      background: rgba(248,248,248,0.03); border: 1px solid var(--border); border-radius: 10px;
+      font-size: 13px; line-height: 1.65; color: var(--text-sec);
+    }
+    .verdict b { color: var(--text-pri); font-weight: 500; }
+
+    @media (max-width: 720px) {
+      .g1, .g2, .g2-rest { grid-template-columns: 1fr; }
+      .g1-feature, .g4-row, .g4-row:nth-child(even) { flex-direction: column; align-items: stretch; gap: 13px; }
+      .g1-feature .cover, .g4-row .cover { flex: none; width: 100%; }
+      .g3-thumb { flex: 0 0 96px; }
+      .g3-feature .g3-thumb { flex: 0 0 120px; }
+      .g5-title { font-size: 20px; }
+      .g5-preview { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="page-head">
+      <div class="page-kicker">Sandbox · not linked from the live site</div>
+      <h1 class="page-title">Gallery Layout — Explorations</h1>
+      <p class="page-sub">Six ways to present the project gallery, all in the settled card language (hairline frames, mono eyebrows, serif titles) and at the live site's 800px measure. Real @Mtel projects throughout. Hover everything.</p>
+    </div>
+
+    <!-- 01 -->
+    <section class="explore">
+      <div class="explore-head"><span class="explore-num">01</span><span class="explore-name">Baseline — Feature + Grid</span></div>
+      <p class="explore-desc">What's live now. One flagship at full width, the rest in a two-column grid. The reference point for everything below.</p>
+      <div class="explore-rule"></div>
+      <div class="g1" id="g1"></div>
+      <div class="verdict"><b>Reads:</b> hierarchy + scannability. <b>Risk:</b> the grid half can feel routine if every section uses the identical pattern.</div>
+    </section>
+
+    <!-- 02 -->
+    <section class="explore">
+      <div class="explore-head"><span class="explore-num">02</span><span class="explore-name">Mosaic</span></div>
+      <p class="explore-desc">Flagship as a tall plate on the left, two supporting projects stacked beside it, remainder in a tighter three-up row. Hierarchy through size, not placement — everything stays above the fold.</p>
+      <div class="explore-rule"></div>
+      <div class="g2" id="g2"></div>
+      <div class="verdict"><b>Reads:</b> curated, magazine-like, dense without clutter. <b>Risk:</b> tall crop must flatter the flagship cover; three-up titles get small.</div>
+    </section>
+
+    <!-- 03 -->
+    <section class="explore">
+      <div class="explore-head"><span class="explore-num">03</span><span class="explore-name">Editorial Index</span></div>
+      <p class="explore-desc">Ruled rows like a table of contents — serif number, title, role, framed thumbnail. The flagship row simply gets a double-size thumb. Quietest option; leans fully into the typographic voice.</p>
+      <div class="explore-rule"></div>
+      <div class="g3" id="g3"></div>
+      <div class="verdict"><b>Reads:</b> confident, gallery-list elegance; scales to many projects effortlessly. <b>Risk:</b> covers shrink to thumbnails — weakest at selling visual work on sight.</div>
+    </section>
+
+    <!-- 04 -->
+    <section class="explore">
+      <div class="explore-head"><span class="explore-num">04</span><span class="explore-name">Zigzag Features</span></div>
+      <p class="explore-desc">Every project at feature scale, covers alternating left/right. This is the "all projects get the look" direction you asked about — judge it with six real projects.</p>
+      <div class="explore-rule"></div>
+      <div class="g4" id="g4"></div>
+      <div class="verdict"><b>Reads:</b> generous, each project breathes. <b>Risk:</b> flat hierarchy and a long corridor — six projects ≈ four viewports of scrolling; weak projects get the same stage as ThaiPass.</div>
+    </section>
+
+    <!-- 05 -->
+    <section class="explore">
+      <div class="explore-head"><span class="explore-num">05</span><span class="explore-name">Typographic Index + Hover Preview</span></div>
+      <p class="explore-desc">Pure serif list — big titles, no images at rest. The cover floats in beside the cursor on hover. Maximum elegance, maximum confidence; the work reveals itself on intent.</p>
+      <div class="explore-rule"></div>
+      <div class="g5" id="g5"></div>
+      <div class="g5-preview" id="g5p"><img alt="" id="g5pimg"></div>
+      <div class="verdict"><b>Reads:</b> the most sophisticated of the six — studio-grade restraint. <b>Risk:</b> hides the visuals by default (recruiters may never hover), and dies on touch devices — needs a mobile fallback with thumbs.</div>
+    </section>
+
+    <!-- 06 -->
+    <section class="explore">
+      <div class="explore-head"><span class="explore-num">06</span><span class="explore-name">Shelf</span></div>
+      <p class="explore-desc">Horizontal scroll-snap shelf of tall 4:5 plates. Compact vertically — a whole section in one band — with momentum that invites browsing.</p>
+      <div class="explore-rule"></div>
+      <div class="g6-wrap">
+        <div class="g6" id="g6"></div>
+        <div class="g6-hint">Scroll sideways →</div>
+      </div>
+      <div class="verdict"><b>Reads:</b> modern, app-like, saves vertical space across five sections. <b>Risk:</b> content past card three is invisible unless scrolled; horizontal scroll on desktop divides opinion.</div>
+    </section>
+  </div>
+
+  <script>
+    const ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg>';
+
+    const P = [
+      { id:'thaipass',   name:'ThaiPass App',  desc:'Travel Companion',           cover:'./projects/thaipass/cover.webp',    a:'#C8783A', tag:'Production', role:'UX / UI Designer', time:'6 Months',
+        hook:'Everything a traveller needs before landing in Thailand — vouchers, FastPass, transport, eSIM, and insurance in one guided journey.' },
+      { id:'bcc',        name:'BCC Website',   desc:'Calculation Program',        cover:'./projects/bcc/cover.webp',         a:'#4C91DB', tag:'Production', role:'Designer & PO',    time:'3 Months' },
+      { id:'netzero',    name:'Net Zero',      desc:'Government Carbon Platform', cover:'./projects/netzero/Frame_(1).webp', a:'#56AE7C', tag:'Concept',    role:'Designer & PO',    time:'2 Weeks' },
+      { id:'myanmarpass',name:'MyanmarPass App', desc:'',                         cover:'./projects/myanmarpass/Frame-1.webp', a:'#C4556A', tag:'Concept',  role:'UX / UI Designer', time:'10 Days' },
+      { id:'jaga',       name:'JAGA App',      desc:'CometChat Feature',          cover:'./projects/jaga/Frame.webp',        a:'#58B05A', tag:'Production', role:'UX / UI Designer', time:'3 Weeks' },
+      { id:'onebangkok', name:'One Bangkok App', desc:'Showcase Video',           cover:'./projects/onebangkok/cover.webp',  a:'#D4A050', tag:'Production', role:'Motion Designer',  time:'1 Week' },
+    ];
+
+    const T = p => `${p.name}${p.desc ? ` <small>— ${p.desc}</small>` : ''}`;
+    const eyebrow = (p, extra) => `<span class="eyebrow">${extra ? extra + ' &middot; ' : ''}UX / UI &middot; ${p.tag}</span>`;
+
+    /* 01 · Baseline */
+    const [f, ...rest] = P;
+    document.getElementById('g1').innerHTML = `
+      <div class="g1-feature hov" style="--a:${f.a}">
+        <div class="cover"><img src="${f.cover}" alt="${f.name}"></div>
+        <div class="g1-body">
+          ${eyebrow(f, 'Featured')}
+          <span class="stitle">${T(f)}</span>
+          <p class="g1-hook">${f.hook}</p>
+          <span class="g1-meta">${f.role} &middot; ${f.time} &middot; Mobile App</span>
+          <span class="g1-cta">View case study <span class="arrow15">${ARROW}</span></span>
+        </div>
+      </div>` +
+      rest.slice(0, 4).map(p => `
+      <div class="g1-card hov" style="--a:${p.a}">
+        <div class="cover"><img src="${p.cover}" alt="${p.name}"></div>
+        <div class="g1-body">
+          ${eyebrow(p)}
+          <div class="g1-trow"><span class="stitle">${T(p)}</span><span class="arrow15">${ARROW}</span></div>
+        </div>
+      </div>`).join('');
+
+    /* 02 · Mosaic */
+    document.getElementById('g2').innerHTML = `
+      <div class="g2-main hov" style="--a:${f.a}">
+        <div class="cover"><img src="${f.cover}" alt="${f.name}"></div>
+        <div class="gbody">
+          ${eyebrow(f, 'Featured')}
+          <div class="g1-trow"><span class="stitle">${T(f)}</span><span class="arrow15">${ARROW}</span></div>
+        </div>
+      </div>
+      <div class="g2-side">${rest.slice(0, 2).map(p => `
+        <div class="g2-card hov" style="--a:${p.a}">
+          <div class="cover"><img src="${p.cover}" alt="${p.name}"></div>
+          <div class="gbody">
+            ${eyebrow(p)}
+            <div class="g1-trow"><span class="stitle">${T(p)}</span><span class="arrow15">${ARROW}</span></div>
+          </div>
+        </div>`).join('')}
+      </div>
+      <div class="g2-rest">${rest.slice(2, 5).map(p => `
+        <div class="g2-card hov" style="--a:${p.a}">
+          <div class="cover"><img src="${p.cover}" alt="${p.name}"></div>
+          <div class="gbody">
+            ${eyebrow(p)}
+            <div class="g1-trow"><span class="stitle">${T(p)}</span><span class="arrow15">${ARROW}</span></div>
+          </div>
+        </div>`).join('')}
+      </div>`;
+
+    /* 03 · Editorial Index */
+    document.getElementById('g3').innerHTML = P.map((p, i) => `
+      <div class="g3-row hov ${i === 0 ? 'g3-feature' : ''}" style="--a:${p.a}">
+        <span class="g3-num">${String(i + 1).padStart(2, '0')}</span>
+        <div class="g3-mid">
+          ${eyebrow(p, i === 0 ? 'Featured' : '')}
+          <span class="stitle">${T(p)}</span>
+          <span class="g3-role">${p.role} &middot; ${p.time}</span>
+        </div>
+        <div class="g3-thumb"><div class="cover"><img src="${p.cover}" alt="${p.name}" loading="lazy"></div></div>
+        <span class="arrow15">${ARROW}</span>
+      </div>`).join('');
+
+    /* 04 · Zigzag */
+    document.getElementById('g4').innerHTML = P.map((p, i) => `
+      <div class="g4-row hov" style="--a:${p.a}">
+        <div class="cover"><img src="${p.cover}" alt="${p.name}" loading="lazy"></div>
+        <div class="g4-body">
+          <span class="g4-num">${String(i + 1).padStart(2, '0')}</span>
+          ${eyebrow(p)}
+          <span class="stitle">${T(p)}</span>
+          <span class="g1-meta">${p.role} &middot; ${p.time}</span>
+          <span class="g1-cta">View case study <span class="arrow15">${ARROW}</span></span>
+        </div>
+      </div>`).join('');
+
+    /* 05 · Typographic index + hover preview */
+    document.getElementById('g5').innerHTML = P.map((p, i) => `
+      <div class="g5-row" data-cover="${p.cover}" style="--a:${p.a}">
+        <span class="g5-num">${String(i + 1).padStart(2, '0')}</span>
+        <span class="g5-title">${T(p)}</span>
+        <span class="g5-tag">${p.tag}</span>
+      </div>`).join('');
+
+    const pv = document.getElementById('g5p'), pvImg = document.getElementById('g5pimg');
+    document.getElementById('g5').addEventListener('pointermove', e => {
+      const row = e.target.closest('.g5-row');
+      if (!row) { pv.classList.remove('on'); return; }
+      if (pvImg.getAttribute('src') !== row.dataset.cover) pvImg.src = row.dataset.cover;
+      pv.style.left = Math.min(e.clientX + 26, innerWidth - 320) + 'px';
+      pv.style.top  = Math.min(e.clientY - 90, innerHeight - 230) + 'px';
+      pv.classList.add('on');
+    });
+    document.getElementById('g5').addEventListener('pointerleave', () => pv.classList.remove('on'));
+
+    /* 06 · Shelf */
+    document.getElementById('g6').innerHTML = P.map(p => `
+      <div class="g6-card hov" style="--a:${p.a}">
+        <div class="cover"><img src="${p.cover}" alt="${p.name}" loading="lazy"></div>
+        <div class="gbody">
+          ${eyebrow(p)}
+          <div class="g1-trow"><span class="stitle">${p.name}</span><span class="arrow15">${ARROW}</span></div>
+        </div>
+      </div>`).join('');
+  </script>
+</body>
+</html>

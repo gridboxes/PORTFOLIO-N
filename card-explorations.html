@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Card Design Explorations</title>
+  <style>
+    @font-face {
+      font-family: 'KyivTypeSerif';
+      src: url('fonts/KyivTypeSerif-Regular.woff2') format('woff2'),
+           url('fonts/KyivTypeSerif-Regular.woff') format('woff');
+      font-weight: 400; font-display: swap;
+    }
+    @font-face {
+      font-family: 'KyivTypeSerif';
+      src: url('fonts/KyivTypeSerif-Medium.woff2') format('woff2'),
+           url('fonts/KyivTypeSerif-Medium.woff') format('woff');
+      font-weight: 500; font-display: swap;
+    }
+    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
+
+    :root {
+      --bg:              #191919;
+      --bg-card:         #222222;
+      --bg-card-hover:   #2a2a2a;
+      --text-pri:        #f8f8f8;
+      --text-sec:        rgba(248,248,248,0.72);
+      --text-dim:        rgba(248,248,248,0.40);
+      --border:          rgba(248,248,248,0.07);
+      --border-mid:      rgba(248,248,248,0.12);
+      --ease-spring:     cubic-bezier(0.22, 1, 0.36, 1);
+      --ease-smooth:     cubic-bezier(0.4, 0, 0.2, 1);
+      --shadow-card:     0 2px 12px rgba(0,0,0,0.28);
+      --shadow-card-up:  0 6px 24px rgba(0,0,0,0.40);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text-pri);
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 16px; line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+    .page { max-width: 1080px; margin: 0 auto; padding: 64px 32px 120px; }
+
+    /* ── Page header ── */
+    .page-head { margin-bottom: 14px; }
+    .page-kicker {
+      font-family: 'DM Mono', monospace; font-size: 11px;
+      letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-dim);
+    }
+    .page-title {
+      font-family: 'KyivTypeSerif', Georgia, serif; font-weight: 500;
+      font-size: clamp(28px, 5vw, 40px); margin-top: 10px; line-height: 1.1;
+    }
+    .page-sub { color: var(--text-sec); font-size: 15px; max-width: 620px; margin-top: 14px; line-height: 1.7; }
+
+    /* ── Exploration row scaffold ── */
+    .explore { margin-top: 64px; }
+    .explore-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 6px; }
+    .explore-num {
+      font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text-dim);
+      letter-spacing: 0.1em;
+    }
+    .explore-name {
+      font-family: 'KyivTypeSerif', Georgia, serif; font-weight: 500; font-size: 21px;
+    }
+    .explore-desc { color: var(--text-sec); font-size: 14px; line-height: 1.6; max-width: 640px; margin-bottom: 22px; }
+    .explore-rule { height: 1px; background: var(--border-mid); margin: 18px 0 22px; }
+
+    .row { display: flex; gap: 16px; flex-wrap: wrap; }
+    .row > * { --a: #888; }
+
+    /* ════════════════════════════════════════════════════════
+       01 · SPLIT LANDSCAPE — cover left, content right
+       ════════════════════════════════════════════════════════ */
+    .c1 {
+      display: flex; align-items: stretch;
+      width: 520px; max-width: 100%;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px; overflow: hidden; cursor: pointer;
+      transition: transform 0.35s var(--ease-spring), box-shadow 0.35s var(--ease-spring), border-color 0.25s;
+    }
+    .c1:hover { transform: translateY(-3px); box-shadow: var(--shadow-card-up); border-color: var(--border-mid); }
+    .c1-cover { flex: 0 0 168px; position: relative; overflow: hidden; background: #111; }
+    .c1-cover img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.55s var(--ease-spring); }
+    .c1:hover .c1-cover img { transform: scale(1.05); }
+    .c1-body { flex: 1; min-width: 0; padding: 18px 20px; display: flex; flex-direction: column; }
+    .c1-cat {
+      font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--a);
+    }
+    .c1-title {
+      font-family: 'KyivTypeSerif', Georgia, serif; font-size: 18px; line-height: 1.25;
+      margin: 9px 0 auto;
+    }
+    .c1-title small { color: var(--text-dim); font-weight: 400; }
+    .c1-meta { display: flex; gap: 16px; margin-top: 16px; }
+    .c1-meta div { display: flex; flex-direction: column; gap: 3px; }
+    .c1-meta .k { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); }
+    .c1-meta .v { font-size: 12.5px; color: var(--text-sec); }
+
+    /* ════════════════════════════════════════════════════════
+       02 · COVER OVERLAY — text sits on the image
+       ════════════════════════════════════════════════════════ */
+    .c2 {
+      position: relative; width: 320px; max-width: 100%; aspect-ratio: 4/5;
+      border-radius: 16px; overflow: hidden; cursor: pointer;
+      border: 1px solid var(--border);
+      transition: transform 0.35s var(--ease-spring), box-shadow 0.35s var(--ease-spring);
+    }
+    .c2:hover { transform: translateY(-3px); box-shadow: var(--shadow-card-up); }
+    .c2 img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s var(--ease-spring); }
+    .c2:hover img { transform: scale(1.05); }
+    .c2::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(8,8,8,0.92) 0%, rgba(8,8,8,0.45) 38%, rgba(8,8,8,0) 66%);
+    }
+    .c2-tag {
+      position: absolute; top: 12px; left: 12px; z-index: 2;
+      font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
+      color: #fff; background: rgba(10,10,10,0.5); backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.16); padding: 4px 9px; border-radius: 99px;
+    }
+    .c2-body { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding: 18px; }
+    .c2-rule { width: 26px; height: 2px; border-radius: 2px; background: var(--a); margin-bottom: 11px; }
+    .c2-title { font-family: 'KyivTypeSerif', Georgia, serif; font-size: 19px; line-height: 1.2; }
+    .c2-role { font-family: 'DM Mono', monospace; font-size: 10.5px; color: rgba(248,248,248,0.7); margin-top: 8px; letter-spacing: 0.04em; }
+
+    /* ════════════════════════════════════════════════════════
+       03 · EDITORIAL INDEX — big number, text-forward
+       ════════════════════════════════════════════════════════ */
+    .c3 {
+      display: flex; align-items: center; gap: 20px;
+      width: 520px; max-width: 100%;
+      padding: 18px 20px 18px 8px;
+      border-radius: 14px; cursor: pointer;
+      border: 1px solid transparent;
+      transition: background 0.25s, border-color 0.25s, transform 0.3s var(--ease-spring);
+    }
+    .c3:hover { background: var(--bg-card); border-color: var(--border); transform: translateX(2px); }
+    .c3-num {
+      font-family: 'KyivTypeSerif', Georgia, serif; font-size: 40px; line-height: 1;
+      color: var(--text-dim); flex: 0 0 auto; min-width: 52px; text-align: center;
+      transition: color 0.25s;
+    }
+    .c3:hover .c3-num { color: var(--a); }
+    .c3-mid { flex: 1; min-width: 0; }
+    .c3-cat { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--a); }
+    .c3-title { font-family: 'KyivTypeSerif', Georgia, serif; font-size: 18px; line-height: 1.25; margin: 6px 0 4px; }
+    .c3-title small { color: var(--text-dim); font-weight: 400; }
+    .c3-role { font-size: 12.5px; color: var(--text-sec); }
+    .c3-thumb { flex: 0 0 64px; width: 64px; height: 64px; border-radius: 10px; overflow: hidden; background: #111; }
+    .c3-thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* ════════════════════════════════════════════════════════
+       04 · FLAT + ACCENT TOP — meta chips
+       ════════════════════════════════════════════════════════ */
+    .c4 {
+      width: 300px; max-width: 100%;
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 16px; overflow: hidden; cursor: pointer; position: relative;
+      transition: transform 0.35s var(--ease-spring), box-shadow 0.35s var(--ease-spring), border-color 0.25s;
+    }
+    .c4::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--a); z-index: 2; }
+    .c4:hover { transform: translateY(-3px); box-shadow: var(--shadow-card-up); border-color: var(--border-mid); }
+    .c4-cover { aspect-ratio: 16/10; overflow: hidden; background: #111; }
+    .c4-cover img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.55s var(--ease-spring); }
+    .c4:hover .c4-cover img { transform: scale(1.04); }
+    .c4-body { padding: 16px 16px 18px; }
+    .c4-title { font-family: 'KyivTypeSerif', Georgia, serif; font-size: 17px; line-height: 1.25; }
+    .c4-title small { color: var(--text-dim); font-weight: 400; }
+    .c4-chips { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 13px; }
+    .c4-chip {
+      font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.04em;
+      color: var(--text-sec); background: rgba(248,248,248,0.05);
+      border: 1px solid var(--border); padding: 4px 9px; border-radius: 99px;
+    }
+
+    /* ════════════════════════════════════════════════════════
+       05 · FEATURE ASYMMETRIC — big cover, persistent arrow
+       ════════════════════════════════════════════════════════ */
+    .c5 {
+      position: relative; width: 340px; max-width: 100%;
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 18px; overflow: hidden; cursor: pointer;
+      transition: transform 0.35s var(--ease-spring), box-shadow 0.35s var(--ease-spring), border-color 0.25s;
+    }
+    .c5:hover { transform: translateY(-4px); box-shadow: var(--shadow-card-up); border-color: var(--a); }
+    .c5-cover { position: relative; aspect-ratio: 3/2; overflow: hidden; background: #111; }
+    .c5-cover img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s var(--ease-spring); }
+    .c5:hover .c5-cover img { transform: scale(1.05); }
+    .c5-tag {
+      position: absolute; top: 12px; left: 12px;
+      font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
+      color: #fff; background: rgba(10,10,10,0.5); backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.16); padding: 4px 9px; border-radius: 99px;
+    }
+    .c5-body { display: flex; align-items: center; gap: 12px; padding: 16px 16px 18px; }
+    .c5-text { flex: 1; min-width: 0; }
+    .c5-cat { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--a); }
+    .c5-title { font-family: 'KyivTypeSerif', Georgia, serif; font-size: 17px; line-height: 1.25; margin-top: 6px; }
+    .c5-title small { color: var(--text-dim); font-weight: 400; }
+    .c5-arrow {
+      flex: 0 0 40px; width: 40px; height: 40px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--a); border: 1px solid var(--border-mid);
+      transition: transform 0.3s var(--ease-spring), background 0.25s;
+    }
+    .c5:hover .c5-arrow { transform: translateX(3px); background: rgba(248,248,248,0.05); }
+    .c5-arrow svg { width: 17px; height: 17px; }
+
+    /* ════════════════════════════════════════════════════════
+       06 · COMPACT LIST — thin full-width rows
+       ════════════════════════════════════════════════════════ */
+    .c6-wrap { width: 100%; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; background: var(--bg-card); }
+    .c6 {
+      display: flex; align-items: center; gap: 16px;
+      padding: 15px 20px; cursor: pointer; position: relative;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s var(--ease-smooth);
+    }
+    .c6:last-child { border-bottom: none; }
+    .c6:hover { background: var(--bg-card-hover); }
+    .c6-dot { flex: 0 0 7px; width: 7px; height: 7px; border-radius: 50%; background: var(--a); }
+    .c6-num { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-dim); flex: 0 0 24px; }
+    .c6-title { font-family: 'KyivTypeSerif', Georgia, serif; font-size: 16px; flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .c6-title small { color: var(--text-dim); font-weight: 400; }
+    .c6-role { font-family: 'DM Mono', monospace; font-size: 10.5px; color: var(--text-sec); flex: 0 0 auto; }
+    .c6-tag {
+      font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--text-dim); border: 1px solid var(--border); padding: 3px 8px; border-radius: 99px; flex: 0 0 auto;
+    }
+    .c6-arrow { flex: 0 0 auto; color: var(--text-dim); transition: transform 0.3s var(--ease-spring), color 0.2s; }
+    .c6:hover .c6-arrow { transform: translateX(3px); color: var(--a); }
+    .c6-arrow svg { width: 16px; height: 16px; display: block; }
+
+    @media (max-width: 560px) {
+      .c1, .c3 { width: 100%; }
+      .c6-role, .c6-tag { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="page-head">
+      <div class="page-kicker">Sandbox · not linked from the live site</div>
+      <h1 class="page-title">Project Card — Design Explorations</h1>
+      <p class="page-sub">Six directions for the project card, each shown as its own row with real project data. Hover any card to feel its motion. Tell me which direction (or mix) to take into the live gallery.</p>
+    </div>
+
+    <!-- 01 -->
+    <section class="explore">
+      <div class="explore-head"><span class="explore-num">01</span><span class="explore-name">Split Landscape</span></div>
+      <p class="explore-desc">Cover on the left, content on the right. Reads like a list but keeps the image prominent — good for scanning role &amp; timeline at a glance.</p>
+      <div class="explore-rule"></div>
+      <div class="row" id="row1"></div>
+    </section>
+
+    <!-- 02 -->
+    <section class="explore">
+      <div class="explore-head"><span class="explore-num">02</span><span class="explore-name">Cover Overlay</span></div>
+      <p class="explore-desc">All text lives on the image over a gradient — most visual, most editorial. Title and role read against the cover, accent rule for colour.</p>
+      <div class="explore-rule"></div>
+      <div class="row" id="row2"></div>
+    </section>
+
+    <!-- 03 -->
+    <section class="explore">
+      <div class="explore-head"><span class="explore-num">03</span><span class="explore-name">Editorial Index</span></div>
+      <p class="explore-desc">Big serif index number, text-forward, with a small square thumbnail. Quiet and typographic — leans into the portfolio's serif voice.</p>
+      <div class="explore-rule"></div>
+      <div class="row" id="row3"></div>
+    </section>
+
+    <!-- 04 -->
+    <section class="explore">
+      <div class="explore-head"><span class="explore-num">04</span><span class="explore-name">Flat + Accent Top</span></div>
+      <p class="explore-desc">Closest to the current card, but the project accent becomes a hairline across the top and the meta turns into mono chips. Calm and systematic.</p>
+      <div class="explore-rule"></div>
+      <div class="row" id="row4"></div>
+    </section>
+
+    <!-- 05 -->
+    <section class="explore">
+      <div class="explore-head"><span class="explore-num">05</span><span class="explore-name">Feature Asymmetric</span></div>
+      <p class="explore-desc">Larger cover, floating status tag, and a persistent circular arrow that signals "open" without needing hover. Border picks up the accent on hover.</p>
+      <div class="explore-rule"></div>
+      <div class="row" id="row5"></div>
+    </section>
+
+    <!-- 06 -->
+    <section class="explore">
+      <div class="explore-head"><span class="explore-num">06</span><span class="explore-name">Compact List</span></div>
+      <p class="explore-desc">No grid at all — thin full-width rows with an accent dot, role, and status. Densest option; fits many projects in little vertical space.</p>
+      <div class="explore-rule"></div>
+      <div class="c6-wrap" id="row6"></div>
+    </section>
+  </div>
+
+  <script>
+    const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+
+    // Real project data (name split for the dimmed descriptor after the em-dash)
+    const data = [
+      { name: 'ThaiPass',     desc: 'Travel Companion',        cover: './projects/thaipass/cover.webp',     accent: '#C8783A', cat: 'UX / UI', num: '01', role: 'UX / UI Designer', timeline: '6 Months', tag: 'Production' },
+      { name: 'BCC',          desc: 'Calculation Program',     cover: './projects/bcc/cover.webp',          accent: '#4C91DB', cat: 'UX / UI', num: '02', role: 'Designer & PO',    timeline: '3 Months', tag: 'Production' },
+      { name: 'Net Zero',     desc: 'Carbon Platform',         cover: './projects/netzero/Frame_(1).webp',  accent: '#56AE7C', cat: 'UX / UI', num: '03', role: 'Designer & PO',    timeline: '2 Weeks',  tag: 'Concept' },
+      { name: 'JAGA',         desc: 'CometChat Feature',       cover: './projects/jaga/Frame.webp',         accent: '#58B05A', cat: 'UX / UI', num: '05', role: 'UX / UI Designer', timeline: '3 Weeks',  tag: 'Production' },
+      { name: 'One Bangkok',  desc: 'Showcase Video',          cover: './projects/onebangkok/cover.webp',   accent: '#D4A050', cat: 'Motion',  num: '06', role: 'Motion Designer',  timeline: '1 Week',   tag: 'Production' },
+      { name: 'NIPA',         desc: 'Payment System',          cover: './projects/nipa/image 7.webp',       accent: '#5B82D8', cat: 'UX / UI', num: '07', role: 'UX / UI Designer', timeline: '2 Months', tag: 'Production' },
+    ];
+
+    const T = (p) => `${p.name} <small>— ${p.desc}</small>`;
+
+    // 01 · Split Landscape — first 3
+    document.getElementById('row1').innerHTML = data.slice(0, 3).map(p => `
+      <div class="c1" style="--a:${p.accent}">
+        <div class="c1-cover"><img src="${p.cover}" alt="${p.name}"></div>
+        <div class="c1-body">
+          <span class="c1-cat">${p.cat}</span>
+          <span class="c1-title">${p.name} <small>— ${p.desc}</small></span>
+          <div class="c1-meta">
+            <div><span class="k">Role</span><span class="v">${p.role}</span></div>
+            <div><span class="k">Timeline</span><span class="v">${p.timeline}</span></div>
+          </div>
+        </div>
+      </div>`).join('');
+
+    // 02 · Cover Overlay
+    document.getElementById('row2').innerHTML = data.slice(0, 3).map(p => `
+      <div class="c2" style="--a:${p.accent}">
+        <img src="${p.cover}" alt="${p.name}">
+        <span class="c2-tag">${p.tag}</span>
+        <div class="c2-body">
+          <div class="c2-rule"></div>
+          <div class="c2-title">${T(p)}</div>
+          <div class="c2-role">${p.role} · ${p.timeline}</div>
+        </div>
+      </div>`).join('');
+
+    // 03 · Editorial Index — full list
+    document.getElementById('row3').innerHTML = data.map(p => `
+      <div class="c3" style="--a:${p.accent}">
+        <span class="c3-num">${p.num}</span>
+        <div class="c3-mid">
+          <span class="c3-cat">${p.cat}</span>
+          <div class="c3-title">${T(p)}</div>
+          <div class="c3-role">${p.role} · ${p.timeline}</div>
+        </div>
+        <div class="c3-thumb"><img src="${p.cover}" alt="${p.name}"></div>
+      </div>`).join('');
+
+    // 04 · Flat + Accent Top
+    document.getElementById('row4').innerHTML = data.slice(0, 3).map(p => `
+      <div class="c4" style="--a:${p.accent}">
+        <div class="c4-cover"><img src="${p.cover}" alt="${p.name}"></div>
+        <div class="c4-body">
+          <div class="c4-title">${T(p)}</div>
+          <div class="c4-chips">
+            <span class="c4-chip">${p.role}</span>
+            <span class="c4-chip">${p.timeline}</span>
+            <span class="c4-chip">${p.tag}</span>
+          </div>
+        </div>
+      </div>`).join('');
+
+    // 05 · Feature Asymmetric
+    document.getElementById('row5').innerHTML = data.slice(0, 3).map(p => `
+      <div class="c5" style="--a:${p.accent}">
+        <div class="c5-cover">
+          <img src="${p.cover}" alt="${p.name}">
+          <span class="c5-tag">${p.tag}</span>
+        </div>
+        <div class="c5-body">
+          <div class="c5-text">
+            <span class="c5-cat">${p.cat}</span>
+            <div class="c5-title">${T(p)}</div>
+          </div>
+          <span class="c5-arrow">${arrow}</span>
+        </div>
+      </div>`).join('');
+
+    // 06 · Compact List — full list
+    document.getElementById('row6').innerHTML = data.map(p => `
+      <div class="c6" style="--a:${p.accent}">
+        <span class="c6-dot"></span>
+        <span class="c6-num">${p.num}</span>
+        <span class="c6-title">${T(p)}</span>
+        <span class="c6-role">${p.role}</span>
+        <span class="c6-tag">${p.tag}</span>
+        <span class="c6-arrow">${arrow}</span>
+      </div>`).join('');
+  </script>
+</body>
+</html>
