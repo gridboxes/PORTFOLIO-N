@@ -875,15 +875,6 @@
       flex-direction: column;
       box-shadow: 0 -16px 70px rgba(0,0,0,0.55);
     }
-    /* Project-coloured hairline across the very top of the sheet */
-    .modal-sheet::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      background: var(--modal-accent, #888);
-      z-index: 6;
-    }
     .project-modal.open .modal-sheet { transform: translateY(0); }
 
     /* ── Pinned top bar: grab handle, condensed title, close, progress ── */
@@ -1233,14 +1224,17 @@
       .hero-actions { flex-direction: column; align-items: stretch; }
       .hero-cta { justify-content: center; }
       .tab-bar {
-        height: auto;
-        min-height: 48px;
-        flex-wrap: wrap;
-        align-content: center;
-        row-gap: 4px;
-        padding: 8px 4px;
+        /* scroll sideways instead of wrapping tabs onto a second row */
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
       }
-      .exp-grid, .gallery-grid { grid-template-columns: 1fr; }
+      .tab-bar::-webkit-scrollbar { display: none; }
+      .tab-bar .tab-btn { flex: 0 0 auto; }
+      /* minmax(0,·) — plain 1fr (= minmax(auto,1fr)) lets a long card title
+         force the column wider than the viewport, causing sideways scroll */
+      .exp-grid, .gallery-grid { grid-template-columns: minmax(0, 1fr); }
       .skills-grid, .cert-grid { grid-template-columns: repeat(2, 1fr); }
     }
     /* Hide the floating section nav up to the iPad landscape breakpoint —
