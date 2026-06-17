@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Case Study — Redesigned Architecture (ThaiPass)</title>
+  <style>
+    @font-face { font-family:'KyivTypeSerif'; src:url('fonts/KyivTypeSerif-Regular.woff2') format('woff2'); font-weight:400; font-display:swap; }
+    @font-face { font-family:'KyivTypeSerif'; src:url('fonts/KyivTypeSerif-Medium.woff2') format('woff2'); font-weight:500; font-display:swap; }
+    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
+
+    :root{
+      --bg:#191919; --sheet:#1c1c1c; --bg-card:#222;
+      --text-pri:#f8f8f8; --text-sec:rgba(248,248,248,0.72); --text-dim:rgba(248,248,248,0.40);
+      --border:rgba(248,248,248,0.07); --border-mid:rgba(248,248,248,0.12);
+      --accent:#C8783A; /* ThaiPass */
+      --ease-spring:cubic-bezier(0.22,1,0.36,1);
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{ background:var(--bg); color:var(--text-pri);
+      font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+      -webkit-font-smoothing:antialiased; padding:40px 20px 120px; }
+
+    /* legend */
+    .legend{ max-width:900px; margin:0 auto 28px; border:1px solid var(--border-mid); border-radius:12px;
+      padding:16px 20px; background:rgba(248,248,248,0.02); }
+    .legend h1{ font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:var(--text-dim); font-weight:400; }
+    .legend ul{ list-style:none; margin-top:12px; display:grid; grid-template-columns:1fr 1fr; gap:6px 22px; }
+    .legend li{ font-size:12.5px; color:var(--text-sec); line-height:1.6; padding-left:16px; position:relative; }
+    .legend li::before{ content:'+'; position:absolute; left:0; color:var(--accent); }
+
+    /* sheet — mimics the real modal sheet */
+    .sheet{ max-width:900px; margin:0 auto; background:var(--sheet); border-radius:18px;
+      border:1px solid var(--border-mid); overflow:hidden; }
+    .sheet-bar{ height:52px; display:flex; align-items:center; justify-content:flex-end; padding:0 18px; }
+    .sheet-x{ width:34px;height:34px;border-radius:50%; border:1px solid var(--border-mid); color:var(--text-sec);
+      display:flex;align-items:center;justify-content:center; }
+    .body{ padding:8px 44px 64px; }
+
+    /* ── header ── */
+    .eyebrow{ font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.22em; text-transform:uppercase;
+      color:var(--accent); display:flex; align-items:center; gap:10px; margin-bottom:16px; }
+    .eyebrow::after{ content:''; flex:0 0 24px; height:1px; background:currentColor; opacity:0.6; }
+    .title{ font-family:'KyivTypeSerif',Georgia,serif; font-size:clamp(28px,5vw,42px); font-weight:400; line-height:1.1; }
+    /* NEW: lede — the one-sentence "what & why", read in 5 seconds */
+    .lede{ font-family:'KyivTypeSerif',Georgia,serif; font-size:19px; line-height:1.5; color:var(--text-sec);
+      max-width:620px; margin-top:18px; }
+    .meta{ display:flex; flex-wrap:wrap; gap:26px; padding:20px 0; border-top:1px solid var(--border-mid);
+      border-bottom:1px solid var(--border-mid); margin-top:26px; }
+    .meta-item{ display:flex; flex-direction:column; gap:5px; }
+    .meta-k{ font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.22em; text-transform:uppercase; color:var(--text-dim); }
+    .meta-v{ font-family:'DM Mono',monospace; font-size:12.5px; color:var(--text-sec); }
+
+    /* NEW: TL;DR stat strip — what a 20-second skimmer takes away */
+    .stats{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:24px; }
+    .stat{ background:rgba(248,248,248,0.03); border:1px solid var(--border); border-radius:12px; padding:16px 16px; }
+    .stat-n{ font-family:'KyivTypeSerif',Georgia,serif; font-size:26px; line-height:1; color:var(--text-pri); }
+    .stat-n small{ font-size:15px; color:var(--text-dim); }
+    .stat-l{ font-family:'DM Mono',monospace; font-size:9.5px; letter-spacing:0.1em; text-transform:uppercase;
+      color:var(--text-dim); margin-top:9px; line-height:1.5; }
+
+    /* hero */
+    .hero{ margin-top:34px; }
+    figure{ margin:0; }
+    .frame{ width:100%; border-radius:12px; border:1px solid var(--border-mid); display:block;
+      box-shadow:0 18px 50px rgba(0,0,0,0.38); }
+    figcaption{ font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.02em; color:var(--text-dim);
+      margin-top:11px; padding-left:2px; display:flex; gap:9px; align-items:baseline; }
+    figcaption b{ color:var(--text-sec); font-weight:400; }
+
+    /* ── section: margin label + narrow text column + full-bleed figures ── */
+    .section{ display:grid; grid-template-columns:108px minmax(0,1fr); column-gap:28px; row-gap:22px;
+      margin-top:64px; align-items:start; }
+    .s-label{ grid-column:1; position:sticky; top:18px;
+      font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.16em; text-transform:uppercase;
+      color:var(--accent); opacity:0.9; padding-top:6px; }
+    .s-body{ grid-column:2; max-width:600px; }   /* ~66 chars at 16px */
+    .s-heading{ font-family:'KyivTypeSerif',Georgia,serif; font-size:clamp(21px,4vw,27px); font-weight:400;
+      line-height:1.2; margin-bottom:14px; }
+    .s-text{ font-size:16px; line-height:1.75; color:rgba(248,248,248,0.82); }
+    .s-text + .s-text{ margin-top:14px; }
+    .figure-full{ grid-column:1 / -1; }   /* image breaks out of the text measure */
+
+    .tags{ display:flex; flex-wrap:wrap; gap:8px; margin-top:18px; }
+    .tag{ font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase;
+      color:var(--accent); border:1px solid var(--accent); border-radius:999px; padding:4px 12px; opacity:0.85; }
+
+    .list{ list-style:none; margin-top:16px; display:flex; flex-direction:column; gap:10px; }
+    .list li{ font-size:15px; line-height:1.6; color:var(--text-sec); padding-left:18px; position:relative; }
+    .list li::before{ content:'—'; position:absolute; left:0; color:var(--accent); opacity:0.7; }
+
+    .quote{ border-left:2px solid var(--accent); padding:6px 0 6px 20px; margin-top:24px; }
+    .quote p{ font-family:'KyivTypeSerif',Georgia,serif; font-size:20px; line-height:1.45; color:var(--text-pri); }
+
+    /* research: METHOD shown distinctly from FINDINGS */
+    .method{ margin-top:6px; display:flex; flex-wrap:wrap; gap:8px; }
+    .method-chip{ font-family:'DM Mono',monospace; font-size:11px; color:var(--text-sec);
+      background:rgba(248,248,248,0.04); border:1px solid var(--border); border-radius:8px; padding:7px 11px; }
+    .insights{ margin-top:22px; display:grid; grid-template-columns:1fr 1fr; gap:18px 22px; }
+    .insight{ display:flex; flex-direction:column; gap:6px; }
+    .insight-n{ font-family:'DM Mono',monospace; font-size:11px; color:var(--accent); }
+    .insight-t{ font-size:14.5px; line-height:1.55; color:var(--text-sec); }
+    .insight-t b{ color:var(--text-pri); font-weight:500; }
+
+    /* design process steps */
+    .steps{ margin-top:20px; display:flex; flex-direction:column; gap:2px; }
+    .step{ display:grid; grid-template-columns:38px 1fr; gap:14px; padding:16px 0; border-top:1px solid var(--border); }
+    .step:last-child{ border-bottom:1px solid var(--border); }
+    .step-n{ font-family:'KyivTypeSerif',Georgia,serif; font-size:22px; color:var(--text-dim); line-height:1; }
+    .step-t b{ display:block; font-family:'KyivTypeSerif',Georgia,serif; font-size:17px; margin-bottom:4px; }
+    .step-t span{ font-size:14.5px; line-height:1.6; color:var(--text-sec); }
+
+    /* feature gallery — captioned screens */
+    .features{ grid-column:1 / -1; display:grid; grid-template-columns:1fr 1fr; gap:30px 24px; margin-top:8px; }
+    .feature figcaption{ flex-direction:column; gap:3px; }
+    .feature .f-name{ font-family:'KyivTypeSerif',Georgia,serif; font-size:15px; color:var(--text-pri); }
+
+    /* OUTCOME — stat blocks, not prose */
+    .outcome{ margin-top:72px; background:var(--accent); border-radius:18px; padding:40px 38px; color:#fff; }
+    .outcome .o-label{ font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.25em; text-transform:uppercase; opacity:0.8; }
+    .outcome .o-head{ font-family:'KyivTypeSerif',Georgia,serif; font-size:clamp(22px,4vw,30px); font-weight:400; margin-top:14px; line-height:1.2; max-width:560px; }
+    .o-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:22px; margin-top:30px; }
+    .o-stat-n{ font-family:'KyivTypeSerif',Georgia,serif; font-size:30px; line-height:1; }
+    .o-stat-l{ font-family:'DM Mono',monospace; font-size:9.5px; letter-spacing:0.08em; text-transform:uppercase; opacity:0.82; margin-top:9px; line-height:1.5; }
+    .o-measure{ margin-top:30px; padding-top:22px; border-top:1px solid rgba(255,255,255,0.22); }
+    .o-measure .m-k{ font-family:'DM Mono',monospace; font-size:9.5px; letter-spacing:0.18em; text-transform:uppercase; opacity:0.72; }
+    .o-measure .m-row{ display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+    .o-measure .m-chip{ font-family:'DM Mono',monospace; font-size:11px; background:rgba(255,255,255,0.14);
+      border-radius:7px; padding:6px 11px; }
+    .needs-data{ font-family:'DM Mono',monospace; font-size:10px; opacity:0.7; margin-top:18px; font-style:italic; }
+
+    /* next / reflection */
+    .next-grid{ margin-top:22px; display:grid; grid-template-columns:1fr 1fr; gap:26px; }
+    .next-grid h4{ font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:var(--text-dim); margin-bottom:12px; }
+    .next-grid li{ font-size:14.5px; color:var(--text-sec); line-height:1.7; list-style:none; padding-left:16px; position:relative; }
+    .next-grid li::before{ content:'→'; position:absolute; left:0; color:var(--accent); }
+    .learning{ margin-top:32px; font-family:'KyivTypeSerif',Georgia,serif; font-size:21px; line-height:1.5;
+      color:var(--text-pri); max-width:640px; }
+
+    @media (max-width:720px){
+      .body{ padding:8px 22px 48px; }
+      .stats,.o-grid{ grid-template-columns:1fr 1fr; }
+      .section{ grid-template-columns:1fr; row-gap:14px; }
+      .s-label{ position:static; }
+      .insights,.features,.next-grid{ grid-template-columns:1fr; }
+      .legend ul{ grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="legend">
+    <h1>Sandbox · redesigned case-study architecture · not linked from the live site</h1>
+    <ul>
+      <li><b style="color:var(--text-pri);font-weight:500">Lede sentence</b> — the goal, readable in 5 seconds</li>
+      <li><b style="color:var(--text-pri);font-weight:500">TL;DR stat strip</b> — what a skimmer takes away</li>
+      <li><b style="color:var(--text-pri);font-weight:500">Tighter measure</b> — 600px / 16px ≈ 66 chars (was 83)</li>
+      <li><b style="color:var(--text-pri);font-weight:500">Margin section labels</b> — uses the dead right space</li>
+      <li><b style="color:var(--text-pri);font-weight:500">Method shown apart from findings</b> — proves rigour</li>
+      <li><b style="color:var(--text-pri);font-weight:500">Captioned images + stat-based outcome</b> — retention</li>
+    </ul>
+  </div>
+
+  <div class="sheet">
+    <div class="sheet-bar"><div class="sheet-x">✕</div></div>
+    <div class="body">
+
+      <!-- HEADER -->
+      <div class="eyebrow">UX / UI</div>
+      <h1 class="title">ThaiPass — Travel Companion</h1>
+      <p class="lede">A single, trusted platform that gets international visitors to Thailand fully prepared before they land — documentation, connectivity, transport and insurance, unified into one journey.</p>
+
+      <div class="meta">
+        <div class="meta-item"><span class="meta-k">Role</span><span class="meta-v">UX / UI Designer</span></div>
+        <div class="meta-item"><span class="meta-k">Timeline</span><span class="meta-v">6 Months</span></div>
+        <div class="meta-item"><span class="meta-k">Type</span><span class="meta-v">Production · @Mtel</span></div>
+        <div class="meta-item"><span class="meta-k">Platform</span><span class="meta-v">Mobile App</span></div>
+      </div>
+
+      <!-- TL;DR STATS -->
+      <div class="stats">
+        <div class="stat"><div class="stat-n">5&nbsp;<small>→</small>&nbsp;1</div><div class="stat-l">Services unified<br>into one app</div></div>
+        <div class="stat"><div class="stat-n">3</div><div class="stat-l">Journey phases —<br>Purchase · Arrival · Support</div></div>
+        <div class="stat"><div class="stat-n">0</div><div class="stat-l">Hidden fees —<br>trust-first design</div></div>
+        <div class="stat"><div class="stat-n">6<small>mo</small></div><div class="stat-l">Design to<br>production</div></div>
+      </div>
+
+      <!-- HERO -->
+      <figure class="hero">
+        <img class="frame" src="./projects/thaipass/cover.webp" alt="ThaiPass">
+        <figcaption><b>ThaiPass</b> — pre-arrival to beyond, in one guided flow</figcaption>
+      </figure>
+
+      <!-- OVERVIEW -->
+      <section class="section">
+        <aside class="s-label">Overview</aside>
+        <div class="s-body">
+          <h2 class="s-heading">Everything ready before you land.</h2>
+          <p class="s-text">ThaiPass consolidates the essential travel services an international visitor needs — built as a travel companion, not just a booking tool. The guiding idea throughout: arrive prepared, not overwhelmed.</p>
+          <div class="tags">
+            <span class="tag">Voucher Packages</span><span class="tag">FastPass</span>
+            <span class="tag">Transport</span><span class="tag">eSIM</span><span class="tag">Insurance</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROBLEM -->
+      <section class="section">
+        <aside class="s-label">Problem</aside>
+        <div class="s-body">
+          <h2 class="s-heading">A fragmented, stressful journey.</h2>
+          <p class="s-text">Travelling to Thailand means juggling multiple platforms before and after arrival — each with its own friction.</p>
+          <ul class="list">
+            <li>Confusing pre-arrival requirements (e.g. the TDAC process)</li>
+            <li>Long queues at airport immigration</li>
+            <li>Difficulty getting internet access on arrival</li>
+            <li>Uncertainty around transportation options</li>
+            <li>No single trusted source — managing many platforms at once</li>
+          </ul>
+          <div class="quote"><p>How might we design a single, trusted platform that simplifies the entire journey — from pre-arrival preparation to arrival and beyond?</p></div>
+        </div>
+      </section>
+
+      <!-- RESEARCH: method + findings -->
+      <section class="section">
+        <aside class="s-label">Research</aside>
+        <div class="s-body">
+          <h2 class="s-heading">How I approached it.</h2>
+          <p class="s-text">Four research lenses framed the work before any screen was drawn:</p>
+          <div class="method">
+            <span class="method-chip">Traveler journey mapping</span>
+            <span class="method-chip">Airport friction points</span>
+            <span class="method-chip">Trust &amp; reliability concerns</span>
+            <span class="method-chip">Mobile-first behaviour</span>
+          </div>
+          <h3 class="s-heading" style="font-size:18px;margin-top:30px;">What I found.</h3>
+          <div class="insights">
+            <div class="insight"><span class="insight-n">01</span><span class="insight-t"><b>Prepare before landing.</b> Travelers want everything sorted before the plane doors open.</span></div>
+            <div class="insight"><span class="insight-n">02</span><span class="insight-t"><b>Time is the value.</b> Saving time at the airport and setup beat every other benefit.</span></div>
+            <div class="insight"><span class="insight-n">03</span><span class="insight-t"><b>Trust is non-negotiable.</b> Users strongly prefer verified providers and official processes.</span></div>
+            <div class="insight"><span class="insight-n">04</span><span class="insight-t"><b>Bundling converts.</b> Grouping services raised both convenience and conversion.</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- DESIGN PROCESS -->
+      <section class="section">
+        <aside class="s-label">Process</aside>
+        <div class="s-body">
+          <h2 class="s-heading">From strategy to screens.</h2>
+          <div class="steps">
+            <div class="step"><span class="step-n">1</span><span class="step-t"><b>Product strategy</b><span>Framed ThaiPass as a travel companion — “everything ready before you land.”</span></span></div>
+            <div class="step"><span class="step-n">2</span><span class="step-t"><b>Feature structuring</b><span>Organised around 5 core services: Vouchers, FastPass, Transport, eSIM, Insurance.</span></span></div>
+            <div class="step"><span class="step-n">3</span><span class="step-t"><b>User-flow design</b><span>Simplified the journey into 3 phases: Purchase → Arrival → Support.</span></span></div>
+            <div class="step"><span class="step-n">4</span><span class="step-t"><b>Trust &amp; clarity</b><span>Direct links to official TDAC, transparent pricing, verified vendors only.</span></span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FINAL DESIGN — captioned feature screens -->
+      <section class="section">
+        <aside class="s-label">Final Design</aside>
+        <div class="s-body">
+          <h2 class="s-heading">Five services, one guided journey.</h2>
+          <p class="s-text">Each service was designed to disappear into the trip — minimal decisions, clear trust signals, everything retrievable the moment it’s needed.</p>
+        </div>
+        <div class="features">
+          <figure class="feature"><img class="frame" src="./projects/thaipass/home.webp" alt="Home"><figcaption><span class="f-name">Home &amp; Account</span><span>All active services at a glance.</span></figcaption></figure>
+          <figure class="feature"><img class="frame" src="./projects/thaipass/voucher-packages.webp" alt="Vouchers"><figcaption><span class="f-name">Voucher Packages</span><span>Bundled to cut decision fatigue.</span></figcaption></figure>
+          <figure class="feature"><img class="frame" src="./projects/thaipass/fastpass.webp" alt="FastPass"><figcaption><span class="f-name">FastPass</span><span>Fast-track lane — less time in queues.</span></figcaption></figure>
+          <figure class="feature"><img class="frame" src="./projects/thaipass/transport.webp" alt="Transport"><figcaption><span class="f-name">Transport</span><span>Pre-booked pickup, ready on arrival.</span></figcaption></figure>
+          <figure class="feature"><img class="frame" src="./projects/thaipass/esim.webp" alt="eSIM"><figcaption><span class="f-name">eSIM</span><span>Online the moment you land.</span></figcaption></figure>
+          <figure class="feature"><img class="frame" src="./projects/thaipass/tdac.webp" alt="TDAC"><figcaption><span class="f-name">TDAC Support</span><span>Guided to the official, free process.</span></figcaption></figure>
+        </div>
+      </section>
+
+      <!-- OUTCOME -->
+      <div class="outcome">
+        <div class="o-label">Outcome</div>
+        <h2 class="o-head">A smoother start to every trip.</h2>
+        <div class="o-grid">
+          <div><div class="o-stat-n">5→1</div><div class="o-stat-l">Fragmented services unified into one platform</div></div>
+          <div><div class="o-stat-n">3</div><div class="o-stat-l">Steps from purchase to airport pickup</div></div>
+          <div><div class="o-stat-n">100%</div><div class="o-stat-l">Verified vendors &amp; official links</div></div>
+          <div><div class="o-stat-n">0</div><div class="o-stat-l">Hidden fees — transparent throughout</div></div>
+        </div>
+        <div class="o-measure">
+          <div class="m-k">Measured by</div>
+          <div class="m-row">
+            <span class="m-chip">Task completion rate</span>
+            <span class="m-chip">Error-rate reduction</span>
+            <span class="m-chip">Time-to-setup on arrival</span>
+            <span class="m-chip">User satisfaction</span>
+          </div>
+          <div class="needs-data">↳ Drop real numbers here once you have them — even one moves this from “looks senior” to “is senior.”</div>
+        </div>
+      </div>
+
+      <!-- REFLECTION -->
+      <section class="section">
+        <aside class="s-label">Reflection</aside>
+        <div class="s-body">
+          <div class="next-grid">
+            <div>
+              <h4>What went well</h4>
+              <ul><li>Strong product-market fit</li><li>Clear value proposition</li><li>Scalable feature architecture</li></ul>
+            </div>
+            <div>
+              <h4>Next steps</h4>
+              <ul><li>Personalisation by traveler type</li><li>In-trip recommendations</li><li>Post-arrival engagement</li></ul>
+            </div>
+          </div>
+          <p class="learning">Great product design isn’t about features — it’s about reducing stress at every step of the user’s journey.</p>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</body>
+</html>

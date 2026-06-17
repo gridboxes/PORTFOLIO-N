@@ -434,6 +434,8 @@
       gap: 32px 22px;
       padding: 20px 0 8px;
     }
+    /* iOS practice panel shows three per row (6 cards → two clean rows) */
+    #sw-ios .gallery-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     /* Unboxed editorial card: hairline-framed cover, typographic caption below */
     .gallery-card {
       display: flex;
@@ -470,6 +472,23 @@
       text-transform: uppercase;
     }
     .gallery-soon .icon { width: 18px; height: 18px; }
+    /* Empty mosaic slot — dashed placeholder that fills its cover shape */
+    .mosaic-ph { pointer-events: none; }
+    .card-cover-empty {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: 1px dashed var(--border-mid);
+    }
+    .card-cover-empty::after { display: none; }
+    .card-cover-empty .ph-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
     .card-cover-ph img {
       width: 100%; height: 100%; object-fit: cover; display: block;
       transition: transform 0.55s var(--ease-spring);
@@ -492,6 +511,55 @@
     .gallery-card:focus-visible .card-cover-ph::after {
       box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--card-accent, #888) 45%, transparent);
     }
+    /* "Available on the App Store" chip — only on the ThaiPass card (the lone shipped app).
+       Always visible but understated at rest; the card hover deepens it. */
+    .store-chip {
+      position: absolute;
+      left: 12px;
+      bottom: 12px;
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 12px 7px 10px;
+      border-radius: 999px;
+      background: rgba(18, 18, 20, 0.58);
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14);
+      color: #fff;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.03em;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.25s var(--ease-smooth), box-shadow 0.25s var(--ease-smooth), transform 0.25s var(--ease-spring);
+    }
+    .gallery-card:hover .store-chip,
+    .gallery-card:focus-within .store-chip {
+      background: rgba(18, 18, 20, 0.82);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.22);
+    }
+    /* direct hover on the pill itself — higher specificity so it beats the card-hover rule */
+    .gallery-card .store-chip:hover,
+    .gallery-card .store-chip:focus-visible {
+      background: rgba(18, 18, 20, 0.96);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+      transform: translateY(-1px);
+    }
+    .store-chip-logo { width: 13px; height: 13px; flex: none; }
+    .store-chip-dot { opacity: 0.5; }
+    /* Proportional chip sizes — full label, scaled to the card it sits on */
+    .mosaic-side .store-chip {
+      left: 10px; bottom: 10px; gap: 6px;
+      padding: 6px 11px 6px 9px; font-size: 10px;
+    }
+    .mosaic-side .store-chip-logo { width: 12px; height: 12px; }
+    .mosaic-rest .store-chip {
+      left: 8px; bottom: 8px; gap: 5px;
+      padding: 5px 9px 5px 8px; font-size: 9px; letter-spacing: 0.02em;
+    }
+    .mosaic-rest .store-chip-logo { width: 11px; height: 11px; }
     .card-body {
       padding: 13px 2px 0;
       display: flex;
@@ -622,6 +690,13 @@
     @media (max-width: 720px) {
       .gallery-grid--mosaic, .mosaic-rest { grid-template-columns: minmax(0, 1fr); }
       .mosaic-main .card-title { font-size: 17px; }
+      /* mosaic collapses to one column here — every card is full-width, so the
+         store chip returns to its default size instead of the shrunk mosaic sizes */
+      .mosaic-side .store-chip, .mosaic-rest .store-chip {
+        left: 12px; bottom: 12px; gap: 7px;
+        padding: 7px 12px 7px 10px; font-size: 11px; letter-spacing: 0.03em;
+      }
+      .mosaic-side .store-chip-logo, .mosaic-rest .store-chip-logo { width: 13px; height: 13px; }
     }
     @media (prefers-reduced-motion: reduce) {
       .card-overlay, .card-overlay-rule,
@@ -801,6 +876,7 @@
     .toc-item:nth-child(5) .toc-label { transition-delay: 0.12s; }
     .toc-item:nth-child(6) .toc-label { transition-delay: 0.15s; }
     .toc-item:nth-child(7) .toc-label { transition-delay: 0.18s; }
+    .toc-item:nth-child(8) .toc-label { transition-delay: 0.21s; }
     .toc:hover .toc-label {
       opacity: 1;
       transform: translateX(0);
@@ -989,15 +1065,21 @@
       margin-bottom: 28px;
     }
     .modal-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 24px;
-      padding: 20px 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 22px 18px;
+      padding: 22px 0;
       border-top: 1px solid var(--border-mid);
       border-bottom: 1px solid var(--border-mid);
       margin-bottom: 28px;
     }
-    .modal-meta-item { display: flex; flex-direction: column; gap: 5px; }
+    .modal-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      padding-left: 12px;
+      border-left: 1px solid var(--border-mid);
+    }
     .modal-meta-label {
       font-family: 'DM Mono', monospace;
       font-size: 9px;
@@ -1007,8 +1089,8 @@
     }
     .modal-meta-value {
       font-family: 'DM Mono', monospace;
-      font-size: 12.5px;
-      color: var(--text-sec);
+      font-size: 13px;
+      color: var(--text-pri);
     }
     .modal-tags {
       display: flex;
@@ -1089,6 +1171,40 @@
     /* ── Case Study Content (inside modal) ── */
     .project-modal { --modal-accent: #888; --accent: var(--modal-accent); }
     .cs-section { margin-top: 56px; }
+    /* Editorial left-gutter — section label pinned in a side column, visuals full-width */
+    #modal-body .cs-section {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      column-gap: 30px;
+    }
+    #modal-body .cs-section > * { grid-column: 2; }
+    #modal-body .cs-section > .section-label {
+      grid-column: 1;
+      grid-row: 1;
+      margin: 0;
+      padding-top: 6px;
+      align-self: start;
+    }
+    /* Visuals break out of the content column to full width */
+    #modal-body .cs-section > .cs-img,
+    #modal-body .cs-section > .cs-features,
+    #modal-body .cs-section > .cs-figma,
+    #modal-body .cs-section > .cs-3d-viewer,
+    #modal-body .cs-section > .cs-img-full,
+    #modal-body .cs-section > .cs-code,
+    #modal-body .cs-section > video {
+      grid-column: 1 / -1;
+    }
+    @media (max-width: 760px) {
+      #modal-body .cs-section { grid-template-columns: 1fr; }
+      #modal-body .cs-section > * { grid-column: 1; }
+      #modal-body .cs-section > .section-label {
+        grid-row: auto;
+        margin-bottom: 16px;
+        padding-top: 0;
+        position: static;
+      }
+    }
     .cs-accent-band {
       background: var(--modal-accent);
       border-radius: 16px;
@@ -1136,16 +1252,38 @@
     }
     .cs-list { list-style: none; margin-top: 16px; display: flex; flex-direction: column; gap: 9px; }
     .cs-list li {
-      font-size: 14px; line-height: 1.7; color: var(--text-sec);
+      font-size: 15.5px; line-height: 1.75; color: rgba(248,248,248,0.8);
       padding-left: 18px; position: relative;
     }
     .cs-list li::before { content: '—'; position: absolute; left: 0; color: var(--modal-accent); opacity: 0.7; }
     .cs-quote { border-left: 2px solid var(--modal-accent); padding: 4px 0 4px 20px; margin-top: 28px; }
     .cs-quote p { font-family: 'KyivTypeSerif', Georgia, serif; font-size: 19px; line-height: 1.5; color: var(--text-pri); }
+
+    /* Grouped feature sub-sequence — demotes a run of features below a single
+       chapter heading, with a numeric progress rail so they read as one act. */
+    .cs-features { margin-top: 36px; }
+    .cs-feature { padding: 34px 0; border-top: 1px solid var(--border-mid); }
+    .cs-feature:first-child { border-top: none; padding-top: 6px; }
+    .cs-feature-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 10px; }
+    .cs-feature-num {
+      font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 0.05em;
+      color: var(--modal-accent); opacity: 0.7; flex: none;
+    }
+    .cs-feature-name {
+      font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--text-dim);
+    }
+    .cs-feature-title {
+      font-family: 'KyivTypeSerif', Georgia, serif; font-weight: 400;
+      font-size: clamp(17px, 3vw, 21px); line-height: 1.25;
+      color: var(--text-pri); margin-bottom: 10px;
+    }
+    .cs-feature-text { font-size: 15.5px; line-height: 1.75; color: rgba(248,248,248,0.8); max-width: 640px; }
+    .cs-feature .cs-img { margin-top: 20px; }
     .cs-col2 { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 18px; }
     .cs-col2-item { display: flex; flex-direction: column; gap: 7px; }
     .cs-col2-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--modal-accent); opacity: 0.8; }
-    .cs-col2-text { font-size: 13.5px; line-height: 1.7; color: var(--text-sec); }
+    .cs-col2-text { font-size: 14.5px; line-height: 1.72; color: rgba(248,248,248,0.8); }
     .cs-col2-text code { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text-pri); background: rgba(248,248,248,0.07); border-radius: 4px; padding: 1px 5px; }
     .cs-code { margin-top: 28px; border-radius: 14px; overflow: hidden; background: #16181d; border: 1px solid rgba(255,255,255,0.07); }
     .cs-code-bar { display: flex; align-items: center; gap: 7px; padding: 12px 16px; background: #1e2028; border-bottom: 1px solid rgba(255,255,255,0.06); }
@@ -1161,6 +1299,16 @@
     .tok-num { color: #bd93f9; } .tok-at  { color: #ffb86c; }
     .cs-figma { width: 100%; aspect-ratio: 16 / 10; border-radius: 14px; overflow: hidden; margin-top: 24px; background: rgba(248,248,248,0.03); border: 1px solid var(--border-mid); }
     .cs-figma iframe { width: 100%; height: 100%; border: none; display: block; }
+    /* Desktop-locked embed: render the page at a 1280x800 desktop viewport and
+       scale it down to fit, so a responsive web app shows its desktop layout
+       instead of collapsing to mobile inside the narrow modal. JS sets --embed-scale. */
+    .cs-figma--desktop { position: relative; }
+    .cs-figma--desktop iframe {
+      position: absolute; top: 0; left: 0;
+      width: 1280px; height: 800px;
+      transform: scale(var(--embed-scale, 1));
+      transform-origin: top left;
+    }
     .cs-3d-viewer { width: 100%; height: 420px; border-radius: 14px; overflow: hidden; margin-top: 24px; background: #111; }
     .cs-3d-viewer model-viewer { width: 100%; height: 100%; display: block; --poster-color: #111; }
 
@@ -1168,11 +1316,10 @@
     .modal-next {
       width: 100%;
       margin-top: 64px;
-      padding: 26px 28px;
+      padding: 20px 22px;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 18px;
+      gap: 20px;
       text-align: left;
       background: rgba(248,248,248,0.03);
       border: 1px solid var(--border);
@@ -1186,6 +1333,15 @@
       border-color: var(--modal-accent, #888);
       transform: translateY(-2px);
     }
+    .modal-next-thumb {
+      flex: 0 0 auto;
+      width: 124px; height: 80px;
+      border-radius: 10px;
+      object-fit: cover;
+      border: 1px solid var(--border-mid);
+      transition: transform 0.3s var(--ease-spring);
+    }
+    .modal-next:hover .modal-next-thumb { transform: scale(1.03); }
     .modal-next-text { display: flex; flex-direction: column; gap: 7px; min-width: 0; }
     .modal-next-label {
       font-family: 'DM Mono', monospace;
@@ -1199,6 +1355,7 @@
     }
     .modal-next-arrow {
       flex: 0 0 42px;
+      margin-left: auto;
       width: 42px; height: 42px;
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
@@ -1234,7 +1391,7 @@
       .tab-bar .tab-btn { flex: 0 0 auto; }
       /* minmax(0,·) — plain 1fr (= minmax(auto,1fr)) lets a long card title
          force the column wider than the viewport, causing sideways scroll */
-      .exp-grid, .gallery-grid { grid-template-columns: minmax(0, 1fr); }
+      .exp-grid, .gallery-grid, #sw-ios .gallery-grid { grid-template-columns: minmax(0, 1fr); }
       .skills-grid, .cert-grid { grid-template-columns: repeat(2, 1fr); }
     }
     /* Hide the floating section nav up to the iPad landscape breakpoint —
@@ -1493,22 +1650,22 @@
     </div>
     <div id="ux-mtel" class="tab-panel active">
       <div class="gallery-grid gallery-grid--mosaic">
-        <div class="gallery-card mosaic-main" data-project="thaipass"><div class="card-cover-ph"><img src="./projects/thaipass/cover.webp" loading="lazy" alt="ThaiPass"></div><div class="card-body"><span class="card-eyebrow">UX / UI &middot; Production</span><div class="card-title-row"><span class="card-title">ThaiPass App <span class="card-title-desc">— Travel Companion</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+        <div class="gallery-card mosaic-main" data-project="thaipass"><div class="card-cover-ph"><img src="./projects/thaipass/thumb.webp" loading="lazy" alt="ThaiPass"><a class="store-chip" href="https://apps.apple.com/th/app/my-thaipass/id6761145502?l=th" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" aria-label="Get My ThaiPass on the App Store"><span>Available on</span><svg class="store-chip-logo" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.87109 4.87842L9.75016 9.75014"/><path d="M4.875 1.5L6 3.40406"/><path d="M2.69297 9L2.25 9.75"/><path d="M7.12473 1.5L3.5791 7.5"/><path d="M8.4209 7.5H10.8753"/><path d="M1.125 7.5H6.67828"/></svg><span class="store-chip-dot">·</span><svg class="store-chip-logo" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="0.641667" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.40625 9.63078C2.40717 9.69093 2.42386 9.74978 2.45465 9.80145C2.48543 9.85313 2.52924 9.89582 2.58169 9.92526C2.63414 9.95471 2.6934 9.96987 2.75355 9.96924C2.8137 9.96862 2.87263 9.95222 2.92445 9.92168L10.1363 5.79367C10.1896 5.76528 10.2342 5.72294 10.2653 5.67117C10.2964 5.6194 10.3128 5.56015 10.3128 5.49977C10.3128 5.43939 10.2964 5.38014 10.2653 5.32837C10.2342 5.2766 10.1896 5.23425 10.1363 5.20586L2.92445 1.07785C2.87263 1.04732 2.8137 1.03092 2.75355 1.03029C2.6934 1.02966 2.63414 1.04483 2.58169 1.07427C2.52924 1.10372 2.48543 1.14641 2.45465 1.19808C2.42386 1.24976 2.40717 1.30861 2.40625 1.36875V9.63078Z"/><path d="M2.50684 1.13184L8.25047 6.87547"/><path d="M2.50684 9.86875L8.24961 4.12598"/></svg></a></div><div class="card-body"><span class="card-eyebrow">Travel &middot; Production</span><div class="card-title-row"><span class="card-title">ThaiPass App <span class="card-title-desc">— Travel Companion</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
         <div class="mosaic-side">
-          <div class="gallery-card" data-project="bcc"><div class="card-cover-ph"><img src="./projects/bcc/cover.webp" loading="lazy" alt="BCC"></div><div class="card-body"><span class="card-eyebrow">UX / UI &middot; Production</span><div class="card-title-row"><span class="card-title">BCC Website <span class="card-title-desc">— Calculation Program</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
-          <div class="gallery-card" data-project="netzero"><div class="card-cover-ph"><img src="./projects/netzero/Frame_(1).webp" loading="lazy" alt="Net Zero"></div><div class="card-body"><span class="card-eyebrow">UX / UI &middot; Concept</span><div class="card-title-row"><span class="card-title">Net Zero <span class="card-title-desc">— Carbon Platform</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+          <div class="gallery-card" data-project="bcc"><div class="card-cover-ph"><img src="./projects/bcc/cover.webp" loading="lazy" alt="BCC"><a class="store-chip" href="https://www.bangkokcable.com/en" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" aria-label="Open the BCC website"><span>Available on</span><svg class="store-chip-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></a></div><div class="card-body"><span class="card-eyebrow">Electrical &middot; Production</span><div class="card-title-row"><span class="card-title">BCC Website <span class="card-title-desc">— Calculation Program</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+          <div class="gallery-card" data-project="netzero"><div class="card-cover-ph"><img src="./projects/netzero/Frame_(1).webp" loading="lazy" alt="Net Zero"></div><div class="card-body"><span class="card-eyebrow">Environment &middot; Concept</span><div class="card-title-row"><span class="card-title">Net Zero <span class="card-title-desc">— Carbon Platform</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
         </div>
         <div class="mosaic-rest">
-          <div class="gallery-card" data-project="myanmarpass"><div class="card-cover-ph"><img src="./projects/myanmarpass/Frame-1.webp" loading="lazy" alt="MyanmarPass"></div><div class="card-body"><span class="card-eyebrow">UX / UI &middot; Concept</span><div class="card-title-row"><span class="card-title">MyanmarPass App</span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
-          <div class="gallery-card" data-project="jaga"><div class="card-cover-ph"><img src="./projects/jaga/Frame.webp" loading="lazy" alt="JAGA"></div><div class="card-body"><span class="card-eyebrow">UX / UI &middot; Production</span><div class="card-title-row"><span class="card-title">JAGA App</span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
-          <div class="gallery-card" data-project="onebangkok"><div class="card-cover-ph"><img src="./projects/onebangkok/cover.webp" loading="lazy" alt="One Bangkok"></div><div class="card-body"><span class="card-eyebrow">Motion &middot; Production</span><div class="card-title-row"><span class="card-title">One Bangkok App</span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+          <div class="gallery-card" data-project="myanmarpass"><div class="card-cover-ph"><img src="./projects/myanmarpass/Frame-1.webp" loading="lazy" alt="MyanmarPass"></div><div class="card-body"><span class="card-eyebrow">Labor &middot; Concept</span><div class="card-title-row"><span class="card-title">MyanmarPass App <span class="card-title-desc">— Migrant Worker Platform</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+          <div class="gallery-card" data-project="jaga"><div class="card-cover-ph"><img src="./projects/jaga/Frame.webp" loading="lazy" alt="JAGA"><a class="store-chip" href="https://apps.apple.com/th/app/jaga-junior-asian-golf-academy/id6751338789?l=th" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" aria-label="Get JAGA on the App Store"><span>Available on</span><svg class="store-chip-logo" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.87109 4.87842L9.75016 9.75014"/><path d="M4.875 1.5L6 3.40406"/><path d="M2.69297 9L2.25 9.75"/><path d="M7.12473 1.5L3.5791 7.5"/><path d="M8.4209 7.5H10.8753"/><path d="M1.125 7.5H6.67828"/></svg><span class="store-chip-dot">·</span><svg class="store-chip-logo" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="0.641667" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.40625 9.63078C2.40717 9.69093 2.42386 9.74978 2.45465 9.80145C2.48543 9.85313 2.52924 9.89582 2.58169 9.92526C2.63414 9.95471 2.6934 9.96987 2.75355 9.96924C2.8137 9.96862 2.87263 9.95222 2.92445 9.92168L10.1363 5.79367C10.1896 5.76528 10.2342 5.72294 10.2653 5.67117C10.2964 5.6194 10.3128 5.56015 10.3128 5.49977C10.3128 5.43939 10.2964 5.38014 10.2653 5.32837C10.2342 5.2766 10.1896 5.23425 10.1363 5.20586L2.92445 1.07785C2.87263 1.04732 2.8137 1.03092 2.75355 1.03029C2.6934 1.02966 2.63414 1.04483 2.58169 1.07427C2.52924 1.10372 2.48543 1.14641 2.45465 1.19808C2.42386 1.24976 2.40717 1.30861 2.40625 1.36875V9.63078Z"/><path d="M2.50684 1.13184L8.25047 6.87547"/><path d="M2.50684 9.86875L8.24961 4.12598"/></svg></a></div><div class="card-body"><span class="card-eyebrow">Golf &middot; Production</span><div class="card-title-row"><span class="card-title">JAGA App <span class="card-title-desc">— CometChat Feature</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+          <div class="gallery-card" data-project="onebangkok"><div class="card-cover-ph"><img src="./projects/onebangkok/cover.webp" loading="lazy" alt="One Bangkok"></div><div class="card-body"><span class="card-eyebrow">Property &middot; Concept</span><div class="card-title-row"><span class="card-title">One Bangkok App <span class="card-title-desc">— Showcase Video</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
         </div>
       </div>
     </div>
     <div id="ux-nipa" class="tab-panel">
       <div class="gallery-grid">
-        <div class="gallery-card" data-project="nipa"><div class="card-cover-ph"><img src="./projects/nipa/image 7.webp" loading="lazy" alt="NIPA Payment"></div><div class="card-body"><span class="card-eyebrow">UX / UI &middot; Production</span><div class="card-title-row"><span class="card-title">NIPA Payment System</span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
-        <div class="gallery-card" data-project="nipalb"><div class="card-cover-ph"><img src="./projects/nipalb/image 1.webp" loading="lazy" alt="NIPA LB"></div><div class="card-body"><span class="card-eyebrow">UX / UI &middot; Concept</span><div class="card-title-row"><span class="card-title">NIPA Load Balancing Service</span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+        <div class="gallery-card" data-project="nipa"><div class="card-cover-ph"><img src="./projects/nipa/image 7.webp" loading="lazy" alt="NIPA Payment"></div><div class="card-body"><span class="card-eyebrow">Cloud &middot; Production</span><div class="card-title-row"><span class="card-title">NIPA Payment System</span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+        <div class="gallery-card" data-project="nipalb"><div class="card-cover-ph"><img src="./projects/nipalb/image 1.webp" loading="lazy" alt="NIPA LB"></div><div class="card-body"><span class="card-eyebrow">Cloud &middot; Concept</span><div class="card-title-row"><span class="card-title">NIPA Load Balancing Service</span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
       </div>
     </div>
   </section>
@@ -1529,10 +1686,11 @@
       </button>
     </div>
     <div id="ai-all" class="tab-panel active">
-      <div class="gallery-grid">
-        <div class="gallery-soon">
-          <svg class="icon" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-          First project in the works — coming soon
+      <div class="gallery-grid gallery-grid--mosaic">
+        <div class="gallery-card mosaic-main" data-project="thaipass-cms"><div class="card-cover-ph"><img src="./projects/thaipass-cms/login.webp" loading="lazy" alt="ThaiPass CMS"></div><div class="card-body"><span class="card-eyebrow">Travel &middot; React/Tailwind</span><div class="card-title-row"><span class="card-title">ThaiPass CMS <span class="card-title-desc">— Admin Platform</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+        <div class="mosaic-side">
+          <div class="gallery-card" data-project="corporate-survivor"><div class="card-cover-ph"><img src="./projects/corporate-survivor/cover-duo.webp" loading="lazy" alt="Corporate Survivor"></div><div class="card-body"><span class="card-eyebrow">HR &middot; React/Supabase</span><div class="card-title-row"><span class="card-title">Corporate Survivor <span class="card-title-desc">— Attendance Tracker</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+          <div class="gallery-card" data-project="mtel-pitch"><div class="card-cover-ph"><img src="./projects/mtel-pitch/dashboard.webp" loading="lazy" alt="Mtel Pitch"></div><div class="card-body"><span class="card-eyebrow">Internal Tool &middot; React/Supabase</span><div class="card-title-row"><span class="card-title">Mtel Pitch <span class="card-title-desc">— Pitch Deck Manager</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
         </div>
       </div>
     </div>
@@ -1637,7 +1795,7 @@
           </a>
         </div>
       </div>
-      <!-- LinkedIn -->
+      <!-- LinkedIn (hidden)
       <div class="contact-pill">
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
         LinkedIn
@@ -1646,6 +1804,20 @@
             <svg viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
           </button>
           <a class="pill-btn" href="https://www.linkedin.com/in/sivakorns" target="_blank" rel="noopener noreferrer" title="Open">
+            <svg viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+          </a>
+        </div>
+      </div>
+      -->
+      <!-- Resume — coded A4 page (resume.html); View opens it, Download via in-page Print→Save as PDF -->
+      <div class="contact-pill">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
+        Resume
+        <div class="pill-btns">
+          <a class="pill-btn" href="resume.pdf" download title="Download">
+            <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+          </a>
+          <a class="pill-btn" href="resume.html" target="_blank" rel="noopener noreferrer" title="View">
             <svg viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
           </a>
         </div>
@@ -1769,6 +1941,16 @@
   /* ── Modal logic ── */
   let modalTrigger = null;
 
+  // Desktop-locked embeds: scale the fixed 1280px iframe to its container width
+  // so a responsive app renders its desktop layout inside the narrow modal.
+  function fitDesktopEmbeds() {
+    document.querySelectorAll('.cs-figma--desktop').forEach(box => {
+      const w = box.clientWidth;
+      if (w > 0) box.style.setProperty('--embed-scale', (w / 1280).toFixed(4));
+    });
+  }
+  window.addEventListener('resize', fitDesktopEmbeds);
+
   function openProjectModal(id) {
     const p = projects[id];
     if (!p) return;
@@ -1784,8 +1966,15 @@
         <span class="modal-meta-value">${m.value}</span>
       </div>`).join('');
 
+    const nextThumbSrc = p.next
+      ? (document.querySelector(`.gallery-card[data-project="${p.next.id}"] img`)?.getAttribute('src') || '')
+      : '';
+    const nextThumbHTML = nextThumbSrc
+      ? `<img class="modal-next-thumb" src="${nextThumbSrc}" alt="" aria-hidden="true" />`
+      : '';
     const nextHTML = p.next ? `
       <button class="modal-next" onclick="modalNext('${p.next.id}')">
+        ${nextThumbHTML}
         <span class="modal-next-text">
           <span class="modal-next-label">Up next</span>
           <span class="modal-next-title">${p.next.title}</span>
@@ -1796,6 +1985,7 @@
       </button>` : '';
 
     const body = document.getElementById('modal-body');
+    body.dataset.project = id;
     body.innerHTML = `
       <div class="modal-eyebrow">${p.category}</div>
       <h2 class="modal-title">${p.title}</h2>
@@ -1818,10 +2008,17 @@
 
     modal.classList.add('open');
     document.body.style.overflow = 'hidden';
+    // Jump to top instantly — bypass `scroll-behavior: smooth` so reopening a
+    // project doesn't animate up from the previous scroll position.
+    body.style.scrollBehavior = 'auto';
     body.scrollTop = 0;
+    body.style.scrollBehavior = '';
     topbar.classList.remove('is-scrolled');
     progress.style.width = '0%';
     setTimeout(() => document.getElementById('modal-close-btn').focus(), 80);
+    // Run once layout is ready and again after the open animation settles.
+    requestAnimationFrame(fitDesktopEmbeds);
+    setTimeout(fitDesktopEmbeds, 260);
 
     // model-viewer is in the HTML string; wait for both the slide-up animation
     // AND the custom element to be defined (first load: module script is still

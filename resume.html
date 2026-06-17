@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sivakorn Samorkam — Resume</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&family=Raleway:wght@300;400;500;600;700;800&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:      #212121;
+      --ink-sec:  rgba(33,33,33,0.70);
+      --ink-dim:  #8e8e93;
+      --rule:     #ececec;
+      --at-mtel:  #c2902e;
+      --at-nipa:  #8d5bc1;
+      --page-w:   210mm;
+      --page-h:   297mm;
+      --pad:      15mm;
+    }
+
+    /* ── Screen scaffolding (hidden when printing) ── */
+    body {
+      background: #e8e8e8;
+      font-family: 'Raleway', ui-sans-serif, -apple-system, sans-serif;
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px;
+      min-height: 100vh;
+    }
+
+    .toolbar { position: fixed; top: 18px; right: 18px; z-index: 50; display: flex; gap: 10px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: 'Raleway', sans-serif; font-weight: 600; font-size: 12px; letter-spacing: 0.02em;
+      padding: 10px 16px; border-radius: 999px;
+      border: 1px solid var(--ink); background: var(--ink); color: #fff;
+      cursor: pointer; text-decoration: none;
+      transition: opacity 0.15s ease, transform 0.15s ease;
+    }
+    .btn:hover { opacity: 0.82; transform: translateY(-1px); }
+    .btn--ghost { background: #fff; color: var(--ink); }
+    .btn svg { width: 15px; height: 15px; }
+
+    /* ── The A4 page ── */
+    .page {
+      width: var(--page-w);
+      min-height: var(--page-h);
+      background: #fff;
+      padding: var(--pad);
+      box-shadow: 0 6px 40px rgba(0,0,0,0.18);
+    }
+
+    /* ── Label-left / content-right grid ── */
+    .resume {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      column-gap: 28px;
+      row-gap: 33px;
+    }
+    .label {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 14pt;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: 0;
+      padding-top: 1px;
+    }
+    .content { min-width: 0; }
+
+    /* Header (Summary row) */
+    .name {
+      font-family: 'Josefin Sans', sans-serif;
+      font-weight: 700;
+      font-size: 25pt;
+      line-height: 1.1;
+      letter-spacing: 0;
+      text-align: left;
+    }
+    .role {
+      text-align: left;
+      margin-top: 8px;
+      font-size: 12px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+    }
+
+    /* Info list */
+    .info-list { list-style: none; }
+    .info-list li {
+      position: relative;
+      padding-left: 16px;
+      font-size: 11pt;
+      color: var(--ink-sec);
+      margin-bottom: 9px;
+    }
+    .info-list li::before {
+      content: ""; position: absolute; left: 0; top: 6px;
+      width: 5px; height: 5px; background: var(--ink); border-radius: 1px;
+    }
+    a { color: inherit; text-decoration: underline; text-underline-offset: 2px; text-decoration-thickness: 1px; }
+    a:hover { color: #000; }
+    .link-ic { width: 12px; height: 12px; vertical-align: -1.5px; margin-right: 4px; }
+
+    /* Profile (body spec: Raleway 11pt / lh18 / +0.1px) */
+    .profile { font-size: 11pt; line-height: 1.636; letter-spacing: 0.1px; color: var(--ink-sec); text-align: left; }
+
+    /* Entries (work / education) */
+    .entry { margin-bottom: 32px; }
+    .entry:last-child { margin-bottom: 0; }
+    .entry-head { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; }
+    .entry-title { font-family: 'Josefin Sans', sans-serif; font-size: 12pt; font-weight: 700; line-height: 1.33; letter-spacing: 0; color: var(--ink); }
+    .entry-title .at { color: var(--at-mtel); }
+    .entry-title .at-nipa { color: var(--at-nipa); }
+    .entry-meta { font-size: 11px; color: var(--ink-dim); white-space: nowrap; }
+    .entry-desc { font-size: 11pt; line-height: 1.636; letter-spacing: 0.1px; color: var(--ink-sec); margin-top: 5px; text-align: left; }
+    .entry-line { font-size: 11pt; line-height: 1.4; color: var(--ink-sec); margin-top: 3px; }
+    .ref { font-weight: 700; color: var(--ink); }
+
+    /* Two-column bulleted lists (Core Skills, Tools & Tech) — fill column then column */
+    .skills { display: grid; grid-template-columns: 1fr 1fr; grid-auto-flow: column; gap: 13px 24px; list-style: none; }
+    .skills.r4 { grid-template-rows: repeat(4, auto); }
+    .skills.r3 { grid-template-rows: repeat(3, auto); }
+    .skills li {
+      position: relative; padding-left: 16px;
+      font-size: 11pt; line-height: 1.3; color: var(--ink-sec);
+    }
+    .skills li::before {
+      content: ""; position: absolute; left: 0; top: 7px;
+      width: 5px; height: 5px; background: var(--ink); border-radius: 1px;
+    }
+
+    /* ── Print ── */
+    @page { size: A4; margin: 0; }
+    @media print {
+      body { background: #fff; padding: 0; display: block; }
+      .toolbar { display: none !important; }
+      .page { width: auto; min-height: auto; box-shadow: none; margin: 0 !important; transform: none !important; }
+      .info-list li::before, .skills li::before { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="toolbar">
+    <a class="btn btn--ghost" href="index.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+      Back
+    </a>
+    <a class="btn" href="resume.pdf" download="Sivakorn_Samorkam_Resume_2026-06.pdf">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+      Download PDF
+    </a>
+  </div>
+
+  <div class="page">
+    <div class="resume">
+
+      <!-- Summary / header -->
+      <div class="label">Summary</div>
+      <div class="content">
+        <div class="name">Sivakorn Samorkam</div>
+        <div class="role">UX/UI Designer</div>
+      </div>
+
+      <!-- Info -->
+      <div class="label">Info</div>
+      <div class="content">
+        <ul class="info-list">
+          <li><a href="mailto:sivakorn.contact@gmail.com">sivakorn.contact@gmail.com</a></li>
+          <li>082-651-4519</li>
+          <li><a href="https://gridboxes-portfolio-n.vercel.app/" target="_blank" rel="noopener"><svg class="link-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>Portfolio Link</a></li>
+        </ul>
+      </div>
+
+      <!-- Profile -->
+      <div class="label">Profile</div>
+      <div class="content">
+        <p class="profile">
+          UX/UI Designer focused on simplifying complex systems and improving usability
+          across web and mobile applications. Experienced in designing real-world platforms
+          across travel, payment systems, cloud platform and data-driven interfaces.
+        </p>
+      </div>
+
+      <!-- Work Experience -->
+      <div class="label">Work Experience</div>
+      <div class="content">
+        <div class="entry">
+          <div class="entry-head">
+            <span class="entry-title">2025–2026 — UX/UI Designer <span class="at">@</span> Mtel (Thailand)</span>
+            <span class="entry-meta">1 Year</span>
+          </div>
+          <p class="entry-desc">
+            Research and design responsive Website and Application experiences rooted in UX
+            principles, turning research insights and design concepts into engaging,
+            brand-aligned interfaces. From large-scale products like
+            <span class="ref">ThaiPass</span> to complex systems like the
+            <span class="ref">BCC Calculation Program</span>.
+          </p>
+        </div>
+        <div class="entry">
+          <div class="entry-head">
+            <span class="entry-title">2024 — UX/UI Designer Intern <span class="at at-nipa">@</span> NIPA Cloud</span>
+            <span class="entry-meta">6 Months</span>
+          </div>
+          <p class="entry-desc">
+            Collaborated in a Scrum team with weekly sprints, contributing to the UX/UI
+            design of web and portal applications, and leading the redesign of the
+            <span class="ref">Payment System</span> for improved usability.
+          </p>
+        </div>
+      </div>
+
+      <!-- Education -->
+      <div class="label">Education</div>
+      <div class="content">
+        <div class="entry">
+          <div class="entry-title">2021–2025 — King Mongkut's Institute of Technology Ladkrabang</div>
+          <div class="entry-line">Robotics &amp; AI Engineering — GPAX : 3.43</div>
+        </div>
+        <div class="entry">
+          <div class="entry-title">2009–2021 — Assumption Samutprakarn School</div>
+          <div class="entry-line">English Program — GPAX : 3.95</div>
+        </div>
+      </div>
+
+      <!-- Core Skills -->
+      <div class="label">Core Skills</div>
+      <div class="content">
+        <ul class="skills r4">
+          <li>UX/UI Design</li>
+          <li>UX Research</li>
+          <li>UX Writing</li>
+          <li>Design System</li>
+          <li>Agile Development</li>
+          <li>Software Development</li>
+          <li>CAD &amp; Industrial Design</li>
+          <li>3D Design &amp; ARVR</li>
+        </ul>
+      </div>
+
+      <!-- Tools & Tech -->
+      <div class="label">Tools &amp; Tech</div>
+      <div class="content">
+        <ul class="skills r3">
+          <li>Figma · FigJam</li>
+          <li>Ae · Ps · Jitter · Spline</li>
+          <li>Fusion 360 · SolidWorks</li>
+          <li>Jira · Agile · Scrum</li>
+          <li>XCode · SwiftUI · Flutter · React</li>
+          <li>(HTML/CSS) · SQL · Python · C</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      // Keep the download filename stamped with the current month-year (fallback hardcoded in HTML)
+      var d = new Date();
+      var ym = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
+      var a = document.querySelector('a[href="resume.pdf"]');
+      if (a) a.setAttribute('download', 'Sivakorn_Samorkam_Resume_' + ym + '.pdf');
+
+      // Fit the whole A4 page into the viewport by default (screen only — print/PDF resets this)
+      var page = document.querySelector('.page');
+      function fitPage() {
+        page.style.transform = 'none';
+        page.style.marginBottom = '0px';
+        var vw = document.documentElement.clientWidth || window.innerWidth;
+        var vh = document.documentElement.clientHeight || window.innerHeight;
+        if (!vw || !vh) return;                 // viewport not ready — leave at natural size
+        var pad = 24;
+        var s = Math.min(1, (vh - pad * 2) / page.offsetHeight, (vw - pad * 2) / page.offsetWidth);
+        if (s > 0 && s < 1) {
+          page.style.transformOrigin = 'top center';
+          page.style.transform = 'scale(' + s + ')';
+          page.style.marginBottom = (-(page.offsetHeight * (1 - s))) + 'px';
+        }
+      }
+      fitPage();
+      requestAnimationFrame(fitPage);
+      window.addEventListener('load', fitPage);
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitPage);
+      window.addEventListener('resize', fitPage);
+    })();
+  </script>
+
+</body>
+</html>

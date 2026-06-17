@@ -11,7 +11,7 @@
         { label: 'Type',     value: 'Production Project' },
         { label: 'Platform', value: 'Mobile App' },
       ],
-      next: { id: 'software', title: 'Software Project' },
+      next: { id: 'bcc', title: 'BCC — Calculation Program' },
     },
 
     'bcc': {
@@ -109,7 +109,52 @@
         { label: 'Type',     value: 'Proposal Project' },
         { label: 'Platform', value: 'Web Application' },
       ],
-      next: { id: 'software', title: 'Software Project' },
+      next: { id: 'thaipass-cms', title: 'ThaiPass CMS — AI-Built Admin Platform' },
+    },
+
+    'thaipass-cms': {
+      accent:   '#3E63DD',
+      category: 'AI-Built',
+      num:      '01',
+      title:    'ThaiPass CMS — AI-Built Admin Platform',
+      meta: [
+        { label: 'Role',       value: 'Design + Front-End Build' },
+        { label: 'Timeline',   value: '~3–4 Weeks' },
+        { label: 'Type',       value: 'Internal Admin Tool' },
+        { label: 'Stack',      value: 'React · Vite · Tailwind' },
+        { label: 'Built with', value: 'Figma Make → Claude Code' },
+      ],
+      next: { id: 'corporate-survivor', title: 'Corporate Survivor — Attendance Tracker' },
+    },
+
+    'corporate-survivor': {
+      accent:   '#2EA043',
+      category: 'AI-Built',
+      num:      '02',
+      title:    'Corporate Survivor — Attendance Tracker',
+      meta: [
+        { label: 'Role',       value: 'Concept · Design · Build' },
+        { label: 'Type',       value: 'Personal Project' },
+        { label: 'Frontend',   value: 'React · Vite' },
+        { label: 'Backend',    value: 'Supabase · Claude API' },
+        { label: 'Built with', value: 'Claude Code' },
+      ],
+      next: { id: 'mtel-pitch', title: 'Mtel Pitch — Pitch Deck Manager' },
+    },
+
+    'mtel-pitch': {
+      accent:   '#C2902E',
+      category: 'AI-Built',
+      num:      '03',
+      title:    'Mtel Pitch — Pitch Deck Manager',
+      meta: [
+        { label: 'Role',       value: 'Concept · Design · Build' },
+        { label: 'Type',       value: 'Internal Team Tool' },
+        { label: 'Frontend',   value: 'React · Vite' },
+        { label: 'Backend',    value: 'Supabase · Edge Functions' },
+        { label: 'Built with', value: 'Claude Code' },
+      ],
+      next: { id: 'plantcollect', title: 'Plant Collection App' },
     },
 
     'software': {
@@ -235,7 +280,7 @@
         { label: 'Features', value: 'Animation, ZStack, State' },
         { label: 'Platform', value: 'iOS' },
       ],
-      next: { id: 'plantcollect', title: 'Plant Collection App' },
+      next: { id: 'submarine', title: 'Piston Ballast Tank Submarine' },
     },
 
     'plantcollect': {
@@ -249,7 +294,7 @@
         { label: 'Library',  value: 'Provider' },
         { label: 'Platform', value: 'Mobile' },
       ],
-      next: { id: 'submarine', title: 'Piston Ballast Tank Submarine' },
+      next: { id: 'software', title: 'Simple Weather App' },
     },
 
     'submarine': {
@@ -283,6 +328,587 @@
   };
 
   function getBody(id) {
+    if (id === 'thaipass-cms') return `
+      <img class="cs-img" src="./projects/thaipass-cms/cover.webp" alt="ThaiPass CMS cover" style="border-radius:16px;margin-top:60px;" />
+
+      <div class="cs-section">
+        <p class="section-label">Overview</p>
+        <h2 class="section-heading">The admin platform behind the app.</h2>
+        <p class="section-text">ThaiPass CMS is the back-office system that operates the ThaiPass travel app &mdash; where staff manage orders, traveller accounts, arrival cards, and every partner product the app sells. This was my first project taken past the Figma file: I designed it <em>and</em> built the working front-end myself, using AI to bridge design into real code.</p>
+        <div class="cs-tags">
+          <span class="cs-tag">Role-Based Access</span>
+          <span class="cs-tag">Operations</span>
+          <span class="cs-tag">Partner Products</span>
+          <span class="cs-tag">PDF &amp; Export</span>
+          <span class="cs-tag">Responsive</span>
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <p class="section-label">Problem</p>
+        <h2 class="section-heading">A polished app still needs a place to run it.</h2>
+        <p class="section-text">The ThaiPass app sells vouchers, FastPass, transport, eSIM, and insurance &mdash; but every one of those needs a human on the other side to fulfil it. Without an admin tool, that work has no home. Designing static screens for it in Figma also wasn&rsquo;t enough: an operations tool lives or dies on real interaction &mdash; filtering, status changes, validation, exports.</p>
+        <ul class="cs-list">
+          <li>No single place to manage orders, users, and partner fulfilment</li>
+          <li>Different admin teams need access to different things &mdash; not everything</li>
+          <li>Manual steps like issuing arrival-card PDFs and assigning drivers</li>
+          <li>Static mockups couldn&rsquo;t prove the flows actually worked</li>
+        </ul>
+        <div class="cs-quote">
+          <p>How might I move faster than Figma &mdash; designing directly in code &mdash; to deliver a real, working admin front-end a developer can take straight to API integration?</p>
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <p class="section-label">Approach</p>
+        <h2 class="section-heading">From designing screens to shipping a build.</h2>
+        <p class="section-text">My role here was design and front-end &mdash; the data layer and APIs are a developer&rsquo;s next step. Instead of handing off flat frames, I built the interface as a functional React app running on realistic mock data, so every interaction could be felt, not imagined. AI was the accelerator that made a designer-led build realistic on this timeline.</p>
+        <div class="cs-col2">
+          <div class="cs-col2-item">
+            <span class="cs-col2-label">Start in Figma Make</span>
+            <span class="cs-col2-text">I generated the first working structure with Figma Make (Claude Sonnet) &mdash; turning layout intent straight into React components instead of redrawing them by hand.</span>
+          </div>
+          <div class="cs-col2-item">
+            <span class="cs-col2-label">Then mainly Claude Code</span>
+            <span class="cs-col2-text">From there I worked mostly in Claude Code &mdash; refining components, wiring interaction and state, and keeping the codebase consistent as the surface grew.</span>
+          </div>
+          <div class="cs-col2-item">
+            <span class="cs-col2-label">Design decisions stay mine</span>
+            <span class="cs-col2-text">AI handled the translation to code; hierarchy, flows, edge cases, and the look-and-feel were still design calls I made and reviewed screen by screen.</span>
+          </div>
+          <div class="cs-col2-item">
+            <span class="cs-col2-label">Built for handoff</span>
+            <span class="cs-col2-text">A real React + Vite + Tailwind front-end on mock data &mdash; structured so a developer can swap in live APIs without re-doing the UI.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <p class="section-label">The Product</p>
+        <h2 class="section-heading">Module by module.</h2>
+        <p class="section-text">A full admin platform &mdash; secure access up front, daily operations in the middle, and a management surface for every partner product the app sells.</p>
+        <div class="cs-features">
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">01</span>
+              <span class="cs-feature-name">Role-Based Access</span>
+            </div>
+            <h3 class="cs-feature-title">The right admin sees the right thing.</h3>
+            <p class="cs-feature-text">Login leads into one of three roles &mdash; Super, Transport, and Immigration Admin. Each lands on its own default view and is scoped to only the modules it owns, so a transport partner never touches immigration data.</p>
+            <img class="cs-img" src="./projects/thaipass-cms/login.webp" alt="Role-based login screen" />
+          </div>
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">02</span>
+              <span class="cs-feature-name">Order Transactions</span>
+            </div>
+            <h3 class="cs-feature-title">Every sale in one ledger.</h3>
+            <p class="cs-feature-text">A searchable, filterable table of every order across all products &mdash; by time, category, and user type &mdash; with one-click export so finance and partners can pull the records they need.</p>
+            <img class="cs-img" src="./projects/thaipass-cms/orders-export.webp" alt="Order transaction list with export" />
+          </div>
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">03</span>
+              <span class="cs-feature-name">User Accounts</span>
+            </div>
+            <h3 class="cs-feature-title">A full picture of every traveller.</h3>
+            <p class="cs-feature-text">Each account opens to its order history, spending, and TDAC status &mdash; with the ability to activate or deactivate access. Destructive actions are gated behind a clear confirmation so they can&rsquo;t happen by accident.</p>
+            <img class="cs-img" src="./projects/thaipass-cms/user-detail.webp" alt="User account detail" />
+            <img class="cs-img" src="./projects/thaipass-cms/user-inactivate.webp" alt="Account deactivation confirmation" style="margin-top:16px;" />
+          </div>
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">04</span>
+              <span class="cs-feature-name">TDAC Management</span>
+            </div>
+            <h3 class="cs-feature-title">Arrival cards, verified and exportable.</h3>
+            <p class="cs-feature-text">Immigration admins track every Thailand Digital Arrival Card by status, open a full record, and generate a formatted PDF in one click &mdash; turning a manual document task into a single action.</p>
+            <img class="cs-img" src="./projects/thaipass-cms/tdac-list.webp" alt="TDAC list" />
+            <img class="cs-img" src="./projects/thaipass-cms/tdac-detail.webp" alt="TDAC detail with PDF download" style="margin-top:16px;" />
+          </div>
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">05</span>
+              <span class="cs-feature-name">FastPass</span>
+            </div>
+            <h3 class="cs-feature-title">Fast-track, tracked end to end.</h3>
+            <p class="cs-feature-text">A live view of fast-track immigration purchases with summary stats up top. Admins move each pass through its lifecycle &mdash; Ready to use, Redeemed, Expired &mdash; with status managed inline.</p>
+            <img class="cs-img" src="./projects/thaipass-cms/fastpass-list.webp" alt="FastPass dashboard" />
+            <img class="cs-img" src="./projects/thaipass-cms/fastpass-status.webp" alt="FastPass status management" style="margin-top:16px;" />
+          </div>
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">06</span>
+              <span class="cs-feature-name">Transportation</span>
+            </div>
+            <h3 class="cs-feature-title">From booking to a driver at the gate.</h3>
+            <p class="cs-feature-text">The richest module: bookings with revenue and pickup stats, a pending-queue tab for what needs action, full trip details with a map reference, and a guided flow to assign and confirm a driver against each request.</p>
+            <img class="cs-img" src="./projects/thaipass-cms/transport-list.webp" alt="Transportation bookings" />
+            <img class="cs-img" src="./projects/thaipass-cms/transport-booking.webp" alt="Booking detail with map" style="margin-top:16px;" />
+            <img class="cs-img" src="./projects/thaipass-cms/transport-assign.webp" alt="Assign driver flow" style="margin-top:16px;" />
+          </div>
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">07</span>
+              <span class="cs-feature-name">eSIM</span>
+            </div>
+            <h3 class="cs-feature-title">Connectivity orders at a glance.</h3>
+            <p class="cs-feature-text">Revenue, order counts, and a most-purchased breakdown sit above the order list. Each order opens to its package, payment, and a status log tracking the eSIM from purchase to installed on device.</p>
+            <img class="cs-img" src="./projects/thaipass-cms/esim-list.webp" alt="eSIM orders dashboard" />
+            <img class="cs-img" src="./projects/thaipass-cms/esim-detail.webp" alt="eSIM order detail" style="margin-top:16px;" />
+          </div>
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">08</span>
+              <span class="cs-feature-name">Insurance</span>
+            </div>
+            <h3 class="cs-feature-title">Review, approve, or reject &mdash; with a reason.</h3>
+            <p class="cs-feature-text">Insurance requests come in for review with full traveller and policy details. Admins approve or reject each one, and a rejection always carries a clear reason back to the traveller &mdash; no silent dead ends.</p>
+            <img class="cs-img" src="./projects/thaipass-cms/insurance-rejected.webp" alt="Insurance review with rejection reason" />
+          </div>
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">09</span>
+              <span class="cs-feature-name">Account &amp; Security</span>
+            </div>
+            <h3 class="cs-feature-title">Sensible guardrails on the basics.</h3>
+            <p class="cs-feature-text">Admins manage their own credentials with a password reset that validates strength and confirmation in real time &mdash; small details, but the kind a real internal tool can&rsquo;t skip.</p>
+            <img class="cs-img" src="./projects/thaipass-cms/account-reset.webp" alt="Account password reset with validation" />
+          </div>
+
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <p class="section-label">Live Demo</p>
+        <h2 class="section-heading">Try the real build.</h2>
+        <p class="section-text">This isn&rsquo;t a prototype &mdash; it&rsquo;s the actual front-end running live on mock data. Log in with any username and the password <strong>1234</strong>, then pick a role to explore. Best viewed full-screen.</p>
+        <div class="cs-figma cs-figma--desktop">
+          <iframe
+            src="https://cms-development-test.vercel.app/login"
+            allowfullscreen
+            loading="lazy">
+          </iframe>
+        </div>
+        <p class="section-text" style="margin-top:14px;font-size:13px;opacity:0.75;">Demo access &mdash; Username: <strong>any value</strong> &middot; Password: <strong>1234</strong> &middot; <a href="https://cms-development-test.vercel.app/login" target="_blank" rel="noopener" style="color:var(--modal-accent);">Open in a new tab &rarr;</a></p>
+      </div>
+
+      <div class="cs-accent-band">
+        <p class="section-label">Outcome</p>
+        <h2 class="section-heading">A designer who can ship the build.</h2>
+        <p class="section-text">In three to four weeks, ThaiPass CMS went from idea to a working, role-aware admin front-end covering operations and every partner product &mdash; ready for a developer to wire to live APIs. Designing directly in code, with AI as the accelerator, closed the gap between &ldquo;designed&rdquo; and &ldquo;built&rdquo; far faster than a Figma-only handoff would have.</p>
+      </div>
+
+      <div class="cs-section">
+        <p class="section-label">Reflection</p>
+        <h2 class="section-heading">What I learned.</h2>
+        <p class="section-text">Building it myself changed how I design. When the prototype is the real thing, you feel every empty state, every confirmation, every loading moment &mdash; and you design them, not skip them. AI didn&rsquo;t replace the design work; it removed the friction between deciding and seeing it run.</p>
+        <div class="cs-quote">
+          <p>The fastest way to know a design works is to build it &mdash; and AI finally makes that realistic for a designer to do alone.</p>
+        </div>
+      </div>
+    `;
+
+    if (id === 'corporate-survivor') return `
+      <img class="cs-img" src="./projects/corporate-survivor/editor-login.webp" alt="Corporate Survivor login — Initiate Mission" style="border-radius:16px;margin-top:60px;" />
+
+      <div class="cs-section">
+        <p class="section-label">Overview</p>
+        <h2 class="section-heading">One tracker, two faces.</h2>
+        <p class="section-text">Corporate Survivor&trade; is an office attendance tracker with a split personality. To the person logging their days, it&rsquo;s a survival game &mdash; a dark mission terminal where showing up earns commendations. To whoever&rsquo;s reviewing the record, it&rsquo;s a beige HR &ldquo;Compliance Dashboard.&rdquo; Same data, opposite skins. It was also my first project taken all the way to a real, deployed full-stack app &mdash; designed <em>and</em> built solo, with Claude as the build partner.</p>
+        <div class="cs-tags">
+          <span class="cs-tag">Dual Interface</span>
+          <span class="cs-tag">Supabase Auth</span>
+          <span class="cs-tag">Postgres &amp; RLS</span>
+          <span class="cs-tag">Photo Evidence</span>
+          <span class="cs-tag">AI Captions</span>
+          <span class="cs-tag">Full-Stack</span>
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <p class="section-label">Premise</p>
+        <h2 class="section-heading">Return-to-office, reframed as a survival game.</h2>
+        <p class="section-text">Attendance mandates turn showing up into a box-ticking ritual &mdash; logged, counted, and quietly judged. The premise here is to take that dread seriously enough to make a joke of it: give the person logging days a game worth playing, and give the &ldquo;official record&rdquo; the driest bureaucratic voice imaginable. The contrast <em>is</em> the product.</p>
+        <ul class="cs-list">
+          <li>Logging attendance feels like surveillance, not progress</li>
+          <li>A weekly office target (3 days) deserves a streak, not a spreadsheet</li>
+          <li>The &ldquo;record&rdquo; everyone fears is usually just a dull table</li>
+          <li>I wanted to design the gap between how it <em>feels</em> and how it&rsquo;s <em>filed</em></li>
+        </ul>
+        <div class="cs-quote">
+          <p>What if the same attendance data could be a survival game to its player and a compliance report to its auditor &mdash; built for real, not faked in Figma?</p>
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <p class="section-label">Approach</p>
+        <h2 class="section-heading">Designed two languages, then shipped the whole stack.</h2>
+        <p class="section-text">Unlike a front-end on mock data, this one is real end to end &mdash; accounts, a database, file uploads, and live AI. I designed the two opposing visual systems, then built the working product solo in Claude Code, wiring it to a real Supabase backend and the Claude API. AI handled the translation to code; the concept, the two design languages, and every in-character line were calls I made.</p>
+        <div class="cs-col2">
+          <div class="cs-col2-item">
+            <span class="cs-col2-label">Two visual systems</span>
+            <span class="cs-col2-text">A dark, monospace &ldquo;survival terminal&rdquo; for the editor and a flat, beige HR portal for the viewer &mdash; deliberately designed to feel like different companies built them.</span>
+          </div>
+          <div class="cs-col2-item">
+            <span class="cs-col2-label">Built with Claude Code</span>
+            <span class="cs-col2-text">The full React + Vite front-end and the Supabase wiring were built in Claude Code &mdash; components, auth flow, storage uploads, and state, kept consistent as the surface grew.</span>
+          </div>
+          <div class="cs-col2-item">
+            <span class="cs-col2-label">A real backend</span>
+            <span class="cs-col2-text">Supabase Auth gates the editor, Postgres stores every record behind row-level security, and a Storage bucket holds the stamped photo evidence &mdash; not mocked, actually running.</span>
+          </div>
+          <div class="cs-col2-item">
+            <span class="cs-col2-label">Claude writes the record</span>
+            <span class="cs-col2-text">Every entry is captioned live by the Claude API, in a deadpan corporate voice &mdash; the same data narrated as triumph on one side and dry compliance on the other.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <p class="section-label">The Product</p>
+        <h2 class="section-heading">The two sides, side by side.</h2>
+        <p class="section-text">The editor plays like a mission; the viewer reads like an audit. Both run on the same records &mdash; the difference is entirely in the telling.</p>
+        <div class="cs-features">
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">01</span>
+              <span class="cs-feature-name">The Mission Terminal</span>
+            </div>
+            <h3 class="cs-feature-title">Showing up, gamified.</h3>
+            <p class="cs-feature-text">The editor opens on a dark calendar where each office day is a logged mission, with a strip of unlockable commendations below &mdash; <em>Compliant Entity</em>, <em>As Per Our Records</em>, <em>Above Reproach</em>. The weekly target is three office days; the terminal makes hitting it feel like survival, not paperwork.</p>
+            <img class="cs-img" src="./projects/corporate-survivor/editor-calendar.webp" alt="Editor calendar with commendations and citations" />
+          </div>
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">02</span>
+              <span class="cs-feature-name">Filing the Day</span>
+            </div>
+            <h3 class="cs-feature-title">Present, absent, or excused &mdash; with proof.</h3>
+            <p class="cs-feature-text">Tapping a day opens a field report: mark the status, add an optional note, and upload a photo as evidence. The interaction is the point &mdash; this is a working flow with real uploads, not a static screen pretending to accept input.</p>
+            <img class="cs-img" src="./projects/corporate-survivor/editor-logday.webp" alt="Filing a day — present, absent, excused, with photo upload" />
+          </div>
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">03</span>
+              <span class="cs-feature-name">AI Citations</span>
+            </div>
+            <h3 class="cs-feature-title">Claude files every entry, in character.</h3>
+            <p class="cs-feature-text">Once a day is logged, the Claude API writes its citation live &mdash; deadpan and faintly menacing. A present day earns &ldquo;<em>Attendance noted. The company&rsquo;s legal obligation to acknowledge your presence has been fulfilled.</em>&rdquo; An excused one clears &ldquo;<em>compliance review &mdash; closer than you might like to know.</em>&rdquo;</p>
+            <img class="cs-img" src="./projects/corporate-survivor/editor-caption.webp" alt="AI-generated caption on a present day" />
+            <img class="cs-img" src="./projects/corporate-survivor/editor-excused.webp" alt="AI-generated caption on an excused day" style="margin-top:16px;" />
+          </div>
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">04</span>
+              <span class="cs-feature-name">The Compliance Dashboard</span>
+            </div>
+            <h3 class="cs-feature-title">The same data, filed by HR.</h3>
+            <p class="cs-feature-text">The viewer is password-gated &mdash; hint: &ldquo;<em>guess a number between 1 and 10000.</em>&rdquo; Past it, every trace of the game is gone: a beige &ldquo;Attendance Compliance Dashboard&rdquo; with an overall rate, a current streak, and a month grid. No write access, no Supabase account &mdash; just the record, observed.</p>
+            <img class="cs-img" src="./projects/corporate-survivor/viewer-gate.webp" alt="Viewer password gate — Attendance Compliance Dashboard" />
+            <img class="cs-img" src="./projects/corporate-survivor/viewer-dashboard.webp" alt="Compliance dashboard — rate, streak, calendar, entry log" style="margin-top:16px;" />
+          </div>
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">05</span>
+              <span class="cs-feature-name">The Record, In Detail</span>
+            </div>
+            <h3 class="cs-feature-title">Every entry, with its evidence.</h3>
+            <p class="cs-feature-text">The entry log expands each day to its field report, its photographic evidence, and the same AI caption &mdash; reframed for the auditor: &ldquo;<em>Your face has been matched to your file. Everything checks out. For now.</em>&rdquo; The triumph reads as paperwork here, and that&rsquo;s the joke landing.</p>
+            <img class="cs-img" src="./projects/corporate-survivor/viewer-record.webp" alt="Expanded entry with photographic evidence and caption" />
+          </div>
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">06</span>
+              <span class="cs-feature-name">The Year View</span>
+            </div>
+            <h3 class="cs-feature-title">Twelve months at a glance.</h3>
+            <p class="cs-feature-text">Toggling to the year view lays out all twelve months as mini heatmaps &mdash; a calm, zoomed-out read of the whole record. Future months stay navigable too, so a survivor can pre-plan their office days before they happen.</p>
+            <img class="cs-img" src="./projects/corporate-survivor/viewer-year.webp" alt="Year view — twelve month heatmaps" />
+          </div>
+
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <p class="section-label">Under the Hood</p>
+        <h2 class="section-heading">A real stack, not a mockup.</h2>
+        <p class="section-text">What makes this more than a styling exercise is that all of it actually runs. The editor is a real authenticated account; every record lives in Postgres behind row-level security; the photos sit in cloud storage; and the captions come from a live model call. Building the whole thing solo meant designing the backend rules as carefully as the screens.</p>
+        <div class="cs-features">
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">01</span>
+              <span class="cs-feature-name">Auth</span>
+            </div>
+            <h3 class="cs-feature-title">One operative, real login.</h3>
+            <p class="cs-feature-text">Supabase Auth backs the editor &mdash; a single authenticated account that can write. The viewer needs no account at all, just the shared password, so the read and write surfaces are cleanly separated.</p>
+            <img class="cs-img" src="./projects/corporate-survivor/backend-auth.webp" alt="Supabase Auth users" />
+          </div>
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">02</span>
+              <span class="cs-feature-name">Database &amp; RLS</span>
+            </div>
+            <h3 class="cs-feature-title">Public can read; only the authed user writes.</h3>
+            <p class="cs-feature-text">Attendance and achievements live in Postgres with row-level security policies: anyone can read the record, but inserts, updates, and deletes are gated to the authenticated editor &mdash; the rules that let a public viewer exist safely without a back door.</p>
+            <img class="cs-img" src="./projects/corporate-survivor/backend-rls.webp" alt="SQL editor — row-level security policies" />
+          </div>
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">03</span>
+              <span class="cs-feature-name">Evidence Storage</span>
+            </div>
+            <h3 class="cs-feature-title">Stamped photos, in a real bucket.</h3>
+            <p class="cs-feature-text">Uploaded evidence is stored as public JPEGs in a Supabase Storage bucket, with its own write-gated, read-open policies mirroring the database &mdash; so the photo on a viewer&rsquo;s entry is the actual file the editor uploaded.</p>
+            <img class="cs-img" src="./projects/corporate-survivor/backend-storage.webp" alt="Supabase Storage evidence bucket" />
+          </div>
+
+        </div>
+      </div>
+
+      <div class="cs-accent-band">
+        <p class="section-label">Outcome</p>
+        <h2 class="section-heading">A complete product, designed and built solo.</h2>
+        <p class="section-text">Corporate Survivor went from a one-line joke to a deployed full-stack app &mdash; real auth, a real database with security rules, real file storage, and live AI captions &mdash; with two fully designed interfaces telling opposite stories from one source of truth. AI was the accelerator that made building the whole stack realistic for a designer to do alone.</p>
+      </div>
+
+      <div class="cs-section">
+        <p class="section-label">Reflection</p>
+        <h2 class="section-heading">What I learned.</h2>
+        <p class="section-text">Owning the backend changed how I think about an interface. When the same row has to satisfy a player and an auditor, you stop designing screens and start designing the <em>rules</em> underneath them &mdash; who can write, who can read, what the data is allowed to say. AI didn&rsquo;t make those decisions; it just made it fast enough that I could.</p>
+        <div class="cs-quote">
+          <p>The best way to understand a product is to build all of it &mdash; and AI finally makes the whole stack reachable for a designer working alone.</p>
+        </div>
+      </div>
+    `;
+
+    if (id === 'mtel-pitch') return `
+      <img class="cs-img" src="./projects/mtel-pitch/dashboard-dark.webp" alt="Mtel Pitch — the deck wall, every card on its client's brand" style="border-radius:16px;margin-top:60px;" />
+
+      <div class="cs-section">
+        <p class="section-label">Overview</p>
+        <h2 class="section-heading">One home for every client pitch.</h2>
+        <p class="section-text">Mtel Pitch is the internal tool my team uses to collect, organise, and share the pitch decks we send to clients. Instead of links buried in chat threads, every deck becomes a card on a shared wall &mdash; and each card quietly dresses itself in its client&rsquo;s own thumbnail and brand colour, so the grid reads like the clients themselves. It&rsquo;s a real, deployed tool I designed <em>and</em> built solo, with Claude Code as the build partner.</p>
+        <div class="cs-tags">
+          <span class="cs-tag">Self-Branding Cards</span>
+          <span class="cs-tag">Live Previews</span>
+          <span class="cs-tag">Supabase Auth</span>
+          <span class="cs-tag">Edge Functions</span>
+          <span class="cs-tag">Slug Sharing</span>
+          <span class="cs-tag">Full-Stack</span>
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <p class="section-label">Premise</p>
+        <h2 class="section-heading">A pitch link is a faceless thing.</h2>
+        <p class="section-text">Client decks lived as bare URLs &mdash; pasted into chats, lost in spreadsheets, indistinguishable from one another. A link tells you nothing about whose deck it is or whether it&rsquo;s the latest one. I wanted one shared place that was nice enough that the team would actually use it, and presentable enough to hand a client a clean link without a second thought.</p>
+        <ul class="cs-list">
+          <li>Deck links were scattered across threads with no single source of truth</li>
+          <li>A raw URL carries no identity &mdash; no client, no brand, no preview</li>
+          <li>Sharing meant copying long, ugly links that were easy to mistype</li>
+          <li>The team needed something fast to use, not another form to dread</li>
+        </ul>
+        <div class="cs-quote">
+          <p>What if a wall of faceless links could look like the clients themselves &mdash; each card wearing its own brand, the moment you paste the URL?</p>
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <p class="section-label">Approach</p>
+        <h2 class="section-heading">Keep the chrome quiet; let the clients bring the colour.</h2>
+        <p class="section-text">The shell is deliberately restrained &mdash; black, white, and a single Mtel gold &mdash; so the colour on screen comes entirely from the clients. I designed that calm system, then built the whole thing solo in Claude Code: a React front-end wired to a real Supabase backend, plus two small edge functions that do the clever fetching. AI handled the translation to code; the concept, the design language, and every rule underneath were mine.</p>
+        <div class="cs-col2">
+          <div class="cs-col2-item">
+            <span class="cs-col2-label">A quiet shell</span>
+            <span class="cs-col2-text">A minimal black-and-white interface with one gold accent and an Inter type system &mdash; intentionally neutral so each client&rsquo;s extracted brand colour is the loudest thing on the card.</span>
+          </div>
+          <div class="cs-col2-item">
+            <span class="cs-col2-label">Built with Claude Code</span>
+            <span class="cs-col2-text">The full React + Vite front-end, the Supabase wiring, and both Deno edge functions were built in Claude Code &mdash; components, auth, theming, and the fetching logic kept consistent as it grew.</span>
+          </div>
+          <div class="cs-col2-item">
+            <span class="cs-col2-label">A real backend</span>
+            <span class="cs-col2-text">Supabase Auth gates the team dashboard, Postgres stores every deck and member behind row-level security, and the public <em>/view/:slug</em> route resolves a clean link without a login.</span>
+          </div>
+          <div class="cs-col2-item">
+            <span class="cs-col2-label">Cards that self-brand</span>
+            <span class="cs-col2-text">Two edge functions reach out to each client&rsquo;s own site &mdash; one to pull a live preview image, one to read their brand colour &mdash; so a deck looks like its client the instant it&rsquo;s added.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <p class="section-label">The Product</p>
+        <h2 class="section-heading">The wall, and the work behind a card.</h2>
+        <p class="section-text">Everything centres on the deck wall: add a link, watch it become a branded card, and share it. The interactions stay small and fast &mdash; the kind a team reaches for daily.</p>
+        <div class="cs-features">
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">01</span>
+              <span class="cs-feature-name">The Deck Wall</span>
+            </div>
+            <h3 class="cs-feature-title">Every deck, wearing its client.</h3>
+            <p class="cs-feature-text">The dashboard is a grid of deck cards, each pulling a live preview of the client&rsquo;s site and tinting itself with that client&rsquo;s extracted brand colour &mdash; arc&rsquo;s purple, Browserbase&rsquo;s photo, ByteDance&rsquo;s dark. A slim header carries the only controls, and the whole wall flips cleanly between light and dark.</p>
+            <img class="cs-img" src="./projects/mtel-pitch/dashboard.webp" alt="The deck wall in light mode — branded client cards" />
+          </div>
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">02</span>
+              <span class="cs-feature-name">Adding a Deck</span>
+            </div>
+            <h3 class="cs-feature-title">Paste a URL; the rest fills itself in.</h3>
+            <p class="cs-feature-text">Adding a deck is one short modal: a title, the deck URL, and a share slug that auto-generates as you type &mdash; <em>Browser Base</em> becomes <em>/view/BROWSER-BASE</em>. Tag who&rsquo;s crafting it, hit add, and the card is on the wall, already branded.</p>
+            <img class="cs-img" src="./projects/mtel-pitch/add-deck.webp" alt="Add deck modal — auto-generated slug and crafted-by tag" />
+          </div>
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">03</span>
+              <span class="cs-feature-name">Open &amp; Share</span>
+            </div>
+            <h3 class="cs-feature-title">One hover, two ways out.</h3>
+            <p class="cs-feature-text">Hovering a card reveals just two actions &mdash; open the deck, or copy its link. A deck can carry both a primary and an alternative URL, so &ldquo;copy link&rdquo; quietly offers the right one to hand a client, without cluttering the resting state of the card.</p>
+            <img class="cs-img" src="./projects/mtel-pitch/card-actions.webp" alt="Card hover revealing Open and Copy link actions" />
+            <img class="cs-img" src="./projects/mtel-pitch/card-copy.webp" alt="Copy link offering deck URL or alternative URL" style="margin-top:16px;" />
+          </div>
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">04</span>
+              <span class="cs-feature-name">Whose Deck Is Whose</span>
+            </div>
+            <h3 class="cs-feature-title">A team you can see at a glance.</h3>
+            <p class="cs-feature-text">Because the login is shared, identity lives in lightweight member profiles: pick a colour, a generative pattern, and a four-digit PIN that protects later edits. Tag one or two crafters on each deck, and the wall shows who owns what without anyone signing in separately.</p>
+            <img class="cs-img" src="./projects/mtel-pitch/profile.webp" alt="New member profile — colour, generative pattern, and PIN" />
+            <img class="cs-img" src="./projects/mtel-pitch/profile-pattern.webp" alt="Choosing a generative avatar pattern" style="margin-top:16px;" />
+            <img class="cs-img" src="./projects/mtel-pitch/members.webp" alt="Shared member roster with edit and remove" style="margin-top:16px;" />
+          </div>
+
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <p class="section-label">Under the Hood</p>
+        <h2 class="section-heading">The self-branding is the engineering.</h2>
+        <p class="section-text">The part that makes the wall feel alive isn&rsquo;t styling &mdash; it&rsquo;s two Deno edge functions reaching out to each client&rsquo;s real website, plus the database rules that let a public client link coexist with a private team dashboard. Building it solo meant designing those rules as carefully as the screens.</p>
+        <div class="cs-features">
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">01</span>
+              <span class="cs-feature-name">Brand-Colour Extraction</span>
+            </div>
+            <h3 class="cs-feature-title">It reads the client&rsquo;s colour from their own site.</h3>
+            <p class="cs-feature-text">An <em>extract-color</em> edge function visits the deck&rsquo;s domain and works down a cascade: honour an explicit <em>theme-color</em> meta tag, then look for CSS custom properties that read like a brand token, then fall back to the most common background colour &mdash; skipping the generic grays that Bootstrap and Tailwind ship with.</p>
+            <div class="cs-code">
+              <div class="cs-code-bar"><span class="cs-code-dot"></span><span class="cs-code-dot"></span><span class="cs-code-dot"></span><span class="cs-code-filename">extract-color/index.ts</span></div>
+              <pre><code><span class="tok-cm">// Pull a client's brand colour from their own site</span>
+<span class="tok-kw">const</span> origin = <span class="tok-kw">new</span> <span class="tok-typ">URL</span>(url).origin
+<span class="tok-kw">const</span> html  = <span class="tok-kw">await</span> (<span class="tok-kw">await</span> <span class="tok-fn">fetch</span>(origin)).<span class="tok-fn">text</span>()
+
+<span class="tok-cm">// 1 — honour an explicit &lt;meta name="theme-color"&gt;</span>
+<span class="tok-kw">const</span> meta = <span class="tok-fn">matchMeta</span>(html, <span class="tok-str">'theme-color'</span>)
+<span class="tok-kw">if</span> (meta &amp;&amp; <span class="tok-fn">isUsableColor</span>(meta)) <span class="tok-kw">return</span> { color: meta }
+
+<span class="tok-cm">// 2 — else, find the dominant brand colour in the CSS</span>
+<span class="tok-kw">function</span> <span class="tok-fn">dominantColor</span>(css: <span class="tok-typ">string</span>) {
+  <span class="tok-cm">// prefer custom properties that read like a brand token</span>
+  <span class="tok-kw">const</span> vars = css.<span class="tok-fn">match</span>(/--(?:primary|brand|accent|theme)[^:]*:\\s*([^;]+)/gi) ?? []
+  <span class="tok-kw">for</span> (<span class="tok-kw">const</span> decl <span class="tok-kw">of</span> vars) {
+    <span class="tok-kw">const</span> hex = decl.<span class="tok-fn">match</span>(/#[0-9a-f]{6}/i)?.[<span class="tok-num">0</span>]
+    <span class="tok-kw">if</span> (hex &amp;&amp; <span class="tok-fn">isUsableColor</span>(hex) &amp;&amp; !FRAMEWORK_COLORS.<span class="tok-fn">has</span>(hex)) <span class="tok-kw">return</span> hex
+  }
+  <span class="tok-cm">// fall back to the most frequent non-framework background</span>
+  <span class="tok-kw">return</span> <span class="tok-fn">byFrequency</span>(css, <span class="tok-str">'background'</span>)
+}</code></pre>
+            </div>
+          </div>
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">02</span>
+              <span class="cs-feature-name">Live Previews, No CORS</span>
+            </div>
+            <h3 class="cs-feature-title">A tiny proxy so any thumbnail just loads.</h3>
+            <p class="cs-feature-text">Client preview images come from other origins, which the browser would normally block. A second <em>img-proxy</em> edge function streams the image through our own origin and caches it for a day &mdash; so a cross-origin thumbnail renders cleanly, and the wall stays fast on repeat visits.</p>
+            <div class="cs-code">
+              <div class="cs-code-bar"><span class="cs-code-dot"></span><span class="cs-code-dot"></span><span class="cs-code-dot"></span><span class="cs-code-filename">img-proxy/index.ts</span></div>
+              <pre><code><span class="tok-cm">// Stream a cross-origin preview through our own origin</span>
+<span class="tok-kw">const</span> url = <span class="tok-kw">new</span> <span class="tok-typ">URL</span>(req.url).searchParams.<span class="tok-fn">get</span>(<span class="tok-str">'url'</span>)
+
+<span class="tok-kw">const</span> res = <span class="tok-kw">await</span> <span class="tok-fn">fetch</span>(url, {
+  headers: { <span class="tok-str">'User-Agent'</span>: <span class="tok-str">'Mozilla/5.0 (compatible; MtelBot/1.0)'</span> },
+  signal: <span class="tok-typ">AbortSignal</span>.<span class="tok-fn">timeout</span>(<span class="tok-num">12000</span>),
+})
+
+<span class="tok-kw">return</span> <span class="tok-kw">new</span> <span class="tok-typ">Response</span>(<span class="tok-kw">await</span> res.<span class="tok-fn">arrayBuffer</span>(), {
+  headers: {
+    <span class="tok-str">'Content-Type'</span>:  res.headers.<span class="tok-fn">get</span>(<span class="tok-str">'Content-Type'</span>) || <span class="tok-str">'image/jpeg'</span>,
+    <span class="tok-str">'Cache-Control'</span>: <span class="tok-str">'public, max-age=86400'</span>,
+  },
+})</code></pre>
+            </div>
+          </div>
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">03</span>
+              <span class="cs-feature-name">Public Link, Private Wall</span>
+            </div>
+            <h3 class="cs-feature-title">Clients can read; only the team can write.</h3>
+            <p class="cs-feature-text">Decks need to be world-readable so a client can open <em>/view/:slug</em> with no account, while every create, edit, and delete stays locked to the signed-in team. Postgres row-level security draws that line directly in the database &mdash; the rule that lets a public link exist safely without opening a back door.</p>
+            <div class="cs-code">
+              <div class="cs-code-bar"><span class="cs-code-dot"></span><span class="cs-code-dot"></span><span class="cs-code-dot"></span><span class="cs-code-filename">policies.sql</span></div>
+              <pre><code><span class="tok-cm">-- Decks are public to read (clients open /view/:slug)…</span>
+<span class="tok-kw">create policy</span> <span class="tok-str">"Public read decks"</span> <span class="tok-kw">on</span> decks
+  <span class="tok-kw">for select using</span> (<span class="tok-kw">true</span>);
+
+<span class="tok-cm">-- …but only the signed-in team can write.</span>
+<span class="tok-kw">create policy</span> <span class="tok-str">"Authenticated full access"</span> <span class="tok-kw">on</span> decks
+  <span class="tok-kw">for all using</span> (auth.<span class="tok-fn">role</span>() = <span class="tok-str">'authenticated'</span>);</code></pre>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="cs-accent-band">
+        <p class="section-label">Outcome</p>
+        <h2 class="section-heading">A real tool the team actually uses.</h2>
+        <p class="section-text">Mtel Pitch turned a scatter of faceless links into one shared, branded wall &mdash; deployed and in real use, with a live preview and an extracted brand colour standing behind every card, and clean <em>/view</em> links to hand to clients. AI was the accelerator that made shipping the whole stack &mdash; front-end, database, and edge functions &mdash; realistic for a designer to do alone.</p>
+      </div>
+
+      <div class="cs-section">
+        <p class="section-label">Reflection</p>
+        <h2 class="section-heading">What I learned.</h2>
+        <p class="section-text">The nicest idea here &mdash; every card on-brand &mdash; was only possible because I could also write the function that fetches the colour. Owning the backend turned a designer&rsquo;s wish into a feature. I stopped drawing screens and started designing the rules and requests underneath them; AI didn&rsquo;t make those calls, it just made them fast enough to reach.</p>
+        <div class="cs-quote">
+          <p>The best interface ideas often live in the backend &mdash; and AI finally puts that whole layer within a designer&rsquo;s reach.</p>
+        </div>
+      </div>
+    `;
+
     if (id === 'thaipass') return `
       <img class="cs-img" src="./projects/thaipass/cover.webp" alt="ThaiPass cover" style="border-radius:16px;margin-top:60px;" />
 
@@ -345,46 +971,73 @@
       </div>
 
       <div class="cs-section">
-        <p class="section-label">Home &amp; Account</p>
-        <h2 class="section-heading">One dashboard for everything.</h2>
-        <p class="section-text">The home screen gives travellers an instant overview of all active services, upcoming arrivals, and quick access to support &mdash; without noise.</p>
-        <img class="cs-img" src="./projects/thaipass/home.webp" alt="Home screens" />
-      </div>
+        <p class="section-label">The Product</p>
+        <h2 class="section-heading">Service by service.</h2>
+        <p class="section-text">A dashboard to tie it together, then five focused services &mdash; each mapped to a moment in the journey, from booking before the flight to staying connected after landing.</p>
+        <div class="cs-features">
 
-      <div class="cs-section">
-        <p class="section-label">Voucher Packages</p>
-        <h2 class="section-heading">Bundled for convenience.</h2>
-        <p class="section-text">Pre-packaged service bundles reduce decision fatigue and offer cost savings &mdash; making it easy to get everything in one purchase.</p>
-        <img class="cs-img" src="./projects/thaipass/voucher-packages.webp" alt="Voucher Packages screens" />
-      </div>
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">01</span>
+              <span class="cs-feature-name">Home &amp; Account</span>
+            </div>
+            <h3 class="cs-feature-title">One dashboard for everything.</h3>
+            <p class="cs-feature-text">The home screen gives travellers an instant overview of all active services, upcoming arrivals, and quick access to support &mdash; without noise.</p>
+            <img class="cs-img" src="./projects/thaipass/home.webp" alt="Home screens" />
+          </div>
 
-      <div class="cs-section">
-        <p class="section-label">FastPass</p>
-        <h2 class="section-heading">Skip the queue.</h2>
-        <p class="section-text">FastPass gives travellers access to the fast-track immigration lane &mdash; a premium arrival experience that dramatically reduces waiting time at the airport.</p>
-        <img class="cs-img" src="./projects/thaipass/fastpass.webp" alt="FastPass screens" />
-      </div>
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">02</span>
+              <span class="cs-feature-name">Voucher Packages</span>
+            </div>
+            <h3 class="cs-feature-title">Bundled for convenience.</h3>
+            <p class="cs-feature-text">Pre-packaged service bundles reduce decision fatigue and offer cost savings &mdash; making it easy to get everything in one purchase.</p>
+            <img class="cs-img" src="./projects/thaipass/voucher-packages.webp" alt="Voucher Packages screens" />
+          </div>
 
-      <div class="cs-section">
-        <p class="section-label">Transport</p>
-        <h2 class="section-heading">Your ride, ready on arrival.</h2>
-        <p class="section-text">Pre-book airport transfers before landing. No confusion, no negotiation &mdash; a reliable, verified driver waiting at the gate.</p>
-        <img class="cs-img" src="./projects/thaipass/transport.webp" alt="Transport screens" />
-      </div>
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">03</span>
+              <span class="cs-feature-name">FastPass</span>
+            </div>
+            <h3 class="cs-feature-title">Skip the queue.</h3>
+            <p class="cs-feature-text">FastPass gives travellers access to the fast-track immigration lane &mdash; a premium arrival experience that dramatically reduces waiting time at the airport.</p>
+            <img class="cs-img" src="./projects/thaipass/fastpass.webp" alt="FastPass screens" />
+          </div>
 
-      <div class="cs-section">
-        <p class="section-label">eSIM</p>
-        <h2 class="section-heading">Online the moment you land.</h2>
-        <p class="section-text">Instant connectivity via eSIM &mdash; no hunting for SIM card stalls at the airport. Activated in seconds, ready before you leave the gate.</p>
-        <img class="cs-img" src="./projects/thaipass/esim.webp" alt="eSIM screens" />
-      </div>
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">04</span>
+              <span class="cs-feature-name">Transport</span>
+            </div>
+            <h3 class="cs-feature-title">Your ride, ready on arrival.</h3>
+            <p class="cs-feature-text">Pre-book airport transfers before landing. No confusion, no negotiation &mdash; a reliable, verified driver waiting at the gate.</p>
+            <img class="cs-img" src="./projects/thaipass/transport.webp" alt="Transport screens" />
+          </div>
 
-      <div class="cs-section">
-        <p class="section-label">Insurance &amp; TDAC</p>
-        <h2 class="section-heading">Protected and prepared.</h2>
-        <p class="section-text">Travel insurance gives peace of mind. TDAC support links directly to the official Thailand Digital Arrival Card process &mdash; building trust and preventing scams.</p>
-        <img class="cs-img" src="./projects/thaipass/insurance.webp" alt="Insurance screens" />
-        <img class="cs-img" src="./projects/thaipass/tdac.webp" alt="TDAC screens" style="margin-top:16px;" />
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">05</span>
+              <span class="cs-feature-name">eSIM</span>
+            </div>
+            <h3 class="cs-feature-title">Online the moment you land.</h3>
+            <p class="cs-feature-text">Instant connectivity via eSIM &mdash; no hunting for SIM card stalls at the airport. Activated in seconds, ready before you leave the gate.</p>
+            <img class="cs-img" src="./projects/thaipass/esim.webp" alt="eSIM screens" />
+          </div>
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">06</span>
+              <span class="cs-feature-name">Insurance &amp; TDAC</span>
+            </div>
+            <h3 class="cs-feature-title">Protected and prepared.</h3>
+            <p class="cs-feature-text">Travel insurance gives peace of mind. TDAC support links directly to the official Thailand Digital Arrival Card process &mdash; building trust and preventing scams.</p>
+            <img class="cs-img" src="./projects/thaipass/insurance.webp" alt="Insurance screens" />
+            <img class="cs-img" src="./projects/thaipass/tdac.webp" alt="TDAC screens" style="margin-top:16px;" />
+          </div>
+
+        </div>
       </div>
 
       <div class="cs-accent-band">
@@ -466,31 +1119,52 @@
       </div>
 
       <div class="cs-section">
-        <p class="section-label">Main Calculator</p>
-        <h2 class="section-heading">Three tools, one guided system.</h2>
-        <p class="section-text">The calculator supports Voltage Drop, Minimum Conductor Size, and Maximum Circuit Distance &mdash; each with step-by-step input and conditional logic that adapts to the user&rsquo;s selections.</p>
-        <img class="cs-img" src="./projects/bcc/calculator.webp" alt="Main calculator screens" />
-      </div>
+        <p class="section-label">The Product</p>
+        <h2 class="section-heading">Inside the tool.</h2>
+        <p class="section-text">Four parts carry the experience &mdash; a guided calculator, an input system that adapts, a professional report, and a layout built for every screen.</p>
+        <div class="cs-features">
 
-      <div class="cs-section">
-        <p class="section-label">Smart Input System</p>
-        <h2 class="section-heading">Only what you need, when you need it.</h2>
-        <p class="section-text">Dynamic fields reveal based on previous inputs. Visual indicators for cable types and built-in validation prevent errors before they happen.</p>
-        <img class="cs-img" src="./projects/bcc/smart-input.webp" alt="Smart input system" />
-      </div>
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">01</span>
+              <span class="cs-feature-name">Main Calculator</span>
+            </div>
+            <h3 class="cs-feature-title">Three tools, one guided system.</h3>
+            <p class="cs-feature-text">The calculator supports Voltage Drop, Minimum Conductor Size, and Maximum Circuit Distance &mdash; each with step-by-step input and conditional logic that adapts to the user&rsquo;s selections.</p>
+            <img class="cs-img" src="./projects/bcc/calculator.webp" alt="Main calculator screens" />
+          </div>
 
-      <div class="cs-section">
-        <p class="section-label">Report & Export</p>
-        <h2 class="section-heading">From calculation to professional document.</h2>
-        <p class="section-text">An auto-generated A4 report captures all results &mdash; Voltage Drop, Conductor Size, and Circuit Distance &mdash; formatted for professional sharing and download.</p>
-        <img class="cs-img" src="./projects/bcc/report.webp" alt="Calculation report" />
-      </div>
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">02</span>
+              <span class="cs-feature-name">Smart Input System</span>
+            </div>
+            <h3 class="cs-feature-title">Only what you need, when you need it.</h3>
+            <p class="cs-feature-text">Dynamic fields reveal based on previous inputs. Visual indicators for cable types and built-in validation prevent errors before they happen.</p>
+            <img class="cs-img" src="./projects/bcc/smart-input.webp" alt="Smart input system" />
+          </div>
 
-      <div class="cs-section">
-        <p class="section-label">Responsive Design</p>
-        <h2 class="section-heading">Optimized for every screen.</h2>
-        <p class="section-text">The full experience is designed for both desktop and mobile &mdash; with responsive layouts, spacing rules, and component behavior defined for every breakpoint.</p>
-        <img class="cs-img" src="./projects/bcc/responsive.webp" alt="Responsive design" />
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">03</span>
+              <span class="cs-feature-name">Report &amp; Export</span>
+            </div>
+            <h3 class="cs-feature-title">From calculation to professional document.</h3>
+            <p class="cs-feature-text">An auto-generated A4 report captures all results &mdash; Voltage Drop, Conductor Size, and Circuit Distance &mdash; formatted for professional sharing and download.</p>
+            <img class="cs-img" src="./projects/bcc/report.webp" alt="Calculation report" />
+          </div>
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">04</span>
+              <span class="cs-feature-name">Responsive Design</span>
+            </div>
+            <h3 class="cs-feature-title">Optimized for every screen.</h3>
+            <p class="cs-feature-text">The full experience is designed for both desktop and mobile &mdash; with responsive layouts, spacing rules, and component behavior defined for every breakpoint.</p>
+            <img class="cs-img" src="./projects/bcc/responsive.webp" alt="Responsive design" />
+          </div>
+
+        </div>
       </div>
 
       <div class="cs-section">
@@ -580,53 +1254,68 @@
       <div class="cs-section">
         <p class="section-label">Design Approach</p>
         <h2 class="section-heading">System thinking, phased delivery.</h2>
-        <p class="section-text">Rather than designing a single dashboard, Net Zero was architected as a multi-stakeholder platform with four core pillars: Registration &amp; Onboarding, Emissions Tracking (MRV), Compliance Certification, and Carbon Marketplace. To manage complexity, the platform was scoped into 4 deployment phases.</p>
-      </div>
+        <p class="section-text">Rather than designing a single dashboard, Net Zero was architected as a multi-stakeholder platform with four core pillars: Registration &amp; Onboarding, Emissions Tracking (MRV), Compliance Certification, and Carbon Marketplace. To manage complexity, the platform was scoped into four deployment phases.</p>
+        <div class="cs-features">
 
-      <div class="cs-section">
-        <p class="section-label">Phase 1</p>
-        <h2 class="section-heading">Registration &amp; basic MRV intake.</h2>
-        <p class="section-text">The foundation phase focuses on onboarding Thai factories and capturing initial emissions data through a guided MRV intake flow. Designed to be accessible to factory operators with minimal technical background.</p>
-        <img class="cs-img" src="./projects/netzero/8.webp" alt="Phase 1 screens" />
-        <img class="cs-img" src="./projects/netzero/9.webp" alt="Phase 1 screens" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/netzero/10.webp" alt="Phase 1 screens" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/netzero/11.webp" alt="Phase 1 screens" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/netzero/12.webp" alt="Phase 1 screens" style="margin-top:16px;" />
-      </div>
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">01</span>
+              <span class="cs-feature-name">Phase 1 &middot; Onboarding</span>
+            </div>
+            <h3 class="cs-feature-title">Registration &amp; basic MRV intake.</h3>
+            <p class="cs-feature-text">The foundation phase focuses on onboarding Thai factories and capturing initial emissions data through a guided MRV intake flow. Designed to be accessible to factory operators with minimal technical background.</p>
+            <img class="cs-img" src="./projects/netzero/8.webp" alt="Phase 1 screens" />
+            <img class="cs-img" src="./projects/netzero/9.webp" alt="Phase 1 screens" style="margin-top:16px;" />
+            <img class="cs-img" src="./projects/netzero/10.webp" alt="Phase 1 screens" style="margin-top:16px;" />
+            <img class="cs-img" src="./projects/netzero/11.webp" alt="Phase 1 screens" style="margin-top:16px;" />
+            <img class="cs-img" src="./projects/netzero/12.webp" alt="Phase 1 screens" style="margin-top:16px;" />
+          </div>
 
-      <div class="cs-section">
-        <p class="section-label">Phase 2</p>
-        <h2 class="section-heading">Advanced analytics &amp; compliance support.</h2>
-        <p class="section-text">Phase 2 introduces emissions analytics dashboards, a consultant network for expert guidance, and integration with tax incentive and compliance workflows &mdash; helping factories move from data collection to active compliance.</p>
-        <img class="cs-img" src="./projects/netzero/Slide-0.webp" alt="Phase 2 screens" />
-        <img class="cs-img" src="./projects/netzero/Slide-3.webp" alt="Phase 2 screens" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/netzero/Slide-4.webp" alt="Phase 2 screens" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/netzero/Slide-1.webp" alt="Phase 2 screens" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/netzero/Slide-2.webp" alt="Phase 2 screens" style="margin-top:16px;" />
-      </div>
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">02</span>
+              <span class="cs-feature-name">Phase 2 &middot; Analytics</span>
+            </div>
+            <h3 class="cs-feature-title">Advanced analytics &amp; compliance support.</h3>
+            <p class="cs-feature-text">Phase 2 introduces emissions analytics dashboards, a consultant network for expert guidance, and integration with tax incentive and compliance workflows &mdash; helping factories move from data collection to active compliance.</p>
+            <img class="cs-img" src="./projects/netzero/Slide-0.webp" alt="Phase 2 screens" />
+            <img class="cs-img" src="./projects/netzero/Slide-3.webp" alt="Phase 2 screens" style="margin-top:16px;" />
+            <img class="cs-img" src="./projects/netzero/Slide-4.webp" alt="Phase 2 screens" style="margin-top:16px;" />
+            <img class="cs-img" src="./projects/netzero/Slide-1.webp" alt="Phase 2 screens" style="margin-top:16px;" />
+            <img class="cs-img" src="./projects/netzero/Slide-2.webp" alt="Phase 2 screens" style="margin-top:16px;" />
+          </div>
 
-      <div class="cs-section">
-        <p class="section-label">Phase 3</p>
-        <h2 class="section-heading">Certification &amp; pilot marketplace.</h2>
-        <p class="section-text">Compliant factories receive official carbon certificates. A pilot marketplace allows them to list and trade verified carbon credits &mdash; unlocking financial value from their compliance investments.</p>
-        <img class="cs-img" src="./projects/netzero/Slide-1 1.webp" alt="Phase 3 screens" />
-        <img class="cs-img" src="./projects/netzero/Slide-2 1.webp" alt="Phase 3 screens" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/netzero/Slide-3 1.webp" alt="Phase 3 screens" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/netzero/Slide-4 1.webp" alt="Phase 3 screens" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/netzero/Slide-5.webp" alt="Phase 3 screens" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/netzero/Slide-0 1.webp" alt="Phase 3 screens" style="margin-top:16px;" />
-      </div>
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">03</span>
+              <span class="cs-feature-name">Phase 3 &middot; Certification</span>
+            </div>
+            <h3 class="cs-feature-title">Certification &amp; pilot marketplace.</h3>
+            <p class="cs-feature-text">Compliant factories receive official carbon certificates. A pilot marketplace allows them to list and trade verified carbon credits &mdash; unlocking financial value from their compliance investments.</p>
+            <img class="cs-img" src="./projects/netzero/Slide-1 1.webp" alt="Phase 3 screens" />
+            <img class="cs-img" src="./projects/netzero/Slide-2 1.webp" alt="Phase 3 screens" style="margin-top:16px;" />
+            <img class="cs-img" src="./projects/netzero/Slide-3 1.webp" alt="Phase 3 screens" style="margin-top:16px;" />
+            <img class="cs-img" src="./projects/netzero/Slide-4 1.webp" alt="Phase 3 screens" style="margin-top:16px;" />
+            <img class="cs-img" src="./projects/netzero/Slide-5.webp" alt="Phase 3 screens" style="margin-top:16px;" />
+            <img class="cs-img" src="./projects/netzero/Slide-0 1.webp" alt="Phase 3 screens" style="margin-top:16px;" />
+          </div>
 
-      <div class="cs-section">
-        <p class="section-label">Phase 4</p>
-        <h2 class="section-heading">National dashboard &amp; global marketplace.</h2>
-        <p class="section-text">The final phase delivers a Ministry-level dashboard for national emissions oversight and a full-scale carbon marketplace enabling global trading &mdash; positioning Thailand as a trusted partner in international carbon frameworks.</p>
-        <img class="cs-img" src="./projects/netzero/Slide-5 1.webp" alt="Phase 4 screens" />
-        <img class="cs-img" src="./projects/netzero/Slide-0 2.webp" alt="Phase 4 screens" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/netzero/Slide-1 2.webp" alt="Phase 4 screens" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/netzero/Slide-2 2.webp" alt="Phase 4 screens" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/netzero/Slide-3 2.webp" alt="Phase 4 screens" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/netzero/Slide-4 2.webp" alt="Phase 4 screens" style="margin-top:16px;" />
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">04</span>
+              <span class="cs-feature-name">Phase 4 &middot; National Scale</span>
+            </div>
+            <h3 class="cs-feature-title">National dashboard &amp; global marketplace.</h3>
+            <p class="cs-feature-text">The final phase delivers a Ministry-level dashboard for national emissions oversight and a full-scale carbon marketplace enabling global trading &mdash; positioning Thailand as a trusted partner in international carbon frameworks.</p>
+            <img class="cs-img" src="./projects/netzero/Slide-5 1.webp" alt="Phase 4 screens" />
+            <img class="cs-img" src="./projects/netzero/Slide-0 2.webp" alt="Phase 4 screens" style="margin-top:16px;" />
+            <img class="cs-img" src="./projects/netzero/Slide-1 2.webp" alt="Phase 4 screens" style="margin-top:16px;" />
+            <img class="cs-img" src="./projects/netzero/Slide-2 2.webp" alt="Phase 4 screens" style="margin-top:16px;" />
+            <img class="cs-img" src="./projects/netzero/Slide-3 2.webp" alt="Phase 4 screens" style="margin-top:16px;" />
+            <img class="cs-img" src="./projects/netzero/Slide-4 2.webp" alt="Phase 4 screens" style="margin-top:16px;" />
+          </div>
+
+        </div>
       </div>
 
       <div class="cs-accent-band">
@@ -703,24 +1392,42 @@
       </div>
 
       <div class="cs-section">
-        <p class="section-label">Main Page</p>
-        <h2 class="section-heading">A clear entry point to the service.</h2>
-        <p class="section-text">The main page gives an overview of features and benefits with a clear call-to-action to begin configuration &mdash; without overwhelming users with technical details upfront.</p>
-        <img class="cs-img" src="./projects/nipalb/1.webp" alt="Main page" />
-      </div>
+        <p class="section-label">The Product</p>
+        <h2 class="section-heading">Three pages, one clear path.</h2>
+        <p class="section-text">From first impression to final cost &mdash; an inviting entry point, a side-by-side comparison, and a live calculator that ties choices to price.</p>
+        <div class="cs-features">
 
-      <div class="cs-section">
-        <p class="section-label">Pricing Page</p>
-        <h2 class="section-heading">Compare options without guesswork.</h2>
-        <p class="section-text">A side-by-side pricing view for Standard and Dedicated Load Balancers. Designed to help users understand the difference and choose confidently &mdash; without needing to read documentation.</p>
-        <img class="cs-img" src="./projects/nipalb/3.webp" alt="Pricing page" />
-      </div>
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">01</span>
+              <span class="cs-feature-name">Main Page</span>
+            </div>
+            <h3 class="cs-feature-title">A clear entry point to the service.</h3>
+            <p class="cs-feature-text">The main page gives an overview of features and benefits with a clear call-to-action to begin configuration &mdash; without overwhelming users with technical details upfront.</p>
+            <img class="cs-img" src="./projects/nipalb/1.webp" alt="Main page" />
+          </div>
 
-      <div class="cs-section">
-        <p class="section-label">Calculator Page</p>
-        <h2 class="section-heading">Configure and see the cost in real time.</h2>
-        <p class="section-text">The main interaction page. Users configure their load balancer settings and see pricing update dynamically &mdash; making the relationship between choices and cost immediately clear.</p>
-        <img class="cs-img" src="./projects/nipalb/2.webp" alt="Calculator page" />
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">02</span>
+              <span class="cs-feature-name">Pricing Page</span>
+            </div>
+            <h3 class="cs-feature-title">Compare options without guesswork.</h3>
+            <p class="cs-feature-text">A side-by-side pricing view for Standard and Dedicated Load Balancers. Designed to help users understand the difference and choose confidently &mdash; without needing to read documentation.</p>
+            <img class="cs-img" src="./projects/nipalb/3.webp" alt="Pricing page" />
+          </div>
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">03</span>
+              <span class="cs-feature-name">Calculator Page</span>
+            </div>
+            <h3 class="cs-feature-title">Configure and see the cost in real time.</h3>
+            <p class="cs-feature-text">The main interaction page. Users configure their load balancer settings and see pricing update dynamically &mdash; making the relationship between choices and cost immediately clear.</p>
+            <img class="cs-img" src="./projects/nipalb/2.webp" alt="Calculator page" />
+          </div>
+
+        </div>
       </div>
 
       <div class="cs-section">
@@ -808,30 +1515,48 @@
       </div>
 
       <div class="cs-section">
-        <p class="section-label">Credit Top-Up</p>
-        <h2 class="section-heading">Simple, guided, and clear.</h2>
-        <p class="section-text">The top-up flow follows a clear step-by-step structure: Select Payment Method &rarr; Enter Details &rarr; Confirm Payment &rarr; Success / Receipt. Each step shows only what's needed, reducing cognitive load and friction.</p>
-        <img class="cs-img" src="./projects/nipa/image.webp" alt="Credit top-up screens" />
-        <img class="cs-img" src="./projects/nipa/image 1.webp" alt="Credit top-up screens" style="margin-top:16px;" />
-      </div>
+        <p class="section-label">The Product</p>
+        <h2 class="section-heading">Inside the flow.</h2>
+        <p class="section-text">Three pieces make the top-up work &mdash; a clear guided flow, five payment methods each shaped to its own habits, and a layout that stays consistent across every breakpoint.</p>
+        <div class="cs-features">
 
-      <div class="cs-section">
-        <p class="section-label">Multi-Payment Support</p>
-        <h2 class="section-heading">Five methods, each optimized.</h2>
-        <p class="section-text">QR PromptPay for fast scan-and-pay. Card payment with a familiar input flow. Mobile Banking with app-based redirection. Alipay for international users. Manual Transfer as a fallback. Each method designed around its own mental model.</p>
-        <img class="cs-img" src="./projects/nipa/image 2.webp" alt="Payment method screens" />
-        <img class="cs-img" src="./projects/nipa/image 3.webp" alt="Payment method screens" style="margin-top:16px;" />
-      </div>
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">01</span>
+              <span class="cs-feature-name">Credit Top-Up</span>
+            </div>
+            <h3 class="cs-feature-title">Simple, guided, and clear.</h3>
+            <p class="cs-feature-text">The top-up flow follows a clear step-by-step structure: Select Payment Method &rarr; Enter Details &rarr; Confirm Payment &rarr; Success / Receipt. Each step shows only what's needed, reducing cognitive load and friction.</p>
+            <img class="cs-img" src="./projects/nipa/image.webp" alt="Credit top-up screens" />
+            <img class="cs-img" src="./projects/nipa/image 1.webp" alt="Credit top-up screens" style="margin-top:16px;" />
+          </div>
 
-      <div class="cs-section">
-        <p class="section-label">Responsive Design</p>
-        <h2 class="section-heading">Consistent across every breakpoint.</h2>
-        <p class="section-text">Designed across XL, LG, MD, SM, and XS breakpoints. Layouts adapt fluidly, components resize predictably, and the mobile experience is treated as a first-class use case &mdash; not an afterthought.</p>
-        <img class="cs-img" src="./projects/nipa/Frame-3.webp" alt="Responsive design" />
-        <img class="cs-img" src="./projects/nipa/Frame.webp" alt="Responsive design" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/nipa/Frame-1.webp" alt="Responsive design" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/nipa/Frame-2.webp" alt="Responsive design" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/nipa/Frame-4.webp" alt="Responsive design" style="margin-top:16px;" />
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">02</span>
+              <span class="cs-feature-name">Multi-Payment Support</span>
+            </div>
+            <h3 class="cs-feature-title">Five methods, each optimized.</h3>
+            <p class="cs-feature-text">QR PromptPay for fast scan-and-pay. Card payment with a familiar input flow. Mobile Banking with app-based redirection. Alipay for international users. Manual Transfer as a fallback. Each method designed around its own mental model.</p>
+            <img class="cs-img" src="./projects/nipa/image 2.webp" alt="Payment method screens" />
+            <img class="cs-img" src="./projects/nipa/image 3.webp" alt="Payment method screens" style="margin-top:16px;" />
+          </div>
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">03</span>
+              <span class="cs-feature-name">Responsive Design</span>
+            </div>
+            <h3 class="cs-feature-title">Consistent across every breakpoint.</h3>
+            <p class="cs-feature-text">Designed across XL, LG, MD, SM, and XS breakpoints. Layouts adapt fluidly, components resize predictably, and the mobile experience is treated as a first-class use case &mdash; not an afterthought.</p>
+            <img class="cs-img" src="./projects/nipa/Frame-3.webp" alt="Responsive design" />
+            <img class="cs-img" src="./projects/nipa/Frame.webp" alt="Responsive design" style="margin-top:16px;" />
+            <img class="cs-img" src="./projects/nipa/Frame-1.webp" alt="Responsive design" style="margin-top:16px;" />
+            <img class="cs-img" src="./projects/nipa/Frame-2.webp" alt="Responsive design" style="margin-top:16px;" />
+            <img class="cs-img" src="./projects/nipa/Frame-4.webp" alt="Responsive design" style="margin-top:16px;" />
+          </div>
+
+        </div>
       </div>
 
       <div class="cs-section">
@@ -997,39 +1722,60 @@
       </div>
 
       <div class="cs-section">
-        <p class="section-label">Chats</p>
-        <h2 class="section-heading">1:1, groups, and broadcasts.</h2>
-        <p class="section-text">Full messaging between students and coaches, training group chats, and broadcast messaging for announcements. Includes media sharing, reactions, stickers, and read receipts &mdash; all consistent with JAGA&rsquo;s existing design language.</p>
-        <img class="cs-img" src="./projects/jaga/image.webp" alt="Chat screens" />
-        <img class="cs-img" src="./projects/jaga/image 1.webp" alt="Chat screens" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/jaga/image 2.webp" alt="Chat screens" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/jaga/image 3.webp" alt="Chat screens" style="margin-top:16px;" />
-      </div>
+        <p class="section-label">The Product</p>
+        <h2 class="section-heading">Four modules, one native flow.</h2>
+        <p class="section-text">CometChat&rsquo;s components, remapped into JAGA&rsquo;s own navigation &mdash; messaging, calls, discovery, and groups, each made to feel like part of the app rather than bolted on.</p>
+        <div class="cs-features">
 
-      <div class="cs-section">
-        <p class="section-label">Calls</p>
-        <h2 class="section-heading">Voice, video, and screen sharing.</h2>
-        <p class="section-text">Voice and video calls for 1:1 coaching and group sessions. Call history, details view, and screen sharing support &mdash; enabling remote coaching with the same depth as in-person feedback.</p>
-        <img class="cs-img" src="./projects/jaga/image 4.webp" alt="Calls screens" />
-        <img class="cs-img" src="./projects/jaga/image 5.webp" alt="Calls screens" style="margin-top:16px;" />
-      </div>
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">01</span>
+              <span class="cs-feature-name">Chats</span>
+            </div>
+            <h3 class="cs-feature-title">1:1, groups, and broadcasts.</h3>
+            <p class="cs-feature-text">Full messaging between students and coaches, training group chats, and broadcast messaging for announcements. Includes media sharing, reactions, stickers, and read receipts &mdash; all consistent with JAGA&rsquo;s existing design language.</p>
+            <img class="cs-img" src="./projects/jaga/image.webp" alt="Chat screens" />
+            <img class="cs-img" src="./projects/jaga/image 1.webp" alt="Chat screens" style="margin-top:16px;" />
+            <img class="cs-img" src="./projects/jaga/image 2.webp" alt="Chat screens" style="margin-top:16px;" />
+            <img class="cs-img" src="./projects/jaga/image 3.webp" alt="Chat screens" style="margin-top:16px;" />
+          </div>
 
-      <div class="cs-section">
-        <p class="section-label">Users</p>
-        <h2 class="section-heading">Coach&ndash;student discovery.</h2>
-        <p class="section-text">Browse and select users to start conversations. A simple, focused view that makes it easy for students to reach their coaches and vice versa &mdash; without extra friction.</p>
-        <img class="cs-img" src="./projects/jaga/image 6.webp" alt="Users screens" />
-        <img class="cs-img" src="./projects/jaga/image 7.webp" alt="Users screens" style="margin-top:16px;" />
-      </div>
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">02</span>
+              <span class="cs-feature-name">Calls</span>
+            </div>
+            <h3 class="cs-feature-title">Voice, video, and screen sharing.</h3>
+            <p class="cs-feature-text">Voice and video calls for 1:1 coaching and group sessions. Call history, details view, and screen sharing support &mdash; enabling remote coaching with the same depth as in-person feedback.</p>
+            <img class="cs-img" src="./projects/jaga/image 4.webp" alt="Calls screens" />
+            <img class="cs-img" src="./projects/jaga/image 5.webp" alt="Calls screens" style="margin-top:16px;" />
+          </div>
 
-      <div class="cs-section">
-        <p class="section-label">Groups</p>
-        <h2 class="section-heading">Organized by class, team, or program.</h2>
-        <p class="section-text">Create and manage training groups, add or remove members, edit group details, and view group info &mdash; all within the same navigation flow as the rest of the app.</p>
-        <img class="cs-img" src="./projects/jaga/image 8.webp" alt="Groups screens" />
-        <img class="cs-img" src="./projects/jaga/image 9.webp" alt="Groups screens" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/jaga/image 10.webp" alt="Groups screens" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/jaga/image 11.webp" alt="Groups screens" style="margin-top:16px;" />
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">03</span>
+              <span class="cs-feature-name">Users</span>
+            </div>
+            <h3 class="cs-feature-title">Coach&ndash;student discovery.</h3>
+            <p class="cs-feature-text">Browse and select users to start conversations. A simple, focused view that makes it easy for students to reach their coaches and vice versa &mdash; without extra friction.</p>
+            <img class="cs-img" src="./projects/jaga/image 6.webp" alt="Users screens" />
+            <img class="cs-img" src="./projects/jaga/image 7.webp" alt="Users screens" style="margin-top:16px;" />
+          </div>
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">04</span>
+              <span class="cs-feature-name">Groups</span>
+            </div>
+            <h3 class="cs-feature-title">Organized by class, team, or program.</h3>
+            <p class="cs-feature-text">Create and manage training groups, add or remove members, edit group details, and view group info &mdash; all within the same navigation flow as the rest of the app.</p>
+            <img class="cs-img" src="./projects/jaga/image 8.webp" alt="Groups screens" />
+            <img class="cs-img" src="./projects/jaga/image 9.webp" alt="Groups screens" style="margin-top:16px;" />
+            <img class="cs-img" src="./projects/jaga/image 10.webp" alt="Groups screens" style="margin-top:16px;" />
+            <img class="cs-img" src="./projects/jaga/image 11.webp" alt="Groups screens" style="margin-top:16px;" />
+          </div>
+
+        </div>
       </div>
 
       <div class="cs-accent-band">
@@ -1111,39 +1857,63 @@
       </div>
 
       <div class="cs-section">
-        <p class="section-label">Registration &amp; Worker Protection</p>
-        <h2 class="section-heading">A safe place to start.</h2>
-        <p class="section-text">A centralized hub for workers to register legally and report issues &mdash; abuse, unpaid wages, unfair treatment &mdash; with direct connection to government agencies through official, verified channels.</p>
-        <img class="cs-img" src="./projects/myanmarpass/image.webp" alt="Registration and worker protection screens" />
-      </div>
+        <p class="section-label">The Product</p>
+        <h2 class="section-heading">Inside the app.</h2>
+        <p class="section-text">Five connected modules carry the journeys &mdash; from legal registration and identity to healthcare, money, and cross-border support.</p>
+        <div class="cs-features">
 
-      <div class="cs-section">
-        <p class="section-label">Digital Identity</p>
-        <h2 class="section-heading">A 13-digit ID for the undocumented.</h2>
-        <p class="section-text">Workers without existing documentation can apply for a government-issued 13-digit ID directly through the app &mdash; with real-time application tracking so they always know where they stand.</p>
-        <img class="cs-img" src="./projects/myanmarpass/image 1.webp" alt="Digital identity screens" />
-      </div>
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">01</span>
+              <span class="cs-feature-name">Registration &amp; Worker Protection</span>
+            </div>
+            <h3 class="cs-feature-title">A safe place to start.</h3>
+            <p class="cs-feature-text">A centralized hub for workers to register legally and report issues &mdash; abuse, unpaid wages, unfair treatment &mdash; with direct connection to government agencies through official, verified channels.</p>
+            <img class="cs-img" src="./projects/myanmarpass/image.webp" alt="Registration and worker protection screens" />
+          </div>
 
-      <div class="cs-section">
-        <p class="section-label">Healthcare Access</p>
-        <h2 class="section-heading">Health checks built into onboarding.</h2>
-        <p class="section-text">Mandatory health screening is integrated directly into the registration flow. After onboarding, workers have 24/7 access to licensed doctors and a nationwide hospital network &mdash; no separate system needed.</p>
-        <img class="cs-img" src="./projects/myanmarpass/image 2.webp" alt="Healthcare access screens" />
-      </div>
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">02</span>
+              <span class="cs-feature-name">Digital Identity</span>
+            </div>
+            <h3 class="cs-feature-title">A 13-digit ID for the undocumented.</h3>
+            <p class="cs-feature-text">Workers without existing documentation can apply for a government-issued 13-digit ID directly through the app &mdash; with real-time application tracking so they always know where they stand.</p>
+            <img class="cs-img" src="./projects/myanmarpass/image 1.webp" alt="Digital identity screens" />
+          </div>
 
-      <div class="cs-section">
-        <p class="section-label">Digital Wallet &amp; Financial Services</p>
-        <h2 class="section-heading">Banking without a bank account.</h2>
-        <p class="section-text">A secure in-app wallet gives unbanked workers access to financial services &mdash; including cross-border money transfers home to Myanmar, through partnerships with licensed financial institutions.</p>
-        <img class="cs-img" src="./projects/myanmarpass/image 3.webp" alt="Digital wallet screens" />
-      </div>
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">03</span>
+              <span class="cs-feature-name">Healthcare Access</span>
+            </div>
+            <h3 class="cs-feature-title">Health checks built into onboarding.</h3>
+            <p class="cs-feature-text">Mandatory health screening is integrated directly into the registration flow. After onboarding, workers have 24/7 access to licensed doctors and a nationwide hospital network &mdash; no separate system needed.</p>
+            <img class="cs-img" src="./projects/myanmarpass/image 2.webp" alt="Healthcare access screens" />
+          </div>
 
-      <div class="cs-section">
-        <p class="section-label">Cross-Border Delivery &amp; Work Permit</p>
-        <h2 class="section-heading">More than identity &mdash; a full support system.</h2>
-        <p class="section-text">Workers can send goods safely to Myanmar with real-time tracking and multiple payment options. Work permit status and renewal reminders are tracked in the same app, with verified employer profiles to reduce exploitation.</p>
-        <img class="cs-img" src="./projects/myanmarpass/image 4.webp" alt="Cross-border delivery screens" />
-        <img class="cs-img" src="./projects/myanmarpass/image 5.webp" alt="Work permit management screens" style="margin-top:16px;" />
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">04</span>
+              <span class="cs-feature-name">Digital Wallet &amp; Financial Services</span>
+            </div>
+            <h3 class="cs-feature-title">Banking without a bank account.</h3>
+            <p class="cs-feature-text">A secure in-app wallet gives unbanked workers access to financial services &mdash; including cross-border money transfers home to Myanmar, through partnerships with licensed financial institutions.</p>
+            <img class="cs-img" src="./projects/myanmarpass/image 3.webp" alt="Digital wallet screens" />
+          </div>
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">05</span>
+              <span class="cs-feature-name">Cross-Border Delivery &amp; Work Permit</span>
+            </div>
+            <h3 class="cs-feature-title">More than identity &mdash; a full support system.</h3>
+            <p class="cs-feature-text">Workers can send goods safely to Myanmar with real-time tracking and multiple payment options. Work permit status and renewal reminders are tracked in the same app, with verified employer profiles to reduce exploitation.</p>
+            <img class="cs-img" src="./projects/myanmarpass/image 4.webp" alt="Cross-border delivery screens" />
+            <img class="cs-img" src="./projects/myanmarpass/image 5.webp" alt="Work permit management screens" style="margin-top:16px;" />
+          </div>
+
+        </div>
       </div>
 
       <div class="cs-accent-band">
