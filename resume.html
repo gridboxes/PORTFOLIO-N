@@ -20,7 +20,15 @@
       --page-w:   210mm;
       --page-h:   297mm;
       --pad:      15mm;
+      --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
     }
+
+    /* Entrance — the paper and toolbar buttons animate in as whole units; the
+       resume content stays fixed (PDF-like). Uses the standalone `translate`
+       property so it composes with, rather than overrides, the JS page-scaling
+       `transform` and the buttons' hover-lift `transform`. */
+    @keyframes paperIn { from { opacity: 0; translate: 0 22px; } to { opacity: 1; translate: 0 0; } }
+    @keyframes btnIn   { from { opacity: 0; translate: 0 -8px; } to { opacity: 1; translate: 0 0; } }
 
     /* ── Screen scaffolding (hidden when printing) ── */
     body {
@@ -48,6 +56,35 @@
     .btn--ghost { background: #fff; color: var(--ink); }
     .btn svg { width: 15px; height: 15px; }
 
+    /* Toolbar fades down in as one unit (animating the buttons separately
+       looked jiggly). */
+    .toolbar { animation: btnIn 0.5s var(--ease-spring) both; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .page, .toolbar { animation: none; }
+    }
+
+    /* Secret "owner mode": holding Share arms a personal message. The button
+       flips dark while armed so the sender knows the gesture took. */
+    #share-btn { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
+    #share-btn.btn--armed {
+      background: var(--ink); color: #fff;
+      box-shadow: 0 0 0 3px rgba(33,33,33,0.18);
+      transform: translateY(-1px) scale(1.03);
+    }
+
+    /* On narrow screens the page fills the viewport, so a fixed toolbar would
+       overlap the resume header. Drop it into normal flow above the page. */
+    @media (max-width: 900px) {
+      .toolbar {
+        position: static;
+        right: auto;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 18px;
+      }
+    }
+
     /* ── The A4 page ── */
     .page {
       width: var(--page-w);
@@ -55,6 +92,7 @@
       background: #fff;
       padding: var(--pad);
       box-shadow: 0 6px 40px rgba(0,0,0,0.18);
+      animation: paperIn 0.6s var(--ease-spring) both;
     }
 
     /* ── Label-left / content-right grid ── */
@@ -105,8 +143,8 @@
       content: ""; position: absolute; left: 0; top: 6px;
       width: 5px; height: 5px; background: var(--ink); border-radius: 1px;
     }
-    a { color: inherit; text-decoration: underline; text-underline-offset: 2px; text-decoration-thickness: 1px; }
-    a:hover { color: #000; }
+    a:not(.btn) { color: inherit; text-decoration: underline; text-underline-offset: 2px; text-decoration-thickness: 1px; }
+    a:not(.btn):hover { color: #000; }
     .link-ic { width: 12px; height: 12px; vertical-align: -1.5px; margin-right: 4px; }
 
     /* Profile (body spec: Raleway 11pt / lh18 / +0.1px) */
@@ -142,7 +180,7 @@
     @media print {
       body { background: #fff; padding: 0; display: block; }
       .toolbar { display: none !important; }
-      .page { width: auto; min-height: auto; box-shadow: none; margin: 0 !important; transform: none !important; }
+      .page { width: auto; min-height: auto; box-shadow: none; margin: 0 !important; transform: none !important; animation: none !important; translate: none !important; }
       .info-list li::before, .skills li::before { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     }
   </style>
@@ -150,7 +188,7 @@
 <body>
 
   <div class="toolbar">
-    <a class="btn btn--ghost" href="index.html">
+    <a class="btn btn--ghost" id="back-link" href="index.html">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
       Back
     </a>
@@ -158,6 +196,10 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
       Download PDF
     </a>
+    <button class="btn btn--ghost" id="share-btn" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.59 13.51 6.83 3.98"/><path d="m15.41 6.51-6.82 3.98"/></svg>
+      Share
+    </button>
   </div>
 
   <div class="page">
@@ -292,6 +334,84 @@
       window.addEventListener('load', fitPage);
       if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitPage);
       window.addEventListener('resize', fitPage);
+
+      // If we were opened from the portfolio with a scroll offset (passed in
+      // the URL hash, which survives the .html → clean-URL redirect), carry it
+      // back so the Back link returns to that exact spot instead of the top.
+      var from = new URLSearchParams(location.hash.slice(1)).get('from');
+      var back = document.getElementById('back-link');
+      if (from !== null && back) back.href = 'index.html#y=' + encodeURIComponent(from);
+
+      // Share button: prefer the native share sheet with the PDF attached
+      // (mobile + macOS Safari). Where file-sharing isn't supported, fall
+      // back to downloading the PDF and opening a pre-filled email draft.
+      //
+      // Secret "owner mode": a normal tap shares the neutral message anyone
+      // can send; pressing and holding (~0.6s) shares a personal, first-person
+      // note — special to the owner as the sender. The actual share fires on
+      // release, because browsers only allow navigator.share() during a real
+      // tap/click gesture (a timer firing on its own would be blocked).
+      var shareBtn = document.getElementById('share-btn');
+      var fileName = (a && a.getAttribute('download')) || 'Sivakorn_Samorkam_Resume.pdf';
+      var subject = 'Sivakorn Samorkam — UX/UI Designer Resume';
+      var body = 'Resume of Sivakorn Samorkam — UX/UI Designer.\n\nPortfolio: https://gridboxes-portfolio-n.vercel.app/\n\nResume attached.';
+      var ownerBody = 'Hi,\n\nHere\'s my resume — I\'d love the chance to talk. You can see more of my work at https://gridboxes-portfolio-n.vercel.app/\n\nThanks for taking a look,\nSivakorn';
+
+      function emailFallback(messageBody) {
+        if (a) a.click(); // download the PDF so the user can attach it
+        window.location.href = 'mailto:?subject=' + encodeURIComponent(subject) +
+          '&body=' + encodeURIComponent(messageBody);
+      }
+
+      async function doShare(messageBody) {
+        try {
+          var res = await fetch('resume.pdf', { cache: 'no-store' });
+          var blob = await res.blob();
+          var file = new File([blob], fileName, { type: 'application/pdf' });
+          if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            await navigator.share({ files: [file], text: messageBody });
+            return;
+          }
+        } catch (err) {
+          if (err && err.name === 'AbortError') return; // user dismissed the sheet
+        }
+        emailFallback(messageBody);
+      }
+
+      if (shareBtn) {
+        var LONG_PRESS_MS = 1200;
+        var holdTimer = null;
+        var armed = false; // true once the hold threshold is crossed
+
+        function startHold(e) {
+          if (e.pointerType === 'mouse' && e.button !== 0) return; // ignore right/middle
+          armed = false;
+          holdTimer = setTimeout(function () {
+            armed = true;
+            shareBtn.classList.add('btn--armed');
+          }, LONG_PRESS_MS);
+        }
+        function cancelHold() {
+          if (holdTimer) { clearTimeout(holdTimer); holdTimer = null; }
+          shareBtn.classList.remove('btn--armed');
+        }
+        function endHold() {
+          if (holdTimer) { clearTimeout(holdTimer); holdTimer = null; }
+          shareBtn.classList.remove('btn--armed');
+          if (armed) doShare(ownerBody); // release after a hold → owner message
+        }
+
+        shareBtn.addEventListener('pointerdown', startHold);
+        shareBtn.addEventListener('pointerup', endHold);
+        shareBtn.addEventListener('pointerleave', cancelHold);
+        shareBtn.addEventListener('pointercancel', cancelHold);
+        shareBtn.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+
+        shareBtn.addEventListener('click', function (e) {
+          if (armed) { e.preventDefault(); armed = false; return; } // already handled on release
+          doShare(body); // plain tap/click (incl. keyboard) → neutral message
+        });
+      }
     })();
   </script>
 

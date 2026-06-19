@@ -22,7 +22,7 @@
       meta: [
         { label: 'Role',     value: 'UX / UI Designer & PO' },
         { label: 'Timeline', value: '3 Months' },
-        { label: 'Type',     value: 'Web Application' },
+        { label: 'Type',     value: 'Production Project' },
         { label: 'Platform', value: 'Desktop & Mobile' },
       ],
       next: { id: 'netzero', title: 'Net Zero — Government Carbon Platform' },
@@ -36,7 +36,7 @@
       meta: [
         { label: 'Role',     value: 'UX / UI Designer & PO' },
         { label: 'Timeline', value: '2 Weeks (Design Sprint)' },
-        { label: 'Type',     value: 'Proposal Project' },
+        { label: 'Type',     value: 'Concept Project' },
         { label: 'Platform', value: 'Web Application' },
       ],
       next: { id: 'myanmarpass', title: 'MyanmarPass — Migrant Worker Platform' },
@@ -50,7 +50,7 @@
       meta: [
         { label: 'Role',     value: 'UX / UI Designer' },
         { label: 'Timeline', value: '10 Days (Design Sprint)' },
-        { label: 'Type',     value: 'Proposal Project' },
+        { label: 'Type',     value: 'Concept Project' },
         { label: 'Platform', value: 'Mobile App' },
       ],
       next: { id: 'jaga', title: 'JAGA App — CometChat Feature' },
@@ -106,7 +106,7 @@
       meta: [
         { label: 'Role',     value: 'UX / UI Designer' },
         { label: 'Timeline', value: '5 Days' },
-        { label: 'Type',     value: 'Proposal Project' },
+        { label: 'Type',     value: 'Concept Project' },
         { label: 'Platform', value: 'Web Application' },
       ],
       next: { id: 'thaipass-cms', title: 'ThaiPass CMS — AI-Built Admin Platform' },
@@ -118,10 +118,10 @@
       num:      '01',
       title:    'ThaiPass CMS — AI-Built Admin Platform',
       meta: [
-        { label: 'Role',       value: 'Design + Front-End Build' },
-        { label: 'Timeline',   value: '~3–4 Weeks' },
+        { label: 'Role',       value: 'Design · Front-End Build' },
         { label: 'Type',       value: 'Internal Admin Tool' },
-        { label: 'Stack',      value: 'React · Vite · Tailwind' },
+        { label: 'Frontend',   value: 'React · Vite · Tailwind' },
+        { label: 'Backend',    value: 'Mock data (dev-ready)' },
         { label: 'Built with', value: 'Figma Make → Claude Code' },
       ],
       next: { id: 'corporate-survivor', title: 'Corporate Survivor — Attendance Tracker' },
@@ -318,9 +318,23 @@
       title:    'RISA — Robotic Interactive Smart Assistant',
       meta: [
         { label: 'Role',     value: 'Industrial Designer' },
-        { label: 'Timeline', value: 'Dec 2024 – Mar 2025' },
         { label: 'Tools',    value: 'Autodesk Fusion 360' },
         { label: 'Type',     value: 'Collaborative University Project' },
+        { label: 'Output',   value: '3D Model &amp; Concept' },
+      ],
+      next: { id: 'livestand', title: 'Live Stand — Multifunctional Phone Stand' },
+    },
+
+    'livestand': {
+      accent:   '#D9783C',
+      category: 'Industrial Design',
+      num:      '03',
+      title:    'Live Stand — Multifunctional Phone Stand',
+      meta: [
+        { label: 'Role',     value: 'Industrial Designer' },
+        { label: 'Tools',    value: 'Autodesk Fusion 360' },
+        { label: 'Type',     value: 'University Project' },
+        { label: 'Output',   value: '3D Model &amp; Concept' },
       ],
       next: { id: 'thaipass', title: 'ThaiPass — Travel Companion' },
     },
@@ -2013,16 +2027,6 @@
       </div>
 
       <div class="cs-section">
-        <p class="section-label">Body Design</p>
-        <h2 class="section-heading">Four floors. Everything in its place.</h2>
-        <p class="section-text">The cylindrical body is organized into four stacked floors: the bottom floor houses the battery and power components, the second holds the LiDAR sensor at the ideal scanning height, the third carries the main processing board, and the top floor anchors the wheel attachment system. A separate rotating head unit — a screen mount designed for face-level interaction — sits above the body.</p>
-        <img class="cs-img" src="./projects/hera/KG.webp" alt="Robot body 3D render" style="margin-top:28px;" />
-        <img class="cs-img" src="./projects/hera/KG_(3).webp" alt="Floor breakdown diagram" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/hera/KG_(4).webp" alt="Head and display unit renders" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/hera/KG_(2).webp" alt="Shelf carrier variant design" style="margin-top:16px;" />
-      </div>
-
-      <div class="cs-section">
         <p class="section-label">3D Model</p>
         <h2 class="section-heading">Explore the assembly.</h2>
         <p class="section-text">Full mechanical assembly modelled in Autodesk Fusion 360. Drag to orbit, scroll to zoom.</p>
@@ -2037,6 +2041,16 @@
         <img class="cs-img" src="./projects/hera/Screenshot_2569-04-20_at_11.05.48.webp" alt="Component detail view" style="margin-top:16px;" />
         <img class="cs-img" src="./projects/hera/Screenshot_2569-04-20_at_11.06.00.webp" alt="Component detail view" style="margin-top:16px;" />
         <img class="cs-img" src="./projects/hera/Screenshot_2569-04-20_at_11.06.22.webp" alt="Assembly exploded view" style="margin-top:16px;" />
+      </div>
+
+      <div class="cs-section">
+        <p class="section-label">Body Design</p>
+        <h2 class="section-heading">Four floors. Everything in its place.</h2>
+        <p class="section-text">The cylindrical body is organized into four stacked floors: the bottom floor houses the battery and power components, the second holds the LiDAR sensor at the ideal scanning height, the third carries the main processing board, and the top floor anchors the wheel attachment system. A separate rotating head unit — a screen mount designed for face-level interaction — sits above the body.</p>
+        <img class="cs-img" src="./projects/hera/KG.webp" alt="Robot body 3D render" style="margin-top:28px;" />
+        <img class="cs-img" src="./projects/hera/KG_(3).webp" alt="Floor breakdown diagram" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/hera/KG_(4).webp" alt="Head and display unit renders" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/hera/KG_(2).webp" alt="Shelf carrier variant design" style="margin-top:16px;" />
       </div>
 
       <div class="cs-section">
@@ -2079,6 +2093,170 @@
         <p class="section-label">Outcome</p>
         <h2 class="section-heading">From CAD to code — a full-stack robot.</h2>
         <p class="section-text">RISA brought together autonomous navigation, AI conversation, and a custom-built physical form into a single working prototype. Designing the body taught me to think about industrial constraints (print tolerances, wire routing, sensor clearances) as design problems — not afterthoughts.</p>
+      </div>
+    `;
+
+    if (id === 'livestand') return `
+      <img class="cs-img" src="./projects/livestand/hero.webp" alt="Live Stand phone stand render" style="border-radius:16px;margin-top:60px;" />
+
+      <div class="cs-section">
+        <p class="section-label">Overview</p>
+        <h2 class="section-heading">A phone stand built to do more than hold a phone.</h2>
+        <p class="section-text">Live Stand is a multifunctional phone stand designed for live streamers and everyday users alike. Instead of a single fixed pose, it pairs an articulated arm and rotating clamp base with streaming-grade extras &mdash; fill lighting, active cooling, and onboard power &mdash; so one device covers desk, car, and on-camera use. The design brief focused on four things: multifunctionality, portability, form, and user experience.</p>
+        <div class="cs-tags">
+          <span class="cs-tag">Phone Stand</span>
+          <span class="cs-tag">Industrial Design</span>
+          <span class="cs-tag">Fusion 360</span>
+          <span class="cs-tag">Prosumer &amp; Consumer</span>
+        </div>
+        <img class="cs-img" src="./projects/livestand/angled.webp" alt="Live Stand angled render with adjustable lighting arms" style="margin-top:28px;" />
+      </div>
+
+      <div class="cs-section">
+        <p class="section-label">Adjustability</p>
+        <h2 class="section-heading">Freely positioned, anywhere it needs to be.</h2>
+        <p class="section-text">The stand reaches almost any angle through three cooperating mechanisms &mdash; a flexible arm, a clamp that grips where tripods can't, and a base that spins a full turn.</p>
+        <div class="cs-features">
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">01</span>
+              <span class="cs-feature-name">Flexible Arm</span>
+            </div>
+            <h3 class="cs-feature-title">Freely adjustable for any pose.</h3>
+            <p class="cs-feature-text">A bendable arm lets the holder settle into whatever position the shot needs and hold it there, without ratchets or preset stops.</p>
+            <img class="cs-img" src="./projects/livestand/feat-flexarm.webp" alt="Flexible bendable arm" />
+          </div>
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">02</span>
+              <span class="cs-feature-name">Clipboard Holder</span>
+            </div>
+            <h3 class="cs-feature-title">Clamps to a table edge &mdash; or the car.</h3>
+            <p class="cs-feature-text">A spring clamp grips the corner of a desk or a car interior, so the stand works in places a flat-footed tripod can't reach.</p>
+            <img class="cs-img" src="./projects/livestand/feat-clip.webp" alt="Spring clamp clipboard holder" />
+          </div>
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">03</span>
+              <span class="cs-feature-name">Rotational Base</span>
+            </div>
+            <h3 class="cs-feature-title">360&deg; rotation for easy reframing.</h3>
+            <p class="cs-feature-text">A ball-jointed base turns a full circle, letting the user swing between portrait and landscape or follow the action without unclamping.</p>
+            <img class="cs-img" src="./projects/livestand/feat-base.webp" alt="Rotational ball-joint base" />
+          </div>
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">04</span>
+              <span class="cs-feature-name">Arm Joints</span>
+            </div>
+            <h3 class="cs-feature-title">Two joints widen the working range.</h3>
+            <p class="cs-feature-text">A two-jointed arm increases how far the phone position and camera angle can travel &mdash; the CAD study maps the full sweep of each hinge, from the &minus;145&deg; light arms to the &plusmn;38&deg; base.</p>
+            <img class="cs-img" src="./projects/livestand/feat-arm.webp" alt="Articulated two-joint arm with base" />
+            <img class="cs-img" src="./projects/livestand/angles.webp" alt="Annotated angle ranges for each joint" style="margin-top:16px;" />
+          </div>
+
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <p class="section-label">Built-in Features</p>
+        <h2 class="section-heading">Streaming hardware, built into the body.</h2>
+        <p class="section-text">Beyond positioning, the body integrates the extras a streamer would otherwise clip on one at a time &mdash; cooling, light, power, and grip.</p>
+        <div class="cs-features">
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">01</span>
+              <span class="cs-feature-name">Fan Ventilation</span>
+            </div>
+            <h3 class="cs-feature-title">Keeps the phone from overheating.</h3>
+            <p class="cs-feature-text">An air fan vents the back of the holder &mdash; perfect for long streams, where a phone pushed to full brightness and a live camera tends to throttle from heat.</p>
+            <img class="cs-img" src="./projects/livestand/feat-fan.webp" alt="Fan ventilation built into the holder back" />
+          </div>
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">02</span>
+              <span class="cs-feature-name">Lighting</span>
+            </div>
+            <h3 class="cs-feature-title">Foldable fill light for the camera.</h3>
+            <p class="cs-feature-text">Two fold-out light bars raise the brightness and vividness of the shot, then tuck back against the body when they're not needed.</p>
+            <img class="cs-img" src="./projects/livestand/feat-lights.webp" alt="Dual fold-out fill lights" />
+          </div>
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">03</span>
+              <span class="cs-feature-name">USB-C Port</span>
+            </div>
+            <h3 class="cs-feature-title">Onboard lithium battery, modern charging.</h3>
+            <p class="cs-feature-text">A USB-C port backed by a lithium battery powers the lights and fan &mdash; a modern, convenient connector instead of a tangle of separate cables.</p>
+            <img class="cs-img" src="./projects/livestand/feat-usb.webp" alt="USB-C port and top control button" />
+          </div>
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">04</span>
+              <span class="cs-feature-name">On / Off Button</span>
+            </div>
+            <h3 class="cs-feature-title">One switch for fan and light.</h3>
+            <p class="cs-feature-text">A single top-mounted control handles both the fan and the lighting, keeping the interface to one obvious button.</p>
+          </div>
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">05</span>
+              <span class="cs-feature-name">Mesh Wool Fabric</span>
+            </div>
+            <h3 class="cs-feature-title">Lets air through, holds the phone fast.</h3>
+            <p class="cs-feature-text">A mesh wool facing lets the fan's airflow pass while adding friction, so the phone grips the cradle instead of slipping.</p>
+            <img class="cs-img" src="./projects/livestand/feat-mesh.webp" alt="Mesh wool fabric phone cradle" />
+          </div>
+
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <p class="section-label">What Makes Us Different</p>
+        <h2 class="section-heading">Not just another phone holder.</h2>
+        <div class="cs-col2">
+          <div class="cs-col2-item">
+            <span class="cs-col2-label">Normal Phone Holder</span>
+            <span class="cs-col2-text">No real function beyond holding the phone in a fixed position &mdash; nothing for heat, light, or framing.</span>
+          </div>
+          <div class="cs-col2-item">
+            <span class="cs-col2-label">Live Stand</span>
+            <span class="cs-col2-text">Multifunction by design: active heat-sinking, a foldable front light, and a base free to rotate &mdash; one stand that adapts instead of one that just clamps.</span>
+          </div>
+        </div>
+        <img class="cs-img" src="./projects/livestand/fan-front.webp" alt="Live Stand front view with fan and lighting arms" style="margin-top:28px;" />
+      </div>
+
+      <div class="cs-section">
+        <p class="section-label">3D Model</p>
+        <h2 class="section-heading">Explore the assembly.</h2>
+        <p class="section-text">An interactive Fusion 360 model of the full assembly is coming soon.</p>
+        <div class="cs-3d-viewer cs-3d-soon">
+          <span>3D model coming soon</span>
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <p class="section-label">Engineering</p>
+        <h2 class="section-heading">Drawn down to the part.</h2>
+        <p class="section-text">The full mechanism was documented as an exploded parts list and an assembly drawing &mdash; from the clamp halves and spring to the connector, nut, and light components.</p>
+        <img class="cs-img" src="./projects/livestand/parts.webp" alt="Exploded parts list drawing" />
+        <img class="cs-img" src="./projects/livestand/assembly.webp" alt="Assembly drawing — three views" style="margin-top:16px;" />
+      </div>
+
+      <div class="cs-accent-band">
+        <p class="section-label">Outcome</p>
+        <h2 class="section-heading">One stand that earns its place on the desk.</h2>
+        <p class="section-text">Live Stand folds the streamer's usual pile of accessories &mdash; light, cooler, clamp, and power &mdash; into a single adjustable object. Designing it pushed me to balance function against portability and form, deciding what to integrate and what to leave off so the product stays simple to actually use.</p>
       </div>
     `;
 

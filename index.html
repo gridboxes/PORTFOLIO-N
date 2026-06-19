@@ -2,6 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <!-- If we're returning from the resume (scroll about to be restored), flag it
+       before any paint so the page-open entrance animation is skipped. -->
+  <script>
+    if (/(^|&)y=/.test(location.hash.slice(1))) document.documentElement.classList.add('no-intro');
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sivakorn (Kong) — Portfolio</title>
   <meta name="description" content="Sivakorn (Kong) Samorkam — UX/UI designer with a Robotics &amp; AI engineering background. Designing effortless digital experiences across mobile, web, and physical products.">
@@ -107,6 +112,11 @@
     .section:nth-of-type(5) { animation-delay: 0.30s; }
     .section:nth-of-type(6) { animation-delay: 0.36s; }
     .section:nth-of-type(7) { animation-delay: 0.42s; }
+    .section:nth-of-type(8) { animation-delay: 0.48s; }
+    /* Returning from the resume (scroll being restored): skip the page-open
+       entrance so content doesn't fade/slide in over the restored position. */
+    html.no-intro .page-title,
+    html.no-intro .section { animation: none; }
 
     /* ── Headings ── */
     .h2 {
@@ -548,6 +558,8 @@
       transform: translateY(-1px);
     }
     .store-chip-logo { width: 13px; height: 13px; flex: none; }
+    /* The Play triangle is taller than the Apple mark in its own viewBox; scale it down so the two read at the same optical height (scales with the box across breakpoints) */
+    .store-chip-logo--play { transform: scale(0.88); }
     .store-chip-dot { opacity: 0.5; }
     /* Proportional chip sizes — full label, scaled to the card it sits on */
     .mosaic-side .store-chip {
@@ -889,6 +901,10 @@
     .toc.toc-reveal .toc-label { opacity: 1; transform: translateX(0); }
     .toc.toc-reveal .toc-item.active .toc-label       { color: rgba(248,248,248,0.88); }
     .toc.toc-reveal .toc-item:not(.active) .toc-label { color: rgba(248,248,248,0.42); }
+    /* Returning from the resume: snap the progress fill + active dot into place
+       (no growth/scale animation) while scroll is being restored. */
+    .toc.toc-instant .toc-progress,
+    .toc.toc-instant .toc-item::after { transition: none; }
     /* Dot — solid, centred on track */
     .toc-item::after {
       content: '';
@@ -1311,6 +1327,9 @@
     }
     .cs-3d-viewer { width: 100%; height: 420px; border-radius: 14px; overflow: hidden; margin-top: 24px; background: #111; }
     .cs-3d-viewer model-viewer { width: 100%; height: 100%; display: block; --poster-color: #111; }
+    /* Empty 3D-model slot — dashed placeholder until the .glb is added */
+    .cs-3d-soon { display: flex; align-items: center; justify-content: center; background: transparent; border: 1px dashed var(--border-mid); }
+    .cs-3d-soon span { font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-dim); }
 
     /* ── "Up next" footer — flow between case studies ── */
     .modal-next {
@@ -1650,21 +1669,21 @@
     </div>
     <div id="ux-mtel" class="tab-panel active">
       <div class="gallery-grid gallery-grid--mosaic">
-        <div class="gallery-card mosaic-main" data-project="thaipass"><div class="card-cover-ph"><img src="./projects/thaipass/thumb.webp" loading="lazy" alt="ThaiPass"><a class="store-chip" href="https://apps.apple.com/th/app/my-thaipass/id6761145502?l=th" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" aria-label="Get My ThaiPass on the App Store"><span>Available on</span><svg class="store-chip-logo" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.87109 4.87842L9.75016 9.75014"/><path d="M4.875 1.5L6 3.40406"/><path d="M2.69297 9L2.25 9.75"/><path d="M7.12473 1.5L3.5791 7.5"/><path d="M8.4209 7.5H10.8753"/><path d="M1.125 7.5H6.67828"/></svg><span class="store-chip-dot">·</span><svg class="store-chip-logo" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="0.641667" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.40625 9.63078C2.40717 9.69093 2.42386 9.74978 2.45465 9.80145C2.48543 9.85313 2.52924 9.89582 2.58169 9.92526C2.63414 9.95471 2.6934 9.96987 2.75355 9.96924C2.8137 9.96862 2.87263 9.95222 2.92445 9.92168L10.1363 5.79367C10.1896 5.76528 10.2342 5.72294 10.2653 5.67117C10.2964 5.6194 10.3128 5.56015 10.3128 5.49977C10.3128 5.43939 10.2964 5.38014 10.2653 5.32837C10.2342 5.2766 10.1896 5.23425 10.1363 5.20586L2.92445 1.07785C2.87263 1.04732 2.8137 1.03092 2.75355 1.03029C2.6934 1.02966 2.63414 1.04483 2.58169 1.07427C2.52924 1.10372 2.48543 1.14641 2.45465 1.19808C2.42386 1.24976 2.40717 1.30861 2.40625 1.36875V9.63078Z"/><path d="M2.50684 1.13184L8.25047 6.87547"/><path d="M2.50684 9.86875L8.24961 4.12598"/></svg></a></div><div class="card-body"><span class="card-eyebrow">Travel &middot; Production</span><div class="card-title-row"><span class="card-title">ThaiPass App <span class="card-title-desc">— Travel Companion</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+        <div class="gallery-card mosaic-main" data-project="thaipass"><div class="card-cover-ph"><img src="./projects/thaipass/thumb.webp" loading="lazy" alt="ThaiPass"><a class="store-chip" href="https://apps.apple.com/th/app/my-thaipass/id6761145502?l=th" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" aria-label="Get My ThaiPass on the App Store"><span>Available on</span><svg class="store-chip-logo" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.16162 6.50439L13.0004 13"/><path d="M6.5 2L8 4.53875"/><path d="M3.59063 12L3 13"/><path d="M9.49996 2L4.77246 10"/><path d="M11.2275 10H14.5"/><path d="M1.5 10H8.90438"/></svg><span class="store-chip-dot">·</span><svg class="store-chip-logo store-chip-logo--play" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.1582 12.6402C3.15941 12.7192 3.18132 12.7964 3.22172 12.8642C3.26213 12.932 3.31963 12.9881 3.38847 13.0267C3.45731 13.0654 3.53509 13.0853 3.61404 13.0845C3.69298 13.0836 3.77032 13.0621 3.83834 13.022L13.3039 7.60402C13.3739 7.56675 13.4324 7.51118 13.4732 7.44323C13.514 7.37528 13.5355 7.29752 13.5355 7.21826C13.5355 7.13901 13.514 7.06125 13.4732 6.9933C13.4324 6.92535 13.3739 6.86977 13.3039 6.83251L3.83834 1.4145C3.77032 1.37443 3.69298 1.3529 3.61404 1.35208C3.53509 1.35125 3.45731 1.37116 3.38847 1.4098C3.31963 1.44845 3.26213 1.50448 3.22172 1.5723C3.18132 1.64013 3.15941 1.71737 3.1582 1.79631V12.6402Z"/><path d="M3.29004 1.48535L10.8286 9.02387"/><path d="M3.29004 12.9529L10.8274 5.41553"/></svg></a></div><div class="card-body"><span class="card-eyebrow">Travel &middot; Production</span><div class="card-title-row"><span class="card-title">ThaiPass App <span class="card-title-desc">— Travel Companion</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
         <div class="mosaic-side">
           <div class="gallery-card" data-project="bcc"><div class="card-cover-ph"><img src="./projects/bcc/cover.webp" loading="lazy" alt="BCC"><a class="store-chip" href="https://www.bangkokcable.com/en" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" aria-label="Open the BCC website"><span>Available on</span><svg class="store-chip-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></a></div><div class="card-body"><span class="card-eyebrow">Electrical &middot; Production</span><div class="card-title-row"><span class="card-title">BCC Website <span class="card-title-desc">— Calculation Program</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
           <div class="gallery-card" data-project="netzero"><div class="card-cover-ph"><img src="./projects/netzero/Frame_(1).webp" loading="lazy" alt="Net Zero"></div><div class="card-body"><span class="card-eyebrow">Environment &middot; Concept</span><div class="card-title-row"><span class="card-title">Net Zero <span class="card-title-desc">— Carbon Platform</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
         </div>
         <div class="mosaic-rest">
           <div class="gallery-card" data-project="myanmarpass"><div class="card-cover-ph"><img src="./projects/myanmarpass/Frame-1.webp" loading="lazy" alt="MyanmarPass"></div><div class="card-body"><span class="card-eyebrow">Labor &middot; Concept</span><div class="card-title-row"><span class="card-title">MyanmarPass App <span class="card-title-desc">— Migrant Worker Platform</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
-          <div class="gallery-card" data-project="jaga"><div class="card-cover-ph"><img src="./projects/jaga/Frame.webp" loading="lazy" alt="JAGA"><a class="store-chip" href="https://apps.apple.com/th/app/jaga-junior-asian-golf-academy/id6751338789?l=th" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" aria-label="Get JAGA on the App Store"><span>Available on</span><svg class="store-chip-logo" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.87109 4.87842L9.75016 9.75014"/><path d="M4.875 1.5L6 3.40406"/><path d="M2.69297 9L2.25 9.75"/><path d="M7.12473 1.5L3.5791 7.5"/><path d="M8.4209 7.5H10.8753"/><path d="M1.125 7.5H6.67828"/></svg><span class="store-chip-dot">·</span><svg class="store-chip-logo" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="0.641667" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.40625 9.63078C2.40717 9.69093 2.42386 9.74978 2.45465 9.80145C2.48543 9.85313 2.52924 9.89582 2.58169 9.92526C2.63414 9.95471 2.6934 9.96987 2.75355 9.96924C2.8137 9.96862 2.87263 9.95222 2.92445 9.92168L10.1363 5.79367C10.1896 5.76528 10.2342 5.72294 10.2653 5.67117C10.2964 5.6194 10.3128 5.56015 10.3128 5.49977C10.3128 5.43939 10.2964 5.38014 10.2653 5.32837C10.2342 5.2766 10.1896 5.23425 10.1363 5.20586L2.92445 1.07785C2.87263 1.04732 2.8137 1.03092 2.75355 1.03029C2.6934 1.02966 2.63414 1.04483 2.58169 1.07427C2.52924 1.10372 2.48543 1.14641 2.45465 1.19808C2.42386 1.24976 2.40717 1.30861 2.40625 1.36875V9.63078Z"/><path d="M2.50684 1.13184L8.25047 6.87547"/><path d="M2.50684 9.86875L8.24961 4.12598"/></svg></a></div><div class="card-body"><span class="card-eyebrow">Golf &middot; Production</span><div class="card-title-row"><span class="card-title">JAGA App <span class="card-title-desc">— CometChat Feature</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
-          <div class="gallery-card" data-project="onebangkok"><div class="card-cover-ph"><img src="./projects/onebangkok/cover.webp" loading="lazy" alt="One Bangkok"></div><div class="card-body"><span class="card-eyebrow">Property &middot; Concept</span><div class="card-title-row"><span class="card-title">One Bangkok App <span class="card-title-desc">— Showcase Video</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+          <div class="gallery-card" data-project="jaga"><div class="card-cover-ph"><img src="./projects/jaga/Frame.webp" loading="lazy" alt="JAGA"><a class="store-chip" href="https://apps.apple.com/th/app/jaga-junior-asian-golf-academy/id6751338789?l=th" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" aria-label="Get JAGA on the App Store"><span>Available on</span><svg class="store-chip-logo" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.16162 6.50439L13.0004 13"/><path d="M6.5 2L8 4.53875"/><path d="M3.59063 12L3 13"/><path d="M9.49996 2L4.77246 10"/><path d="M11.2275 10H14.5"/><path d="M1.5 10H8.90438"/></svg><span class="store-chip-dot">·</span><svg class="store-chip-logo store-chip-logo--play" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.1582 12.6402C3.15941 12.7192 3.18132 12.7964 3.22172 12.8642C3.26213 12.932 3.31963 12.9881 3.38847 13.0267C3.45731 13.0654 3.53509 13.0853 3.61404 13.0845C3.69298 13.0836 3.77032 13.0621 3.83834 13.022L13.3039 7.60402C13.3739 7.56675 13.4324 7.51118 13.4732 7.44323C13.514 7.37528 13.5355 7.29752 13.5355 7.21826C13.5355 7.13901 13.514 7.06125 13.4732 6.9933C13.4324 6.92535 13.3739 6.86977 13.3039 6.83251L3.83834 1.4145C3.77032 1.37443 3.69298 1.3529 3.61404 1.35208C3.53509 1.35125 3.45731 1.37116 3.38847 1.4098C3.31963 1.44845 3.26213 1.50448 3.22172 1.5723C3.18132 1.64013 3.15941 1.71737 3.1582 1.79631V12.6402Z"/><path d="M3.29004 1.48535L10.8286 9.02387"/><path d="M3.29004 12.9529L10.8274 5.41553"/></svg></a></div><div class="card-body"><span class="card-eyebrow">Golf &middot; Production</span><div class="card-title-row"><span class="card-title">JAGA App <span class="card-title-desc">— CometChat Feature</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+          <div class="gallery-card" data-project="onebangkok"><div class="card-cover-ph"><img src="./projects/onebangkok/cover.webp" loading="lazy" alt="One Bangkok"></div><div class="card-body"><span class="card-eyebrow">Property &middot; Experimental</span><div class="card-title-row"><span class="card-title">One Bangkok App <span class="card-title-desc">— Showcase Video</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
         </div>
       </div>
     </div>
     <div id="ux-nipa" class="tab-panel">
       <div class="gallery-grid">
-        <div class="gallery-card" data-project="nipa"><div class="card-cover-ph"><img src="./projects/nipa/image 7.webp" loading="lazy" alt="NIPA Payment"></div><div class="card-body"><span class="card-eyebrow">Cloud &middot; Production</span><div class="card-title-row"><span class="card-title">NIPA Payment System</span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+        <div class="gallery-card" data-project="nipa"><div class="card-cover-ph"><img src="./projects/nipa/image 7.webp" loading="lazy" alt="NIPA Payment"><a class="store-chip" href="https://space.nipa.cloud" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" aria-label="Open NIPA Cloud"><span>Available on</span><svg class="store-chip-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></a></div><div class="card-body"><span class="card-eyebrow">Cloud &middot; Production</span><div class="card-title-row"><span class="card-title">NIPA Payment System</span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
         <div class="gallery-card" data-project="nipalb"><div class="card-cover-ph"><img src="./projects/nipalb/image 1.webp" loading="lazy" alt="NIPA LB"></div><div class="card-body"><span class="card-eyebrow">Cloud &middot; Concept</span><div class="card-title-row"><span class="card-title">NIPA Load Balancing Service</span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
       </div>
     </div>
@@ -1750,9 +1769,12 @@
         Industrial Design
       </button>
     </div>    <div id="ind-all" class="tab-panel active">
-      <div class="gallery-grid">
-        <div class="gallery-card" data-project="hera"><div class="card-cover-ph"><img src="./projects/hera/Screenshot_2569-04-20_at_10.51.40.webp" loading="lazy" alt="RISA Robot"></div><div class="card-body"><span class="card-eyebrow">Industrial &middot; Concept</span><div class="card-title-row"><span class="card-title">RISA <span class="card-title-desc">— Robotic Interactive Smart Assistant</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
-        <div class="gallery-card" data-project="submarine"><div class="card-cover-ph"><img src="./projects/submarine/image.webp" loading="lazy" alt="Submarine"></div><div class="card-body"><span class="card-eyebrow">Industrial &middot; Concept</span><div class="card-title-row"><span class="card-title">Piston Ballast Tank Submarine</span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+      <div class="gallery-grid gallery-grid--mosaic">
+        <div class="gallery-card mosaic-main" data-project="hera"><div class="card-cover-ph"><img src="./projects/hera/Screenshot_2569-04-20_at_10.51.40.webp" loading="lazy" alt="RISA Robot"></div><div class="card-body"><span class="card-eyebrow">Industrial &middot; Concept</span><div class="card-title-row"><span class="card-title">RISA <span class="card-title-desc">— Robotic Interactive Smart Assistant</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+        <div class="mosaic-side">
+          <div class="gallery-card" data-project="submarine"><div class="card-cover-ph"><img src="./projects/submarine/image.webp" loading="lazy" alt="Submarine"></div><div class="card-body"><span class="card-eyebrow">Industrial &middot; Concept</span><div class="card-title-row"><span class="card-title">Piston Ballast Tank Submarine</span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+          <div class="gallery-card" data-project="livestand"><div class="card-cover-ph"><img src="./projects/livestand/cover.webp" loading="lazy" alt="Live Stand"></div><div class="card-body"><span class="card-eyebrow">Industrial &middot; Concept</span><div class="card-title-row"><span class="card-title">Live Stand <span class="card-title-desc">— Multifunctional Phone Stand</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+        </div>
       </div>
     </div>
   </section>
@@ -1931,10 +1953,17 @@
   });
 
   // Intro flash — reveal labels briefly on load, then settle back to dots.
+  // Skipped when returning from the resume (no-intro): snap the progress fill
+  // into place without growing, and don't replay the label flash.
+  const tocReturning = document.documentElement.classList.contains('no-intro');
+  if (tocReturning && toc) toc.classList.add('toc-instant');
   updateTocProgress();
-  if (toc) {
+  if (toc && !tocReturning) {
     setTimeout(() => toc.classList.add('toc-reveal'), 600);
     setTimeout(() => toc.classList.remove('toc-reveal'), 2400);
+  } else if (toc) {
+    // Re-enable smooth progress/dot transitions once the restore has settled.
+    setTimeout(() => toc.classList.remove('toc-instant'), 700);
   }
 
 
@@ -2142,6 +2171,33 @@
       }, 140);
     });
   }
+
+  /* ── Resume round-trip: preserve scroll position ──
+     The "View resume" link opens resume.html in a new tab. We pass the current
+     scroll offset along in the URL *hash* (which survives the host's
+     .html → clean-URL redirect, unlike a query string) so resume.html's Back
+     link can return here to the exact spot instead of the top. */
+  (() => {
+    // Stamp the current scroll position onto the resume link at click time.
+    const resumeLink = document.querySelector('.pill-btn[href^="resume.html"]');
+    if (resumeLink) {
+      resumeLink.addEventListener('click', () => {
+        resumeLink.href = 'resume.html#from=' + Math.round(window.scrollY);
+      });
+    }
+
+    // If we arrived back here with a saved offset, restore it (bypassing the
+    // browser's own restoration and the global smooth-scroll behaviour).
+    const y = new URLSearchParams(location.hash.slice(1)).get('y');
+    if (y !== null) {
+      if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+      const restore = () => window.scrollTo({ top: parseInt(y, 10) || 0, behavior: 'instant' });
+      restore();                                   // as soon as DOM is ready
+      window.addEventListener('load', restore);    // again after images settle
+      // Drop the hash so a refresh doesn't re-trigger the jump.
+      history.replaceState(null, '', location.pathname + location.search);
+    }
+  })();
 </script>
 
 <!-- ── Dither background (vanilla WebGL2 port of reactbits.dev/backgrounds/dither) ── -->
