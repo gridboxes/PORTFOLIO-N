@@ -2,10 +2,33 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <!-- If we're returning from the resume (scroll about to be restored), flag it
-       before any paint so the page-open entrance animation is skipped. -->
+  <!-- Returning via back/forward (e.g. from the resume): the browser restores
+       scroll natively, so flag it before paint to skip the page-open entrance
+       animation. (bfcache restores don't re-run this script — they're already
+       animation-free and pixel-exact.) -->
   <script>
-    if (/(^|&)y=/.test(location.hash.slice(1))) document.documentElement.classList.add('no-intro');
+    var nav = performance.getEntriesByType('navigation')[0];
+    var isBackFwd = nav && nav.type === 'back_forward';
+    if (isBackFwd) document.documentElement.classList.add('no-intro');
+
+    // Keep native scroll restoration ('auto') so a plain refresh still lands
+    // where you were. Safety net for back/forward *reloads* only: native
+    // restoration can fall short there because below-the-fold content and the
+    // custom fonts settle late — re-assert the last position after load.
+    try {
+      addEventListener('pagehide', function () {
+        sessionStorage.setItem('pf-scroll', String(Math.round(window.scrollY)));
+      });
+      if (isBackFwd) {
+        var saved = sessionStorage.getItem('pf-scroll');
+        if (saved !== null) {
+          var y = parseInt(saved, 10) || 0;
+          addEventListener('load', function () {
+            if (Math.abs(window.scrollY - y) > 4) window.scrollTo({ top: y, behavior: 'instant' });
+          });
+        }
+      }
+    } catch (e) {}
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sivakorn (Kong) — Portfolio</title>
@@ -561,6 +584,22 @@
     /* The Play triangle is taller than the Apple mark in its own viewBox; scale it down so the two read at the same optical height (scales with the box across breakpoints) */
     .store-chip-logo--play { transform: scale(0.88); }
     .store-chip-dot { opacity: 0.5; }
+    /* Confidential / internal chip — not a link, so no pointer or hover lift */
+    .store-chip--locked { cursor: pointer; }
+    .gallery-card .store-chip--locked:hover { transform: none; }
+    /* Click on the locked chip: head-shake to signal "no, can't open this" */
+    @keyframes chipNo {
+      0%, 100% { transform: translateX(0); }
+      15% { transform: translateX(-4px); }
+      30% { transform: translateX(4px); }
+      45% { transform: translateX(-3px); }
+      60% { transform: translateX(3px); }
+      75% { transform: translateX(-2px); }
+    }
+    .store-chip--locked.chip-deny { animation: chipNo 0.42s ease; }
+    @media (prefers-reduced-motion: reduce) {
+      .store-chip--locked.chip-deny { animation: none; }
+    }
     /* Proportional chip sizes — full label, scaled to the card it sits on */
     .mosaic-side .store-chip {
       left: 10px; bottom: 10px; gap: 6px;
@@ -1706,10 +1745,10 @@
     </div>
     <div id="ai-all" class="tab-panel active">
       <div class="gallery-grid gallery-grid--mosaic">
-        <div class="gallery-card mosaic-main" data-project="thaipass-cms"><div class="card-cover-ph"><img src="./projects/thaipass-cms/login.webp" loading="lazy" alt="ThaiPass CMS"></div><div class="card-body"><span class="card-eyebrow">Travel &middot; React/Tailwind</span><div class="card-title-row"><span class="card-title">ThaiPass CMS <span class="card-title-desc">— Admin Platform</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+        <div class="gallery-card mosaic-main" data-project="thaipass-cms"><div class="card-cover-ph"><img src="./projects/thaipass-cms/login.webp" loading="lazy" alt="ThaiPass CMS"><a class="store-chip" href="https://cms-development-test.vercel.app/login" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" aria-label="Open the ThaiPass CMS"><span>Available on</span><svg class="store-chip-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></a></div><div class="card-body"><span class="card-eyebrow">Travel &middot; React/Tailwind</span><div class="card-title-row"><span class="card-title">ThaiPass CMS <span class="card-title-desc">— Admin Platform</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
         <div class="mosaic-side">
-          <div class="gallery-card" data-project="corporate-survivor"><div class="card-cover-ph"><img src="./projects/corporate-survivor/cover-duo.webp" loading="lazy" alt="Corporate Survivor"></div><div class="card-body"><span class="card-eyebrow">HR &middot; React/Supabase</span><div class="card-title-row"><span class="card-title">Corporate Survivor <span class="card-title-desc">— Attendance Tracker</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
-          <div class="gallery-card" data-project="mtel-pitch"><div class="card-cover-ph"><img src="./projects/mtel-pitch/dashboard.webp" loading="lazy" alt="Mtel Pitch"></div><div class="card-body"><span class="card-eyebrow">Internal Tool &middot; React/Supabase</span><div class="card-title-row"><span class="card-title">Mtel Pitch <span class="card-title-desc">— Pitch Deck Manager</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+          <div class="gallery-card" data-project="corporate-survivor"><div class="card-cover-ph"><img src="./projects/corporate-survivor/cover-duo.webp" loading="lazy" alt="Corporate Survivor"><a class="store-chip" href="https://corporate-survivor.vercel.app/viewer" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" aria-label="Open Corporate Survivor"><span>Available on</span><svg class="store-chip-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></a></div><div class="card-body"><span class="card-eyebrow">HR &middot; React/Supabase</span><div class="card-title-row"><span class="card-title">Corporate Survivor <span class="card-title-desc">— Attendance Tracker</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+          <div class="gallery-card" data-project="mtel-pitch"><div class="card-cover-ph"><img src="./projects/mtel-pitch/dashboard.webp" loading="lazy" alt="Mtel Pitch"><span class="store-chip store-chip--locked" title="Internal tool — access restricted" onclick="event.stopPropagation(); chipDeny(this)"><span>Available on</span><svg class="store-chip-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><svg class="store-chip-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span></div><div class="card-body"><span class="card-eyebrow">Internal Tool &middot; React/Supabase</span><div class="card-title-row"><span class="card-title">Mtel Pitch <span class="card-title-desc">— Pitch Deck Manager</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
         </div>
       </div>
     </div>
@@ -1839,7 +1878,7 @@
           <a class="pill-btn" href="resume.pdf" download title="Download">
             <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
           </a>
-          <a class="pill-btn" href="resume.html" target="_blank" rel="noopener noreferrer" title="View">
+          <a class="pill-btn" href="resume.html" title="View">
             <svg viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
           </a>
         </div>
@@ -2138,6 +2177,13 @@
     if (p && p.accent) card.style.setProperty('--card-accent', p.accent);
   });
 
+  /* Locked/confidential chip: replay the head-shake "no" on each click */
+  function chipDeny(el) {
+    el.classList.remove('chip-deny');
+    void el.offsetWidth; // force reflow so the animation restarts
+    el.classList.add('chip-deny');
+  }
+
   function pillCopy(text, btn) {
     navigator.clipboard.writeText(text).then(() => {
       if (btn.dataset.copying) return;
@@ -2172,32 +2218,6 @@
     });
   }
 
-  /* ── Resume round-trip: preserve scroll position ──
-     The "View resume" link opens resume.html in a new tab. We pass the current
-     scroll offset along in the URL *hash* (which survives the host's
-     .html → clean-URL redirect, unlike a query string) so resume.html's Back
-     link can return here to the exact spot instead of the top. */
-  (() => {
-    // Stamp the current scroll position onto the resume link at click time.
-    const resumeLink = document.querySelector('.pill-btn[href^="resume.html"]');
-    if (resumeLink) {
-      resumeLink.addEventListener('click', () => {
-        resumeLink.href = 'resume.html#from=' + Math.round(window.scrollY);
-      });
-    }
-
-    // If we arrived back here with a saved offset, restore it (bypassing the
-    // browser's own restoration and the global smooth-scroll behaviour).
-    const y = new URLSearchParams(location.hash.slice(1)).get('y');
-    if (y !== null) {
-      if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-      const restore = () => window.scrollTo({ top: parseInt(y, 10) || 0, behavior: 'instant' });
-      restore();                                   // as soon as DOM is ready
-      window.addEventListener('load', restore);    // again after images settle
-      // Drop the hash so a refresh doesn't re-trigger the jump.
-      history.replaceState(null, '', location.pathname + location.search);
-    }
-  })();
 </script>
 
 <!-- ── Dither background (vanilla WebGL2 port of reactbits.dev/backgrounds/dither) ── -->

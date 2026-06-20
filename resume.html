@@ -335,12 +335,20 @@
       if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitPage);
       window.addEventListener('resize', fitPage);
 
-      // If we were opened from the portfolio with a scroll offset (passed in
-      // the URL hash, which survives the .html → clean-URL redirect), carry it
-      // back so the Back link returns to that exact spot instead of the top.
-      var from = new URLSearchParams(location.hash.slice(1)).get('from');
+      // Back: if we came from our own portfolio, use the browser's real history
+      // so it restores that page exactly (native scroll position, clean URL).
+      // Otherwise (direct visit / refresh) fall through to the href="index.html".
       var back = document.getElementById('back-link');
-      if (from !== null && back) back.href = 'index.html#y=' + encodeURIComponent(from);
+      if (back) {
+        back.addEventListener('click', function (e) {
+          var sameOriginReferrer = document.referrer &&
+            new URL(document.referrer).origin === location.origin;
+          if (history.length > 1 && sameOriginReferrer) {
+            e.preventDefault();
+            history.back();
+          }
+        });
+      }
 
       // Share button: prefer the native share sheet with the PDF attached
       // (mobile + macOS Safari). Where file-sharing isn't supported, fall
