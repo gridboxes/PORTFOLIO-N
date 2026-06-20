@@ -792,6 +792,8 @@
       background: var(--bg-card-hover);
       box-shadow: 0 0 0 1px rgba(248,248,248,0.22);
       padding-right: 82px;
+      /* hover-intent: delay only the reveal (padding) on open; close stays immediate */
+      transition-delay: 0s, 0s, 0.09s;
     }
     .contact-pill .icon { width: 16px; height: 16px; color: var(--text-sec); }
     @keyframes pillBtnIn {
@@ -823,12 +825,13 @@
       text-decoration: none;
       opacity: 0;
       transform: scale(0.55) translateX(6px);
-      transition: opacity 0.12s ease, transform 0.12s ease, background 0.15s, box-shadow 0.15s;
+      transition: opacity 0.22s ease, transform 0.28s var(--ease-spring), background 0.15s, box-shadow 0.15s;
     }
     .contact-pill:hover .pill-btn {
       animation: pillBtnIn 0.4s var(--ease-spring) forwards;
+      animation-delay: 0.09s;
     }
-    .contact-pill:hover .pill-btn:nth-child(2) { animation-delay: 0.07s; }
+    .contact-pill:hover .pill-btn:nth-child(2) { animation-delay: 0.16s; }
     .pill-btn:hover { background: rgba(248,248,248,0.14); box-shadow: 0 0 0 1px rgba(248,248,248,0.18); }
     .pill-btn svg { width: 15px; height: 15px; stroke: var(--text-sec); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
     .pill-btn:hover svg { stroke: var(--text-pri); }
@@ -1075,13 +1078,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: background 0.2s ease, transform 0.3s var(--ease-spring), border-color 0.2s ease;
+      transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
       color: var(--text-sec);
     }
     .modal-close:hover {
       background: rgba(248,248,248,0.14);
       border-color: rgba(248,248,248,0.25);
-      transform: translateY(-50%) rotate(90deg);
       color: var(--text-pri);
     }
     .modal-body {
@@ -1722,7 +1724,7 @@
     </div>
     <div id="ux-nipa" class="tab-panel">
       <div class="gallery-grid">
-        <div class="gallery-card" data-project="nipa"><div class="card-cover-ph"><img src="./projects/nipa/image 7.webp" loading="lazy" alt="NIPA Payment"><a class="store-chip" href="https://space.nipa.cloud" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" aria-label="Open NIPA Cloud"><span>Available on</span><svg class="store-chip-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></a></div><div class="card-body"><span class="card-eyebrow">Cloud &middot; Production</span><div class="card-title-row"><span class="card-title">NIPA Payment System</span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+        <div class="gallery-card" data-project="nipa"><div class="card-cover-ph"><img src="./projects/nipa/image 7.webp" loading="lazy" alt="NIPA Payment"><a class="store-chip" href="https://identity.nipa.cloud/oauth/login/" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" aria-label="Open NIPA Cloud"><span>Available on</span><svg class="store-chip-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></a></div><div class="card-body"><span class="card-eyebrow">Cloud &middot; Production</span><div class="card-title-row"><span class="card-title">NIPA Payment System</span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
         <div class="gallery-card" data-project="nipalb"><div class="card-cover-ph"><img src="./projects/nipalb/image 1.webp" loading="lazy" alt="NIPA LB"></div><div class="card-body"><span class="card-eyebrow">Cloud &middot; Concept</span><div class="card-title-row"><span class="card-title">NIPA Load Balancing Service</span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
       </div>
     </div>
