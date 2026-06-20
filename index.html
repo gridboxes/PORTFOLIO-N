@@ -530,6 +530,73 @@
     }
     .gallery-card:hover .card-cover-ph img,
     .gallery-card:focus-visible .card-cover-ph img { transform: scale(1.025); }
+
+    /* ── Story preview: stacked slides crossfade on hover/swipe ── */
+    .card-cover-ph.has-story img.story-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      /* feature shots are wider composites — letterbox so nothing is cropped */
+      object-fit: contain;
+      background: var(--bg-card);
+      transition: opacity 0.5s var(--ease-smooth), transform 0.55s var(--ease-spring);
+    }
+    /* the cover frame is built to fill — keep it edge-to-edge at rest */
+    .card-cover-ph.has-story img.story-slide:first-child {
+      object-fit: cover;
+      background: none;
+    }
+    .card-cover-ph.has-story img.story-slide.is-active { opacity: 1; }
+    /* Expanding-dot page control — active dot stretches to a pill that fills */
+    .story-bars {
+      position: absolute;
+      top: 11px;
+      left: 0;
+      right: 0;
+      z-index: 2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s var(--ease-smooth);
+      filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.28));
+    }
+    .gallery-card:hover .story-bars,
+    .gallery-card:focus-within .story-bars { opacity: 0.85; }
+    .story-bar {
+      flex: none;
+      width: 5px;
+      height: 5px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.34);
+      transition: width 0.4s var(--ease-spring), background 0.3s var(--ease-smooth);
+    }
+    .story-bar > i {
+      display: block;
+      height: 100%;
+      width: 0;
+      border-radius: inherit;
+      background: rgba(255, 255, 255, 0.78);
+    }
+    .story-bar.is-active {
+      width: 22px;
+      background: rgba(255, 255, 255, 0.2); /* track behind the fill */
+    }
+    .story-bar.is-active > i { width: 100%; transition: width var(--story-ms, 1600ms) linear; }
+    @media (prefers-reduced-motion: reduce) {
+      .story-bar.is-active { width: 22px; }
+      .story-bar.is-active > i { transition: none; }
+    }
+    /* Touch devices have no hover: keep the dots visible so the card reads as
+       swipeable, and make the active pill a solid position marker (no autoplay,
+       so a timed fill would mislead). */
+    @media (hover: none) {
+      .gallery-card .story-bars { opacity: 0.85; }
+      .story-bar.is-active > i { transition: none; }
+    }
     /* hairline frame over the image; warms toward the project accent on hover */
     .card-cover-ph::after {
       content: '';
@@ -1710,7 +1777,7 @@
     </div>
     <div id="ux-mtel" class="tab-panel active">
       <div class="gallery-grid gallery-grid--mosaic">
-        <div class="gallery-card mosaic-main" data-project="thaipass"><div class="card-cover-ph"><img src="./projects/thaipass/thumb.webp" loading="lazy" alt="ThaiPass"><a class="store-chip" href="https://apps.apple.com/th/app/my-thaipass/id6761145502?l=th" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" aria-label="Get My ThaiPass on the App Store"><span>Available on</span><svg class="store-chip-logo" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.16162 6.50439L13.0004 13"/><path d="M6.5 2L8 4.53875"/><path d="M3.59063 12L3 13"/><path d="M9.49996 2L4.77246 10"/><path d="M11.2275 10H14.5"/><path d="M1.5 10H8.90438"/></svg><span class="store-chip-dot">·</span><svg class="store-chip-logo store-chip-logo--play" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.1582 12.6402C3.15941 12.7192 3.18132 12.7964 3.22172 12.8642C3.26213 12.932 3.31963 12.9881 3.38847 13.0267C3.45731 13.0654 3.53509 13.0853 3.61404 13.0845C3.69298 13.0836 3.77032 13.0621 3.83834 13.022L13.3039 7.60402C13.3739 7.56675 13.4324 7.51118 13.4732 7.44323C13.514 7.37528 13.5355 7.29752 13.5355 7.21826C13.5355 7.13901 13.514 7.06125 13.4732 6.9933C13.4324 6.92535 13.3739 6.86977 13.3039 6.83251L3.83834 1.4145C3.77032 1.37443 3.69298 1.3529 3.61404 1.35208C3.53509 1.35125 3.45731 1.37116 3.38847 1.4098C3.31963 1.44845 3.26213 1.50448 3.22172 1.5723C3.18132 1.64013 3.15941 1.71737 3.1582 1.79631V12.6402Z"/><path d="M3.29004 1.48535L10.8286 9.02387"/><path d="M3.29004 12.9529L10.8274 5.41553"/></svg></a></div><div class="card-body"><span class="card-eyebrow">Travel &middot; Production</span><div class="card-title-row"><span class="card-title">ThaiPass App <span class="card-title-desc">— Travel Companion</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+        <div class="gallery-card mosaic-main" data-project="thaipass"><div class="card-cover-ph has-story"><img class="story-slide is-active" src="./projects/thaipass/thumb.webp" loading="lazy" alt="ThaiPass"><img class="story-slide" data-src="./projects/thaipass/voucher-packages.webp" alt="ThaiPass — Voucher Packages"><img class="story-slide" data-src="./projects/thaipass/fastpass.webp" alt="ThaiPass — FastPass"><img class="story-slide" data-src="./projects/thaipass/transport.webp" alt="ThaiPass — Transport"><img class="story-slide" data-src="./projects/thaipass/esim.webp" alt="ThaiPass — eSIM"><div class="story-bars" aria-hidden="true"><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span></div><a class="store-chip" href="https://apps.apple.com/th/app/my-thaipass/id6761145502?l=th" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" aria-label="Get My ThaiPass on the App Store"><span>Available on</span><svg class="store-chip-logo" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.16162 6.50439L13.0004 13"/><path d="M6.5 2L8 4.53875"/><path d="M3.59063 12L3 13"/><path d="M9.49996 2L4.77246 10"/><path d="M11.2275 10H14.5"/><path d="M1.5 10H8.90438"/></svg><span class="store-chip-dot">·</span><svg class="store-chip-logo store-chip-logo--play" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.1582 12.6402C3.15941 12.7192 3.18132 12.7964 3.22172 12.8642C3.26213 12.932 3.31963 12.9881 3.38847 13.0267C3.45731 13.0654 3.53509 13.0853 3.61404 13.0845C3.69298 13.0836 3.77032 13.0621 3.83834 13.022L13.3039 7.60402C13.3739 7.56675 13.4324 7.51118 13.4732 7.44323C13.514 7.37528 13.5355 7.29752 13.5355 7.21826C13.5355 7.13901 13.514 7.06125 13.4732 6.9933C13.4324 6.92535 13.3739 6.86977 13.3039 6.83251L3.83834 1.4145C3.77032 1.37443 3.69298 1.3529 3.61404 1.35208C3.53509 1.35125 3.45731 1.37116 3.38847 1.4098C3.31963 1.44845 3.26213 1.50448 3.22172 1.5723C3.18132 1.64013 3.15941 1.71737 3.1582 1.79631V12.6402Z"/><path d="M3.29004 1.48535L10.8286 9.02387"/><path d="M3.29004 12.9529L10.8274 5.41553"/></svg></a></div><div class="card-body"><span class="card-eyebrow">Travel &middot; Production</span><div class="card-title-row"><span class="card-title">ThaiPass App <span class="card-title-desc">— Travel Companion</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
         <div class="mosaic-side">
           <div class="gallery-card" data-project="bcc"><div class="card-cover-ph"><img src="./projects/bcc/cover.webp" loading="lazy" alt="BCC"><a class="store-chip" href="https://www.bangkokcable.com/en" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" aria-label="Open the BCC website"><span>Available on</span><svg class="store-chip-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></a></div><div class="card-body"><span class="card-eyebrow">Electrical &middot; Production</span><div class="card-title-row"><span class="card-title">BCC Website <span class="card-title-desc">— Calculation Program</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
           <div class="gallery-card" data-project="netzero"><div class="card-cover-ph"><img src="./projects/netzero/Frame_(1).webp" loading="lazy" alt="Net Zero"></div><div class="card-body"><span class="card-eyebrow">Environment &middot; Concept</span><div class="card-title-row"><span class="card-title">Net Zero <span class="card-title-desc">— Carbon Platform</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
@@ -2178,6 +2245,125 @@
     const p = projects[card.dataset.project];
     if (p && p.accent) card.style.setProperty('--card-accent', p.accent);
   });
+
+  /* ── Story preview on gallery cards (IG-story-style) ──
+     Desktop: autoplay slides on hover. Touch/mouse: horizontal swipe to step.
+     Click still opens the modal (a swipe suppresses that one click). */
+  (function initCardStories() {
+    var SLIDE_MS = 4200;
+    var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    document.querySelectorAll('.card-cover-ph.has-story').forEach(function (ph) {
+      var slides = [].slice.call(ph.querySelectorAll('img.story-slide'));
+      var bars = [].slice.call(ph.querySelectorAll('.story-bar'));
+      var card = ph.closest('.gallery-card');
+      if (slides.length < 2 || !card) return;
+      ph.style.setProperty('--story-ms', SLIDE_MS + 'ms');
+
+      var idx = 0, timer = null, loaded = false, justSwiped = false, hovering = false;
+
+      slides.forEach(function (s) { s.decoding = 'async'; });
+      var isTouch = matchMedia('(hover: none)').matches;
+
+      function load() {
+        if (loaded) return;
+        loaded = true;
+        slides.forEach(function (s) {
+          if (s.dataset.src) {
+            s.src = s.dataset.src;
+            if (s.decode) s.decode().catch(function () {}); // warm the cache so crossfades don't flash
+          }
+        });
+      }
+      function paintBars() {
+        bars.forEach(function (b, n) {
+          b.classList.remove('is-active', 'is-done');
+          if (n < idx) b.classList.add('is-done');
+        });
+        if (bars[idx]) { void bars[idx].offsetWidth; bars[idx].classList.add('is-active'); }
+      }
+      function show(i) {
+        slides[idx].classList.remove('is-active');
+        idx = (i + slides.length) % slides.length;
+        slides[idx].classList.add('is-active');
+        paintBars();
+      }
+      function stop() { if (timer) { clearInterval(timer); timer = null; } }
+      function play() {
+        if (reduced) return;
+        stop();
+        timer = setInterval(function () { show(idx + 1); }, SLIDE_MS);
+      }
+      function start() {
+        hovering = true;
+        load();
+        paintBars();
+        play();
+      }
+      function reset() {
+        hovering = false;
+        stop();
+        slides[idx].classList.remove('is-active');
+        idx = 0;
+        slides[0].classList.add('is-active');
+        bars.forEach(function (b) { b.classList.remove('is-active', 'is-done'); });
+      }
+      // Manual nav: step now, then let autoplay resume from the new slide.
+      function manualStep(dir) {
+        load();
+        show(idx + dir);          // repaints bars → the active pill restarts its fill
+        if (hovering) play();     // resume autoplay on desktop; touch stays manual
+      }
+
+      card.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') start(); });
+      card.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') reset(); });
+      card.addEventListener('focusin', start);
+      card.addEventListener('focusout', function (e) { if (!card.contains(e.relatedTarget)) reset(); });
+      card.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowRight') { e.preventDefault(); manualStep(1); }
+        else if (e.key === 'ArrowLeft') { e.preventDefault(); manualStep(-1); }
+      });
+
+      // Trackpad two-finger swipe = one step per flick (velocity hysteresis, no timers).
+      // A flick's momentum only decays, so we step on the leading edge then DISARM;
+      // the decaying tail can't re-arm, so it can't add extra steps. We re-arm only
+      // once the velocity settles back near rest, ready for the next flick.
+      // Vertical-dominant wheels pass through so the page still scrolls.
+      var armed = true;
+      ph.addEventListener('wheel', function (e) {
+        if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+        e.preventDefault();
+        load();
+        var a = Math.abs(e.deltaX);
+        if (armed) {
+          if (a > 9) { manualStep(e.deltaX > 0 ? 1 : -1); armed = false; }
+        } else if (a < 6) {
+          armed = true; // velocity has settled — ready for the next flick
+        }
+      }, { passive: false });
+
+      // Touchscreen swipe; suppress the click that would otherwise open the modal.
+      var sx = 0, sy = 0, down = false;
+      ph.addEventListener('pointerdown', function (e) {
+        if (e.pointerType !== 'touch') return;
+        sx = e.clientX; sy = e.clientY; down = true; load();
+      });
+      ph.addEventListener('pointerup', function (e) {
+        if (!down) return;
+        down = false;
+        var dx = e.clientX - sx, dy = e.clientY - sy;
+        if (Math.abs(dx) > 30 && Math.abs(dx) > Math.abs(dy)) {
+          manualStep(dx < 0 ? 1 : -1);
+          justSwiped = true;
+        }
+      });
+      ph.addEventListener('click', function (e) {
+        if (justSwiped) { e.stopPropagation(); justSwiped = false; }
+      }, true);
+
+      // Touch has no hover to kick things off — show the position pill from the start.
+      if (isTouch) paintBars();
+    });
+  })();
 
   /* Locked/confidential chip: replay the head-shake "no" on each click */
   function chipDeny(el) {
