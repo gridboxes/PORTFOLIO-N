@@ -386,12 +386,13 @@
       var shareBtn = document.getElementById('share-btn');
       var fileName = (a && a.getAttribute('download')) || 'Sivakorn_Samorkam_Resume.pdf';
       var subject = 'Sivakorn Samorkam — UX/UI Designer Resume';
+      var ownerSubject = 'Application – UX/UI Designer | Sivakorn Samorkam';
       var body = 'Resume of Sivakorn Samorkam — UX/UI Designer.\n\nPortfolio: https://gridboxes-portfolio-n.vercel.app/\n\nResume attached.';
-      var ownerBody = 'Hi,\n\nPlease find my resume attached.\n\nYou can view my portfolio here:\nhttps://gridboxes-portfolio-n.vercel.app/\n\nBest regards,\nSivakorn S.';
+      var ownerBody = 'Hi [Name],\n\nI\'m Sivakorn, a UX/UI Designer with a background in Robotics & AI engineering. I simplify complex systems and ship real products — from a travel-companion app on the App Store to payment and cloud platforms.\n\nI\'d love to bring that to [Company]. Resume attached, portfolio below.\n\nPortfolio: gridboxes-portfolio-n.vercel.app\n\nBest regards,\nSivakorn Samorkam\n082-651-4519 | sivakorn.contact@gmail.com';
 
-      function emailFallback(messageBody) {
+      function emailFallback(messageBody, messageSubject) {
         if (a) a.click(); // download the PDF so the user can attach it
-        window.location.href = 'mailto:?subject=' + encodeURIComponent(subject) +
+        window.location.href = 'mailto:?subject=' + encodeURIComponent(messageSubject || subject) +
           '&body=' + encodeURIComponent(messageBody);
       }
 
@@ -407,7 +408,7 @@
         } catch (err) {
           if (err && err.name === 'AbortError') return; // user dismissed the sheet
         }
-        emailFallback(messageBody);
+        emailFallback(messageBody, messageBody === ownerBody ? ownerSubject : subject);
       }
 
       if (shareBtn) {
