@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Auto-regenerate resume.pdf whenever resume.html is part of the commit,
+# so the committed (and deployed) PDF never drifts from the HTML.
+set -euo pipefail
+
+ROOT="$(git rev-parse --show-toplevel)"
+
+# Only act when resume.html is staged.
+if git diff --cached --name-only | grep -qx "resume.html"; then
+  echo "pre-commit: resume.html changed — regenerating resume.pdf…"
+  bash "$ROOT/scripts/gen-resume-pdf.sh"
+  git add "$ROOT/resume.pdf"
+fi

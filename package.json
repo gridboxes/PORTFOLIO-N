@@ -1,4 +1,8 @@
 {
+  "scripts": {
+    "pdf": "bash scripts/gen-resume-pdf.sh",
+    "pdf:watch": "node scripts/watch-resume-pdf.mjs"
+  },
   "devDependencies": {
     "@gltf-transform/core": "^4.3.0",
     "@gltf-transform/extensions": "^4.3.0",

@@ -100,7 +100,7 @@
       display: grid;
       grid-template-columns: 150px 1fr;
       column-gap: 28px;
-      row-gap: 33px;
+      row-gap: 24px;
     }
     .label {
       font-family: 'Josefin Sans', sans-serif;
@@ -129,6 +129,17 @@
       text-transform: uppercase;
       color: var(--ink-dim);
     }
+    /* Location shares the role's uppercase typography, set off by a divider */
+    .role-loc { white-space: nowrap; }
+    .role-loc::before {
+      content: "";
+      display: inline-block;
+      width: 1px; height: 9px;
+      margin: 0 10px -1px 6px;
+      background: var(--ink-dim);
+      opacity: 0.45;
+    }
+    .role-ic { width: 10px; height: 10px; vertical-align: 0; margin-right: 5px; stroke-width: 1.65; }
 
     /* Info list */
     .info-list { list-style: none; }
@@ -151,24 +162,35 @@
     .profile { font-size: 11pt; line-height: 1.636; letter-spacing: 0.1px; color: var(--ink-sec); text-align: left; }
 
     /* Entries (work / education) */
-    .entry { margin-bottom: 32px; }
+    .entry { margin-bottom: 21px; }
     .entry:last-child { margin-bottom: 0; }
     .entry-head { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; }
     .entry-title { font-family: 'Josefin Sans', sans-serif; font-size: 12pt; font-weight: 700; line-height: 1.33; letter-spacing: 0; color: var(--ink); }
     .entry-title .at { color: var(--at-mtel); }
     .entry-title .at-nipa { color: var(--at-nipa); }
-    .entry-meta { font-size: 11px; color: var(--ink-dim); white-space: nowrap; }
+    .entry-meta { font-size: 12px; color: var(--ink-dim); white-space: nowrap; }
     .entry-desc { font-size: 11pt; line-height: 1.636; letter-spacing: 0.1px; color: var(--ink-sec); margin-top: 5px; text-align: left; }
+    .entry-bullets { list-style: none; margin-top: 8px; }
+    .entry-bullets li {
+      position: relative; padding-left: 16px; margin-bottom: 5px;
+      font-size: 11pt; line-height: 1.45; letter-spacing: 0.1px; color: var(--ink-sec);
+    }
+    .entry-bullets li:last-child { margin-bottom: 0; }
+    .entry-bullets li::before {
+      content: ""; position: absolute; left: 0; top: 7px;
+      width: 5px; height: 5px; background: var(--ink); border-radius: 1px;
+    }
     .entry-line { font-size: 11pt; line-height: 1.4; color: var(--ink-sec); margin-top: 3px; }
-    .ref { font-weight: 700; color: var(--ink); }
+    .ref { font-weight: 600; color: inherit; }
 
     /* Two-column bulleted lists (Core Skills, Tools & Tech) — fill column then column */
     .skills { display: grid; grid-template-columns: 1fr 1fr; grid-auto-flow: column; gap: 13px 24px; list-style: none; }
+    .skills.r5 { grid-template-rows: repeat(5, auto); }
     .skills.r4 { grid-template-rows: repeat(4, auto); }
     .skills.r3 { grid-template-rows: repeat(3, auto); }
     .skills li {
       position: relative; padding-left: 16px;
-      font-size: 11pt; line-height: 1.3; color: var(--ink-sec);
+      font-size: 10pt; line-height: 1.3; color: var(--ink-sec);
     }
     .skills li::before {
       content: ""; position: absolute; left: 0; top: 7px;
@@ -205,11 +227,11 @@
   <div class="page">
     <div class="resume">
 
-      <!-- Summary / header -->
-      <div class="label">Summary</div>
+      <!-- Header -->
+      <div class="label">Resumé</div>
       <div class="content">
         <div class="name">Sivakorn Samorkam</div>
-        <div class="role">UX/UI Designer</div>
+        <div class="role">UX/UI Designer <span class="role-loc"><svg class="role-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.99-5.54 10.19-7.35 11.75a1 1 0 0 1-1.3 0C9.54 20.19 4 14.99 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>Bangkok</span></div>
       </div>
 
       <!-- Info -->
@@ -218,7 +240,7 @@
         <ul class="info-list">
           <li><a href="mailto:sivakorn.contact@gmail.com">sivakorn.contact@gmail.com</a></li>
           <li>082-651-4519</li>
-          <li><a href="https://gridboxes-portfolio-n.vercel.app/" target="_blank" rel="noopener"><svg class="link-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>Portfolio Link</a></li>
+          <li><svg class="link-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>Portfolio : <a href="https://gridboxes-portfolio-n.vercel.app/" target="_blank" rel="noopener">gridboxes-portfolio-n.vercel.app</a></li>
         </ul>
       </div>
 
@@ -226,9 +248,9 @@
       <div class="label">Profile</div>
       <div class="content">
         <p class="profile">
-          UX/UI Designer focused on simplifying complex systems and improving usability
-          across web and mobile applications. Experienced in designing real-world platforms
-          across travel, payment systems, cloud platform and data-driven interfaces.
+          UX/UI Designer with a Robotics &amp; AI engineering background, taking products from
+          research to launch. Simplifies complex systems and sharpens usability across
+          travel, payments, cloud, and data-driven products.
         </p>
       </div>
 
@@ -237,27 +259,25 @@
       <div class="content">
         <div class="entry">
           <div class="entry-head">
-            <span class="entry-title">2025–2026 — UX/UI Designer <span class="at">@</span> Mtel (Thailand)</span>
-            <span class="entry-meta">1 Year</span>
+            <span class="entry-title">2025–Present — UX/UI Designer <span class="at">@</span> Mtel (Thailand)</span>
+            <span class="entry-meta">~ 1 Year</span>
           </div>
-          <p class="entry-desc">
-            Research and design responsive Website and Application experiences rooted in UX
-            principles, turning research insights and design concepts into engaging,
-            brand-aligned interfaces. From large-scale products like
-            <span class="ref">ThaiPass</span> to complex systems like the
-            <span class="ref">BCC Calculation Program</span>.
-          </p>
+          <ul class="entry-bullets">
+            <li>Shipped <span class="ref">ThaiPass</span> — a travel-companion app with a <span class="ref">design system</span> covering vouchers, FastPass, transport, and eSIM.</li>
+            <li>Delivered the <span class="ref">BCC Calculation Program</span> — simplifying a complex engineering workflow into a guided, usable tool.</li>
+            <li>Built <span class="ref">ThaiPass CMS</span> in React/Tailwind — design to code, AI-assisted.</li>
+          </ul>
         </div>
         <div class="entry">
           <div class="entry-head">
             <span class="entry-title">2024 — UX/UI Designer Intern <span class="at at-nipa">@</span> NIPA Cloud</span>
             <span class="entry-meta">6 Months</span>
           </div>
-          <p class="entry-desc">
-            Collaborated in a Scrum team with weekly sprints, contributing to the UX/UI
-            design of web and portal applications, and leading the redesign of the
-            <span class="ref">Payment System</span> for improved usability.
-          </p>
+          <ul class="entry-bullets">
+            <li>Designed UX/UI for web &amp; portal apps in a weekly-sprint Scrum team.</li>
+            <li>Redesigned the <span class="ref">Payment System</span> across 5 payment methods.</li>
+            <li>Migrated UI to <span class="ref">Design System 2.0</span> for breakpoint consistency.</li>
+          </ul>
         </div>
       </div>
 
@@ -266,39 +286,43 @@
       <div class="content">
         <div class="entry">
           <div class="entry-title">2021–2025 — King Mongkut's Institute of Technology Ladkrabang</div>
-          <div class="entry-line">Robotics &amp; AI Engineering — GPAX : 3.43</div>
+          <div class="entry-line">Bachelor of Engineering, Robotics &amp; AI Engineering — GPA : 3.44</div>
         </div>
         <div class="entry">
           <div class="entry-title">2009–2021 — Assumption Samutprakarn School</div>
-          <div class="entry-line">English Program — GPAX : 3.95</div>
+          <div class="entry-line">Primary &amp; Secondary Education, English Program — GPA : 3.98</div>
         </div>
       </div>
 
       <!-- Core Skills -->
       <div class="label">Core Skills</div>
       <div class="content">
-        <ul class="skills r4">
+        <ul class="skills r5">
           <li>UX/UI Design</li>
           <li>UX Research</li>
+          <li>Usability Testing</li>
+          <li>Wireframing &amp; Prototyping</li>
           <li>UX Writing</li>
           <li>Design System</li>
           <li>Agile Development</li>
           <li>Software Development</li>
           <li>CAD &amp; Industrial Design</li>
-          <li>3D Design &amp; ARVR</li>
+          <li>3D Design &amp; AR/VR</li>
         </ul>
       </div>
 
       <!-- Tools & Tech -->
       <div class="label">Tools &amp; Tech</div>
       <div class="content">
-        <ul class="skills r3">
+        <ul class="skills r4">
           <li>Figma · FigJam</li>
-          <li>Ae · Ps · Jitter · Spline</li>
+          <li>After Effects · Photoshop · Jitter</li>
           <li>Fusion 360 · SolidWorks</li>
+          <li>Spline · 3ds Max · Unity</li>
           <li>Jira · Agile · Scrum</li>
-          <li>XCode · SwiftUI · Flutter · React</li>
-          <li>(HTML/CSS) · SQL · Python · C</li>
+          <li>IOS/SwiftUI · Android/Flutter</li>
+          <li>React · Tailwind CSS · HTML/CSS</li>
+          <li>Supabase · SQL · Python · C</li>
         </ul>
       </div>
 
@@ -355,7 +379,7 @@
       // back to downloading the PDF and opening a pre-filled email draft.
       //
       // Secret "owner mode": a normal tap shares the neutral message anyone
-      // can send; pressing and holding (~0.6s) shares a personal, first-person
+      // can send; pressing and holding (~1.2s) shares a personal, first-person
       // note — special to the owner as the sender. The actual share fires on
       // release, because browsers only allow navigator.share() during a real
       // tap/click gesture (a timer firing on its own would be blocked).

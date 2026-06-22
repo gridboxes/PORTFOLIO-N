@@ -528,25 +528,64 @@
       will-change: transform;
       backface-visibility: hidden;
     }
-    .gallery-card:hover .card-cover-ph img,
-    .gallery-card:focus-visible .card-cover-ph img { transform: scale(1.025); }
+    .gallery-card:hover .card-cover-ph img:not(.story-slide),
+    .gallery-card:focus-visible .card-cover-ph img:not(.story-slide),
+    .gallery-card:hover .card-cover-ph.has-slider img.story-slide.is-view,
+    .gallery-card:focus-visible .card-cover-ph.has-slider img.story-slide.is-view { transform: scale(1.025); }
 
-    /* ── Story preview: stacked slides crossfade on hover/swipe ── */
+    /* ── Story preview: slides translate horizontally on hover/swipe ── */
     .card-cover-ph.has-story img.story-slide {
       position: absolute;
       inset: 0;
-      opacity: 0;
+      transform: translateX(101%);     /* parked just off the right edge (clipped) */
       /* feature shots are wider composites — letterbox so nothing is cropped */
       object-fit: contain;
       background: var(--bg-card);
-      transition: opacity 0.5s var(--ease-smooth), transform 0.55s var(--ease-spring);
+      transition: transform 0.5s var(--ease-smooth);
     }
     /* the cover frame is built to fill — keep it edge-to-edge at rest */
     .card-cover-ph.has-story img.story-slide:first-child {
       object-fit: cover;
       background: none;
     }
-    .card-cover-ph.has-story img.story-slide.is-active { opacity: 1; }
+    .card-cover-ph.has-story img.story-slide.is-active { transform: translateX(0); }
+    @media (prefers-reduced-motion: reduce) {
+      .card-cover-ph.has-story img.story-slide { transition: none; }
+    }
+
+    /* ── Story preview (alt): native CSS scroll-snap slider — used on BCC ── */
+    .card-cover-ph.has-slider .story-track {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      overscroll-behavior-x: contain;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    .card-cover-ph.has-slider .story-track::-webkit-scrollbar { display: none; }
+    .card-cover-ph.has-slider img.story-slide {
+      flex: 0 0 100%;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;   /* web-page captures: show the top */
+      scroll-snap-align: center;
+      scroll-snap-stop: always;
+    }
+    /* ThaiPass framing in the slider: cover thumb fills, feature shots letterbox */
+    .card-cover-ph.slider-letterbox img.story-slide {
+      object-fit: contain;
+      object-position: center;
+      background: var(--bg-card);
+    }
+    .card-cover-ph.slider-letterbox img.story-slide:first-child {
+      object-fit: cover;
+      background: none;
+    }
     /* Expanding-dot page control — active dot stretches to a pill that fills */
     .story-bars {
       position: absolute;
@@ -585,7 +624,9 @@
       width: 22px;
       background: rgba(255, 255, 255, 0.2); /* track behind the fill */
     }
-    .story-bar.is-active > i { width: 100%; transition: width var(--story-ms, 1600ms) linear; }
+    .story-bar.is-active > i { width: 100%; transition: width var(--story-ms, 4200ms) linear; }
+    /* Only the in-focus slide is a long pill; every other dot (passed or upcoming)
+       stays a plain dot — no filled trail. */
     @media (prefers-reduced-motion: reduce) {
       .story-bar.is-active { width: 22px; }
       .story-bar.is-active > i { transition: none; }
@@ -609,7 +650,7 @@
     }
     .gallery-card:hover .card-cover-ph::after,
     .gallery-card:focus-visible .card-cover-ph::after {
-      box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--card-accent, #888) 45%, transparent);
+      box-shadow: inset 0 0 0 1px rgba(248,248,248,0.18);
     }
     /* "Available on the App Store" chip — only on the ThaiPass card (the lone shipped app).
        Always visible but understated at rest; the card hover deepens it. */
@@ -1777,13 +1818,13 @@
     </div>
     <div id="ux-mtel" class="tab-panel active">
       <div class="gallery-grid gallery-grid--mosaic">
-        <div class="gallery-card mosaic-main" data-project="thaipass"><div class="card-cover-ph has-story"><img class="story-slide is-active" src="./projects/thaipass/thumb.webp" loading="lazy" alt="ThaiPass"><img class="story-slide" data-src="./projects/thaipass/voucher-packages.webp" alt="ThaiPass — Voucher Packages"><img class="story-slide" data-src="./projects/thaipass/fastpass.webp" alt="ThaiPass — FastPass"><img class="story-slide" data-src="./projects/thaipass/transport.webp" alt="ThaiPass — Transport"><img class="story-slide" data-src="./projects/thaipass/esim.webp" alt="ThaiPass — eSIM"><div class="story-bars" aria-hidden="true"><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span></div><a class="store-chip" href="https://apps.apple.com/th/app/my-thaipass/id6761145502?l=th" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" aria-label="Get My ThaiPass on the App Store"><span>Available on</span><svg class="store-chip-logo" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.16162 6.50439L13.0004 13"/><path d="M6.5 2L8 4.53875"/><path d="M3.59063 12L3 13"/><path d="M9.49996 2L4.77246 10"/><path d="M11.2275 10H14.5"/><path d="M1.5 10H8.90438"/></svg><span class="store-chip-dot">·</span><svg class="store-chip-logo store-chip-logo--play" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.1582 12.6402C3.15941 12.7192 3.18132 12.7964 3.22172 12.8642C3.26213 12.932 3.31963 12.9881 3.38847 13.0267C3.45731 13.0654 3.53509 13.0853 3.61404 13.0845C3.69298 13.0836 3.77032 13.0621 3.83834 13.022L13.3039 7.60402C13.3739 7.56675 13.4324 7.51118 13.4732 7.44323C13.514 7.37528 13.5355 7.29752 13.5355 7.21826C13.5355 7.13901 13.514 7.06125 13.4732 6.9933C13.4324 6.92535 13.3739 6.86977 13.3039 6.83251L3.83834 1.4145C3.77032 1.37443 3.69298 1.3529 3.61404 1.35208C3.53509 1.35125 3.45731 1.37116 3.38847 1.4098C3.31963 1.44845 3.26213 1.50448 3.22172 1.5723C3.18132 1.64013 3.15941 1.71737 3.1582 1.79631V12.6402Z"/><path d="M3.29004 1.48535L10.8286 9.02387"/><path d="M3.29004 12.9529L10.8274 5.41553"/></svg></a></div><div class="card-body"><span class="card-eyebrow">Travel &middot; Production</span><div class="card-title-row"><span class="card-title">ThaiPass App <span class="card-title-desc">— Travel Companion</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+        <div class="gallery-card mosaic-main" data-project="thaipass"><div class="card-cover-ph has-slider slider-letterbox"><div class="story-track"><img class="story-slide" src="./projects/thaipass/thumb.webp" loading="lazy" alt="ThaiPass"><img class="story-slide" data-src="./projects/thaipass/voucher-packages.webp" alt="ThaiPass — Voucher Packages"><img class="story-slide" data-src="./projects/thaipass/fastpass.webp" alt="ThaiPass — FastPass"><img class="story-slide" data-src="./projects/thaipass/transport.webp" alt="ThaiPass — Transport"><img class="story-slide" data-src="./projects/thaipass/esim.webp" alt="ThaiPass — eSIM"></div><div class="story-bars" aria-hidden="true"><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span></div><a class="store-chip" href="https://apps.apple.com/th/app/my-thaipass/id6761145502?l=th" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" aria-label="Get My ThaiPass on the App Store"><span>Available on</span><svg class="store-chip-logo" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.16162 6.50439L13.0004 13"/><path d="M6.5 2L8 4.53875"/><path d="M3.59063 12L3 13"/><path d="M9.49996 2L4.77246 10"/><path d="M11.2275 10H14.5"/><path d="M1.5 10H8.90438"/></svg><span class="store-chip-dot">·</span><svg class="store-chip-logo store-chip-logo--play" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.1582 12.6402C3.15941 12.7192 3.18132 12.7964 3.22172 12.8642C3.26213 12.932 3.31963 12.9881 3.38847 13.0267C3.45731 13.0654 3.53509 13.0853 3.61404 13.0845C3.69298 13.0836 3.77032 13.0621 3.83834 13.022L13.3039 7.60402C13.3739 7.56675 13.4324 7.51118 13.4732 7.44323C13.514 7.37528 13.5355 7.29752 13.5355 7.21826C13.5355 7.13901 13.514 7.06125 13.4732 6.9933C13.4324 6.92535 13.3739 6.86977 13.3039 6.83251L3.83834 1.4145C3.77032 1.37443 3.69298 1.3529 3.61404 1.35208C3.53509 1.35125 3.45731 1.37116 3.38847 1.4098C3.31963 1.44845 3.26213 1.50448 3.22172 1.5723C3.18132 1.64013 3.15941 1.71737 3.1582 1.79631V12.6402Z"/><path d="M3.29004 1.48535L10.8286 9.02387"/><path d="M3.29004 12.9529L10.8274 5.41553"/></svg></a></div><div class="card-body"><span class="card-eyebrow">Travel &middot; Production</span><div class="card-title-row"><span class="card-title">ThaiPass App <span class="card-title-desc">— Travel Companion</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
         <div class="mosaic-side">
-          <div class="gallery-card" data-project="bcc"><div class="card-cover-ph"><img src="./projects/bcc/cover.webp" loading="lazy" alt="BCC"><a class="store-chip" href="https://www.bangkokcable.com/en" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" aria-label="Open the BCC website"><span>Available on</span><svg class="store-chip-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></a></div><div class="card-body"><span class="card-eyebrow">Electrical &middot; Production</span><div class="card-title-row"><span class="card-title">BCC Website <span class="card-title-desc">— Calculation Program</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+          <div class="gallery-card" data-project="bcc"><div class="card-cover-ph has-slider"><div class="story-track"><img class="story-slide" src="./projects/bcc/cover.webp" loading="lazy" alt="BCC"><img class="story-slide" data-src="./projects/bcc/calculator.webp" alt="BCC — Calculator"><img class="story-slide" data-src="./projects/bcc/smart-input.webp" alt="BCC — Smart input"><img class="story-slide" data-src="./projects/bcc/report.webp" alt="BCC — Report"><img class="story-slide" data-src="./projects/bcc/responsive.webp" alt="BCC — Responsive"></div><div class="story-bars" aria-hidden="true"><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span></div><a class="store-chip" href="https://www.bangkokcable.com/en" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" aria-label="Open the BCC website"><span>Available on</span><svg class="store-chip-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></a></div><div class="card-body"><span class="card-eyebrow">Electrical &middot; Production</span><div class="card-title-row"><span class="card-title">BCC Website <span class="card-title-desc">— Calculation Program</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
           <div class="gallery-card" data-project="netzero"><div class="card-cover-ph"><img src="./projects/netzero/Frame_(1).webp" loading="lazy" alt="Net Zero"></div><div class="card-body"><span class="card-eyebrow">Environment &middot; Concept</span><div class="card-title-row"><span class="card-title">Net Zero <span class="card-title-desc">— Carbon Platform</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
         </div>
         <div class="mosaic-rest">
-          <div class="gallery-card" data-project="myanmarpass"><div class="card-cover-ph"><img src="./projects/myanmarpass/Frame-1.webp" loading="lazy" alt="MyanmarPass"></div><div class="card-body"><span class="card-eyebrow">Labor &middot; Concept</span><div class="card-title-row"><span class="card-title">MyanmarPass App <span class="card-title-desc">— Migrant Worker Platform</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+          <div class="gallery-card" data-project="myanmarpass"><div class="card-cover-ph has-slider"><div class="story-track"><img class="story-slide" src="./projects/myanmarpass/Frame-1.webp" loading="lazy" alt="MyanmarPass"><img class="story-slide" data-src="./projects/myanmarpass/registration.webp" alt="MyanmarPass — Registration & Worker Protection"><img class="story-slide" data-src="./projects/myanmarpass/id-issuance.webp" alt="MyanmarPass — 13-Digit ID Issuance"><img class="story-slide" data-src="./projects/myanmarpass/work-permit.webp" alt="MyanmarPass — Work Permit"><img class="story-slide" data-src="./projects/myanmarpass/wallet.webp" alt="MyanmarPass — Digital Wallet"><img class="story-slide" data-src="./projects/myanmarpass/delivery.webp" alt="MyanmarPass — Cross-Border Delivery"></div><div class="story-bars" aria-hidden="true"><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span></div></div><div class="card-body"><span class="card-eyebrow">Labor &middot; Concept</span><div class="card-title-row"><span class="card-title">MyanmarPass App <span class="card-title-desc">— Migrant Worker Platform</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
           <div class="gallery-card" data-project="jaga"><div class="card-cover-ph"><img src="./projects/jaga/Frame.webp" loading="lazy" alt="JAGA"><a class="store-chip" href="https://apps.apple.com/th/app/jaga-junior-asian-golf-academy/id6751338789?l=th" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" aria-label="Get JAGA on the App Store"><span>Available on</span><svg class="store-chip-logo" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.16162 6.50439L13.0004 13"/><path d="M6.5 2L8 4.53875"/><path d="M3.59063 12L3 13"/><path d="M9.49996 2L4.77246 10"/><path d="M11.2275 10H14.5"/><path d="M1.5 10H8.90438"/></svg><span class="store-chip-dot">·</span><svg class="store-chip-logo store-chip-logo--play" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.1582 12.6402C3.15941 12.7192 3.18132 12.7964 3.22172 12.8642C3.26213 12.932 3.31963 12.9881 3.38847 13.0267C3.45731 13.0654 3.53509 13.0853 3.61404 13.0845C3.69298 13.0836 3.77032 13.0621 3.83834 13.022L13.3039 7.60402C13.3739 7.56675 13.4324 7.51118 13.4732 7.44323C13.514 7.37528 13.5355 7.29752 13.5355 7.21826C13.5355 7.13901 13.514 7.06125 13.4732 6.9933C13.4324 6.92535 13.3739 6.86977 13.3039 6.83251L3.83834 1.4145C3.77032 1.37443 3.69298 1.3529 3.61404 1.35208C3.53509 1.35125 3.45731 1.37116 3.38847 1.4098C3.31963 1.44845 3.26213 1.50448 3.22172 1.5723C3.18132 1.64013 3.15941 1.71737 3.1582 1.79631V12.6402Z"/><path d="M3.29004 1.48535L10.8286 9.02387"/><path d="M3.29004 12.9529L10.8274 5.41553"/></svg></a></div><div class="card-body"><span class="card-eyebrow">Golf &middot; Production</span><div class="card-title-row"><span class="card-title">JAGA App <span class="card-title-desc">— CometChat Feature</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
           <div class="gallery-card" data-project="onebangkok"><div class="card-cover-ph"><img src="./projects/onebangkok/cover.webp" loading="lazy" alt="One Bangkok"></div><div class="card-body"><span class="card-eyebrow">Property &middot; Experimental</span><div class="card-title-row"><span class="card-title">One Bangkok App <span class="card-title-desc">— Showcase Video</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
         </div>
@@ -1814,10 +1855,10 @@
     </div>
     <div id="ai-all" class="tab-panel active">
       <div class="gallery-grid gallery-grid--mosaic">
-        <div class="gallery-card mosaic-main" data-project="thaipass-cms"><div class="card-cover-ph"><img src="./projects/thaipass-cms/login.webp" loading="lazy" alt="ThaiPass CMS"><a class="store-chip" href="https://cms-development-test.vercel.app/login" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" aria-label="Open the ThaiPass CMS"><span>Available on</span><svg class="store-chip-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></a></div><div class="card-body"><span class="card-eyebrow">Travel &middot; React/Tailwind</span><div class="card-title-row"><span class="card-title">ThaiPass CMS <span class="card-title-desc">— Admin Platform</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+        <div class="gallery-card mosaic-main" data-project="thaipass-cms"><div class="card-cover-ph has-slider"><div class="story-track"><img class="story-slide" src="./projects/thaipass-cms/login.webp" loading="lazy" alt="ThaiPass CMS"><img class="story-slide" data-src="./projects/thaipass-cms/user-detail.webp" alt="ThaiPass CMS — User management"><img class="story-slide" data-src="./projects/thaipass-cms/tdac-list.webp" alt="ThaiPass CMS — TDAC records"><img class="story-slide" data-src="./projects/thaipass-cms/transport-booking.webp" alt="ThaiPass CMS — Transport booking"><img class="story-slide" data-src="./projects/thaipass-cms/esim-detail.webp" alt="ThaiPass CMS — eSIM detail"><img class="story-slide" data-src="./projects/thaipass-cms/orders-export.webp" alt="ThaiPass CMS — Orders export"></div><div class="story-bars" aria-hidden="true"><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span></div><a class="store-chip" href="https://cms-development-test.vercel.app/login" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" aria-label="Open the ThaiPass CMS"><span>Available on</span><svg class="store-chip-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></a></div><div class="card-body"><span class="card-eyebrow">Travel &middot; React/Tailwind</span><div class="card-title-row"><span class="card-title">ThaiPass CMS <span class="card-title-desc">— Admin Platform</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
         <div class="mosaic-side">
-          <div class="gallery-card" data-project="corporate-survivor"><div class="card-cover-ph"><img src="./projects/corporate-survivor/cover-duo.webp" loading="lazy" alt="Corporate Survivor"><a class="store-chip" href="https://corporate-survivor.vercel.app/viewer" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" aria-label="Open Corporate Survivor"><span>Available on</span><svg class="store-chip-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></a></div><div class="card-body"><span class="card-eyebrow">HR &middot; React/Supabase</span><div class="card-title-row"><span class="card-title">Corporate Survivor <span class="card-title-desc">— Attendance Tracker</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
-          <div class="gallery-card" data-project="mtel-pitch"><div class="card-cover-ph"><img src="./projects/mtel-pitch/dashboard.webp" loading="lazy" alt="Mtel Pitch"><span class="store-chip store-chip--locked" title="Internal tool — access restricted" onclick="event.stopPropagation(); chipDeny(this)"><span>Available on</span><svg class="store-chip-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><svg class="store-chip-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span></div><div class="card-body"><span class="card-eyebrow">Internal Tool &middot; React/Supabase</span><div class="card-title-row"><span class="card-title">Mtel Pitch <span class="card-title-desc">— Pitch Deck Manager</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+          <div class="gallery-card" data-project="corporate-survivor"><div class="card-cover-ph has-slider"><div class="story-track"><img class="story-slide" src="./projects/corporate-survivor/cover-duo.webp" loading="lazy" alt="Corporate Survivor"><img class="story-slide" data-src="./projects/corporate-survivor/viewer-dashboard.webp" alt="Corporate Survivor — Viewer dashboard"><img class="story-slide" data-src="./projects/corporate-survivor/viewer-year.webp" alt="Corporate Survivor — Year heatmap"><img class="story-slide" data-src="./projects/corporate-survivor/editor-calendar.webp" alt="Corporate Survivor — Editor calendar"><img class="story-slide" data-src="./projects/corporate-survivor/editor-logday.webp" alt="Corporate Survivor — Log a day"><img class="story-slide" data-src="./projects/corporate-survivor/backend-auth.webp" alt="Corporate Survivor — Supabase backend"></div><div class="story-bars" aria-hidden="true"><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span></div><a class="store-chip" href="https://corporate-survivor.vercel.app/viewer" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" aria-label="Open Corporate Survivor"><span>Available on</span><svg class="store-chip-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></a></div><div class="card-body"><span class="card-eyebrow">HR &middot; React/Supabase</span><div class="card-title-row"><span class="card-title">Corporate Survivor <span class="card-title-desc">— Attendance Tracker</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+          <div class="gallery-card" data-project="mtel-pitch"><div class="card-cover-ph has-slider"><div class="story-track"><img class="story-slide" src="./projects/mtel-pitch/dashboard.webp" loading="lazy" alt="Mtel Pitch"><img class="story-slide" data-src="./projects/mtel-pitch/add-deck.webp" alt="Mtel Pitch — Add deck"><img class="story-slide" data-src="./projects/mtel-pitch/card-actions.webp" alt="Mtel Pitch — Card actions"><img class="story-slide" data-src="./projects/mtel-pitch/members.webp" alt="Mtel Pitch — Members"><img class="story-slide" data-src="./projects/mtel-pitch/profile-pattern.webp" alt="Mtel Pitch — Profile"><img class="story-slide" data-src="./projects/mtel-pitch/dashboard-dark.webp" alt="Mtel Pitch — Dark mode"></div><div class="story-bars" aria-hidden="true"><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span></div><span class="store-chip store-chip--locked" title="Internal tool — access restricted" onclick="event.stopPropagation(); chipDeny(this)"><span>Available on</span><svg class="store-chip-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><svg class="store-chip-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span></div><div class="card-body"><span class="card-eyebrow">Internal Tool &middot; React/Supabase</span><div class="card-title-row"><span class="card-title">Mtel Pitch <span class="card-title-desc">— Pitch Deck Manager</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
         </div>
       </div>
     </div>
@@ -1880,8 +1921,8 @@
       <div class="gallery-grid gallery-grid--mosaic">
         <div class="gallery-card mosaic-main" data-project="hera"><div class="card-cover-ph"><img src="./projects/hera/Screenshot_2569-04-20_at_10.51.40.webp" loading="lazy" alt="RISA Robot"></div><div class="card-body"><span class="card-eyebrow">Industrial &middot; Concept</span><div class="card-title-row"><span class="card-title">RISA <span class="card-title-desc">— Robotic Interactive Smart Assistant</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
         <div class="mosaic-side">
-          <div class="gallery-card" data-project="submarine"><div class="card-cover-ph"><img src="./projects/submarine/image.webp" loading="lazy" alt="Submarine"></div><div class="card-body"><span class="card-eyebrow">Industrial &middot; Concept</span><div class="card-title-row"><span class="card-title">Piston Ballast Tank Submarine</span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
-          <div class="gallery-card" data-project="livestand"><div class="card-cover-ph"><img src="./projects/livestand/cover.webp" loading="lazy" alt="Live Stand"></div><div class="card-body"><span class="card-eyebrow">Industrial &middot; Concept</span><div class="card-title-row"><span class="card-title">Live Stand <span class="card-title-desc">— Multifunctional Phone Stand</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+          <div class="gallery-card" data-project="submarine"><div class="card-cover-ph has-slider"><div class="story-track"><img class="story-slide" src="./projects/submarine/image.webp" loading="lazy" alt="Submarine"><img class="story-slide" data-src="./projects/submarine/slide-first-iteration.webp" alt="Submarine — First iteration"><img class="story-slide" data-src="./projects/submarine/slide-exploded.webp" alt="Submarine — Exploded view"><img class="story-slide" data-src="./projects/submarine/slide-top-view.webp" alt="Submarine — Top view"><img class="story-slide" data-src="./projects/submarine/slide-final-concept.webp" alt="Submarine — Final concept"><img class="story-slide" data-src="./projects/submarine/slide-final-design.webp" alt="Submarine — Final design"></div><div class="story-bars" aria-hidden="true"><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span></div></div><div class="card-body"><span class="card-eyebrow">Industrial &middot; Concept</span><div class="card-title-row"><span class="card-title">Piston Ballast Tank Submarine</span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+          <div class="gallery-card" data-project="livestand"><div class="card-cover-ph has-slider"><div class="story-track"><img class="story-slide" src="./projects/livestand/cover.webp" loading="lazy" alt="Live Stand"><img class="story-slide" data-src="./projects/livestand/angled.webp" alt="Live Stand — Angled view"><img class="story-slide" data-src="./projects/livestand/fan-front.webp" alt="Live Stand — Built-in fan"><img class="story-slide" data-src="./projects/livestand/feat-usb.webp" alt="Live Stand — USB hub"><img class="story-slide" data-src="./projects/livestand/feat-lights.webp" alt="Live Stand — Ring light"><img class="story-slide" data-src="./projects/livestand/back.webp" alt="Live Stand — Back view"></div><div class="story-bars" aria-hidden="true"><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span></div></div><div class="card-body"><span class="card-eyebrow">Industrial &middot; Concept</span><div class="card-title-row"><span class="card-title">Live Stand <span class="card-title-desc">— Multifunctional Phone Stand</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
         </div>
       </div>
     </div>
@@ -2246,12 +2287,14 @@
     if (p && p.accent) card.style.setProperty('--card-accent', p.accent);
   });
 
-  /* ── Story preview on gallery cards (IG-story-style) ──
-     Desktop: autoplay slides on hover. Touch/mouse: horizontal swipe to step.
-     Click still opens the modal (a swipe suppresses that one click). */
+  /* ── Story preview on gallery cards (crossfade) ──
+     Desktop: autoplay slides on hover (cover zooms via the base hover rule).
+     Touch/trackpad: horizontal swipe to step. A swipe suppresses the click that
+     would otherwise open the modal; a later, deliberate tap still opens it. */
   (function initCardStories() {
     var SLIDE_MS = 4200;
     var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var isTouch = matchMedia('(hover: none)').matches;
     document.querySelectorAll('.card-cover-ph.has-story').forEach(function (ph) {
       var slides = [].slice.call(ph.querySelectorAll('img.story-slide'));
       var bars = [].slice.call(ph.querySelectorAll('.story-bar'));
@@ -2259,10 +2302,8 @@
       if (slides.length < 2 || !card) return;
       ph.style.setProperty('--story-ms', SLIDE_MS + 'ms');
 
-      var idx = 0, timer = null, loaded = false, justSwiped = false, hovering = false;
-
+      var idx = 0, timer = null, loaded = false, swipeAt = -1e9, hovering = false;
       slides.forEach(function (s) { s.decoding = 'async'; });
-      var isTouch = matchMedia('(hover: none)').matches;
 
       function load() {
         if (loaded) return;
@@ -2281,36 +2322,52 @@
         });
         if (bars[idx]) { void bars[idx].offsetWidth; bars[idx].classList.add('is-active'); }
       }
-      function show(i) {
-        slides[idx].classList.remove('is-active');
-        idx = (i + slides.length) % slides.length;
-        slides[idx].classList.add('is-active');
+      // Slide the current frame out and the next one in. `dir` sets the direction:
+      // +1 advances (next enters from the right), -1 goes back (enters from left).
+      function show(i, dir) {
+        var prev = idx;
+        var next = (i + slides.length) % slides.length;
+        if (next === prev) return;
+        idx = next;
+        if (!dir) dir = 1;
+        var out = slides[prev], inc = slides[idx];
+        var from = dir > 0 ? 101 : -101;          // side the incoming frame enters from
+        inc.style.transition = 'none';            // park it off-screen without animating
+        inc.style.transform = 'translateX(' + from + '%)';
+        void inc.offsetWidth;                     // commit that position
+        inc.style.transition = '';
+        inc.style.transform = 'translateX(0)';    // …then slide both together
+        out.style.transform = 'translateX(' + (-from) + '%)';
+        out.classList.remove('is-active');
+        inc.classList.add('is-active');
         paintBars();
       }
       function stop() { if (timer) { clearInterval(timer); timer = null; } }
       function play() {
         if (reduced) return;
         stop();
-        timer = setInterval(function () { show(idx + 1); }, SLIDE_MS);
+        timer = setInterval(function () { show(idx + 1, 1); }, SLIDE_MS);
       }
-      function start() {
-        hovering = true;
-        load();
-        paintBars();
-        play();
-      }
+      function start() { hovering = true; load(); paintBars(); play(); }
       function reset() {
         hovering = false;
         stop();
-        slides[idx].classList.remove('is-active');
+        // snap every slide back to its CSS-parked spot (no animation), cover on top
+        slides.forEach(function (s) {
+          s.style.transition = 'none';
+          s.style.transform = '';
+          s.classList.remove('is-active');
+        });
         idx = 0;
         slides[0].classList.add('is-active');
+        void slides[0].offsetWidth;                          // commit the snap…
+        slides.forEach(function (s) { s.style.transition = ''; }); // …before re-enabling slides
         bars.forEach(function (b) { b.classList.remove('is-active', 'is-done'); });
       }
       // Manual nav: step now, then let autoplay resume from the new slide.
       function manualStep(dir) {
         load();
-        show(idx + dir);          // repaints bars → the active pill restarts its fill
+        show(idx + dir, dir);     // slide in `dir`; repaints bars → active pill restarts its fill
         if (hovering) play();     // resume autoplay on desktop; touch stays manual
       }
 
@@ -2323,22 +2380,36 @@
         else if (e.key === 'ArrowLeft') { e.preventDefault(); manualStep(-1); }
       });
 
-      // Trackpad two-finger swipe = one step per flick (velocity hysteresis, no timers).
-      // A flick's momentum only decays, so we step on the leading edge then DISARM;
-      // the decaying tail can't re-arm, so it can't add extra steps. We re-arm only
-      // once the velocity settles back near rest, ready for the next flick.
-      // Vertical-dominant wheels pass through so the page still scrolls.
-      var armed = true;
+      // Trackpad two-finger swipe = one step per swipe. Only clearly-horizontal
+      // events are intercepted; everything else passes straight through so the
+      // page scrolls normally (no preventDefault on vertical/diagonal motion).
+      // One step per swipe — separated by VELOCITY DIRECTION, the only signal that
+      // distinguishes a fling from a fresh swipe regardless of speed:
+      //   • Momentum/inertia only ever DECELERATES — each event ≤ the last.
+      //   • A real swipe is a RE-ACCELERATION — a clear jump UP in |deltaX|.
+      // So the first push can be LIGHT (low FIRST threshold = easy to swipe) and we
+      // still never skip, because the skip is killed by direction logic, not by a
+      // high threshold: the whole decaying tail is ignored. The one upward blip
+      // inside a single fling is the dip→momentum handoff — it always lands within
+      // the first few events, so an EVENT-COUNT gate suppresses just that. A quiet
+      // pause also fully re-arms, so cleanly separated swipes always work too.
+      var FIRST = 8, JUMP = 10, GATE = 8;                      // first-push / re-accel jump / handoff event-gate
+      var locked = false, lastAx = 0, sinceStep = 0, quietT = null;
       ph.addEventListener('wheel', function (e) {
-        if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+        if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return; // vertical/diagonal → page scrolls untouched
         e.preventDefault();
         load();
-        var a = Math.abs(e.deltaX);
-        if (armed) {
-          if (a > 9) { manualStep(e.deltaX > 0 ? 1 : -1); armed = false; }
-        } else if (a < 6) {
-          armed = true; // velocity has settled — ready for the next flick
+        var ax = Math.abs(e.deltaX), step = false;
+        clearTimeout(quietT);
+        quietT = setTimeout(function () { locked = false; }, 110); // motion stopped → ready for the next swipe
+        if (!locked) {
+          if (ax >= FIRST) step = true;                       // a light, deliberate push
+        } else {
+          sinceStep++;
+          if (ax >= FIRST && ax > lastAx + JUMP && sinceStep >= GATE) step = true; // fresh re-accel, not inertia
         }
+        lastAx = ax;
+        if (step) { locked = true; sinceStep = 0; manualStep(e.deltaX > 0 ? 1 : -1); }
       }, { passive: false });
 
       // Touchscreen swipe; suppress the click that would otherwise open the modal.
@@ -2353,15 +2424,82 @@
         var dx = e.clientX - sx, dy = e.clientY - sy;
         if (Math.abs(dx) > 30 && Math.abs(dx) > Math.abs(dy)) {
           manualStep(dx < 0 ? 1 : -1);
-          justSwiped = true;
+          swipeAt = e.timeStamp; // only the click this swipe might synthesize should be eaten
         }
       });
       ph.addEventListener('click', function (e) {
-        if (justSwiped) { e.stopPropagation(); justSwiped = false; }
+        if (e.timeStamp - swipeAt < 400) { e.stopPropagation(); } // suppress only the swipe's own click
       }, true);
 
       // Touch has no hover to kick things off — show the position pill from the start.
       if (isTouch) paintBars();
+    });
+  })();
+
+  /* ── Alt slider (BCC): native CSS scroll-snap — the browser handles swipe,
+     trackpad scroll, momentum, and snapping. Tap vs. swipe is the browser's call,
+     so a tap still opens the modal and a swipe never does — no gesture code. */
+  (function initCardSliders() {
+    var SLIDE_MS = 4200;
+    var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var isTouch = matchMedia('(hover: none)').matches;
+    document.querySelectorAll('.card-cover-ph.has-slider').forEach(function (ph) {
+      var track = ph.querySelector('.story-track');
+      var slides = [].slice.call(ph.querySelectorAll('img.story-slide'));
+      var bars = [].slice.call(ph.querySelectorAll('.story-bar'));
+      var card = ph.closest('.gallery-card');
+      if (!track || slides.length < 2 || !card) return;
+      ph.style.setProperty('--story-ms', SLIDE_MS + 'ms');
+
+      var cur = 0, timer = null, loaded = false, raf = null, painted = -1;
+      slides.forEach(function (s) { s.decoding = 'async'; });
+
+      function load() {
+        if (loaded) return;
+        loaded = true;
+        slides.forEach(function (s) {
+          if (s.dataset.src) { s.src = s.dataset.src; if (s.decode) s.decode().catch(function () {}); }
+        });
+      }
+      function index() { return track.clientWidth ? Math.round(track.scrollLeft / track.clientWidth) : 0; }
+      function goTo(i, smooth) { track.scrollTo({ left: i * track.clientWidth, behavior: smooth ? 'smooth' : 'auto' }); }
+      function paintBars(i) {
+        if (i === painted) return;                 // only repaint on actual index change (no scroll-frame thrash)
+        painted = i;
+        slides.forEach(function (s, n) { s.classList.toggle('is-view', n === i); }); // only the in-view slide zooms on hover
+        bars.forEach(function (b, n) {
+          b.classList.remove('is-active', 'is-done');
+          if (n < i) b.classList.add('is-done');   // passed dots stay filled (desktop trail)
+        });
+        if (bars[i]) { void bars[i].offsetWidth; bars[i].classList.add('is-active'); } // reflow → restart the timed fill
+      }
+
+      track.addEventListener('scroll', function () {
+        if (raf) return;
+        raf = requestAnimationFrame(function () { raf = null; cur = index(); paintBars(cur); });
+      }, { passive: true });
+
+      function stop() { if (timer) { clearInterval(timer); timer = null; } }
+      function play() { if (reduced) return; stop(); timer = setInterval(function () { goTo((cur + 1) % slides.length, true); }, SLIDE_MS); }
+      function start() { load(); paintBars(cur); play(); }
+
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (es) {
+          es.forEach(function (e) { if (e.isIntersecting) { load(); io.disconnect(); } });
+        }, { rootMargin: '250px' });
+        io.observe(card);
+      }
+
+      card.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') start(); });
+      card.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') { stop(); goTo(0, true); } });
+      card.addEventListener('focusin', start);
+      card.addEventListener('focusout', function (e) { if (!card.contains(e.relatedTarget)) { stop(); goTo(0, true); } });
+      card.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowRight') { e.preventDefault(); load(); stop(); goTo(Math.min(cur + 1, slides.length - 1), true); }
+        else if (e.key === 'ArrowLeft') { e.preventDefault(); load(); stop(); goTo(Math.max(cur - 1, 0), true); }
+      });
+
+      if (isTouch) paintBars(0);
     });
   })();
 
