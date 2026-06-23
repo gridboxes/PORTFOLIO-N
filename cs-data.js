@@ -11,6 +11,7 @@
         { label: 'Type',     value: 'Production Project' },
         { label: 'Platform', value: 'Mobile App' },
       ],
+      storeChip: '<a class="store-chip" href="https://apps.apple.com/th/app/my-thaipass/id6761145502?l=th" target="_blank" rel="noopener noreferrer" aria-label="Get My ThaiPass on the App Store"><span>Available on</span><svg class="store-chip-logo" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.16162 6.50439L13.0004 13"/><path d="M6.5 2L8 4.53875"/><path d="M3.59063 12L3 13"/><path d="M9.49996 2L4.77246 10"/><path d="M11.2275 10H14.5"/><path d="M1.5 10H8.90438"/></svg><span class="store-chip-dot">·</span><svg class="store-chip-logo store-chip-logo--play" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.1582 12.6402C3.15941 12.7192 3.18132 12.7964 3.22172 12.8642C3.26213 12.932 3.31963 12.9881 3.38847 13.0267C3.45731 13.0654 3.53509 13.0853 3.61404 13.0845C3.69298 13.0836 3.77032 13.0621 3.83834 13.022L13.3039 7.60402C13.3739 7.56675 13.4324 7.51118 13.4732 7.44323C13.514 7.37528 13.5355 7.29752 13.5355 7.21826C13.5355 7.13901 13.514 7.06125 13.4732 6.9933C13.4324 6.92535 13.3739 6.86977 13.3039 6.83251L3.83834 1.4145C3.77032 1.37443 3.69298 1.3529 3.61404 1.35208C3.53509 1.35125 3.45731 1.37116 3.38847 1.4098C3.31963 1.44845 3.26213 1.50448 3.22172 1.5723C3.18132 1.64013 3.15941 1.71737 3.1582 1.79631V12.6402Z"/><path d="M3.29004 1.48535L10.8286 9.02387"/><path d="M3.29004 12.9529L10.8274 5.41553"/></svg></a>',
       next: { id: 'bcc', title: 'BCC — Calculation Program' },
     },
 
@@ -25,6 +26,7 @@
         { label: 'Type',     value: 'Production Project' },
         { label: 'Platform', value: 'Desktop & Mobile' },
       ],
+      storeChip: '<a class="store-chip" href="https://www.bangkokcable.com/en" target="_blank" rel="noopener noreferrer" aria-label="Open the BCC website"><span>Available on</span><svg class="store-chip-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></a>',
       next: { id: 'netzero', title: 'Net Zero — Government Carbon Platform' },
     },
 
@@ -67,6 +69,7 @@
         { label: 'Type',     value: 'Production Project' },
         { label: 'Platform', value: 'Mobile App' },
       ],
+      storeChip: '<a class="store-chip" href="https://apps.apple.com/th/app/jaga-junior-asian-golf-academy/id6751338789?l=th" target="_blank" rel="noopener noreferrer" aria-label="Get JAGA on the App Store"><span>Available on</span><svg class="store-chip-logo" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.16162 6.50439L13.0004 13"/><path d="M6.5 2L8 4.53875"/><path d="M3.59063 12L3 13"/><path d="M9.49996 2L4.77246 10"/><path d="M11.2275 10H14.5"/><path d="M1.5 10H8.90438"/></svg><span class="store-chip-dot">·</span><svg class="store-chip-logo store-chip-logo--play" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.1582 12.6402C3.15941 12.7192 3.18132 12.7964 3.22172 12.8642C3.26213 12.932 3.31963 12.9881 3.38847 13.0267C3.45731 13.0654 3.53509 13.0853 3.61404 13.0845C3.69298 13.0836 3.77032 13.0621 3.83834 13.022L13.3039 7.60402C13.3739 7.56675 13.4324 7.51118 13.4732 7.44323C13.514 7.37528 13.5355 7.29752 13.5355 7.21826C13.5355 7.13901 13.514 7.06125 13.4732 6.9933C13.4324 6.92535 13.3739 6.86977 13.3039 6.83251L3.83834 1.4145C3.77032 1.37443 3.69298 1.3529 3.61404 1.35208C3.53509 1.35125 3.45731 1.37116 3.38847 1.4098C3.31963 1.44845 3.26213 1.50448 3.22172 1.5723C3.18132 1.64013 3.15941 1.71737 3.1582 1.79631V12.6402Z"/><path d="M3.29004 1.48535L10.8286 9.02387"/><path d="M3.29004 12.9529L10.8274 5.41553"/></svg></a>',
       next: { id: 'onebangkok', title: 'One Bangkok App — Showcase Video' },
     },
 
@@ -95,6 +98,7 @@
         { label: 'Type',     value: 'Production Project' },
         { label: 'Platform', value: 'Web Application' },
       ],
+      storeChip: '<a class="store-chip" href="https://identity.nipa.cloud/oauth/login/?response_type=code&redirect_uri=https%3A%2F%2Fspace.nipa.cloud%2Foauth-callback&state=J68e5szxXdLJ9EP&code_challenge=OGQ1YzY3NTAxNWU2ODY0MzA1ZjM2ODYxZjA2YzJlOWQyNDg3ZjRjMGRlNDU5MTBhZWI5ODFlZDMyODE0ZmIzNg&code_challenge_method=S256&scope=unscope" target="_blank" rel="noopener noreferrer" aria-label="Open NIPA Cloud"><span>Available on</span><svg class="store-chip-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></a>',
       next: { id: 'nipalb', title: 'NIPA Load Balancing Service' },
     },
 
@@ -109,6 +113,7 @@
         { label: 'Type',     value: 'Concept Project' },
         { label: 'Platform', value: 'Web Application' },
       ],
+      storeChip: '<a class="store-chip" href="https://www.figma.com/proto/UvrzuawU8J6ysmlsFhvpU6/NIPA-LB?node-id=2-129&t=G9jUC0RgYOjDOUXV-1&scaling=scale-down-width&page-id=0%3A1&starting-point-node-id=2%3A129" target="_blank" rel="noopener noreferrer" aria-label="Open the NIPA LB Figma prototype"><span>Available as prototype</span><svg class="store-chip-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 12a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M6 6a3 3 0 0 1 3 -3h6a3 3 0 0 1 3 3a3 3 0 0 1 -3 3h-6a3 3 0 0 1 -3 -3"/><path d="M9 9a3 3 0 0 0 0 6h3m-3 0a3 3 0 1 0 3 3v-15"/></svg></a>',
       next: { id: 'thaipass-cms', title: 'ThaiPass CMS — AI-Built Admin Platform' },
     },
 
@@ -124,6 +129,7 @@
         { label: 'Backend',    value: 'Mock data (dev-ready)' },
         { label: 'Built with', value: 'Figma Make → Claude Code' },
       ],
+      storeChip: '<a class="store-chip" href="https://cms-development-test.vercel.app/login" target="_blank" rel="noopener noreferrer" aria-label="Open the ThaiPass CMS"><span>Available on</span><svg class="store-chip-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><span class="store-chip-dot" style="margin-left:2px">(demo)</span></a>',
       next: { id: 'corporate-survivor', title: 'Corporate Survivor — Attendance Tracker' },
     },
 
@@ -139,6 +145,7 @@
         { label: 'Backend',    value: 'Supabase · Claude API' },
         { label: 'Built with', value: 'Claude Code' },
       ],
+      storeChip: '<a class="store-chip" href="https://corporate-survivor.vercel.app/viewer" target="_blank" rel="noopener noreferrer" aria-label="Open Corporate Survivor"><span>Available on</span><svg class="store-chip-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></a>',
       next: { id: 'mtel-pitch', title: 'Mtel Pitch — Pitch Deck Manager' },
     },
 
@@ -154,6 +161,7 @@
         { label: 'Backend',    value: 'Supabase · Edge Functions' },
         { label: 'Built with', value: 'Claude Code' },
       ],
+      storeChip: '<a class="store-chip" href="https://pitchdeckhub-nu.vercel.app/dashboard" target="_blank" rel="noopener noreferrer" aria-label="Open Mtel Pitch"><span>Available on</span><svg class="store-chip-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><span class="store-chip-dot" style="margin-left:2px">(demo)</span></a>',
       next: { id: 'plantcollect', title: 'Plant Collection App' },
     },
 
@@ -1211,7 +1219,7 @@
     `;
 
     if (id === 'netzero') return `
-      <img class="cs-img" src="./projects/netzero/Frame_(1).webp" alt="Net Zero cover" style="border-radius:16px;margin-top:60px;" />
+      <img class="cs-img" src="./projects/netzero/cover.webp" alt="Net Zero cover" style="border-radius:16px;margin-top:60px;" />
 
       <div class="cs-section">
         <p class="section-label">Overview</p>
@@ -1281,8 +1289,8 @@
             <img class="cs-img" src="./projects/netzero/8.webp" alt="Phase 1 screens" />
             <img class="cs-img" src="./projects/netzero/9.webp" alt="Phase 1 screens" style="margin-top:16px;" />
             <img class="cs-img" src="./projects/netzero/10.webp" alt="Phase 1 screens" style="margin-top:16px;" />
-            <img class="cs-img" src="./projects/netzero/11.webp" alt="Phase 1 screens" style="margin-top:16px;" />
-            <img class="cs-img" src="./projects/netzero/12.webp" alt="Phase 1 screens" style="margin-top:16px;" />
+            <img class="cs-img" src="./projects/netzero/emissions-calculator.webp" alt="Phase 1 screens" style="margin-top:16px;" />
+            <img class="cs-img" src="./projects/netzero/baseline-profile.webp" alt="Phase 1 screens" style="margin-top:16px;" />
           </div>
 
           <div class="cs-feature">
@@ -1293,9 +1301,9 @@
             <h3 class="cs-feature-title">Advanced analytics &amp; compliance support.</h3>
             <p class="cs-feature-text">Phase 2 introduces emissions analytics dashboards, a consultant network for expert guidance, and integration with tax incentive and compliance workflows &mdash; helping factories move from data collection to active compliance.</p>
             <img class="cs-img" src="./projects/netzero/Slide-0.webp" alt="Phase 2 screens" />
-            <img class="cs-img" src="./projects/netzero/Slide-3.webp" alt="Phase 2 screens" style="margin-top:16px;" />
+            <img class="cs-img" src="./projects/netzero/emissions-tracking.webp" alt="Phase 2 screens" style="margin-top:16px;" />
             <img class="cs-img" src="./projects/netzero/Slide-4.webp" alt="Phase 2 screens" style="margin-top:16px;" />
-            <img class="cs-img" src="./projects/netzero/Slide-1.webp" alt="Phase 2 screens" style="margin-top:16px;" />
+            <img class="cs-img" src="./projects/netzero/consultant-support.webp" alt="Phase 2 screens" style="margin-top:16px;" />
             <img class="cs-img" src="./projects/netzero/Slide-2.webp" alt="Phase 2 screens" style="margin-top:16px;" />
           </div>
 
@@ -1310,7 +1318,7 @@
             <img class="cs-img" src="./projects/netzero/Slide-2 1.webp" alt="Phase 3 screens" style="margin-top:16px;" />
             <img class="cs-img" src="./projects/netzero/Slide-3 1.webp" alt="Phase 3 screens" style="margin-top:16px;" />
             <img class="cs-img" src="./projects/netzero/Slide-4 1.webp" alt="Phase 3 screens" style="margin-top:16px;" />
-            <img class="cs-img" src="./projects/netzero/Slide-5.webp" alt="Phase 3 screens" style="margin-top:16px;" />
+            <img class="cs-img" src="./projects/netzero/carbon-marketplace.webp" alt="Phase 3 screens" style="margin-top:16px;" />
             <img class="cs-img" src="./projects/netzero/Slide-0 1.webp" alt="Phase 3 screens" style="margin-top:16px;" />
           </div>
 
@@ -1349,7 +1357,7 @@
     `;
 
     if (id === 'nipalb') return `
-      <img class="cs-img" src="./projects/nipalb/image 1.webp" alt="NIPA Load Balancing cover" style="border-radius:16px;margin-top:60px;" />
+      <img class="cs-img" src="./projects/nipalb/cover.webp" alt="NIPA Load Balancing cover" style="border-radius:16px;margin-top:60px;" />
 
       <div class="cs-section">
         <p class="section-label">Overview</p>
@@ -1474,7 +1482,7 @@
     `;
 
     if (id === 'nipa') return `
-      <img class="cs-img" src="./projects/nipa/image 7.webp" alt="NIPA Payment System cover" style="border-radius:16px;margin-top:60px;" />
+      <img class="cs-img" src="./projects/nipa/cover.webp" alt="NIPA Payment System cover" style="border-radius:16px;margin-top:60px;" />
 
       <div class="cs-section">
         <p class="section-label">Overview</p>
@@ -1542,7 +1550,7 @@
             <h3 class="cs-feature-title">Simple, guided, and clear.</h3>
             <p class="cs-feature-text">The top-up flow follows a clear step-by-step structure: Select Payment Method &rarr; Enter Details &rarr; Confirm Payment &rarr; Success / Receipt. Each step shows only what's needed, reducing cognitive load and friction.</p>
             <img class="cs-img" src="./projects/nipa/image.webp" alt="Credit top-up screens" />
-            <img class="cs-img" src="./projects/nipa/image 1.webp" alt="Credit top-up screens" style="margin-top:16px;" />
+            <img class="cs-img" src="./projects/nipa/card-payment.webp" alt="Credit top-up screens" style="margin-top:16px;" />
           </div>
 
           <div class="cs-feature">
@@ -1552,8 +1560,8 @@
             </div>
             <h3 class="cs-feature-title">Five methods, each optimized.</h3>
             <p class="cs-feature-text">QR PromptPay for fast scan-and-pay. Card payment with a familiar input flow. Mobile Banking with app-based redirection. Alipay for international users. Manual Transfer as a fallback. Each method designed around its own mental model.</p>
-            <img class="cs-img" src="./projects/nipa/image 2.webp" alt="Payment method screens" />
-            <img class="cs-img" src="./projects/nipa/image 3.webp" alt="Payment method screens" style="margin-top:16px;" />
+            <img class="cs-img" src="./projects/nipa/desktop-checkout.webp" alt="Payment method screens" />
+            <img class="cs-img" src="./projects/nipa/mobile-banking.webp" alt="Payment method screens" style="margin-top:16px;" />
           </div>
 
           <div class="cs-feature">
@@ -1564,7 +1572,6 @@
             <h3 class="cs-feature-title">Consistent across every breakpoint.</h3>
             <p class="cs-feature-text">Designed across XL, LG, MD, SM, and XS breakpoints. Layouts adapt fluidly, components resize predictably, and the mobile experience is treated as a first-class use case &mdash; not an afterthought.</p>
             <img class="cs-img" src="./projects/nipa/Frame-3.webp" alt="Responsive design" />
-            <img class="cs-img" src="./projects/nipa/Frame.webp" alt="Responsive design" style="margin-top:16px;" />
             <img class="cs-img" src="./projects/nipa/Frame-1.webp" alt="Responsive design" style="margin-top:16px;" />
             <img class="cs-img" src="./projects/nipa/Frame-2.webp" alt="Responsive design" style="margin-top:16px;" />
             <img class="cs-img" src="./projects/nipa/Frame-4.webp" alt="Responsive design" style="margin-top:16px;" />
@@ -1681,7 +1688,7 @@
     `;
 
     if (id === 'jaga') return `
-      <img class="cs-img" src="./projects/jaga/Frame.webp" alt="JAGA App cover" style="border-radius:16px;margin-top:60px;" />
+      <img class="cs-img" src="./projects/jaga/cover.webp" alt="JAGA App cover" style="border-radius:16px;margin-top:60px;" />
 
       <div class="cs-section">
         <p class="section-label">Overview</p>
@@ -1750,7 +1757,7 @@
             <p class="cs-feature-text">Full messaging between students and coaches, training group chats, and broadcast messaging for announcements. Includes media sharing, reactions, stickers, and read receipts &mdash; all consistent with JAGA&rsquo;s existing design language.</p>
             <img class="cs-img" src="./projects/jaga/image.webp" alt="Chat screens" />
             <img class="cs-img" src="./projects/jaga/image 1.webp" alt="Chat screens" style="margin-top:16px;" />
-            <img class="cs-img" src="./projects/jaga/image 2.webp" alt="Chat screens" style="margin-top:16px;" />
+            <img class="cs-img" src="./projects/jaga/chat-features.webp" alt="Chat screens" style="margin-top:16px;" />
             <img class="cs-img" src="./projects/jaga/image 3.webp" alt="Chat screens" style="margin-top:16px;" />
           </div>
 
@@ -1761,7 +1768,7 @@
             </div>
             <h3 class="cs-feature-title">Voice, video, and screen sharing.</h3>
             <p class="cs-feature-text">Voice and video calls for 1:1 coaching and group sessions. Call history, details view, and screen sharing support &mdash; enabling remote coaching with the same depth as in-person feedback.</p>
-            <img class="cs-img" src="./projects/jaga/image 4.webp" alt="Calls screens" />
+            <img class="cs-img" src="./projects/jaga/calls.webp" alt="Calls screens" />
             <img class="cs-img" src="./projects/jaga/image 5.webp" alt="Calls screens" style="margin-top:16px;" />
           </div>
 
@@ -1772,7 +1779,7 @@
             </div>
             <h3 class="cs-feature-title">Coach&ndash;student discovery.</h3>
             <p class="cs-feature-text">Browse and select users to start conversations. A simple, focused view that makes it easy for students to reach their coaches and vice versa &mdash; without extra friction.</p>
-            <img class="cs-img" src="./projects/jaga/image 6.webp" alt="Users screens" />
+            <img class="cs-img" src="./projects/jaga/users.webp" alt="Users screens" />
             <img class="cs-img" src="./projects/jaga/image 7.webp" alt="Users screens" style="margin-top:16px;" />
           </div>
 
@@ -1783,9 +1790,9 @@
             </div>
             <h3 class="cs-feature-title">Organized by class, team, or program.</h3>
             <p class="cs-feature-text">Create and manage training groups, add or remove members, edit group details, and view group info &mdash; all within the same navigation flow as the rest of the app.</p>
-            <img class="cs-img" src="./projects/jaga/image 8.webp" alt="Groups screens" />
+            <img class="cs-img" src="./projects/jaga/groups.webp" alt="Groups screens" />
             <img class="cs-img" src="./projects/jaga/image 9.webp" alt="Groups screens" style="margin-top:16px;" />
-            <img class="cs-img" src="./projects/jaga/image 10.webp" alt="Groups screens" style="margin-top:16px;" />
+            <img class="cs-img" src="./projects/jaga/group-members.webp" alt="Groups screens" style="margin-top:16px;" />
             <img class="cs-img" src="./projects/jaga/image 11.webp" alt="Groups screens" style="margin-top:16px;" />
           </div>
 
@@ -1883,7 +1890,7 @@
             </div>
             <h3 class="cs-feature-title">A safe place to start.</h3>
             <p class="cs-feature-text">A centralized hub for workers to register legally and report issues &mdash; abuse, unpaid wages, unfair treatment &mdash; with direct connection to government agencies through official, verified channels.</p>
-            <img class="cs-img" src="./projects/myanmarpass/image.webp" alt="Registration and worker protection screens" />
+            <img class="cs-img" src="./projects/myanmarpass/registration.webp" alt="Registration and worker protection screens" />
           </div>
 
           <div class="cs-feature">
@@ -1893,7 +1900,7 @@
             </div>
             <h3 class="cs-feature-title">A 13-digit ID for the undocumented.</h3>
             <p class="cs-feature-text">Workers without existing documentation can apply for a government-issued 13-digit ID directly through the app &mdash; with real-time application tracking so they always know where they stand.</p>
-            <img class="cs-img" src="./projects/myanmarpass/image 1.webp" alt="Digital identity screens" />
+            <img class="cs-img" src="./projects/myanmarpass/id-issuance.webp" alt="Digital identity screens" />
           </div>
 
           <div class="cs-feature">
@@ -1913,7 +1920,7 @@
             </div>
             <h3 class="cs-feature-title">Banking without a bank account.</h3>
             <p class="cs-feature-text">A secure in-app wallet gives unbanked workers access to financial services &mdash; including cross-border money transfers home to Myanmar, through partnerships with licensed financial institutions.</p>
-            <img class="cs-img" src="./projects/myanmarpass/image 3.webp" alt="Digital wallet screens" />
+            <img class="cs-img" src="./projects/myanmarpass/wallet.webp" alt="Digital wallet screens" />
           </div>
 
           <div class="cs-feature">
@@ -1923,8 +1930,8 @@
             </div>
             <h3 class="cs-feature-title">More than identity &mdash; a full support system.</h3>
             <p class="cs-feature-text">Workers can send goods safely to Myanmar with real-time tracking and multiple payment options. Work permit status and renewal reminders are tracked in the same app, with verified employer profiles to reduce exploitation.</p>
-            <img class="cs-img" src="./projects/myanmarpass/image 4.webp" alt="Cross-border delivery screens" />
-            <img class="cs-img" src="./projects/myanmarpass/image 5.webp" alt="Work permit management screens" style="margin-top:16px;" />
+            <img class="cs-img" src="./projects/myanmarpass/delivery.webp" alt="Cross-border delivery screens" />
+            <img class="cs-img" src="./projects/myanmarpass/work-permit.webp" alt="Work permit management screens" style="margin-top:16px;" />
           </div>
 
         </div>
@@ -2011,7 +2018,7 @@
     `;
 
     if (id === 'hera') return `
-      <img class="cs-img" src="./projects/hera/Screenshot_2569-04-20_at_10.51.40.webp" alt="RISA robot render" style="border-radius:16px;margin-top:60px;" />
+      <img class="cs-img" src="./projects/hera/cover.webp" alt="RISA robot render" style="border-radius:16px;margin-top:60px;" />
 
       <div class="cs-section">
         <p class="section-label">Overview</p>
@@ -2039,7 +2046,6 @@
         </div>
         <img class="cs-img" src="./projects/hera/Screenshot_2569-04-20_at_10.52.02.webp" alt="Fusion 360 render side" style="margin-top:16px;" />
         <img class="cs-img" src="./projects/hera/Screenshot_2569-04-20_at_11.05.48.webp" alt="Component detail view" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/hera/Screenshot_2569-04-20_at_11.06.00.webp" alt="Component detail view" style="margin-top:16px;" />
         <img class="cs-img" src="./projects/hera/Screenshot_2569-04-20_at_11.06.22.webp" alt="Assembly exploded view" style="margin-top:16px;" />
       </div>
 
@@ -2065,9 +2071,9 @@
         <p class="section-label">System</p>
         <h2 class="section-heading">Hardware and software working together.</h2>
         <p class="section-text">RISA's navigation runs on ROS, fed by a LiDAR and IMU. For conversation, OpenAI Whisper handles speech recognition and BotNoi handles TTS output. Questions are answered by Llama 3.2 + Mistral, backed by a RAG pipeline — program data loaded from PDFs, split, embedded, and stored in Chroma vector DB via MongoDB.</p>
-        <img class="cs-img" src="./projects/hera/13.webp" alt="System flow diagram" style="margin-top:28px;" />
-        <img class="cs-img" src="./projects/hera/Nanon.webp" alt="Full methodology diagram" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/hera/Phoom.webp" alt="ROS navigation stack" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/hera/system-flow.webp" alt="System flow diagram" style="margin-top:28px;" />
+        <img class="cs-img" src="./projects/hera/methodology.webp" alt="Full methodology diagram" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/hera/ros-navigation.webp" alt="ROS navigation stack" style="margin-top:16px;" />
         <img class="cs-img" src="./projects/hera/Phoom_(2).webp" alt="LiDAR map of HM Robotic Lab" style="margin-top:16px;" />
       </div>
 
@@ -2085,7 +2091,7 @@
         <p class="section-text">Human detection achieved over 90% confidence under natural indoor lighting using YOLOv5s. Face recognition reached 70–75% accuracy at recommended dataset sizes. The LLM with RAG pipeline correctly answered 9 of 10 unit test questions on curriculum and department data. The project was presented at an International Symposium at VISTEC (Vidyasirimedhi Institute of Science and Technology).</p>
         <img class="cs-img" src="./projects/hera/Phoom_(8).webp" alt="Detection and recognition results" style="margin-top:28px;" />
         <img class="cs-img" src="./projects/hera/Nanon_(4).webp" alt="LLM with RAG unit test results" style="margin-top:16px;" />
-        <img class="cs-img" src="./projects/hera/Jn_(5).webp" alt="International Symposium at VISTEC" style="margin-top:16px;" />
+        <img class="cs-img" src="./projects/hera/symposium.webp" alt="International Symposium at VISTEC" style="margin-top:16px;" />
         <img class="cs-img" src="./projects/hera/video.webp" alt="RISA team with robot" style="margin-top:16px;" />
       </div>
 
