@@ -328,7 +328,7 @@
         { label: 'Role',     value: 'Industrial Designer' },
         { label: 'Tools',    value: 'Autodesk Fusion 360' },
         { label: 'Type',     value: 'Collaborative University Project' },
-        { label: 'Output',   value: '3D Model &amp; Concept' },
+        { label: 'Output',   value: 'Working Prototype' },
       ],
       next: { id: 'livestand', title: 'Live Stand — Multifunctional Phone Stand' },
     },
