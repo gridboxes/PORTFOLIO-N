@@ -2146,6 +2146,7 @@
 
   /* ── Modal logic ── */
   let modalTrigger = null;
+  let modalTriggerWasKeyboard = false;
 
   // Desktop-locked embeds: scale the fixed 1280px iframe to its container width
   // so a responsive app renders its desktop layout inside the narrow modal.
@@ -2264,7 +2265,12 @@
     if (!modal.classList.contains('open')) return;
     modal.classList.remove('open');
     document.body.style.overflow = '';
-    if (modalTrigger && typeof modalTrigger.focus === 'function') modalTrigger.focus();
+    // Only restore focus when the modal was opened via keyboard — for mouse
+    // clicks, a script-driven .focus() call trips the card's :focus-visible
+    // rule, which visually mimics the hover state with no pointer over it.
+    if (modalTriggerWasKeyboard && modalTrigger && typeof modalTrigger.focus === 'function') {
+      modalTrigger.focus();
+    }
     modalTrigger = null;
   }
 
@@ -2295,7 +2301,10 @@
 
   document.addEventListener('click', function(e) {
     const card = e.target.closest('.gallery-card[data-project]');
-    if (card) openProjectModal(card.dataset.project);
+    if (card) {
+      modalTriggerWasKeyboard = false;
+      openProjectModal(card.dataset.project);
+    }
   });
 
   /* ── Make gallery cards keyboard-accessible ── */
@@ -2307,6 +2316,7 @@
     card.addEventListener('keydown', e => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
+        modalTriggerWasKeyboard = true;
         openProjectModal(card.dataset.project);
       }
     });
