@@ -2103,7 +2103,7 @@
     `;
 
     if (id === 'livestand') return `
-      <img class="cs-img" src="./projects/livestand/hero.webp" alt="Live Stand phone stand render" style="border-radius:16px;margin-top:60px;" />
+      <img class="cs-img" src="./projects/livestand/cover.webp" alt="Live Stand phone stand render" style="border-radius:16px;margin-top:60px;" />
 
       <div class="cs-section">
         <p class="section-label">Overview</p>
