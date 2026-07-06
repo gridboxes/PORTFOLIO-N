@@ -392,10 +392,35 @@
       // tap/click gesture (a timer firing on its own would be blocked).
       var shareBtn = document.getElementById('share-btn');
       var fileName = (a && a.getAttribute('download')) || 'Sivakorn_Samorkam_Resume.pdf';
+
+      // Download button: fetch → blob → object URL so the browser honors our
+      // filename. Some browsers (notably iOS Safari) ignore the `download`
+      // attribute on a same-origin href and keep the server's "resume.pdf"
+      // name — this routes the download through the same named path as Share,
+      // so both produce the identical "Sivakorn_Samorkam_Resume_<date>.pdf".
+      if (a) {
+        a.addEventListener('click', async function (e) {
+          e.preventDefault();
+          try {
+            var res = await fetch('resume.pdf', { cache: 'no-store' });
+            var blob = await res.blob();
+            var url = URL.createObjectURL(blob);
+            var tmp = document.createElement('a');
+            tmp.href = url;
+            tmp.download = fileName;
+            document.body.appendChild(tmp);
+            tmp.click();
+            document.body.removeChild(tmp);
+            setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+          } catch (err) {
+            window.location.href = 'resume.pdf'; // fetch failed — open it directly
+          }
+        });
+      }
       var subject = 'Sivakorn Samorkam — UX/UI Designer Resume';
       var ownerSubject = 'Application – UX/UI Designer | Sivakorn Samorkam';
       var body = 'Resume of Sivakorn Samorkam — UX/UI Designer.\n\nPortfolio: https://gridboxes-portfolio-n.vercel.app/\n\nResume attached.';
-      var ownerBody = 'Hi [Name],\n\nI\'m Sivakorn, a UX/UI Designer with a background in Robotics & AI engineering. I simplify complex systems and ship real products — from a travel-companion app on the App Store to payment and cloud platforms.\n\nI\'d love to bring that to [Company]. Resume attached, portfolio below.\n\nPortfolio: gridboxes-portfolio-n.vercel.app\n\nBest regards,\nSivakorn Samorkam\n082-651-4519 | sivakorn.contact@gmail.com';
+      var ownerBody = 'Hi, I\'m Sivakorn (Kong) — a UX/UI designer focused on simplifying complex systems and creating thoughtful, intuitive experiences across web and mobile platforms. Experienced in designing real-world products across travel, payment systems, cloud platforms, and data-driven interfaces.\n\nI\'m always looking to contribute to meaningful products and collaborate with teams that value thoughtful design and real impact.\n\nResume attached, portfolio below.\n\nPortfolio : https://gridboxes-portfolio-n.vercel.app\n\nLet\'s connect. 📩\n\nBest regards,\nSivakorn Samorkam\n082-651-4519 | sivakorn.contact@gmail.com';
 
       function emailFallback(messageBody, messageSubject) {
         if (a) a.click(); // download the PDF so the user can attach it
@@ -404,18 +429,23 @@
       }
 
       async function doShare(messageBody) {
+        var messageSubject = messageBody === ownerBody ? ownerSubject : subject;
         try {
           var res = await fetch('resume.pdf', { cache: 'no-store' });
           var blob = await res.blob();
           var file = new File([blob], fileName, { type: 'application/pdf' });
           if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            // Note: no `title` — Apple Mail ignores it as a subject and instead
+            // prepends it to the body. So we let the subject be blank on the
+            // native sheet and keep the body clean. Subject is only set on the
+            // mailto: fallback below, where it actually populates.
             await navigator.share({ files: [file], text: messageBody });
             return;
           }
         } catch (err) {
           if (err && err.name === 'AbortError') return; // user dismissed the sheet
         }
-        emailFallback(messageBody, messageBody === ownerBody ? ownerSubject : subject);
+        emailFallback(messageBody, messageSubject);
       }
 
       if (shareBtn) {
