@@ -214,7 +214,7 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
       Back
     </a>
-    <a class="btn" href="Sivakorn_Samorkam_Resume_2026-06-22.pdf" download="Sivakorn_Samorkam_Resume_2026-06-22.pdf">
+    <a class="btn" id="download-link" href="resume.pdf" download="Sivakorn_Samorkam_Resume.pdf">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
       Download PDF
     </a>
@@ -334,7 +334,7 @@
       // Keep the download filename stamped with the current date (fallback hardcoded in HTML)
       var d = new Date();
       var ymd = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
-      var a = document.querySelector('a[href="Sivakorn_Samorkam_Resume_2026-06-22.pdf"]');
+      var a = document.getElementById('download-link');
       if (a) a.setAttribute('download', 'Sivakorn_Samorkam_Resume_' + ymd + '.pdf');
 
       // Fit the whole A4 page into the viewport by default (screen only — print/PDF resets this)
@@ -398,7 +398,7 @@
 
       async function doShare(messageBody) {
         try {
-          var res = await fetch('Sivakorn_Samorkam_Resume_2026-06-22.pdf', { cache: 'no-store' });
+          var res = await fetch('resume.pdf', { cache: 'no-store' });
           var blob = await res.blob();
           var file = new File([blob], fileName, { type: 'application/pdf' });
           if (navigator.canShare && navigator.canShare({ files: [file] })) {

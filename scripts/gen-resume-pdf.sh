@@ -9,11 +9,6 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 SRC="$ROOT/resume.html"
 OUT_MAIN="$ROOT/resume.pdf"
-DOWNLOAD_NAME="$(node -e "const fs=require('fs'); const html=fs.readFileSync(process.argv[1],'utf8'); const m=html.match(/href=\"([^\"]*Sivakorn_Samorkam_Resume_[^\"]*\\.pdf)\"/); process.stdout.write(m ? m[1] : '');" "$SRC")"
-OUT_DOWNLOAD=""
-if [ -n "$DOWNLOAD_NAME" ]; then
-  OUT_DOWNLOAD="$ROOT/$DOWNLOAD_NAME"
-fi
 
 # Locate a Chrome/Chromium binary.
 CHROME=""
@@ -37,8 +32,5 @@ TMP="$(mktemp -t resume-pdf).pdf"
   --print-to-pdf="$TMP" "file://$SRC" >/dev/null 2>&1
 
 cp "$TMP" "$OUT_MAIN"
-if [ -n "$OUT_DOWNLOAD" ] && [ "$OUT_DOWNLOAD" != "$OUT_MAIN" ]; then
-  cp "$TMP" "$OUT_DOWNLOAD"
-fi
 rm "$TMP"
-echo "gen-resume-pdf: wrote $OUT_MAIN${OUT_DOWNLOAD:+ and $OUT_DOWNLOAD}"
+echo "gen-resume-pdf: wrote $OUT_MAIN"
