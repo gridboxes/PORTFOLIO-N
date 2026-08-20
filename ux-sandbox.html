@@ -335,6 +335,35 @@
     .tab-panel        { display: none; }
     .tab-panel.active { display: block; }
 
+    /* ── Laid-out group divider (sandbox) ── */
+    .ux-divider {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 24px 0 6px;
+    }
+    .ux-divider__label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      height: 32px;
+      padding: 0 14px;
+      border-radius: 20px;
+      background: var(--bg-tab-active);
+      color: var(--text-pri);
+      box-shadow: 0 0 0 1px var(--border);
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+    .ux-divider__label .icon { width: 14px; height: 14px; opacity: 1; }
+    .ux-divider__line { flex: 1; height: 1px; background: var(--border-mid); }
+    /* short accent bar under section titles */
+    .title-accent { width: 44px; height: 2px; border-radius: 2px; background: var(--text-pri); opacity: 0.85; margin-top: 14px; }
+    .title-accent + .callout { margin-top: 16px; }
+
     /* ── Callout ── */
     .callout {
       background: rgba(248,248,248,0.04);
@@ -605,13 +634,13 @@
       justify-content: center;
       align-items: center;
       gap: 5px;
-      opacity: 0.24;
+      opacity: 0;
       pointer-events: none;
       transition: opacity 0.3s var(--ease-smooth);
       filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.28));
     }
     .gallery-card:hover .story-bars,
-    .gallery-card:focus-within .story-bars { opacity: 0.88; }
+    .gallery-card:focus-within .story-bars { opacity: 0.85; }
     .story-bar {
       flex: none;
       width: 5px;
@@ -619,7 +648,7 @@
       border-radius: 999px;
       overflow: hidden;
       background: rgba(255, 255, 255, 0.34);
-      transition: width 0.28s var(--ease-smooth), background 0.28s var(--ease-smooth);
+      transition: width 0.4s var(--ease-spring), background 0.3s var(--ease-smooth);
     }
     .story-bar > i {
       display: block;
@@ -633,18 +662,6 @@
       background: rgba(255, 255, 255, 0.2); /* track behind the fill */
     }
     .story-bar.is-active > i { width: 100%; transition: width var(--story-ms, 4200ms) linear; }
-    /* A manually selected frame is a position marker, not a running timer. */
-    .card-cover-ph.has-slider.story-paused .story-bar.is-active > i {
-      transition: none;
-    }
-    /* Keep every frame at the same scale while the user is moving the track.
-       This avoids a zoom handoff halfway between two slides. */
-    .gallery-card:hover .card-cover-ph.has-slider.story-interacting img.story-slide,
-    .gallery-card:focus-visible .card-cover-ph.has-slider.story-interacting img.story-slide {
-      transform: scale(1);
-      transition-duration: 0.22s;
-      transition-timing-function: var(--ease-smooth);
-    }
     /* Only the in-focus slide is a long pill; every other dot (passed or upcoming)
        stays a plain dot — no filled trail. */
     @media (prefers-reduced-motion: reduce) {
@@ -657,18 +674,6 @@
     @media (hover: none) {
       .gallery-card .story-bars { opacity: 0.85; }
       .story-bar.is-active > i { transition: none; }
-    }
-
-    .sr-only {
-      position: absolute !important;
-      width: 1px !important;
-      height: 1px !important;
-      padding: 0 !important;
-      margin: -1px !important;
-      overflow: hidden !important;
-      clip: rect(0, 0, 0, 0) !important;
-      white-space: nowrap !important;
-      border: 0 !important;
     }
     /* hairline frame over the image; warms toward the project accent on hover */
     .card-cover-ph::after {
@@ -891,79 +896,9 @@
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 26px 22px;
     }
-    .mosaic-rest.has-more-toggle > [data-project="onebangkok"],
-    .mosaic-rest.has-more-toggle > [data-project="netzero"] {
-      max-height: 0;
-      opacity: 0;
-      overflow: hidden;
-      visibility: hidden;
-      pointer-events: none;
-      transform: translateY(-12px);
-      transition:
-        max-height 0.48s var(--ease-smooth),
-        opacity 0.28s ease,
-        transform 0.4s var(--ease-smooth),
-        visibility 0s linear 0.48s;
-    }
-    .mosaic-rest.has-more-toggle.is-expanded > [data-project="onebangkok"],
-    .mosaic-rest.has-more-toggle.is-expanded > [data-project="netzero"] {
-      max-height: 480px;
-      opacity: 1;
-      visibility: visible;
-      pointer-events: auto;
-      transform: translateY(0);
-      transition-delay: 0s;
-    }
-    .mosaic-more-toggle {
-      grid-column: 1 / -1;
-      justify-self: stretch;
-      display: inline-flex;
-      align-items: center;
-      width: 100%;
-      gap: 12px;
-      padding: 7px 0;
-      border: 0;
-      background: transparent;
-      color: var(--text-sec);
-      font: 400 11px/1 'DM Mono', monospace;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-top: -26px;
-      cursor: pointer;
-      transition: color 0.2s ease, margin-top 0.48s var(--ease-smooth);
-    }
-    .mosaic-rest.is-expanded .mosaic-more-toggle { margin-top: 0; }
-    .mosaic-more-toggle::before,
-    .mosaic-more-toggle::after {
-      content: '';
-      flex: 1 1 auto;
-      height: 1px;
-      background: var(--border-mid);
-      transition: background 0.2s ease;
-    }
-    .mosaic-more-toggle:hover,
-    .mosaic-more-toggle:focus-visible {
-      color: var(--text-pri);
-      outline: none;
-    }
-    .mosaic-more-toggle:hover::before,
-    .mosaic-more-toggle:hover::after,
-    .mosaic-more-toggle:focus-visible::before,
-    .mosaic-more-toggle:focus-visible::after { background: var(--text-dim); }
-    .mosaic-more-mark {
-      display: inline-block;
-      font-size: 15px;
-      line-height: 1;
-      transform: rotate(0deg);
-      transform-origin: 50% 50%;
-      will-change: transform;
-      transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-    .mosaic-rest.is-expanded .mosaic-more-mark { transform: rotate(45deg); }
     .mosaic-rest .card-title { font-size: 15px; }
     @media (max-width: 720px) {
       .gallery-grid--mosaic, .mosaic-rest { grid-template-columns: minmax(0, 1fr); }
-      .mosaic-rest:not(.is-expanded) .mosaic-more-toggle { margin-top: -52px; }
       .mosaic-main .card-title { font-size: 17px; }
       /* mosaic collapses to one column here — every card is full-width, so the
          store chip returns to its default size instead of the shrunk mosaic sizes */
@@ -975,10 +910,7 @@
     }
     @media (prefers-reduced-motion: reduce) {
       .card-overlay, .card-overlay-rule,
-      .card-overlay-cta, .card-overlay-cta .arrow,
-      .mosaic-rest.has-more-toggle > [data-project="onebangkok"],
-      .mosaic-rest.has-more-toggle > [data-project="netzero"],
-      .mosaic-more-toggle, .mosaic-more-mark {
+      .card-overlay-cta, .card-overlay-cta .arrow {
         transition-duration: 0.01ms; transition-delay: 0s;
       }
     }
@@ -1738,18 +1670,15 @@
   <!-- ══ EXPERIENCE ══ -->
   <section class="section" id="experience">
     <h3 class="h3">Experience</h3>
-    <div class="divider"></div>
-    <div class="tab-bar">
-      <button class="tab-btn active" onclick="switchTab(this,'exp-work')">
+    <div class="title-accent"></div>
+    <div class="ux-divider">
+      <span class="ux-divider__label">
         <svg class="icon" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="12"/></svg>
         Work Experiences
-      </button>
-      <button class="tab-btn" onclick="switchTab(this,'exp-edu')">
-        <svg class="icon" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-        Education
-      </button>
+      </span>
+      <span class="ux-divider__line"></span>
     </div>
-    <div id="exp-work" class="tab-panel active">
+    <div id="exp-work">
       <div class="exp-grid">
         <div class="exp-card">
           <div class="exp-icon" style="color:#E8A328;">
@@ -1771,7 +1700,14 @@
         </div>
       </div>
     </div>
-    <div id="exp-edu" class="tab-panel">
+    <div class="ux-divider">
+      <span class="ux-divider__label">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        Education
+      </span>
+      <span class="ux-divider__line"></span>
+    </div>
+    <div id="exp-edu">
       <div class="exp-grid">
         <div class="exp-card">
           <div class="exp-icon">
@@ -1798,22 +1734,15 @@
   <!-- ══ SKILLS ══ -->
   <section class="section" id="skills">
     <h3 class="h3">Skills</h3>
-    <div class="divider"></div>
-    <div class="tab-bar">
-      <button class="tab-btn active" onclick="switchTab(this,'sk-core')">
+    <div class="title-accent"></div>
+    <div class="ux-divider">
+      <span class="ux-divider__label">
         <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
         Core Skills
-      </button>
-      <button class="tab-btn" onclick="switchTab(this,'sk-cert')">
-        <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
-        Certificates
-      </button>
-      <button class="tab-btn" onclick="switchTab(this,'sk-tools')">
-        <svg class="icon" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-        Tools &amp; Tech
-      </button>
+      </span>
+      <span class="ux-divider__line"></span>
     </div>
-    <div id="sk-core" class="tab-panel active">
+    <div id="sk-core">
       <div class="skills-grid">
         <div class="skill-card">
           <svg class="icon" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
@@ -1853,39 +1782,14 @@
         </div>
       </div>
     </div>
-    <div id="sk-cert" class="tab-panel">
-      <div class="cert-grid">
-        <div class="cert-card">
-          <img src="assets/cert-google-ux.webp" alt="Google UX Design Certificate">
-          <div class="cert-label">Google UX Design</div>
-        </div>
-        <div class="cert-card">
-          <img src="assets/cert-google-data.webp" alt="Google Data Analytics Certificate">
-          <div class="cert-label">Google Data Analytics</div>
-        </div>
-        <div class="cert-card">
-          <img src="assets/cert-aws.webp" alt="AWS Certificate">
-          <div class="cert-label">AWS</div>
-        </div>
-        <div class="cert-card">
-          <img src="assets/cert-unity.webp" alt="Unity Certificate">
-          <div class="cert-label">Unity</div>
-        </div>
-        <div class="cert-card">
-          <img src="assets/cert-ielts.webp" alt="IELTS Certificate">
-          <div class="cert-label">IELTS 7.0</div>
-        </div>
-        <div class="cert-card">
-          <img src="assets/cert-toeic.webp" alt="TOEIC Certificate" style="object-position: right;">
-          <div class="cert-label">TOEIC 970</div>
-        </div>
-        <div class="cert-card" style="display:none" data-hidden="true">
-          <img src="assets/cert-sat.webp" alt="SAT Certificate">
-          <div class="cert-label">SAT</div>
-        </div>
-      </div>
+    <div class="ux-divider">
+      <span class="ux-divider__label">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+        Tools &amp; Tech
+      </span>
+      <span class="ux-divider__line"></span>
     </div>
-    <div id="sk-tools" class="tab-panel">
+    <div id="sk-tools">
       <div class="tool-chips">
         <span class="tool-chip">Figma</span>
         <span class="tool-chip">FigJam</span>
@@ -1921,6 +1825,45 @@
         <span class="tool-chip">Supabase</span>
       </div>
     </div>
+    <div class="ux-divider">
+      <span class="ux-divider__label">
+        <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+        Certificates
+      </span>
+      <span class="ux-divider__line"></span>
+    </div>
+    <div id="sk-cert">
+      <div class="cert-grid">
+        <div class="cert-card">
+          <img src="assets/cert-google-ux.webp" alt="Google UX Design Certificate">
+          <div class="cert-label">Google UX Design</div>
+        </div>
+        <div class="cert-card">
+          <img src="assets/cert-google-data.webp" alt="Google Data Analytics Certificate">
+          <div class="cert-label">Google Data Analytics</div>
+        </div>
+        <div class="cert-card">
+          <img src="assets/cert-aws.webp" alt="AWS Certificate">
+          <div class="cert-label">AWS</div>
+        </div>
+        <div class="cert-card">
+          <img src="assets/cert-unity.webp" alt="Unity Certificate">
+          <div class="cert-label">Unity</div>
+        </div>
+        <div class="cert-card">
+          <img src="assets/cert-ielts.webp" alt="IELTS Certificate">
+          <div class="cert-label">IELTS 7.0</div>
+        </div>
+        <div class="cert-card">
+          <img src="assets/cert-toeic.webp" alt="TOEIC Certificate" style="object-position: right;">
+          <div class="cert-label">TOEIC 970</div>
+        </div>
+        <div class="cert-card" style="display:none" data-hidden="true">
+          <img src="assets/cert-sat.webp" alt="SAT Certificate">
+          <div class="cert-label">SAT</div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- ══ UX/UI PROJECTS ══ -->
@@ -1929,37 +1872,37 @@
       <svg class="icon" viewBox="0 0 24 24" style="width:22px;height:22px"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
       UX/UI Projects
     </h2>
+    <div class="title-accent"></div>
     <div class="callout">My design approach is simple : understand the user, remove the unnecessary, and make it effortless.</div>
-    <div class="gap"></div>
-    <div class="divider"></div>
-    <div class="tab-bar">
-      <button class="tab-btn active" onclick="switchTab(this,'ux-mtel')">
+    <div class="ux-divider">
+      <span class="ux-divider__label">
         <svg class="icon" viewBox="0 0 24 24"><path d="m9 9 5 12 1.8-5.2L21 14Z"/><path d="M7.2 2.2 8 5.1"/><path d="m5.1 8-2.9-.8"/><path d="M14 4.1 12 6"/><path d="m6 12-1.9 2"/></svg>
         @Mtel
-      </button>
-      <button class="tab-btn" onclick="switchTab(this,'ux-nipa')">
-        <svg class="icon" viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z"/></svg>
-        @NIPA
-      </button>
+      </span>
+      <span class="ux-divider__line"></span>
     </div>
-    <div id="ux-mtel" class="tab-panel active">
+    <div id="ux-mtel">
       <div class="gallery-grid gallery-grid--mosaic">
         <div class="gallery-card mosaic-main" data-project="thaipass"><div class="card-cover-ph has-slider slider-letterbox"><div class="story-track"><img class="story-slide" src="./projects/thaipass/thumb.webp" loading="lazy" alt="ThaiPass"><img class="story-slide" data-src="./projects/thaipass/voucher-packages.webp" alt="ThaiPass — Voucher Packages"><img class="story-slide" data-src="./projects/thaipass/fastpass.webp" alt="ThaiPass — FastPass"><img class="story-slide" data-src="./projects/thaipass/transport.webp" alt="ThaiPass — Transport"><img class="story-slide" data-src="./projects/thaipass/esim.webp" alt="ThaiPass — eSIM"></div><div class="story-bars" aria-hidden="true"><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span></div><a class="store-chip" href="https://apps.apple.com/th/app/my-thaipass/id6761145502?l=th" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" aria-label="Get My ThaiPass on the App Store"><span>Available on</span><svg class="store-chip-logo" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.16162 6.50439L13.0004 13"/><path d="M6.5 2L8 4.53875"/><path d="M3.59063 12L3 13"/><path d="M9.49996 2L4.77246 10"/><path d="M11.2275 10H14.5"/><path d="M1.5 10H8.90438"/></svg><span class="store-chip-dot">·</span><svg class="store-chip-logo store-chip-logo--play" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.1582 12.6402C3.15941 12.7192 3.18132 12.7964 3.22172 12.8642C3.26213 12.932 3.31963 12.9881 3.38847 13.0267C3.45731 13.0654 3.53509 13.0853 3.61404 13.0845C3.69298 13.0836 3.77032 13.0621 3.83834 13.022L13.3039 7.60402C13.3739 7.56675 13.4324 7.51118 13.4732 7.44323C13.514 7.37528 13.5355 7.29752 13.5355 7.21826C13.5355 7.13901 13.514 7.06125 13.4732 6.9933C13.4324 6.92535 13.3739 6.86977 13.3039 6.83251L3.83834 1.4145C3.77032 1.37443 3.69298 1.3529 3.61404 1.35208C3.53509 1.35125 3.45731 1.37116 3.38847 1.4098C3.31963 1.44845 3.26213 1.50448 3.22172 1.5723C3.18132 1.64013 3.15941 1.71737 3.1582 1.79631V12.6402Z"/><path d="M3.29004 1.48535L10.8286 9.02387"/><path d="M3.29004 12.9529L10.8274 5.41553"/></svg></a></div><div class="card-body"><span class="card-eyebrow">Travel &middot; Production</span><div class="card-title-row"><span class="card-title">ThaiPass App <span class="card-title-desc">— Travel Companion</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
         <div class="mosaic-side">
-          <div class="gallery-card" data-project="anantara-concorso"><div class="card-cover-ph has-slider"><div class="story-track"><img class="story-slide" src="./projects/anantara-concorso/submission-cover.webp" loading="lazy" alt="Anantara Concorso Roma My Submission portal showing an approved classic Ferrari"><img class="story-slide" data-src="./projects/anantara-concorso/card-owner-packages.webp" alt="Anantara Concorso Roma — Owner registration package selection"><img class="story-slide" data-src="./projects/anantara-concorso/card-car-logistics.webp" alt="Anantara Concorso Roma — Car logistics and transport"><img class="story-slide" data-src="./projects/anantara-concorso/card-submitted.webp" alt="Anantara Concorso Roma — Application submitted"></div><div class="story-bars" aria-hidden="true"><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span></div><a class="store-chip" href="https://www.anantaraconcorsoroma.com/en/enter-a-car/" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" aria-label="Open the Anantara Concorso Roma car submission portal"><span>Available on</span><svg class="store-chip-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></a></div><div class="card-body"><span class="card-eyebrow">Automotive &middot; Production</span><div class="card-title-row"><span class="card-title">Anantara Concorso Roma 2027 <span class="card-title-desc">— Car Submission Portal</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
           <div class="gallery-card" data-project="bcc"><div class="card-cover-ph has-slider"><div class="story-track"><img class="story-slide" src="./projects/bcc/cover.webp" loading="lazy" alt="BCC"><img class="story-slide" data-src="./projects/bcc/calculator.webp" alt="BCC — Calculator"><img class="story-slide" data-src="./projects/bcc/smart-input.webp" alt="BCC — Smart input"><img class="story-slide" data-src="./projects/bcc/report.webp" alt="BCC — Report"><img class="story-slide" data-src="./projects/bcc/responsive.webp" alt="BCC — Responsive"></div><div class="story-bars" aria-hidden="true"><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span></div><a class="store-chip" href="https://www.bangkokcable.com/en" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" aria-label="Open the BCC website"><span>Available on</span><svg class="store-chip-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></a></div><div class="card-body"><span class="card-eyebrow">Electrical &middot; Production</span><div class="card-title-row"><span class="card-title">BCC Website <span class="card-title-desc">— Calculation Program</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
+          <div class="gallery-card" data-project="netzero"><div class="card-cover-ph has-slider"><div class="story-track"><img class="story-slide" src="./projects/netzero/cover.webp" loading="lazy" alt="Net Zero"><img class="story-slide" data-src="./projects/netzero/emissions-calculator.webp" alt="Net Zero — Emissions calculator"><img class="story-slide" data-src="./projects/netzero/emissions-tracking.webp" alt="Net Zero — Emissions tracking"><img class="story-slide" data-src="./projects/netzero/carbon-marketplace.webp" alt="Net Zero — Carbon credit marketplace"><img class="story-slide" data-src="./projects/netzero/consultant-support.webp" alt="Net Zero — Consultant support"><img class="story-slide" data-src="./projects/netzero/baseline-profile.webp" alt="Net Zero — Baseline emission profile"></div><div class="story-bars" aria-hidden="true"><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span></div></div><div class="card-body"><span class="card-eyebrow">Environment &middot; Concept</span><div class="card-title-row"><span class="card-title">Net Zero <span class="card-title-desc">— Carbon Platform</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
         </div>
         <div class="mosaic-rest">
-          <div class="gallery-card" data-project="parq-integration"><div class="card-cover-ph has-slider"><div class="story-track"><img class="story-slide" src="./projects/parq-integration/product-cover.webp" loading="lazy" alt="The PARQ workplace app and QR identity screens"><img class="story-slide" data-src="./projects/parq-integration/cover.webp" alt="The PARQ Integration to One Bangkok App concept cover"><img class="story-slide" data-src="./projects/parq-integration/concept-overview.webp" alt="The PARQ integration concept overview"><img class="story-slide" data-src="./projects/parq-integration/context-switching.webp" alt="One Bangkok and The PARQ context switching"><img class="story-slide" data-src="./projects/parq-integration/parking.webp" alt="The PARQ parking and traffic concept"></div><div class="story-bars" aria-hidden="true"><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span></div></div><div class="card-body"><span class="card-eyebrow">Workplace &middot; Concept</span><div class="card-title-row"><span class="card-title">The PARQ Integration <span class="card-title-desc">— One Bangkok App</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
           <div class="gallery-card" data-project="myanmarpass"><div class="card-cover-ph has-slider"><div class="story-track"><img class="story-slide" src="./projects/myanmarpass/Frame-1.webp" loading="lazy" alt="MyanmarPass"><img class="story-slide" data-src="./projects/myanmarpass/registration.webp" alt="MyanmarPass — Registration &amp; Worker Protection"><img class="story-slide" data-src="./projects/myanmarpass/id-issuance.webp" alt="MyanmarPass — 13-Digit ID Issuance"><img class="story-slide" data-src="./projects/myanmarpass/work-permit.webp" alt="MyanmarPass — Work Permit"><img class="story-slide" data-src="./projects/myanmarpass/wallet.webp" alt="MyanmarPass — Digital Wallet"><img class="story-slide" data-src="./projects/myanmarpass/delivery.webp" alt="MyanmarPass — Cross-Border Delivery"></div><div class="story-bars" aria-hidden="true"><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span></div></div><div class="card-body"><span class="card-eyebrow">Labor &middot; Concept</span><div class="card-title-row"><span class="card-title">MyanmarPass App <span class="card-title-desc">— Migrant Worker Platform</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
           <div class="gallery-card" data-project="jaga"><div class="card-cover-ph has-slider"><div class="story-track"><img class="story-slide" src="./projects/jaga/cover.webp" loading="lazy" alt="JAGA"><img class="story-slide" data-src="./projects/jaga/chat-features.webp" alt="JAGA — Messages features"><img class="story-slide" data-src="./projects/jaga/calls.webp" alt="JAGA — Voice &amp; video calls"><img class="story-slide" data-src="./projects/jaga/users.webp" alt="JAGA — User directory"><img class="story-slide" data-src="./projects/jaga/groups.webp" alt="JAGA — Group chat"><img class="story-slide" data-src="./projects/jaga/group-members.webp" alt="JAGA — Group moderation"></div><div class="story-bars" aria-hidden="true"><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span></div><a class="store-chip" href="https://apps.apple.com/th/app/jaga-junior-asian-golf-academy/id6751338789?l=th" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" aria-label="Get JAGA on the App Store"><span>Available on</span><svg class="store-chip-logo" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.16162 6.50439L13.0004 13"/><path d="M6.5 2L8 4.53875"/><path d="M3.59063 12L3 13"/><path d="M9.49996 2L4.77246 10"/><path d="M11.2275 10H14.5"/><path d="M1.5 10H8.90438"/></svg><span class="store-chip-dot">·</span><svg class="store-chip-logo store-chip-logo--play" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.1582 12.6402C3.15941 12.7192 3.18132 12.7964 3.22172 12.8642C3.26213 12.932 3.31963 12.9881 3.38847 13.0267C3.45731 13.0654 3.53509 13.0853 3.61404 13.0845C3.69298 13.0836 3.77032 13.0621 3.83834 13.022L13.3039 7.60402C13.3739 7.56675 13.4324 7.51118 13.4732 7.44323C13.514 7.37528 13.5355 7.29752 13.5355 7.21826C13.5355 7.13901 13.514 7.06125 13.4732 6.9933C13.4324 6.92535 13.3739 6.86977 13.3039 6.83251L3.83834 1.4145C3.77032 1.37443 3.69298 1.3529 3.61404 1.35208C3.53509 1.35125 3.45731 1.37116 3.38847 1.4098C3.31963 1.44845 3.26213 1.50448 3.22172 1.5723C3.18132 1.64013 3.15941 1.71737 3.1582 1.79631V12.6402Z"/><path d="M3.29004 1.48535L10.8286 9.02387"/><path d="M3.29004 12.9529L10.8274 5.41553"/></svg></a></div><div class="card-body"><span class="card-eyebrow">Golf &middot; Production</span><div class="card-title-row"><span class="card-title">JAGA App <span class="card-title-desc">— CometChat Feature</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
           <div class="gallery-card" data-project="onebangkok"><div class="card-cover-ph"><img src="./projects/onebangkok/cover.webp" loading="lazy" alt="One Bangkok"></div><div class="card-body"><span class="card-eyebrow">Property &middot; Experimental</span><div class="card-title-row"><span class="card-title">One Bangkok App <span class="card-title-desc">— Showcase Video</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
-          <div class="gallery-card" data-project="netzero"><div class="card-cover-ph has-slider"><div class="story-track"><img class="story-slide" src="./projects/netzero/cover.webp" loading="lazy" alt="Net Zero"><img class="story-slide" data-src="./projects/netzero/emissions-calculator.webp" alt="Net Zero — Emissions calculator"><img class="story-slide" data-src="./projects/netzero/emissions-tracking.webp" alt="Net Zero — Emissions tracking"><img class="story-slide" data-src="./projects/netzero/carbon-marketplace.webp" alt="Net Zero — Carbon credit marketplace"><img class="story-slide" data-src="./projects/netzero/consultant-support.webp" alt="Net Zero — Consultant support"><img class="story-slide" data-src="./projects/netzero/baseline-profile.webp" alt="Net Zero — Baseline emission profile"></div><div class="story-bars" aria-hidden="true"><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span></div></div><div class="card-body"><span class="card-eyebrow">Environment &middot; Concept</span><div class="card-title-row"><span class="card-title">Net Zero <span class="card-title-desc">— Carbon Platform</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
-          <button class="mosaic-more-toggle" type="button" aria-expanded="false"><span class="mosaic-more-label">See more</span><span class="mosaic-more-mark" aria-hidden="true">+</span></button>
         </div>
       </div>
     </div>
-    <div id="ux-nipa" class="tab-panel">
+    <div class="ux-divider">
+      <span class="ux-divider__label">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z"/></svg>
+        @NIPA
+      </span>
+      <span class="ux-divider__line"></span>
+    </div>
+    <div id="ux-nipa">
       <div class="gallery-grid">
         <div class="gallery-card" data-project="nipa"><div class="card-cover-ph has-slider"><div class="story-track"><img class="story-slide" src="./projects/nipa/cover.webp" loading="lazy" alt="NIPA Payment"><img class="story-slide" data-src="./projects/nipa/mobile-banking.webp" alt="NIPA Payment — Mobile banking &amp; Alipay"><img class="story-slide" data-src="./projects/nipa/card-payment.webp" alt="NIPA Payment — Card payment"><img class="story-slide" data-src="./projects/nipa/payment-states.webp" alt="NIPA Payment — Payment states"><img class="story-slide" data-src="./projects/nipa/desktop-checkout.webp" alt="NIPA Payment — Desktop checkout"></div><div class="story-bars" aria-hidden="true"><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span></div><a class="store-chip" href="https://identity.nipa.cloud/oauth/login/?response_type=code&amp;redirect_uri=https%3A%2F%2Fspace.nipa.cloud%2Foauth-callback&amp;state=J68e5szxXdLJ9EP&amp;code_challenge=OGQ1YzY3NTAxNWU2ODY0MzA1ZjM2ODYxZjA2YzJlOWQyNDg3ZjRjMGRlNDU5MTBhZWI5ODFlZDMyODE0ZmIzNg&amp;code_challenge_method=S256&amp;scope=unscope" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" aria-label="Open NIPA Cloud"><span>Available on</span><svg class="store-chip-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></a></div><div class="card-body"><span class="card-eyebrow">Cloud &middot; Production</span><div class="card-title-row"><span class="card-title">NIPA Payment System</span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
         <div class="gallery-card" data-project="nipalb"><div class="card-cover-ph has-slider"><div class="story-track"><img class="story-slide" src="./projects/nipalb/cover.webp" loading="lazy" alt="NIPA LB"><img class="story-slide" data-src="./projects/nipalb/load-balancer.webp" alt="NIPA LB — Load Balancer overview"><img class="story-slide" data-src="./projects/nipalb/benefits.webp" alt="NIPA LB — Benefits"><img class="story-slide" data-src="./projects/nipalb/pricing.webp" alt="NIPA LB — Pricing tiers"><img class="story-slide" data-src="./projects/nipalb/calculator.webp" alt="NIPA LB — Pricing calculator"></div><div class="story-bars" aria-hidden="true"><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span></div><a class="store-chip" href="https://www.figma.com/proto/UvrzuawU8J6ysmlsFhvpU6/NIPA-LB?node-id=2-129&t=G9jUC0RgYOjDOUXV-1&scaling=scale-down-width&page-id=0%3A1&starting-point-node-id=2%3A129" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" aria-label="Open the NIPA LB Figma prototype"><span>Available as prototype</span><svg class="store-chip-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 12a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M6 6a3 3 0 0 1 3 -3h6a3 3 0 0 1 3 3a3 3 0 0 1 -3 3h-6a3 3 0 0 1 -3 -3"/><path d="M9 9a3 3 0 0 0 0 6h3m-3 0a3 3 0 1 0 3 3v-15"/></svg></a></div><div class="card-body"><span class="card-eyebrow">Cloud &middot; Concept</span><div class="card-title-row"><span class="card-title">NIPA Load Balancing Service</span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
@@ -1973,16 +1916,16 @@
       <svg class="icon" viewBox="0 0 24 24" style="width:22px;height:22px"><path d="M12 8V4H8"/><rect x="4" y="8" width="16" height="12" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
       AI-Built Projects
     </h2>
+    <div class="title-accent"></div>
     <div class="callout">Designing the screen is only half the work. These are projects I took end-to-end — from design to a working build — using AI to bridge the gap to code.</div>
-    <div class="gap"></div>
-    <div class="divider"></div>
-    <div class="tab-bar">
-      <button class="tab-btn active" onclick="switchTab(this,'ai-all')">
+    <div class="ux-divider">
+      <span class="ux-divider__label">
         <svg class="icon" viewBox="0 0 24 24"><path d="M12 8V4H8"/><rect x="4" y="8" width="16" height="12" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/></svg>
         Design to Build
-      </button>
+      </span>
+      <span class="ux-divider__line"></span>
     </div>
-    <div id="ai-all" class="tab-panel active">
+    <div id="ai-all">
       <div class="gallery-grid gallery-grid--mosaic">
         <div class="gallery-card mosaic-main" data-project="thaipass-cms"><div class="card-cover-ph has-slider"><div class="story-track"><img class="story-slide" src="./projects/thaipass-cms/login.webp" loading="lazy" alt="ThaiPass CMS"><img class="story-slide" data-src="./projects/thaipass-cms/user-detail.webp" alt="ThaiPass CMS — User management"><img class="story-slide" data-src="./projects/thaipass-cms/tdac-list.webp" alt="ThaiPass CMS — TDAC records"><img class="story-slide" data-src="./projects/thaipass-cms/transport-booking.webp" alt="ThaiPass CMS — Transport booking"><img class="story-slide" data-src="./projects/thaipass-cms/esim-detail.webp" alt="ThaiPass CMS — eSIM detail"><img class="story-slide" data-src="./projects/thaipass-cms/orders-export.webp" alt="ThaiPass CMS — Orders export"></div><div class="story-bars" aria-hidden="true"><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span></div><a class="store-chip" href="https://cms-development-test.vercel.app/login" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" aria-label="Open the ThaiPass CMS"><span>Available on</span><svg class="store-chip-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><span class="store-chip-dot" style="margin-left:2px">(demo)</span></a></div><div class="card-body"><span class="card-eyebrow">Travel &middot; React/Tailwind</span><div class="card-title-row"><span class="card-title">ThaiPass CMS <span class="card-title-desc">— Admin Platform</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
         <div class="mosaic-side">
@@ -1999,20 +1942,16 @@
       <svg class="icon" viewBox="0 0 24 24" style="width:22px;height:22px"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
       Software Experiments
     </h2>
+    <div class="title-accent"></div>
     <div class="callout">To close the gap between design and development, I started learning to code — allowing me to better understand how ideas translate into real products.</div>
-    <div class="gap"></div>
-    <div class="divider"></div>
-    <div class="tab-bar">
-      <button class="tab-btn active" onclick="switchTab(this,'sw-flutter')">
+    <div class="ux-divider">
+      <span class="ux-divider__label">
         <svg class="icon" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
         Flutter
-      </button>
-      <button class="tab-btn" onclick="switchTab(this,'sw-ios')">
-        <svg class="icon" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-        iOS
-      </button>
+      </span>
+      <span class="ux-divider__line"></span>
     </div>
-    <div id="sw-flutter" class="tab-panel active">
+    <div id="sw-flutter">
       <div class="gallery-grid">
         <div class="gallery-card" data-project="plantcollect"><div class="card-cover-ph"><img src="./projects/plantcollect/15.webp" loading="lazy" alt="Plant Collect"></div><div class="card-body"><span class="card-eyebrow">Flutter &middot; Practice</span><div class="card-title-row"><span class="card-title">Plant Collection App</span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
         <div class="gallery-card" data-project="software"><div class="card-cover-ph"><img src="./projects/weather/18.webp" loading="lazy" alt="Weather App"></div><div class="card-body"><span class="card-eyebrow">Flutter &middot; Practice</span><div class="card-title-row"><span class="card-title">Simple Weather App</span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
@@ -2020,7 +1959,14 @@
         <div class="gallery-card" data-project="loginscreen"><div class="card-cover-ph"><img src="./projects/loginscreen/23.webp" loading="lazy" alt="Login Screen"></div><div class="card-body"><span class="card-eyebrow">Flutter &middot; Practice</span><div class="card-title-row"><span class="card-title">Login / SignUp Screen</span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
       </div>
     </div>
-    <div id="sw-ios" class="tab-panel">
+    <div class="ux-divider">
+      <span class="ux-divider__label">
+        <svg class="icon" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+        iOS
+      </span>
+      <span class="ux-divider__line"></span>
+    </div>
+    <div id="sw-ios">
       <div class="gallery-grid">
         <div class="gallery-card" data-project="apollo"><div class="card-cover-ph"><img src="./projects/apollo/Untitled_design.webp" loading="lazy" alt="Apollo"></div><div class="card-body"><span class="card-eyebrow">SwiftUI &middot; Practice</span><div class="card-title-row"><span class="card-title">MoonShot <span class="card-title-desc">— Apollo Info App</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
         <div class="gallery-card" data-project="px500"><div class="card-cover-ph"><img src="./projects/px500/4.webp" loading="lazy" alt="500px"></div><div class="card-body"><span class="card-eyebrow">SwiftUI &middot; Practice</span><div class="card-title-row"><span class="card-title">500px API App</span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
@@ -2038,15 +1984,16 @@
       <svg class="icon" viewBox="0 0 24 24" style="width:22px;height:22px"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
       Industrial Design Projects
     </h2>
+    <div class="title-accent"></div>
     <div class="callout">Designing physical products taught me to think beyond screens—considering materials, form, and real-world interaction.</div>
-    <div class="gap"></div>
-    <div class="divider"></div>
-    <div class="tab-bar">
-      <button class="tab-btn active" onclick="switchTab(this,'ind-all')">
+    <div class="ux-divider">
+      <span class="ux-divider__label">
         <svg class="icon" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         Industrial Design
-      </button>
-    </div>    <div id="ind-all" class="tab-panel active">
+      </span>
+      <span class="ux-divider__line"></span>
+    </div>
+    <div id="ind-all">
       <div class="gallery-grid gallery-grid--mosaic">
         <div class="gallery-card mosaic-main" data-project="hera"><div class="card-cover-ph has-slider"><div class="story-track"><img class="story-slide" src="./projects/hera/cover.webp" loading="lazy" alt="RISA Robot"><img class="story-slide" data-src="./projects/hera/Screenshot_2569-04-20_at_11.05.48.webp" alt="RISA — Body design, front view"><img class="story-slide" data-src="./projects/hera/cad-detail.webp" alt="RISA — Body design, rear detail"><img class="story-slide" data-src="./projects/hera/KG_(5).webp" alt="RISA — 3D printing process"><img class="story-slide" data-src="./projects/hera/KG_(6).webp" alt="RISA — Assembly and integration"><img class="story-slide" data-src="./projects/hera/symposium.webp" alt="RISA — International symposium"></div><div class="story-bars" aria-hidden="true"><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span><span class="story-bar"><i></i></span></div></div><div class="card-body"><span class="card-eyebrow">Industrial &middot; Prototype</span><div class="card-title-row"><span class="card-title">RISA <span class="card-title-desc">— Robotic Interactive Smart Assistant</span></span><span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="9 7 17 7 17 15"/></svg></span></div></div></div>
         <div class="mosaic-side">
@@ -2060,7 +2007,7 @@
   <!-- ══ ABOUT ME ══ -->
   <section class="section" id="about">
     <h2 class="h2">About Me</h2>
-    <div class="divider"></div>
+    <div class="title-accent"></div>
     <div class="gap"></div>
     <div class="about-body">
       <p>I studied Robotics and AI Engineering at KMITL — a degree that taught me to think in systems, constraints, and logics. Design pulled me in because it sits at the intersection of how things work and how people feel about them.</p>
@@ -2141,22 +2088,11 @@
   </div>
 </div>
 
-<script src="cs-data.js?v=portfolio-20260820-4"></script>
+<script src="cs-data.js"></script>
 <script>
   /* Firefox ignores -webkit-user-drag and drags <img> by default — set the
      draggable attribute directly so card covers don't show the OS drag ghost. */
   document.querySelectorAll('.card-cover-ph img').forEach(img => img.draggable = false);
-
-  document.querySelectorAll('.mosaic-more-toggle').forEach(button => {
-    const grid = button.closest('.mosaic-rest');
-    const label = button.querySelector('.mosaic-more-label');
-    grid.classList.add('has-more-toggle');
-    button.addEventListener('click', () => {
-      const expanded = grid.classList.toggle('is-expanded');
-      button.setAttribute('aria-expanded', String(expanded));
-      label.textContent = expanded ? 'Show less' : 'See more';
-    });
-  });
 
   /* ── Tab switching ── */
   function switchTab(btn, panelId) {
@@ -2591,45 +2527,23 @@
     });
   })();
 
-  /* ── Card story sliders: native scroll-snap keeps touch and trackpad input
-     natural. Autoplay is only a preview; manual input always takes priority. */
+  /* ── Alt slider (BCC): native CSS scroll-snap — the browser handles swipe,
+     trackpad scroll, momentum, and snapping. Tap vs. swipe is the browser's call,
+     so a tap still opens the modal and a swipe never does — no gesture code. */
   (function initCardSliders() {
     var SLIDE_MS = 4200;
-    var RESET_DELAY = 650;
-    var RESUME_DELAY = 1400;
     var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
     var isTouch = matchMedia('(hover: none)').matches;
-    document.querySelectorAll('.card-cover-ph.has-slider').forEach(function (ph, sliderIndex) {
+    document.querySelectorAll('.card-cover-ph.has-slider').forEach(function (ph) {
       var track = ph.querySelector('.story-track');
       var slides = [].slice.call(ph.querySelectorAll('img.story-slide'));
       var bars = [].slice.call(ph.querySelectorAll('.story-bar'));
       var card = ph.closest('.gallery-card');
       if (!track || slides.length < 2 || !card) return;
       ph.style.setProperty('--story-ms', SLIDE_MS + 'ms');
-      ph.classList.add('story-paused');
 
-      var cur = 0, timer = null, resumeTimer = null, resetTimer = null;
-      var loaded = false, raf = null, painted = -1;
-      var hovered = false, focused = false, manualPause = false;
-      var inView = !('IntersectionObserver' in window);
+      var cur = 0, timer = null, loaded = false, raf = null, painted = -1;
       slides.forEach(function (s) { s.decoding = 'async'; });
-
-      var projectName = ((card.querySelector('.card-title') || {}).textContent || 'Project').trim();
-      var help = document.createElement('span');
-      var status = document.createElement('span');
-      help.id = 'story-help-' + sliderIndex;
-      help.className = 'sr-only';
-      help.textContent = 'Preview carousel with ' + slides.length + ' slides. Use Left and Right arrow keys to browse, then Enter to open the case study.';
-      status.className = 'sr-only story-status';
-      status.setAttribute('aria-live', 'polite');
-      status.setAttribute('aria-atomic', 'true');
-      card.appendChild(help);
-      ph.appendChild(status);
-      card.setAttribute('aria-describedby', help.id);
-      card.setAttribute('aria-keyshortcuts', 'ArrowLeft ArrowRight Enter Space');
-      track.setAttribute('role', 'region');
-      track.setAttribute('aria-roledescription', 'carousel');
-      track.setAttribute('aria-label', projectName + ' preview');
 
       function load() {
         if (loaded) return;
@@ -2640,31 +2554,15 @@
       }
       function index() { return track.clientWidth ? Math.round(track.scrollLeft / track.clientWidth) : 0; }
       function goTo(i, smooth) { track.scrollTo({ left: i * track.clientWidth, behavior: smooth ? 'smooth' : 'auto' }); }
-      function isActive() { return hovered || focused; }
-      function paintBars(i, force) {
-        var sameSlide = i === painted;
-        if (sameSlide && !force) return;           // only repaint on actual index change (no scroll-frame thrash)
-        if (!sameSlide) {
-          painted = i;
-          slides.forEach(function (s, n) { s.classList.toggle('is-view', n === i); }); // only the in-view slide zooms on hover
-          bars.forEach(function (b, n) {
-            b.classList.remove('is-active', 'is-done');
-            if (n < i) b.classList.add('is-done'); // passed dots stay filled (desktop trail)
-          });
-          if (bars[i]) bars[i].classList.add('is-active');
-        } else if (bars[i]) {
-          /* Restart only the inner timer fill. Keeping the active pill in place
-             prevents it from collapsing and expanding again after a swipe. */
-          var fill = bars[i].querySelector('i');
-          if (fill) {
-            fill.style.transition = 'none';
-            fill.style.width = '0';
-            void fill.offsetWidth;
-            fill.style.removeProperty('transition');
-            fill.style.removeProperty('width');
-          }
-        }
-        if (focused) status.textContent = 'Slide ' + (i + 1) + ' of ' + slides.length + ': ' + (slides[i].alt || projectName);
+      function paintBars(i) {
+        if (i === painted) return;                 // only repaint on actual index change (no scroll-frame thrash)
+        painted = i;
+        slides.forEach(function (s, n) { s.classList.toggle('is-view', n === i); }); // only the in-view slide zooms on hover
+        bars.forEach(function (b, n) {
+          b.classList.remove('is-active', 'is-done');
+          if (n < i) b.classList.add('is-done');   // passed dots stay filled (desktop trail)
+        });
+        if (bars[i]) { void bars[i].offsetWidth; bars[i].classList.add('is-active'); } // reflow → restart the timed fill
       }
 
       track.addEventListener('scroll', function () {
@@ -2672,107 +2570,27 @@
         raf = requestAnimationFrame(function () { raf = null; cur = index(); paintBars(cur); });
       }, { passive: true });
 
-      function clearTimer() { if (timer) { clearInterval(timer); timer = null; } }
-      function stop() {
-        clearTimer();
-        ph.classList.add('story-paused');
-        paintBars(cur);
-      }
-      function canPlay() {
-        var modal = document.getElementById('project-modal');
-        return !reduced && !isTouch && isActive() && inView && !manualPause &&
-          !document.hidden && !(modal && modal.classList.contains('open'));
-      }
-      function play() {
-        clearTimer();
-        if (!canPlay()) { stop(); return; }
-        ph.classList.remove('story-paused');
-        paintBars(cur, true);
-        timer = setInterval(function () {
-          if (cur >= slides.length - 1) { stop(); return; }
-          goTo(cur + 1, true);
-        }, SLIDE_MS);
-      }
-      function start() {
-        clearTimeout(resetTimer);
-        manualPause = false;
-        ph.classList.remove('story-interacting');
-        load();
-        play();
-      }
-      function scheduleReset() {
-        stop();
-        ph.classList.remove('story-interacting');
-        clearTimeout(resumeTimer);
-        clearTimeout(resetTimer);
-        resetTimer = setTimeout(function () {
-          if (!isActive()) {
-            manualPause = false;
-            goTo(0, true);
-          }
-        }, RESET_DELAY);
-      }
-      function pauseForManualInput() {
-        if (isTouch) return;
-        manualPause = true;
-        ph.classList.add('story-interacting');
-        clearTimeout(resumeTimer);
-        stop();
-      }
-      function resumeAfterManualInput() {
-        if (isTouch || !manualPause) return;
-        clearTimeout(resumeTimer);
-        resumeTimer = setTimeout(function () {
-          manualPause = false;
-          ph.classList.remove('story-interacting');
-          if (canPlay()) play();
-        }, RESUME_DELAY);
-      }
+      function stop() { if (timer) { clearInterval(timer); timer = null; } }
+      function play() { if (reduced) return; stop(); timer = setInterval(function () { goTo((cur + 1) % slides.length, true); }, SLIDE_MS); }
+      function start() { load(); paintBars(cur); play(); }
 
       if ('IntersectionObserver' in window) {
-        var loadObserver = new IntersectionObserver(function (es) {
-          es.forEach(function (e) {
-            if (e.isIntersecting) { load(); loadObserver.disconnect(); }
-          });
+        var io = new IntersectionObserver(function (es) {
+          es.forEach(function (e) { if (e.isIntersecting) { load(); io.disconnect(); } });
         }, { rootMargin: '250px' });
-        loadObserver.observe(card);
-
-        var visibilityObserver = new IntersectionObserver(function (es) {
-          es.forEach(function (e) {
-            inView = e.isIntersecting && e.intersectionRatio >= 0.35;
-            if (!inView) stop();
-            else if (canPlay()) play();
-          });
-        }, { threshold: [0, 0.35, 0.6] });
-        visibilityObserver.observe(card);
+        io.observe(card);
       }
 
-      card.addEventListener('pointerenter', function (e) {
-        if (e.pointerType === 'mouse') { hovered = true; start(); }
-      });
-      card.addEventListener('pointerleave', function (e) {
-        if (e.pointerType === 'mouse') { hovered = false; if (!isActive()) scheduleReset(); }
-      });
-      card.addEventListener('focusin', function () { focused = true; start(); });
-      card.addEventListener('focusout', function (e) {
-        if (!card.contains(e.relatedTarget)) { focused = false; if (!isActive()) scheduleReset(); }
-      });
+      card.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') start(); });
+      card.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') { stop(); goTo(0, true); } });
+      card.addEventListener('focusin', start);
+      card.addEventListener('focusout', function (e) { if (!card.contains(e.relatedTarget)) { stop(); goTo(0, true); } });
       card.addEventListener('keydown', function (e) {
-        if (e.key === 'ArrowRight') { e.preventDefault(); load(); manualPause = true; ph.classList.add('story-interacting'); stop(); goTo(Math.min(cur + 1, slides.length - 1), true); }
-        else if (e.key === 'ArrowLeft') { e.preventDefault(); load(); manualPause = true; ph.classList.add('story-interacting'); stop(); goTo(Math.max(cur - 1, 0), true); }
+        if (e.key === 'ArrowRight') { e.preventDefault(); load(); stop(); goTo(Math.min(cur + 1, slides.length - 1), true); }
+        else if (e.key === 'ArrowLeft') { e.preventDefault(); load(); stop(); goTo(Math.max(cur - 1, 0), true); }
       });
 
-      track.addEventListener('pointerdown', pauseForManualInput, { passive: true });
-      track.addEventListener('pointerup', resumeAfterManualInput, { passive: true });
-      track.addEventListener('pointercancel', resumeAfterManualInput, { passive: true });
-      track.addEventListener('wheel', function () { pauseForManualInput(); resumeAfterManualInput(); }, { passive: true });
-
-      document.addEventListener('visibilitychange', function () {
-        if (document.hidden) stop();
-        else if (canPlay()) play();
-      });
-
-      paintBars(0);
+      if (isTouch) paintBars(0);
     });
   })();
 

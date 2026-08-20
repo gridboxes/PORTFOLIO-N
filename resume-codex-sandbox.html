@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sivakorn Samorkam - Resume Sandbox</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@500;600;700&family=Raleway:wght@400;500;600;700&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    :root {
+      --ink: #222222;
+      --muted: #66656b;
+      --soft: #929097;
+      --paper: #ffffff;
+      --canvas: #e9e8e6;
+      --rule: #ddd9d2;
+      --gold: #a87922;
+      --violet: #7950a8;
+      --teal: #287c76;
+      --page-w: 210mm;
+      --page-h: 297mm;
+    }
+
+    html { background: var(--canvas); }
+
+    body {
+      margin: 0;
+      padding: 28px 18px 64px;
+      background: var(--canvas);
+      color: var(--ink);
+      font-family: 'Raleway', Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 16px;
+      z-index: 10;
+      width: min(var(--page-w), calc(100vw - 36px));
+      margin: 0 auto 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .sandbox-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 14px;
+      border: 1px solid #cbc7c0;
+      border-radius: 999px;
+      background: rgba(255,255,255,.92);
+      color: #55535a;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      backdrop-filter: blur(10px);
+    }
+
+    .sandbox-label::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--teal);
+    }
+
+    .toolbar-actions { display: flex; gap: 9px; }
+
+    .button {
+      border: 1px solid var(--ink);
+      border-radius: 999px;
+      padding: 10px 16px;
+      background: var(--paper);
+      color: var(--ink);
+      font: 700 12px/1 'Raleway', Arial, sans-serif;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .button.primary { background: var(--ink); color: white; }
+
+    .document {
+      display: grid;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    .sheet {
+      position: relative;
+      width: var(--page-w);
+      min-height: var(--page-h);
+      padding: 15mm 17mm 14mm;
+      overflow: hidden;
+      background: var(--paper);
+      box-shadow: 0 10px 42px rgba(28,26,24,.16);
+    }
+
+    .sheet::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 7px;
+      height: 100%;
+      background: linear-gradient(180deg, var(--gold), var(--violet) 52%, var(--teal));
+    }
+
+    .resume-header {
+      padding-bottom: 15px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .eyebrow {
+      margin: 0 0 6px;
+      color: var(--soft);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .19em;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    h1 {
+      margin-bottom: 4px;
+      font-family: 'Josefin Sans', Arial, sans-serif;
+      font-size: 29pt;
+      line-height: 1.05;
+      letter-spacing: -.02em;
+    }
+
+    .title-line {
+      margin: 0;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .055em;
+      text-transform: uppercase;
+    }
+
+    .contact-line {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 9.4pt;
+      line-height: 1.55;
+    }
+
+    .contact-line a { color: inherit; text-underline-offset: 2px; }
+
+    .intro {
+      margin: 14px 0 0;
+      max-width: 680px;
+      color: #4f4e53;
+      font-size: 10.25pt;
+      line-height: 1.52;
+    }
+
+    .section { margin-top: 17px; }
+
+    .section-title {
+      display: flex;
+      align-items: baseline;
+      gap: 11px;
+      margin: 0 0 11px;
+      font-family: 'Josefin Sans', Arial, sans-serif;
+      font-size: 13pt;
+      line-height: 1;
+    }
+
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+    }
+
+    .role-block + .role-block { margin-top: 15px; }
+
+    .role-head,
+    .project-head,
+    .credential-row,
+    .education-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 16px;
+    }
+
+    .role-name,
+    .project-name,
+    .credential-name,
+    .education-name {
+      margin: 0;
+      font-family: 'Josefin Sans', Arial, sans-serif;
+      font-size: 11.25pt;
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    .company { color: var(--gold); }
+    .company.nipa { color: var(--violet); }
+
+    .date,
+    .project-meta,
+    .credential-meta,
+    .education-meta {
+      flex: none;
+      color: var(--soft);
+      font-size: 8.8pt;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .role-context {
+      margin: 3px 0 0;
+      color: var(--muted);
+      font-size: 9.2pt;
+      line-height: 1.45;
+    }
+
+    .achievement-list {
+      margin: 7px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .achievement-list li {
+      position: relative;
+      margin: 4px 0;
+      padding-left: 14px;
+      color: #56555a;
+      font-size: 9.45pt;
+      line-height: 1.42;
+    }
+
+    .achievement-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: .56em;
+      width: 4px;
+      height: 4px;
+      border-radius: 1px;
+      background: var(--ink);
+    }
+
+    .achievement-list strong { color: var(--ink); font-weight: 700; }
+
+    .education-row + .education-row,
+    .credential-row + .credential-row { margin-top: 8px; }
+
+    .education-detail,
+    .credential-detail {
+      margin: 2px 0 0;
+      color: var(--muted);
+      font-size: 9.2pt;
+      line-height: 1.4;
+    }
+
+    .skill-line {
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-size: 9.3pt;
+      line-height: 1.45;
+    }
+
+    .skill-line strong {
+      color: var(--ink);
+      font-family: 'Josefin Sans', Arial, sans-serif;
+      font-size: 9.4pt;
+    }
+
+    .page-kicker {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .page-kicker-name {
+      font-family: 'Josefin Sans', Arial, sans-serif;
+      font-size: 15pt;
+      font-weight: 700;
+    }
+
+    .page-kicker-label {
+      color: var(--soft);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .project-card {
+      position: relative;
+      padding: 0 0 14px 18px;
+      border-left: 1px solid var(--rule);
+    }
+
+    .project-card + .project-card { margin-top: 13px; }
+
+    .project-card::before {
+      content: attr(data-index);
+      position: absolute;
+      left: -12px;
+      top: -1px;
+      display: grid;
+      place-items: center;
+      width: 23px;
+      height: 23px;
+      border: 1px solid var(--rule);
+      border-radius: 50%;
+      background: var(--paper);
+      color: var(--muted);
+      font: 700 8px/1 'Raleway', Arial, sans-serif;
+    }
+
+    .project-summary {
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-size: 9.4pt;
+      line-height: 1.43;
+    }
+
+    .project-proof {
+      margin: 6px 0 0;
+      color: var(--ink);
+      font-size: 9.1pt;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 7px;
+    }
+
+    .tag {
+      padding: 4px 7px;
+      border: 1px solid #dfdcd6;
+      border-radius: 999px;
+      color: #66636a;
+      font-size: 7.6pt;
+      font-weight: 600;
+      line-height: 1;
+    }
+
+    .university-feature {
+      padding: 13px 15px;
+      border: 1px solid #dcd8d1;
+      border-radius: 10px;
+      background: #faf9f7;
+    }
+
+    .university-feature .project-name { font-size: 11.5pt; }
+
+    .mini-project {
+      margin-top: 10px;
+      padding: 10px 14px;
+      border-left: 2px solid var(--rule);
+    }
+
+    .mini-project .project-summary { margin-top: 3px; }
+
+    .note {
+      margin: 8px 0 0;
+      color: var(--soft);
+      font-size: 8.2pt;
+      line-height: 1.4;
+    }
+
+    /* Hybrid direction: preserve the original label-left editorial rhythm
+       while every section remains one ordered text stream in the document. */
+    .sheet { padding: 15mm; }
+    .sheet::before { display: none; }
+
+    .resume-header {
+      display: grid;
+      grid-template-columns: 132px minmax(0, 1fr);
+      column-gap: 28px;
+      row-gap: 20px;
+      padding: 0;
+      border: 0;
+    }
+
+    .header-label,
+    .section-title,
+    .page-kicker-label-left {
+      padding-top: 1px;
+      font-family: 'Josefin Sans', Arial, sans-serif;
+      font-size: 14pt;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+    .header-content { min-width: 0; }
+
+    h1 {
+      margin-bottom: 5px;
+      font-size: 25pt;
+    }
+
+    .title-line {
+      color: var(--soft);
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: .055em;
+    }
+
+    .info-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .info-list li {
+      position: relative;
+      margin: 0 0 7px;
+      padding-left: 15px;
+      color: var(--muted);
+      font-size: 9.8pt;
+      line-height: 1.35;
+    }
+
+    .info-list li:last-child { margin-bottom: 0; }
+
+    .info-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: .48em;
+      width: 4px;
+      height: 4px;
+      border-radius: 1px;
+      background: var(--ink);
+    }
+
+    .info-list a { color: inherit; text-underline-offset: 2px; }
+
+    .intro {
+      margin: 0;
+      color: var(--muted);
+      font-size: 10pt;
+      line-height: 1.55;
+    }
+
+    .section {
+      display: grid;
+      grid-template-columns: 132px minmax(0, 1fr);
+      column-gap: 28px;
+      margin-top: 21px;
+    }
+
+    .section-title {
+      display: block;
+      grid-column: 1;
+      margin: 0;
+    }
+
+    .section-title::after { display: none; }
+    .section > :not(.section-title) { grid-column: 2; }
+
+    .role-block + .role-block { margin-top: 13px; }
+    .role-name, .project-name, .credential-name, .education-name { font-size: 10.8pt; }
+    .role-context, .education-detail, .credential-detail { font-size: 8.9pt; }
+    .achievement-list li { font-size: 9.15pt; line-height: 1.4; }
+
+    .page-kicker {
+      display: grid;
+      grid-template-columns: 132px minmax(0, 1fr);
+      column-gap: 28px;
+      align-items: start;
+      padding: 0 0 13px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .page-kicker-content { grid-column: 2; min-width: 0; }
+    .page-kicker-name { display: block; font-size: 16pt; }
+    .page-kicker-label {
+      display: block;
+      margin-top: 4px;
+      font-size: 8px;
+      letter-spacing: .055em;
+    }
+
+    .page-kicker-label-left { color: var(--ink); }
+
+    .project-card {
+      padding: 0 0 13px;
+      border: 0;
+    }
+
+    .project-card + .project-card { margin-top: 11px; }
+    .project-card::before { display: none; }
+    .project-summary { font-size: 9.1pt; line-height: 1.42; }
+    .project-proof { font-size: 8.9pt; line-height: 1.38; }
+
+    .project-tags { gap: 0; margin-top: 5px; }
+    .tag {
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      color: var(--soft);
+      font-size: 7.8pt;
+      line-height: 1.25;
+    }
+    .tag + .tag::before { content: ' / '; margin: 0 5px; color: #bbb7b0; }
+
+    .university-feature {
+      padding: 0 0 11px;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+    }
+
+    .mini-project {
+      margin-top: 9px;
+      padding: 0;
+      border: 0;
+    }
+
+    .skill-line { font-size: 8.9pt; line-height: 1.4; }
+
+    .footer {
+      position: absolute;
+      left: 15mm;
+      right: 15mm;
+      bottom: 9mm;
+      display: flex;
+      justify-content: space-between;
+      color: #aaa7a2;
+      font-size: 7.5pt;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 860px) {
+      body { padding: 14px 0 44px; }
+      .toolbar { width: calc(100vw - 24px); }
+      .sandbox-label { display: none; }
+      .toolbar-actions { width: 100%; justify-content: center; }
+      .document { overflow-x: auto; justify-content: start; padding: 0 12px; }
+      .sheet { transform-origin: top left; }
+    }
+
+    @page { size: A4; margin: 0; }
+
+    @media print {
+      html, body { background: white; }
+      body { padding: 0; }
+      .toolbar { display: none !important; }
+      .document { display: block; }
+      .sheet {
+        width: var(--page-w);
+        height: var(--page-h);
+        min-height: 0;
+        box-shadow: none;
+        break-after: page;
+        page-break-after: always;
+      }
+      .sheet:last-child { break-after: auto; page-break-after: auto; }
+      .sheet::before { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar" aria-label="Sandbox controls">
+    <div class="sandbox-label">Codex resume sandbox</div>
+    <div class="toolbar-actions">
+      <a class="button" href="resume.html">Current resume</a>
+      <button class="button primary" type="button" onclick="window.print()">Print / Save PDF</button>
+    </div>
+  </div>
+
+  <main class="document">
+    <article class="sheet" aria-label="Resume page 1">
+      <header class="resume-header">
+        <div class="header-label">Resumé</div>
+        <div class="header-content">
+          <h1>Sivakorn Samorkam</h1>
+          <p class="title-line">Product Designer (UX/UI) | Bangkok, Thailand</p>
+        </div>
+
+        <div class="header-label">Info</div>
+        <div class="header-content">
+          <ul class="info-list">
+            <li><a href="mailto:sivakorn.contact@gmail.com">sivakorn.contact@gmail.com</a></li>
+            <li>+66 82 651 4519</li>
+            <li>Portfolio: <a href="https://gridboxes-portfolio-n.vercel.app/">gridboxes-portfolio-n.vercel.app</a></li>
+          </ul>
+        </div>
+
+        <div class="header-label">Profile</div>
+        <div class="header-content">
+          <p class="intro">
+            Product designer with a Robotics and AI engineering background, experienced in shipping
+            consumer and B2B products across travel, payments, cloud, and technical workflows. Bridges
+            research, interaction design, design systems, and front-end implementation.
+          </p>
+        </div>
+      </header>
+
+      <section class="section" aria-labelledby="experience-title">
+        <h2 class="section-title" id="experience-title">Experience</h2>
+
+        <div class="role-block">
+          <div class="role-head">
+            <h3 class="role-name">UX/UI Designer <span class="company">@ Mtel (Thailand)</span></h3>
+            <span class="date">2025 - Present</span>
+          </div>
+          <p class="role-context">End-to-end product design across consumer mobile products, B2B tools, design systems, and front-end delivery.</p>
+          <ul class="achievement-list">
+            <li><strong>ThaiPass:</strong> Shipped a travel companion combining five services - vouchers, FastPass, transport, eSIM, and insurance - into one guided experience.</li>
+            <li><strong>BCC Calculation Program:</strong> Transformed formula-heavy electrical calculations into a responsive four-stage workflow supporting three calculation types and report export.</li>
+            <li><strong>ThaiPass CMS:</strong> Designed and built production-facing admin workflows in React and Tailwind CSS, carrying the work from Figma through implementation.</li>
+          </ul>
+        </div>
+
+        <div class="role-block">
+          <div class="role-head">
+            <h3 class="role-name">UX/UI Designer Intern <span class="company nipa">@ NIPA Cloud</span></h3>
+            <span class="date">2024 | 6 months</span>
+          </div>
+          <p class="role-context">Worked in a weekly-sprint Scrum team on responsive cloud-platform experiences.</p>
+          <ul class="achievement-list">
+            <li><strong>Payment System:</strong> Redesigned credit top-up across five payment methods and migrated responsive states to Design System 2.0.</li>
+            <li><strong>Load Balancing Service:</strong> Turned infrastructure concepts, pricing, and configuration into a guided experience for non-expert users.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="education-title">
+        <h2 class="section-title" id="education-title">Education</h2>
+        <div class="education-row">
+          <div>
+            <h3 class="education-name">King Mongkut's Institute of Technology Ladkrabang</h3>
+            <p class="education-detail">B.Eng. Robotics and AI Engineering | GPA 3.44</p>
+          </div>
+          <span class="education-meta">2021 - 2025</span>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="credentials-title">
+        <h2 class="section-title" id="credentials-title">Certificates</h2>
+        <div class="credential-row">
+          <div><h3 class="credential-name">TOEIC Listening and Reading - 970 / 990</h3><p class="credential-detail">CEFR C1 | Listening 495, Reading 475</p></div>
+          <span class="credential-meta">2026</span>
+        </div>
+        <div class="credential-row">
+          <div><h3 class="credential-name">Google UX Design Professional Certificate</h3><p class="credential-detail">Seven-course professional certificate | Coursera</p></div>
+          <span class="credential-meta">2024</span>
+        </div>
+        <div class="credential-row">
+          <div><h3 class="credential-name">Google Data Analytics - Foundations</h3><p class="credential-detail">Foundations: Data, Data, Everywhere | Coursera</p></div>
+          <span class="credential-meta">2023</span>
+        </div>
+        <div class="credential-row">
+          <div><h3 class="credential-name">AWS Academy Cloud Foundations</h3><p class="credential-detail">AWS Academy Graduate | 20 course hours</p></div>
+          <span class="credential-meta">2022</span>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="skills-title">
+        <h2 class="section-title" id="skills-title">Core Skills</h2>
+        <p class="skill-line">Product design, UX research, user flows, interaction design, prototyping, usability testing, UX writing, and design systems</p>
+      </section>
+
+      <footer class="footer"><span>Sivakorn Samorkam</span><span>01 / 02</span></footer>
+    </article>
+
+    <article class="sheet" aria-label="Resume page 2">
+      <header class="page-kicker">
+        <div class="page-kicker-content">
+          <span class="page-kicker-name">Sivakorn Samorkam</span>
+          <span class="page-kicker-label">Selected work and achievements</span>
+        </div>
+      </header>
+
+      <section class="section" aria-labelledby="selected-work-title">
+        <h2 class="section-title" id="selected-work-title">Selected Work</h2>
+
+        <article class="project-card" data-index="01">
+          <div class="project-head">
+            <h3 class="project-name">ThaiPass - Travel Companion</h3>
+            <span class="project-meta">Production | Mtel</span>
+          </div>
+          <p class="project-summary">Consolidated fragmented pre-arrival services into one product structured around purchase, arrival, and support. Designed for international travelers who need speed, trust, and clear guidance.</p>
+          <p class="project-proof">Scope: five service lines, end-to-end mobile journeys, scalable components, and a connected admin platform.</p>
+          <div class="project-tags"><span class="tag">Product strategy</span><span class="tag">Mobile UX</span><span class="tag">Design system</span><span class="tag">Design to code</span></div>
+        </article>
+
+        <article class="project-card" data-index="02">
+          <div class="project-head">
+            <h3 class="project-name">BCC - Electrical Calculation Program</h3>
+            <span class="project-meta">Production | Mtel</span>
+          </div>
+          <p class="project-summary">Converted raw formulas, conditional inputs, and engineering spreadsheets into a progressive workflow that guides users without compromising technical accuracy.</p>
+          <p class="project-proof">Scope: voltage drop, conductor size, circuit distance, adaptive inputs, responsive layouts, and exportable reports.</p>
+          <div class="project-tags"><span class="tag">Complex workflows</span><span class="tag">B2B UX</span><span class="tag">Progressive disclosure</span><span class="tag">Responsive design</span></div>
+        </article>
+
+        <article class="project-card" data-index="03">
+          <div class="project-head">
+            <h3 class="project-name">NIPA Cloud - Payment System</h3>
+            <span class="project-meta">Production | Internship</span>
+          </div>
+          <p class="project-summary">Improved a trust-sensitive credit top-up flow across distinct payment behaviors, creating clearer transaction states and a consistent experience at every breakpoint.</p>
+          <p class="project-proof">Scope: five payment methods, tax-invoice flows, responsive behavior, and migration to Design System 2.0.</p>
+          <div class="project-tags"><span class="tag">Payments</span><span class="tag">Responsive UX</span><span class="tag">Design systems</span><span class="tag">Agile delivery</span></div>
+        </article>
+      </section>
+
+      <section class="section" aria-labelledby="university-title">
+        <h2 class="section-title" id="university-title">University Design Work</h2>
+        <article class="university-feature">
+          <div class="project-head">
+            <h3 class="project-name">RISA - Robotic Interactive Smart Assistant</h3>
+            <span class="project-meta">4-person team</span>
+          </div>
+          <p class="project-summary">Designed the robot body, display mount, and mechanical assembly in Fusion 360. Iterated 3D-printed parts around tolerances, wire routing, sensor clearance, and face-level interaction.</p>
+          <p class="project-proof">The working prototype combined autonomous navigation, conversational AI, and a custom physical form, and was presented at an international symposium at VISTEC.</p>
+          <div class="project-tags"><span class="tag">Industrial design</span><span class="tag">Fusion 360</span><span class="tag">3D printing</span><span class="tag">Human-robot interaction</span></div>
+        </article>
+
+        <article class="mini-project">
+          <div class="project-head">
+            <h3 class="project-name">Live Stand - Multifunctional Phone Stand</h3>
+            <span class="project-meta">Industrial design</span>
+          </div>
+          <p class="project-summary">Designed an adjustable stand for streaming and everyday use, combining a flexible arm, rotating clamp, fill lighting, active cooling, and onboard power in one Fusion 360 concept.</p>
+        </article>
+
+        <article class="mini-project">
+          <div class="project-head">
+            <h3 class="project-name">Piston Ballast Tank Submarine</h3>
+            <span class="project-meta">Mechanical design</span>
+          </div>
+          <p class="project-summary">Developed a four-cylinder CAD concept that controls buoyancy by changing displacement. Produced iterative layouts, an exploded assembly, engineering drawings, and a final Fusion 360 model.</p>
+        </article>
+      </section>
+
+      <section class="section" aria-labelledby="tools-title">
+        <h2 class="section-title" id="tools-title">Tools &amp; Tech</h2>
+        <div>
+          <p class="skill-line"><strong>Design:</strong> Figma, FigJam, After Effects, Photoshop, Jitter, Fusion 360</p>
+          <p class="skill-line"><strong>Build:</strong> React, Tailwind CSS, HTML/CSS, SwiftUI, Flutter</p>
+          <p class="skill-line"><strong>Data:</strong> Supabase, SQL, Python</p>
+        </div>
+      </section>
+
+      <footer class="footer"><span>gridboxes-portfolio-n.vercel.app</span><span>02 / 02</span></footer>
+    </article>
+  </main>
+</body>
+</html>

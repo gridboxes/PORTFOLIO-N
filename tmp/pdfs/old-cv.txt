@@ -1,0 +1,128 @@
+SIVAKORN SAMORKAM
+SOFTWARE DESIGN & DEVELOPMENT
+   Bangkok, Thailand
+
+
+
+INFO                                             PROFILE
+
+     082-651-4519                                As an Engineering graduate with experience in Application and Website Design &
+                                                 development, I hope to offer a versatile skill set and a passion for problem-solving.
+     sivakorn.contact@gmail.com                  Proficient in a range of design tools and software development across multiple tech
+                                                 stacks, I am eager to collaborate with talented teams and contribute meaningfully to
+     https://gridboxes.my.canva.site/portfolio   the organization.
+
+
+
+
+SKILLS                                           WORK EXPERIENCE
+   Mobile App Development (IOS / Android)        NIPA Cloud
+       Flutter / Dart                            Position : UXUI Designer Intern                                                2024
+       SwiftUI / Swift                                                                                                           [4M]
+                                                 Collaborated in a Scrum team with weekly sprints, contributing to the
+   Software & Website Development                UX/UI design of web and portal applications, and leading the redesign of
+       Html / CSS / JavaScript                   the payment system for improved usability.
+       Python
+       SQL
+       C                                         PROJECT EXPERIENCE
+   UXUI Design
+       Figma
+                                                 Innovative Product Design
+       UX Research                               Position : Prototype Designer & Model Renderer                                 2021
+
+       UX Writing                                Project prototype phone stand for ‘Live Stand’ for live streamer and
+                                                 everyday user. Focuses on multi-functionality, portability, design, and
+   Hardware Product Design
+                                                 user experience. Project created via 3D Design software.
+       SolidWorks
+       Fusion 360
+                                                 Computer Vision Smart Security System
+       3D Printing
+                                                 Position : Model Trainer and Software Dev                                      2022
+   ARVR & 3D Modeling (Unity, 3ds Max)
+                                                 A software system that uses computer vision and AI data that act as a
+   IoT system
+                                                 CCTV that allow or not allow a specific variable to be in the camera
+   Computer Vision                               frame; for eg., people, car, motorcycle, truck, & etc.
+
+
+                                                 Dice Rolling Robotics Arm
+EDUCATION                                        Position : MATLAB Simulator & Coordinator                                      2022
+                                                 Developed a robotic arm that can grab a dice and trow it to get a
+Assumption Samutprakarn                          random outcomes. The system comes with an application that can
+                                                 control the robot.
+School (English Program)
+2009 - 2021
+                                                 Computer Vision Squid Game Inspired
+King Mongkut's Institute of                      Position : Software Developer                                                  2022
+
+Technology Ladkrabang                            The project fuses advanced computer vision with dynamic gameplay,
+                                                 delivering an immersive experience. Featuring real-time object
+Faculty : Engineering                            detection, gesture recognition, and diverse challenges, players are thrust
+Major : Robotics & AI                            into the thrilling world of Squid Game.
+
+2021 - 2025
+
+
+
+
+                                                            1/2
+S C O RE                                           Virtual Gallery 3D ARVR
+                                                   Position : 3D Model Unity Designer & Developer                              2023
+GPA (University)                          3.44
+                                                   Developed an Art Gallery for displaying digital art in 3D space that can
+                                                   be access using virtual reality headset. Project created in Unity and 3ds
+IELTS                                     7.0
+                                                   Max.
+
+SAT                                       1350
+                                                   Smart Classroom Application IOT Project
+                                                   Position : UX/UI Designer & Application Developer                           2023
+                                                   Developed a Manual/Automated Smart Classroom IOT system
+CERTIFICATES                                       prototype for school and institution use. The system is controllable via
+                                                   an application.
+
+AWS Academy Cloud
+Foundations                                        Food Delivery App Research
+                                                   Position : UX Researcher                                                    2023
+2022
+                                                   Conduct a foundational user experience research on a food delivery app
+Unity Essentials Pathway                           via a survey; achieved a pragmatic result in regards to the demographic
+                                                   of the user, app functionality, features, and future improvement.
+2023
+
+Google Data Analytics                              SecureBot Start-Up Project
+Professional Certificate                           Position : UX/UI Designer & Application Developer                           2023
+
+2023                                               Robotic Patrol System offering automated patrols with real-time
+                                                   surveillance , reducing the reliance on human patrols and providing cost-
+                                                   effective 24/7 security.
+Google UX Design Professional
+Certificate
+                                                   CAD Project Design
+2024
+                                                   Position : Product & Mechanical Designer                                    2024
+                                                   Project aims to improve upon the product we use in our everyday life.
+                                                   BY choosing an everyday-object that we would like to improve. Model
+PORTFOLIO                                          everything in the CAD software and add the changes that would makes
+                                                   the product better.
+       https://gridboxes.my.canva.site/portfolio
+                                                   SQL Database Project
+                                                   Position : SQL / NoSQL Researcher & Developer                               2024
+                                                   This project examines MongoDB as a NoSQL database and compares
+                                                   its querying and data modeling to traditional SQL using a Presidential
+                                                   Database.
+
+
+                                                   AI Interactive Assistant Robot Design
+                                                   Position : Product & Mechanical Designer                                    2025
+                                                   Designed a modular, 3D-printed protective case and hardware mounting
+                                                   system for a robot, featuring a four-tier cylindrical enclosure for core
+                                                   components and a vertical sensor stand, optimized for easy assembly,
+                                                   maintenance, and structural stability
+
+
+
+
+                                                               2/2
+

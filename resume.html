@@ -21,6 +21,7 @@
       --page-h:   297mm;
       --pad:      15mm;
       --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
+      --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     /* Entrance — the paper and toolbar buttons animate in as whole units; the
@@ -31,6 +32,14 @@
     @keyframes btnIn   { from { opacity: 0; translate: 0 -8px; } to { opacity: 1; translate: 0 0; } }
 
     /* ── Screen scaffolding (hidden when printing) ── */
+    html {
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    html::-webkit-scrollbar,
+    body::-webkit-scrollbar { display: none; width: 0; height: 0; }
+
     body {
       background: #e8e8e8;
       font-family: 'Raleway', ui-sans-serif, -apple-system, sans-serif;
@@ -56,12 +65,146 @@
     .btn--ghost { background: #fff; color: var(--ink); }
     .btn svg { width: 15px; height: 15px; }
 
+    /* Playful icon micro-animations on hover — each echoes what the button
+       does. Gated behind prefers-reduced-motion so it stays respectful. */
+    @media (prefers-reduced-motion: no-preference) {
+      /* Download: the arrow dips down into the tray */
+      #download-link:hover svg path:nth-of-type(2),
+      #download-link:hover svg path:nth-of-type(3) { animation: dlDip 0.55s var(--ease-spring); }
+      @keyframes dlDip { 0%, 100% { transform: translateY(0); } 45% { transform: translateY(2.5px); } }
+
+      /* Share: the three nodes pop in a little cascade */
+      #share-btn svg circle { transform-box: fill-box; transform-origin: center; }
+      #share-btn:hover svg circle { animation: nodePop 0.5s ease; will-change: transform; }
+      #share-btn:hover svg circle:nth-of-type(2) { animation-delay: 0.06s; }
+      #share-btn:hover svg circle:nth-of-type(3) { animation-delay: 0.12s; }
+      @keyframes nodePop { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.3); } }
+
+      /* Back arrow: nudges left, like "go back" */
+      #back-link:not(.is-portfolio):hover #back-icon { animation: nudgeLeft 0.5s var(--ease-spring); }
+      @keyframes nudgeLeft { 0%, 100% { transform: translateX(0); } 45% { transform: translateX(-2.5px); } }
+
+      /* Portfolio: the bento tiles pop in a quick staggered cascade */
+      #back-link.is-portfolio:hover #back-icon rect { transform-box: fill-box; transform-origin: center; animation: tilePop 0.45s ease; will-change: transform; }
+      #back-link.is-portfolio:hover #back-icon rect:nth-of-type(2) { animation-delay: 0.05s; }
+      #back-link.is-portfolio:hover #back-icon rect:nth-of-type(3) { animation-delay: 0.10s; }
+      #back-link.is-portfolio:hover #back-icon rect:nth-of-type(4) { animation-delay: 0.15s; }
+      @keyframes tilePop { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.12); } }
+    }
+
     /* Toolbar fades down in as one unit (animating the buttons separately
        looked jiggly). */
     .toolbar { animation: btnIn 0.5s var(--ease-spring) both; }
 
+    /* Two-page navigator — the résumé equivalent of the portfolio's floating
+       section rail. Labels reveal on hover; the active dot follows the page
+       nearest the centre of the viewport. */
+    .resume-toc {
+      position: fixed;
+      right: 28px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 40;
+      pointer-events: none;
+    }
+    .resume-toc-list {
+      list-style: none;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      pointer-events: auto;
+    }
+    .resume-toc-list::before {
+      content: '';
+      position: absolute;
+      right: 3px;
+      top: 14px;
+      bottom: 14px;
+      width: 1px;
+      background: #c8c8c8;
+    }
+    .resume-toc-progress {
+      position: absolute;
+      right: 3px;
+      top: 14px;
+      width: 1px;
+      height: 0;
+      background: #646464;
+      transition: height 0.4s var(--ease-smooth);
+      pointer-events: none;
+    }
+    .resume-toc-item {
+      appearance: none;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+      min-width: 74px;
+      padding: 8px 18px 8px 0;
+      border: 0;
+      background: transparent;
+      color: var(--ink);
+      cursor: pointer;
+      position: relative;
+      font: inherit;
+    }
+    .resume-toc-item::after {
+      content: '';
+      position: absolute;
+      right: 1px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #8a8a8a;
+      transition: background 0.25s var(--ease-smooth), transform 0.25s var(--ease-spring);
+    }
+    .resume-toc-item.active::after {
+      background: var(--ink);
+      transform: translateY(-50%) scale(1.3);
+    }
+    .resume-toc-label {
+      font-family: 'Raleway', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      line-height: 1;
+      white-space: nowrap;
+      color: rgba(33,33,33,0.42);
+      opacity: 0;
+      transform: translateX(6px);
+      transition: opacity 0.22s var(--ease-smooth),
+                  transform 0.22s var(--ease-smooth),
+                  color 0.22s var(--ease-smooth);
+      pointer-events: none;
+    }
+    .resume-toc-item:nth-of-type(1) .resume-toc-label { transition-delay: 0s; }
+    .resume-toc-item:nth-of-type(2) .resume-toc-label { transition-delay: 0.03s; }
+    .resume-toc:hover .resume-toc-label,
+    .resume-toc:focus-within .resume-toc-label { opacity: 1; transform: translateX(0); }
+    .resume-toc-item.active .resume-toc-label { color: rgba(33,33,33,0.9); }
+    .resume-toc-item:not(.active):hover .resume-toc-label { color: rgba(33,33,33,0.68); }
+    /* Landing flash — mirrors the portfolio navigation so first-time visitors
+       discover that the two dots represent the résumé pages. */
+    .resume-toc.resume-toc-reveal .resume-toc-label { opacity: 1; transform: translateX(0); }
+    .resume-toc.resume-toc-reveal .resume-toc-item.active .resume-toc-label { color: rgba(33,33,33,0.9); }
+    .resume-toc.resume-toc-reveal .resume-toc-item:not(.active) .resume-toc-label { color: rgba(33,33,33,0.42); }
+    .resume-toc.resume-toc-instant .resume-toc-progress,
+    .resume-toc.resume-toc-instant .resume-toc-item::after { transition: none; }
+    .resume-toc-item:focus-visible {
+      outline: 2px solid rgba(33,33,33,0.45);
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+    .resume-toc.is-hidden { display: none; }
+
     @media (prefers-reduced-motion: reduce) {
       .page, .toolbar { animation: none; }
+      .resume-toc-progress,
+      .resume-toc-item::after,
+      .resume-toc-label { transition: none; }
     }
 
     /* Secret "owner mode": holding Share arms a personal message. The button
@@ -85,22 +228,39 @@
       }
     }
 
-    /* ── The A4 page ── */
+    /* ── The A4 pages ── */
+    .pages {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      transform-origin: top center;
+    }
     .page {
       width: var(--page-w);
-      min-height: var(--page-h);
+      height: var(--page-h);
       background: #fff;
       padding: var(--pad);
+      position: relative;
       box-shadow: 0 6px 40px rgba(0,0,0,0.18);
       animation: paperIn 0.6s var(--ease-spring) both;
+      overflow: hidden;
     }
+    .page:nth-child(2) { animation-delay: 0.08s; }
 
-    /* ── Label-left / content-right grid ── */
+    /* Each section owns its label/content grid so text selection, copying,
+       accessibility tools, and PDF extraction move left-to-right through one
+       complete section before continuing to the next. */
     .resume {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .resume-section {
       display: grid;
       grid-template-columns: 150px 1fr;
       column-gap: 28px;
-      row-gap: 24px;
+      align-items: start;
     }
     .label {
       font-family: 'Josefin Sans', sans-serif;
@@ -189,8 +349,8 @@
     .entry-line { font-size: 11pt; line-height: 1.4; color: var(--ink-sec); margin-top: 3px; }
     .ref { font-weight: 600; color: inherit; }
 
-    /* Two-column bulleted lists (Core Skills, Tools & Tech) — fill column then column */
-    .skills { display: grid; grid-template-columns: 1fr 1fr; grid-auto-flow: column; gap: 13px 24px; list-style: none; }
+    /* Row-major source order keeps copying and ATS extraction left-to-right. */
+    .skills { display: grid; grid-template-columns: 1fr 1fr; grid-auto-flow: row; gap: 13px 24px; list-style: none; }
     .skills.r5 { grid-template-rows: repeat(5, auto); }
     .skills.r4 { grid-template-rows: repeat(4, auto); }
     .skills.r3 { grid-template-rows: repeat(3, auto); }
@@ -204,22 +364,50 @@
       background: var(--ink); border-radius: 1px;
     }
 
+    /* Footer sits inside the A4 trim area on both screen and print. */
+    .page-footer {
+      position: absolute;
+      left: var(--pad); right: var(--pad); bottom: 8mm;
+      display: flex; justify-content: flex-end; align-items: center;
+      padding-top: 3mm;
+      border-top: 1px solid var(--rule);
+      font-size: 8.5pt; line-height: 1;
+      letter-spacing: 0.04em;
+      color: var(--ink-dim);
+    }
+    .page-number { font-weight: 600; color: var(--ink-sec); }
+
     /* ── Print ── */
     @page { size: A4; margin: 0; }
     @media print {
       body { background: #fff; padding: 0; display: block; }
-      .toolbar { display: none !important; }
-      .page { width: auto; min-height: auto; box-shadow: none; margin: 0 !important; transform: none !important; animation: none !important; translate: none !important; }
+      .toolbar, .resume-toc { display: none !important; }
+      .pages { display: block; transform: none !important; margin: 0 !important; }
+      .page {
+        width: var(--page-w); height: var(--page-h);
+        box-shadow: none; margin: 0 !important;
+        transform: none !important; animation: none !important; translate: none !important;
+        break-after: page; page-break-after: always;
+      }
+      .page:last-child { break-after: auto; page-break-after: auto; }
       .info-list li::before, .skills li::before { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     }
   </style>
 </head>
 <body>
 
+  <nav class="resume-toc" aria-label="Resume pages">
+    <div class="resume-toc-list">
+      <button class="resume-toc-item active" type="button" data-page="0" aria-label="Go to résumé page 1" aria-current="page"><span class="resume-toc-label">Page 1</span></button>
+      <button class="resume-toc-item" type="button" data-page="1" aria-label="Go to résumé page 2"><span class="resume-toc-label">Page 2</span></button>
+      <span class="resume-toc-progress" aria-hidden="true"></span>
+    </div>
+  </nav>
+
   <div class="toolbar">
     <a class="btn btn--ghost" id="back-link" href="index.html">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
-      Back
+      <svg id="back-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+      <span id="back-label">Back</span>
     </a>
     <a class="btn" id="download-link" href="resume.pdf" download="Sivakorn_Samorkam_Resume.pdf">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
@@ -231,48 +419,59 @@
     </button>
   </div>
 
-  <div class="page">
+  <main class="pages">
+  <section class="page" aria-label="Resume page 1">
     <div class="resume">
 
       <!-- Header -->
-      <div class="label">Resumé</div>
-      <div class="content">
-        <div class="name">Sivakorn Samorkam</div>
-        <div class="role">UX/UI Designer <span class="role-loc"><svg class="role-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.99-5.54 10.19-7.35 11.75a1 1 0 0 1-1.3 0C9.54 20.19 4 14.99 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>Bangkok</span></div>
+      <div class="resume-section">
+        <div class="label">Resumé</div>
+        <div class="content">
+          <div class="name">Sivakorn Samorkam</div>
+          <div class="role">UX/UI Designer <span class="role-loc"><svg class="role-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.99-5.54 10.19-7.35 11.75a1 1 0 0 1-1.3 0C9.54 20.19 4 14.99 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>Bangkok</span></div>
+        </div>
       </div>
 
       <!-- Info -->
-      <div class="label">Info</div>
-      <div class="content">
-        <ul class="info-list">
-          <li><a href="mailto:sivakorn.contact@gmail.com">sivakorn.contact@gmail.com</a></li>
-          <li>082-651-4519</li>
-          <li><svg class="link-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>Portfolio : <a href="https://gridboxes-portfolio-n.vercel.app/" target="_blank" rel="noopener">gridboxes-portfolio-n.vercel.app</a></li>
-        </ul>
+      <div class="resume-section">
+        <div class="label">Info</div>
+        <div class="content">
+          <ul class="info-list">
+            <li><a href="mailto:sivakorn.contact@gmail.com">sivakorn.contact@gmail.com</a></li>
+            <li>082-651-4519</li>
+            <li><svg class="link-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>Portfolio : <a href="https://gridboxes-portfolio-n.vercel.app/" target="_blank" rel="noopener">gridboxes-portfolio-n.vercel.app</a></li>
+          </ul>
+        </div>
       </div>
 
       <!-- Profile -->
-      <div class="label">Profile</div>
-      <div class="content">
-        <p class="profile">
-          UX/UI Designer with a Robotics &amp; AI engineering background, taking products from
-          research to launch — simplifying complex systems and sharpening usability across
-          travel, payments, cloud, and data-driven products.
-        </p>
+      <div class="resume-section">
+        <div class="label">Profile</div>
+        <div class="content">
+          <p class="profile">
+            UX/UI Designer with a Robotics &amp; AI Engineering background and experience in end-to-end
+            product design, UX research, prototyping, design systems, usability testing, and responsive
+            web and mobile products across travel, payments, cloud, and B2B platforms.
+          </p>
+        </div>
       </div>
 
       <!-- Work Experience -->
-      <div class="label">Work Experience</div>
-      <div class="content">
+      <div class="resume-section">
+        <div class="label">Work Experience</div>
+        <div class="content">
         <div class="entry">
           <div class="entry-head">
             <span class="entry-title">2025–Present — UX/UI Designer <span class="at">@</span> Mtel (Thailand)</span>
             <span class="entry-meta">1 Year +</span>
           </div>
           <ul class="entry-bullets">
-            <li>Shipped <span class="ref">ThaiPass</span> — a travel-companion app with a <span class="ref">design system</span> covering vouchers, FastPass, transport, and eSIM.</li>
-            <li>Delivered the <span class="ref">BCC Calculation Program</span> — simplifying a complex engineering workflow into a guided, usable tool.</li>
-            <li>Built <span class="ref">ThaiPass CMS</span> front-end in React/Tailwind — design to code.</li>
+            <li>Designed and shipped end-to-end UX/UI for <span class="ref">ThaiPass</span> across four travel services—vouchers, FastPass, transport, and eSIM—using a reusable <span class="ref">design system</span>.</li>
+            <li>Designed the <span class="ref">BCC Calculation Program</span>—a responsive four-stage workflow with three calculation tools and A4 report export.</li>
+            <li>Built <span class="ref">ThaiPass CMS</span> and <span class="ref">Mtel Pitch</span>—an internal management tool—using AI-assisted development with React, Tailwind, and Supabase.</li>
+            <li>Designed car submission and hotel registration flows for <span class="ref">Anantara Concorso Roma 2027</span>, digitizing its paper-based hotel form.</li>
+            <li>Designed two B2B <span class="ref">Fleet Management Portals</span>—spanning rental requests, operations, commercial documents, and financing.</li>
+            <li>Designed two government pitch concepts—<span class="ref">Net Zero</span> for national carbon compliance and <span class="ref">MyanmarPass</span> for migrant-worker services.</li>
           </ul>
         </div>
         <div class="entry">
@@ -281,60 +480,106 @@
             <span class="entry-meta">6 Months</span>
           </div>
           <ul class="entry-bullets">
-            <li>Designed UX/UI for web &amp; portal apps in a weekly-sprint Scrum team.</li>
-            <li>Redesigned the <span class="ref">Payment System</span> across 5 payment methods.</li>
-            <li>Migrated UI to <span class="ref">Design System 2.0</span> for breakpoint consistency.</li>
+            <li>Designed a guided <span class="ref">Load Balancing Service</span>—simplifying infrastructure, pricing, and configuration for non-expert users.</li>
+            <li>Redesigned the <span class="ref">Payment System</span> credit top-up flow across five payment methods and five responsive breakpoints using <span class="ref">Design System 2.0</span>.</li>
           </ul>
+        </div>
         </div>
       </div>
 
       <!-- Education -->
-      <div class="label">Education</div>
-      <div class="content">
-        <div class="entry">
-          <div class="entry-title">2021–2025 — King Mongkut's Institute of Technology Ladkrabang</div>
-          <div class="entry-line">Bachelor of Engineering, Robotics &amp; AI Engineering — GPA : 3.44</div>
+      <div class="resume-section">
+        <div class="label">Education</div>
+        <div class="content">
+          <div class="entry">
+            <div class="entry-title">2021–2025 — King Mongkut's Institute of Technology Ladkrabang</div>
+            <div class="entry-line">Bachelor of Engineering, Robotics &amp; AI Engineering — GPA : 3.44</div>
+          </div>
+          <div class="entry">
+            <div class="entry-title">2009–2021 — Assumption Samutprakarn School</div>
+            <div class="entry-line">Primary &amp; Secondary Education, English Program — GPA : 3.98</div>
+          </div>
         </div>
-        <div class="entry">
-          <div class="entry-title">2009–2021 — Assumption Samutprakarn School</div>
-          <div class="entry-line">Primary &amp; Secondary Education, English Program — GPA : 3.98</div>
+      </div>
+
+    </div>
+    <footer class="page-footer" aria-label="Resume footer, page 1 of 2">
+      <span class="page-number">1/2</span>
+    </footer>
+  </section>
+
+  <section class="page page--continuation" aria-label="Resume page 2">
+    <div class="resume">
+
+      <!-- University Projects -->
+      <div class="resume-section">
+        <div class="label">Industrial Design</div>
+        <div class="content">
+          <ul class="entry-bullets">
+            <li><span class="ref">RISA</span>—designed the Fusion 360 body, display mount, and 3D-printed assembly for an autonomous AI assistant built by a four-person team.</li>
+            <li><span class="ref">Live Stand</span>—designed a multifunctional phone stand integrating articulated positioning, lighting, active cooling, and USB-C power.</li>
+            <li><span class="ref">Piston Ballast Tank Submarine</span>—created a four-cylinder CAD concept for controlled buoyancy and pitch.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Achievements -->
+      <div class="resume-section">
+        <div class="label">Credentials</div>
+        <div class="content">
+          <ul class="skills r3">
+            <li><span class="ref">IELTS</span> — Band 7.0 (CEFR C1)</li>
+            <li>Google Data Analytics: Foundations</li>
+            <li><span class="ref">TOEIC</span> — 970/990 (CEFR C1)</li>
+            <li>AWS Academy Cloud Foundations</li>
+            <li>Google UX Design Professional Certificate</li>
+            <li>Unity Essentials Pathway</li>
+          </ul>
         </div>
       </div>
 
       <!-- Core Skills -->
-      <div class="label">Core Skills</div>
-      <div class="content">
-        <ul class="skills r5">
-          <li>UX/UI Design</li>
-          <li>UX Research</li>
-          <li>Usability Testing</li>
-          <li>Wireframing &amp; Prototyping</li>
-          <li>UX Writing</li>
-          <li>Design System</li>
-          <li>Agile Development</li>
-          <li>Software Development</li>
-          <li>CAD &amp; Industrial Design</li>
-          <li>3D Design &amp; AR/VR</li>
-        </ul>
+      <div class="resume-section">
+        <div class="label">Core Skills</div>
+        <div class="content">
+          <ul class="skills r5">
+            <li>UX/UI Design</li>
+            <li>Design Systems</li>
+            <li>UX Research</li>
+            <li>Agile Development</li>
+            <li>Usability Testing</li>
+            <li>Software Development</li>
+            <li>Wireframing &amp; Prototyping</li>
+            <li>CAD &amp; Industrial Design</li>
+            <li>UX Writing</li>
+            <li>3D Design &amp; AR/VR</li>
+          </ul>
+        </div>
       </div>
 
       <!-- Tools & Tech -->
-      <div class="label">Tools &amp; Tech</div>
-      <div class="content">
-        <ul class="skills r4">
-          <li>Figma · FigJam</li>
-          <li>After Effects · Photoshop · Jitter</li>
-          <li>Fusion 360 · SolidWorks</li>
-          <li>3ds Max · Unity</li>
-          <li>Jira · Agile · Scrum</li>
-          <li>IOS/SwiftUI · Android/Flutter</li>
-          <li>React · Tailwind CSS · HTML/CSS</li>
-          <li>Supabase · SQL · Python · C</li>
-        </ul>
+      <div class="resume-section">
+        <div class="label">Tools &amp; Tech</div>
+        <div class="content">
+          <ul class="skills r4">
+            <li>Figma · FigJam</li>
+            <li>Jira · Agile · Scrum</li>
+            <li>After Effects · Photoshop · Jitter</li>
+            <li>iOS/SwiftUI · Android/Flutter</li>
+            <li>Fusion 360 · SolidWorks</li>
+            <li>React · Tailwind CSS · HTML/CSS</li>
+            <li>3ds Max · Unity</li>
+            <li>Supabase · SQL · Python · C</li>
+          </ul>
+        </div>
       </div>
 
     </div>
-  </div>
+    <footer class="page-footer" aria-label="Resume footer, page 2 of 2">
+      <span class="page-number">2/2</span>
+    </footer>
+  </section>
+  </main>
 
   <script>
     (function () {
@@ -344,37 +589,156 @@
       var a = document.getElementById('download-link');
       if (a) a.setAttribute('download', 'Sivakorn_Samorkam_Resume_' + ymd + '.pdf');
 
-      // Fit the whole A4 page into the viewport by default (screen only — print/PDF resets this)
-      var page = document.querySelector('.page');
-      function fitPage() {
-        page.style.transform = 'none';
-        page.style.marginBottom = '0px';
+      // Scale the two-page stack to the same comfortable preview size used by
+      // the original single-page resume. Print/PDF resets this transform.
+      var pages = document.querySelector('.pages');
+      var firstPage = document.querySelector('.page');
+      function fitPages() {
+        pages.style.transform = 'none';
+        pages.style.marginBottom = '0px';
         var vw = document.documentElement.clientWidth || window.innerWidth;
         var vh = document.documentElement.clientHeight || window.innerHeight;
         if (!vw || !vh) return;                 // viewport not ready — leave at natural size
         var pad = 24;
-        var s = Math.min(1, (vh - pad * 2) / page.offsetHeight, (vw - pad * 2) / page.offsetWidth);
+        var s = Math.min(1, (vh - pad * 2) / firstPage.offsetHeight, (vw - pad * 2) / firstPage.offsetWidth);
         if (s > 0 && s < 1) {
-          page.style.transformOrigin = 'top center';
-          page.style.transform = 'scale(' + s + ')';
-          page.style.marginBottom = (-(page.offsetHeight * (1 - s))) + 'px';
+          pages.style.transform = 'scale(' + s + ')';
+          pages.style.marginBottom = (-(pages.offsetHeight * (1 - s))) + 'px';
+        }
+
+        // Unlike the wider portfolio, the scaled A4 sheet can leave enough
+        // room for its rail below 1024px. Hide it only when the actual side
+        // gutter is too narrow for both the labels and dots.
+        var tocForFit = document.querySelector('.resume-toc');
+        if (tocForFit) {
+          var pageWidth = firstPage.getBoundingClientRect().width;
+          var sideGutter = Math.max(0, (vw - pageWidth) / 2);
+          tocForFit.classList.toggle('is-hidden', sideGutter < 110);
         }
       }
-      fitPage();
-      requestAnimationFrame(fitPage);
-      window.addEventListener('load', fitPage);
-      if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitPage);
-      window.addEventListener('resize', fitPage);
+      fitPages();
+      requestAnimationFrame(fitPages);
+      window.addEventListener('load', fitPages);
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitPages);
+      window.addEventListener('resize', fitPages);
+
+      // Two-dot page navigation. The nearest page centre becomes active, which
+      // stays accurate even while the A4 stack is scaled responsively.
+      var resumePageEls = Array.prototype.slice.call(document.querySelectorAll('.page'));
+      var resumeToc = document.querySelector('.resume-toc');
+      var resumeTocItems = Array.prototype.slice.call(document.querySelectorAll('.resume-toc-item'));
+      var resumeTocProgress = document.querySelector('.resume-toc-progress');
+      var pageNavRaf = null;
+
+      function setActiveResumePage(index) {
+        resumeTocItems.forEach(function (item, i) {
+          var active = i === index;
+          item.classList.toggle('active', active);
+          if (active) item.setAttribute('aria-current', 'page');
+          else item.removeAttribute('aria-current');
+        });
+        var activeItem = resumeTocItems[index];
+        if (activeItem && resumeTocProgress) {
+          var dotCentre = activeItem.offsetTop + activeItem.offsetHeight / 2;
+          resumeTocProgress.style.height = Math.max(0, dotCentre - 14) + 'px';
+        }
+      }
+
+      function updateResumePageNav() {
+        pageNavRaf = null;
+        var viewportCentre = window.innerHeight / 2;
+        var nearest = 0;
+        var nearestDistance = Infinity;
+        resumePageEls.forEach(function (page, index) {
+          var rect = page.getBoundingClientRect();
+          var distance = Math.abs((rect.top + rect.height / 2) - viewportCentre);
+          if (distance < nearestDistance) {
+            nearestDistance = distance;
+            nearest = index;
+          }
+        });
+        setActiveResumePage(nearest);
+      }
+
+      function requestResumePageNavUpdate() {
+        if (pageNavRaf) return;
+        pageNavRaf = requestAnimationFrame(updateResumePageNav);
+      }
+
+      resumeTocItems.forEach(function (item) {
+        item.addEventListener('click', function () {
+          var index = Number(item.dataset.page);
+          var target = resumePageEls[index];
+          if (!target) return;
+          var top = window.scrollY + target.getBoundingClientRect().top - 24;
+          window.scrollTo({
+            top: Math.max(0, top),
+            behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+          });
+          setActiveResumePage(index);
+        });
+      });
+
+      window.addEventListener('scroll', requestResumePageNavUpdate, { passive: true });
+      window.addEventListener('resize', requestResumePageNavUpdate);
+      window.addEventListener('load', updateResumePageNav);
+      requestAnimationFrame(updateResumePageNav);
+
+      // Replay the complete entrance every time the resume is opened. The
+      // `pageshow` path also covers a document restored from the back-forward
+      // cache, where normal CSS animations would otherwise remain completed.
+      var resumeRevealStartTimer;
+      var resumeRevealEndTimer;
+
+      function playResumeRailEntrance() {
+        if (!resumeToc) return;
+        clearTimeout(resumeRevealStartTimer);
+        clearTimeout(resumeRevealEndTimer);
+        resumeToc.classList.remove('resume-toc-instant', 'resume-toc-reveal');
+        resumeRevealStartTimer = setTimeout(function () {
+          resumeToc.classList.add('resume-toc-reveal');
+        }, 600);
+        resumeRevealEndTimer = setTimeout(function () {
+          resumeToc.classList.remove('resume-toc-reveal');
+        }, 2400);
+      }
+
+      function replayResumeEntrance() {
+        var entranceEls = Array.prototype.slice.call(document.querySelectorAll('.page'));
+        var toolbarEl = document.querySelector('.toolbar');
+        if (toolbarEl) entranceEls.push(toolbarEl);
+        entranceEls.forEach(function (el) { el.style.animation = 'none'; });
+        void document.documentElement.offsetWidth;
+        entranceEls.forEach(function (el) { el.style.animation = ''; });
+        playResumeRailEntrance();
+      }
+
+      playResumeRailEntrance();
+      window.addEventListener('pageshow', function (event) {
+        if (event.persisted) replayResumeEntrance();
+      });
 
       // Back: if we came from our own portfolio, use the browser's real history
       // so it restores that page exactly (native scroll position, clean URL).
       // Otherwise (direct visit / refresh) fall through to the href="index.html".
       var back = document.getElementById('back-link');
       if (back) {
+        var cameFromPortfolio = document.referrer &&
+          (function () { try { return new URL(document.referrer).origin === location.origin; } catch (e) { return false; } })();
+
+        // Relabel for cold arrivals (e.g. a shared resume link): there's no
+        // portfolio behind them, so "Back" would be misleading. Point them
+        // forward to the portfolio home with a matching label + home icon.
+        if (!(history.length > 1 && cameFromPortfolio)) {
+          back.classList.add('is-portfolio'); // drives the card-shuffle hover animation
+          var label = document.getElementById('back-label');
+          var icon = document.getElementById('back-icon');
+          if (label) label.textContent = 'Portfolio';
+          if (icon) icon.innerHTML = '<rect x="3" y="3" width="10" height="10" rx="1.5"/><rect x="15" y="3" width="6" height="10" rx="1.5"/><rect x="3" y="15" width="6" height="6" rx="1.5"/><rect x="12" y="15" width="9" height="6" rx="1.5"/>';
+        }
+
         back.addEventListener('click', function (e) {
-          var sameOriginReferrer = document.referrer &&
-            new URL(document.referrer).origin === location.origin;
-          if (history.length > 1 && sameOriginReferrer) {
+          if (history.length > 1 && cameFromPortfolio) {
             e.preventDefault();
             history.back();
           }

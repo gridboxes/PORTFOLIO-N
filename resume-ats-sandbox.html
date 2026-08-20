@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sivakorn Samorkam — ATS Resume Sandbox</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+    :root {
+      --ink: #1f2937;
+      --muted: #4b5563;
+      --rule: #d1d5db;
+      --accent: #0f4c5c;
+      --page-width: 210mm;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 28px 16px;
+      background: #e5e7eb;
+      color: var(--ink);
+      font-family: Inter, Arial, sans-serif;
+      font-size: 10.5pt;
+      line-height: 1.45;
+    }
+    .sandbox-note {
+      width: min(100%, var(--page-width));
+      margin: 0 auto 16px;
+      padding: 10px 14px;
+      border: 1px solid #e9c46a;
+      border-radius: 8px;
+      background: #fff7d6;
+      color: #6b4e00;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+    main {
+      width: min(100%, var(--page-width));
+      margin: 0 auto;
+      padding: 16mm 17mm;
+      background: #fff;
+      box-shadow: 0 6px 36px rgba(0, 0, 0, 0.14);
+    }
+    header { border-bottom: 2px solid var(--accent); padding-bottom: 13px; }
+    h1 { margin: 0; font-size: 24pt; line-height: 1.1; letter-spacing: -0.03em; }
+    .headline { margin: 4px 0 8px; color: var(--accent); font-size: 12pt; font-weight: 700; }
+    .contact { margin: 0; color: var(--muted); font-size: 9.5pt; }
+    .contact a { color: inherit; text-decoration: none; }
+
+    section { margin-top: 17px; }
+    h2 {
+      margin: 0 0 8px;
+      padding-bottom: 4px;
+      border-bottom: 1px solid var(--rule);
+      color: var(--accent);
+      font-size: 11pt;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    p { margin: 0; }
+    .summary { color: #374151; }
+    .skills { margin: 0; color: #374151; }
+    .skills strong { color: var(--ink); }
+
+    .job { break-inside: avoid; margin-top: 13px; }
+    .job:first-of-type { margin-top: 0; }
+    .job-title-row { display: flex; justify-content: space-between; gap: 18px; align-items: baseline; }
+    .job-title { font-size: 11pt; font-weight: 700; }
+    .job-company { color: var(--accent); font-weight: 700; }
+    .job-date { flex: 0 0 auto; color: var(--muted); font-size: 9.5pt; font-weight: 600; white-space: nowrap; }
+    ul { margin: 6px 0 0; padding-left: 18px; }
+    li { margin: 4px 0; }
+
+    .education-row, .project { break-inside: avoid; margin-top: 10px; }
+    .education-row:first-of-type, .project:first-of-type { margin-top: 0; }
+    .item-title { font-weight: 700; }
+    .item-meta { color: var(--muted); font-size: 9.5pt; }
+    .project p { color: #374151; }
+    .credentials { margin-top: 0; }
+    .credentials li { break-inside: avoid; }
+
+    @media (max-width: 620px) {
+      body { padding: 0; background: #fff; }
+      .sandbox-note { margin: 0; border-radius: 0; border-width: 0 0 1px; }
+      main { padding: 28px 22px; box-shadow: none; }
+      .job-title-row { display: block; }
+      .job-date { display: block; margin-top: 2px; }
+    }
+    @media print {
+      @page { size: A4; margin: 13mm 15mm; }
+      body { padding: 0; background: #fff; font-size: 10pt; }
+      .sandbox-note { display: none; }
+      main { width: auto; padding: 0; box-shadow: none; }
+      section { margin-top: 13px; }
+      a { color: inherit; text-decoration: none; }
+    }
+  </style>
+</head>
+<body>
+  <p class="sandbox-note"><strong>ATS sandbox:</strong> this version uses a single-column structure, standard section headings, and full tool names. Add verified metrics and exact credential titles before applying.</p>
+
+  <main>
+    <header>
+      <h1>Sivakorn Samorkam</h1>
+      <p class="headline">UX/UI Designer</p>
+      <p class="contact">
+        <a href="mailto:sivakorn.contact@gmail.com">sivakorn.contact@gmail.com</a>
+        &nbsp;|&nbsp; 082-651-4519
+        &nbsp;|&nbsp; <a href="https://gridboxes-portfolio-n.vercel.app/">gridboxes-portfolio-n.vercel.app</a>
+      </p>
+    </header>
+
+    <section>
+      <h2>Professional Summary</h2>
+      <p class="summary">UX/UI Designer with a Robotics and AI Engineering background, designing digital products from research through launch. Experienced in mobile and web product design, UX research, UX writing, design systems, and front-end implementation for travel, payments, cloud, and data-driven products.</p>
+    </section>
+
+    <section>
+      <h2>Core Skills</h2>
+      <p class="skills"><strong>Product Design:</strong> UX/UI Design, UX Research, UX Writing, Design Systems, Responsive Web and Portal Design, Product Ownership, Design-to-Code Implementation. <strong>Collaboration:</strong> Agile Development, Scrum, Production Design Handoff.</p>
+    </section>
+
+    <section>
+      <h2>Tools and Technologies</h2>
+      <p class="skills"><strong>Design:</strong> Figma, FigJam, Adobe After Effects, Adobe Photoshop, Jitter, Spline, Fusion 360, SolidWorks. <strong>Development:</strong> React, Tailwind CSS, HTML, CSS, SQL, Python, C, Xcode, SwiftUI, Flutter, Supabase. <strong>Workflow:</strong> Jira, Agile, Scrum.</p>
+    </section>
+
+    <section>
+      <h2>Professional Experience</h2>
+
+      <article class="job">
+        <div class="job-title-row">
+          <div class="job-title">UX/UI Designer <span class="job-company">| Mtel (Thailand)</span></div>
+          <div class="job-date">2025–Present</div>
+        </div>
+        <ul>
+          <li>Designed and shipped ThaiPass, a travel-companion iOS app that brings vouchers, FastPass, transport, and eSIM services into one guided experience.</li>
+          <li>Designed and built the front end for ThaiPass CMS in React and Tailwind CSS, translating product design into working interface code with AI-assisted development.</li>
+          <li>Led UX/UI design and product ownership for a Net Zero government carbon-platform concept, defining the product experience within a two-week sprint.</li>
+          <li>Turned a complex cable-sizing workflow into the BCC Calculation Program, a guided, easy-to-use engineering tool.</li>
+          <li>Built an internal Mtel pitch-deck manager end to end with React and Supabase.</li>
+          <li>Built chat, calls, and group messaging for the JAGA golf app using CometChat; shipped the product to the App Store.</li>
+        </ul>
+      </article>
+
+      <article class="job">
+        <div class="job-title-row">
+          <div class="job-title">UX/UI Designer Intern <span class="job-company">| NIPA Cloud</span></div>
+          <div class="job-date">2024</div>
+        </div>
+        <ul>
+          <li>Led the Payment System redesign, streamlining checkout and improving usability across the cloud portal.</li>
+          <li>Delivered UX/UI for web and portal applications in weekly Scrum sprints, preparing designs for production handoff.</li>
+          <li>Migrated UI to Design System 2.0 to improve consistency across breakpoints.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section>
+      <h2>Selected Projects</h2>
+      <article class="project">
+        <p><span class="item-title">RISA — Robotic Interactive Smart Assistant</span> <span class="item-meta">| Collaborative project · Fusion 360</span></p>
+        <p>Designed the physical body, display mount, and assembly for an autonomous assistant robot using LiDAR/ROS navigation, LLM-based Q&amp;A, and face recognition. Presented the four-person team project at an international symposium.</p>
+      </article>
+      <article class="project">
+        <p><span class="item-title">Piston Ballast Tank Submarine</span> <span class="item-meta">| Solo project · Fusion 360</span></p>
+        <p>Created a CAD model of a piston-driven ballast system that controls submarine buoyancy using Archimedes' principle.</p>
+      </article>
+    </section>
+
+    <section>
+      <h2>Education</h2>
+      <div class="education-row">
+        <p><span class="item-title">King Mongkut's Institute of Technology Ladkrabang</span> <span class="item-meta">| 2021–2025</span></p>
+        <p>Robotics and AI Engineering — GPAX: 3.44</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Certifications and Achievements</h2>
+      <ul class="credentials">
+        <li>Google UX Design Certificate</li>
+        <li>Google Data Analytics Certificate</li>
+        <li>AWS Certificate <span class="item-meta">(add exact credential title)</span></li>
+        <li>Unity Certificate <span class="item-meta">(add exact credential title)</span></li>
+        <li>IELTS — Overall Band 7.0</li>
+        <li>TOEIC — 970</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>

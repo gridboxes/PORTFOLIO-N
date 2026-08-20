@@ -1,0 +1,556 @@
+ PRODUCT BRIEF · DESIGN KICKOFF · PROPOSED BY MTEL
+
+
+ B2B Fleet Management Platform
+ On-demand vehicle rental with dedicated drivers for enterprise clients — launching with
+ Thailand Post, built to scale to multiple client accounts.
+ "FleetCo" is a placeholder name for the operating company pending final branding.
+
+
+
+80                                         2                                         3
+Vehicles in fleet at launch                Portals: FleetCo operations + client      Modules: operations, commercial
+
+                                           self-service                              documents, fleet financing
+
+
+
+
+Proposed by: Mtel (Thailand) Co., Ltd. | mtel.co.th                                                 Version 1.5 | July 10, 2026
+Audience: Product Design Team | Classification: Internal                                          Status: Draft for design kickoff
+MTEL | B2B FLEET MANAGEMENT PLATFORM — PRODUCT BRIEF                                                  Design Kickoff · v1.5
+
+
+
+
+01 Background & Objectives
+ FleetCo operates a fleet of 80 vehicles, each rented out with a dedicated driver. Our anchor client, Thailand Post,
+ needs a self-service platform to request vehicles on demand — for ad hoc daily deliveries, multi-day or multi-week
+ rentals, and long-term engagements spanning multiple months. Today this is handled manually over calls, chat,
+ and spreadsheets, which does not scale and gives neither side real-time visibility.
+
+ We are commissioning a two-sided B2B web platform: an operations portal for FleetCo and a self-service portal
+ for clients. Thailand Post is the launch client, but the platform must be multi-client from day one — FleetCo will
+ onboard additional enterprise accounts on the same system with full account/vendor management.
+
+
+ Objectives
+  ■ Let clients request, extend, and manage vehicle-with-driver rentals end to end without phone coordination.
+
+  ■ Give FleetCo a single operational view: fleet inventory, driver assignment, live vehicle tracking, utilization, and
+    revenue.
+
+  ■ Digitize the full commercial document chain — quotation → invoice → payment confirmation → tax invoice —
+    inside the platform.
+
+  ■ Support multiple client organizations (multi-tenant) with clean data separation, per-client pricing, and per-client
+    reporting.
+
+
+ Success measures (directional)
+  ■ 100% of Thailand Post vehicle requests placed through the platform within 3 months of launch.
+
+  ■ Quotation issued within minutes of a request, not hours; zero documents produced outside the system.
+
+  ■ Fleet utilization visible in real time; month-end revenue reporting available without manual reconciliation.
+
+
+                                     Intentionally Left Blank — Next Section: 02 Users & Roles
+
+
+
+
+Confidential — Mtel (Thailand) Co., Ltd. and design partners only                                                   Page 2
+MTEL | B2B FLEET MANAGEMENT PLATFORM — PRODUCT BRIEF                                                              Design Kickoff · v1.5
+
+
+
+
+02 Users & Roles
+ Role                           Side                 What they need from the platform
+
+ Operations Manager             FleetCo              Approve/assign bookings, manage vehicle inventory and driver roster, resolve
+                                                     schedule conflicts, monitor live fleet map.
+
+ Account / BD Manager           FleetCo              Manage client accounts and rate cards, issue quotations, track pipeline of
+                                                     requests, monitor client health and revenue.
+
+ Finance Officer                FleetCo              Issue invoices and tax invoices, track payment status, aging and receivables
+                                                     reports, export to accounting.
+
+ Platform Admin                 FleetCo              User and role management, client (vendor/account) CRUD, system settings,
+                                                     audit logs.
+
+ Client Requester               Thailand Post        Search availability, request vehicles, specify duration and requirements, track
+                                                     status of requests and active rentals.
+
+ Client Approver /              Thailand Post        Approve internal requests, accept quotations, view spend dashboards and
+ Manager                                             usage reports across their organization.
+
+ Client Finance                 Thailand Post        Receive invoices, mark payments as made, download tax invoices, view billing
+                                                     history.
+
+ Driver (phase 2                Field                Receive assignments, trip details, and status updates — likely a simplified
+ candidate)                                          mobile view; confirm scope with design.
+
+
+ Design note: FleetCo-side users are power users living in the tool daily — optimize for density and speed.
+ Client-side users are occasional users — optimize for clarity, guided flows, and low training overhead.
+
+
+                                    Intentionally Left Blank — Next Section: 03 The Rental Model
+
+
+
+
+Confidential — Mtel (Thailand) Co., Ltd. and design partners only                                                                  Page 3
+MTEL | B2B FLEET MANAGEMENT PLATFORM — PRODUCT BRIEF                                                            Design Kickoff · v1.5
+
+
+
+
+03 The Rental Model
+ Every rental = one vehicle + one dedicated driver, booked as a single unit. The platform must support four rental
+ patterns with the same underlying flow:
+
+ Rental type             Duration           Typical use                     Design implications
+
+ Ad hoc / Daily          Single day         Daily delivery runs, overflow   Fast request flow; same-day or next-day availability
+                                            demand                          check; quick re-book of a previous request.
+
+ Short term              Multiple days      Campaign or peak-period         Date-range picker; per-day pricing; partial-period
+                                            support                         modification.
+
+ Medium term             Weeks              Seasonal capacity               Weekly rate logic; extension flow before end date.
+
+ Long term               Multiple           Dedicated routes, embedded      Monthly rate; recurring monthly invoicing; renewal
+                         months             capacity                        reminders; mid-term vehicle/driver replacement
+                                                                            handling.
+
+
+  ■ Extensions and early termination: an active rental can be extended (subject to availability) or ended early;
+    both trigger a revised quotation/commercial confirmation.
+
+  ■ Replacement: if a vehicle breaks down or a driver is unavailable, FleetCo swaps the unit; the client sees
+    continuity, the ledger records the change.
+
+  ■ Booking states (proposed): Requested → Quoted → Accepted → Assigned → Active → Completed →
+    Invoiced → Paid → Closed (plus Declined / Canceled branches). Design the status vocabulary and color system
+    once, reuse everywhere.
+
+
+                        Intentionally Left Blank — Next Section: 04 FleetCo Portal — Feature Requirements
+
+
+
+
+Confidential — Mtel (Thailand) Co., Ltd. and design partners only                                                                Page 4
+MTEL | B2B FLEET MANAGEMENT PLATFORM — PRODUCT BRIEF                                                    Design Kickoff · v1.5
+
+
+
+
+04 FleetCo Portal — Feature Requirements
+
+ 4.1 Operations dashboard
+  ■ At-a-glance: vehicles available / on rental / in maintenance, pending requests, quotations awaiting acceptance,
+    invoices awaiting payment, today's active rentals.
+
+  ■ Alert strip for exceptions: expiring rentals, overdue invoices, document expiries, unassigned bookings.
+
+ 4.2 Vehicle inventory management (CRUD)
+  ■ Vehicle records: plate number, type/class (e.g., 4-wheel truck, van, pickup), capacity/payload, photos, home
+    depot, purchase/lease info, current status.
+
+  ■ Status lifecycle: Available, Reserved, On Rental, In Maintenance, Out of Service — with status history.
+
+  ■ Compliance documents with expiry alerts: registration, insurance (compulsory + voluntary), tax sticker,
+    inspection.
+
+  ■ Maintenance log: scheduled service, repairs, cost history, odometer readings; block availability during
+    maintenance windows.
+
+
+ 4.3 Driver management & assignment
+  ■ Driver roster: profile, license class and expiry, contact, employment status, assigned home vehicle (if any),
+    leave calendar.
+
+  ■ Assignment engine: pair vehicle + driver to a booking; detect conflicts (double booking, driver on leave, license
+    mismatch with vehicle class).
+
+  ■ Reassignment / swap flow mid-rental with automatic client notification.
+
+ 4.4 Booking & schedule management
+  ■ Request inbox: all incoming client requests with status, SLA timer, and one-click path to quotation.
+
+  ■ Fleet calendar / Gantt view: every vehicle as a row, rentals as bars across time — the core planning surface for
+    multi-week and multi-month rentals.
+
+  ■ Manual booking creation on behalf of a client (phone/email orders still happen).
+
+ 4.5 Client account / vendor management (multi-client CRUD)
+  ■ Client organization records: company profile, tax ID and registered address (needed for tax invoices),
+    branch/site list, billing terms, credit terms.
+
+  ■ Per-client rate cards: pricing by vehicle type × rental duration tier; effective dates; discount rules.
+
+  ■ Client user management: invite users, assign client-side roles, deactivate.
+
+  ■ Contract/agreement repository per client (upload signed MSAs, rate agreements).
+
+  ■ Data isolation: a client can only ever see its own bookings, documents, and pricing.
+
+
+
+
+Confidential — Mtel (Thailand) Co., Ltd. and design partners only                                                     Page 5
+MTEL | B2B FLEET MANAGEMENT PLATFORM — PRODUCT BRIEF                                                        Design Kickoff · v1.5
+
+
+
+
+ 4.6 Live vehicle tracking
+  ■ Fleet map: real-time GPS position of all on-rental vehicles (assume GPS box / telematics integration; design for
+    the map + list hybrid).
+
+  ■ Per-rental trip view: current position, route history for the day, idle alerts.
+
+  ■ Geofence option per client site (arrival/departure events) — nice to have, flag as phase 2 if needed.
+
+ 4.7 Revenue & reporting
+  ■ Revenue dashboard: revenue by client, by vehicle, by vehicle type, by rental type; monthly trend; committed
+    future revenue from long-term rentals.
+
+  ■ Utilization: % of fleet on rental over time; idle vehicle report; per-vehicle revenue vs. downtime.
+
+  ■ Receivables: outstanding invoices, aging buckets, expected payment dates.
+
+  ■ Exports: CSV/Excel for all reports; PDF for shareable summaries.
+
+ 4.8 Administration
+  ■ Roles & permissions for FleetCo staff (admin, operations, account manager, finance, read-only).
+
+  ■ Notification center + email notifications; configurable per event type.
+
+  ■ Audit log: who did what, when — especially on pricing, documents, and payment status changes.
+
+
+                         Intentionally Left Blank — Next Section: 05 Client Portal — Feature Requirements
+
+
+
+
+Confidential — Mtel (Thailand) Co., Ltd. and design partners only                                                         Page 6
+MTEL | B2B FLEET MANAGEMENT PLATFORM — PRODUCT BRIEF                                                   Design Kickoff · v1.5
+
+
+
+
+05 Client Portal (Thailand Post) — Feature Requirements
+
+ 5.1 Vehicle request flow (the hero flow)
+  ■ Request on demand: choose vehicle type and quantity, rental type (daily / days / weeks / multi-month), start
+    date, duration or end date, pickup/reporting location, and job notes.
+
+  ■ Availability signal before submitting: show whether the requested type/dates look available, tentative, or
+    unavailable, so expectations are set early.
+
+  ■ Multi-vehicle requests in one submission (e.g., 5 vans for 2 weeks) treated as one commercial case.
+
+  ■ Repeat / re-book: duplicate a past request with new dates in two clicks — daily-delivery clients will live in this.
+
+ 5.2 Rental management
+  ■ My rentals: active, upcoming, and past rentals with status, assigned vehicle and driver details (name, phone,
+    plate number).
+
+  ■ Extend, modify, or cancel a rental — with clear rules on what triggers a revised quotation.
+
+  ■ Live tracking of vehicles currently on rental to Thailand Post (their vehicles only).
+
+  ■ Issue reporting: flag a problem on a rental (late arrival, breakdown, driver issue) that lands in FleetCo's
+    operations inbox.
+
+
+ 5.3 Commercial documents
+  ■ Quotation inbox: notification when FleetCo issues a quotation; view online, download PDF, Accept or Decline
+    with comment.
+
+  ■ Invoice inbox: view/download invoices, see amount due and due date, mark as paid with payment date,
+    reference number, and optional payment slip upload.
+
+  ■ Tax invoice inbox: download tax invoices once issued by FleetCo.
+
+  ■ Billing history: full document trail per booking and per month.
+
+ 5.4 Client dashboard & reporting
+  ■ Overview: active rentals count, upcoming starts/ends, pending quotations, unpaid invoices, monthly spend to
+    date.
+
+  ■ Usage reports: rentals and spend by month, by vehicle type, by requesting branch/department.
+
+  ■ Multi-user with internal approval (optional per client): a requester submits, a manager approves before it
+    reaches FleetCo — design as a toggleable step.
+
+
+
+
+Confidential — Mtel (Thailand) Co., Ltd. and design partners only                                                    Page 7
+MTEL | B2B FLEET MANAGEMENT PLATFORM — PRODUCT BRIEF                                                           Design Kickoff · v1.5
+
+
+
+
+06 Quotation → Invoice → Tax Invoice Chain
+ This is a first-class module, not an afterthought. The three documents form one linked chain per booking, with
+ notifications passing between the two sides at each step. No document should ever be created outside the
+ platform.
+
+
+ 6.1 Document flow & notification chain
+
+ Step      Actor             Action                                                       Counterparty notification
+
+ 1         Client            Submits vehicle request                                      FleetCo operations notified
+
+ 2         FleetCo           Issues Quotation from the platform (linked to the request)   Client notified; quotation appears in
+                                                                                          client portal
+
+ 3         Client            Accepts quotation (or declines with comment)                 FleetCo notified; booking moves to
+                                                                                          Accepted
+
+ 4         FleetCo           Assigns vehicle + driver; rental runs                        Client sees assignment details
+
+ 5         FleetCo           Issues Invoice (one-off, or monthly for long-term rentals)   Client notified; invoice appears with
+                                                                                          due date
+
+ 6         Client            Pays manually (bank transfer) and marks as paid with         FleetCo finance notified to verify
+                             reference/slip
+
+ 7         FleetCo           Verifies payment, issues Tax Invoice / Receipt               Client notified; tax invoice available for
+                                                                                          download
+
+
+  ■ Every document carries a link back to its booking and its predecessor (tax invoice → invoice → quotation).
+
+  ■ FleetCo can revise a quotation (v2, v3...) before acceptance; superseded versions stay visible but clearly
+     marked.
+
+  ■ Payment verification step: 'marked as paid' by the client is a claim, not a settlement — FleetCo finance
+     confirms before the tax invoice is released. Design both the happy path and the mismatch path (amount short,
+     wrong reference).
+
+
+
+
+Confidential — Mtel (Thailand) Co., Ltd. and design partners only                                                              Page 8
+MTEL | B2B FLEET MANAGEMENT PLATFORM — PRODUCT BRIEF                                                       Design Kickoff · v1.5
+
+
+
+
+ 6.2 The document editor — split-screen WYSIWYG (key design requirement)
+ All three documents share one editor pattern: a single screen, form on the left, live A4 preview on the right.
+ What you type is what you get — the preview is the actual rendered document, pixel-faithful to the final PDF.
+
+  ■ Left panel (input): structured fields — client (auto-filled from account record), booking reference, line items
+    (description, vehicle type, quantity, unit, unit price, amount), discounts, VAT, remarks, payment terms, validity
+    period.
+
+  ■ Right panel (preview): true A4 page rendered live as the user types, including FleetCo letterhead, document
+    number, and totals. Multi-page documents paginate in the preview.
+
+  ■ Line items auto-calculate: quantity × unit price, subtotal, discount, VAT 7%, withholding tax display where
+    applicable, grand total — in THB with Thai Baht text line.
+
+  ■ Actions: Save draft, Preview PDF, Issue (locks the document, generates the number, fires the notification),
+    Duplicate, Convert (quotation → invoice pre-filled).
+
+  ■ Issued documents are immutable; corrections happen via credit note / revised version, never by editing history.
+
+ 6.3 Thai tax compliance requirements (must-have on the tax invoice)
+  ■ Sequential, gap-free document numbering per document type (separate series for quotation / invoice / tax
+    invoice).
+
+  ■ Seller and buyer legal name, registered address, 13-digit tax ID, and head office / branch number.
+
+  ■ The words “Tax Invoice” displayed in both Thai and English, issue date, and VAT amount shown separately at
+    7%.
+
+  ■ Thai + English bilingual template support; amount-in-words in Thai.
+
+  ■ Note to design: the A4 templates for all three documents need visual design as part of this engagement —
+    treat them as branded artifacts clients will judge us by.
+
+
+                         Intentionally Left Blank — Next Section: 07 Vehicle Financing & Fleet Expansion
+
+
+
+
+Confidential — Mtel (Thailand) Co., Ltd. and design partners only                                                        Page 9
+MTEL | B2B FLEET MANAGEMENT PLATFORM — PRODUCT BRIEF                                                    Design Kickoff · v1.5
+
+
+
+
+07 Vehicle Financing & Fleet Expansion (FleetCo Internal)
+ The current fleet of 80 vehicles is fixed and may not be enough to serve growing B2B demand. FleetCo will expand
+ the fleet by financing additional vehicles through bank loans / hire-purchase. The platform needs an internal
+ module where every financed vehicle carries its full cost structure, and — once that vehicle is rented out — shows
+ whether the rental revenue covers the financing cost, what the monthly margin is, and how long until the vehicle
+ pays for itself (ROI).
+
+ Visibility: this module is strictly FleetCo-internal (finance and management roles only). No cost, margin, or
+ financing data is ever exposed on the client side.
+
+
+ 7.1 Financing record per vehicle (CRUD)
+  ■ Acquisition cost structure: base vehicle cost, down payment, financed amount, interest rate and total interest
+    over the term, insurance cost (annual premium and monthly equivalent), registration and one-time fees.
+
+  ■ Loan terms: lender/bank, contract number, term length, monthly installment, start date, first/last payment
+    dates.
+
+  ■ Payment progress: installments paid vs. total (e.g., 14 of 48), months remaining to finish payment,
+    outstanding principal, next payment date — shown as a progress bar plus figures.
+
+  ■ Total cost of ownership view: base cost + total interest + insurance over the term = all-in cost, the
+    denominator for ROI.
+
+  ■ Payment schedule table per vehicle (due date, installment, principal/interest split, status) with the ability to
+    record early settlement.
+
+
+ 7.2 Rental coverage & margin (per financed vehicle)
+  ■ Monthly cost line: installment + monthly insurance equivalent (+ optional maintenance allocation) = monthly
+    carrying cost.
+
+  ■ Monthly revenue line: actual rental revenue generated by this vehicle this month, pulled automatically from its
+    bookings.
+
+  ■ Margin: revenue − carrying cost, in THB and %, per month and cumulative since acquisition.
+
+  ■ Coverage indicator: a clear covered / not-covered signal — does this month’s rental revenue cover this
+    month’s financing cost? Coverage ratio (e.g., 1.4×) with a status color.
+
+  ■ Idle burn alert: a financed vehicle sitting idle still costs its installment — flag financed vehicles with low
+    utilization prominently.
+
+
+ 7.3 ROI & break-even tracking
+  ■ Break-even / ROI countdown: cumulative net margin vs. all-in cost — how many months until the vehicle has
+    fully paid for itself, based on its actual average monthly margin. Show projected ROI date.
+
+  ■ ROI progress visual per vehicle (e.g., 62% recovered, ~11 months to break-even at current run rate).
+
+  ■ Scenario sensitivity: recalculate ROI timeline when the rental rate or utilization assumption changes (slider or
+    editable assumption fields).
+
+
+
+
+Confidential — Mtel (Thailand) Co., Ltd. and design partners only                                                    Page 10
+MTEL | B2B FLEET MANAGEMENT PLATFORM — PRODUCT BRIEF                                                       Design Kickoff · v1.5
+
+
+
+
+ 7.4 Portfolio dashboard & acquisition simulator
+  ■ Financing portfolio view: all financed vehicles in one table — outstanding balance, months remaining,
+    monthly obligation total, portfolio coverage ratio, vehicles at risk (uncovered or idle).
+
+  ■ Total monthly obligation vs. total contracted rental revenue from long-term B2B rentals — the headline
+    solvency view for management.
+
+  ■ Acquisition simulator (pre-purchase): before committing to the bank, model a candidate vehicle — enter
+    base cost, financing terms, insurance, and expected B2B rental rate/duration — and see projected monthly
+    margin, coverage, and ROI timeline. Turns fleet expansion into a data-backed decision.
+
+  ■ Exports: portfolio and per-vehicle financing reports to Excel/PDF for bank and shareholder discussions.
+
+ 7.5 Design implications
+  ■ Two key surfaces: (a) the portfolio table with dense financial columns and status colors, (b) the per-vehicle
+    financing detail page combining payment progress, margin trend chart, and ROI countdown in one narrative.
+
+  ■ Numbers must be scannable: THB formatting with thousands separators, negative margins visually
+    unmistakable, and consistent month-based language (always “months” written in full).
+
+
+                  Intentionally Left Blank — Next Section: 08 Platform Principles & Non-Functional Requirements
+
+
+
+
+Confidential — Mtel (Thailand) Co., Ltd. and design partners only                                                      Page 11
+MTEL | B2B FLEET MANAGEMENT PLATFORM — PRODUCT BRIEF                                                 Design Kickoff · v1.5
+
+
+
+
+08 Platform Principles & Non-Functional Requirements
+  ■ B2B throughout, never B2C: this is an enterprise contract platform — organization accounts, negotiated rate
+    cards, quotations and credit terms, approval workflows, and formal tax documents. No consumer patterns: no
+    public marketplace, no self-signup, no ratings/reviews, no retail-style checkout. Every screen should read as a
+    professional operations tool.
+
+  ■ Multi-tenant by design: every entity (booking, document, vehicle assignment, report) is scoped to a client
+    account; onboarding client #2 must require zero structural change.
+
+  ■ Scalability: assume fleet growth beyond 80 vehicles and 10+ client organizations without redesign; lists, filters,
+    and search must handle volume.
+
+  ■ Web-first, responsive: desktop-optimized for FleetCo operations and finance; client portal must be
+    comfortable on tablet and usable on mobile for approvals and mark-as-paid.
+
+  ■ Language & locale: Thai and English UI toggle; THB currency throughout; Buddhist Era / Gregorian date
+    display consideration for documents; weeks start Monday.
+
+  ■ Notifications: in-app notification center + email for every step of the commercial chain; design a consistent
+    notification anatomy.
+
+  ■ Permissions & audit: role-based access on both sides; immutable audit trail on financial documents and
+    payment status changes.
+
+  ■ Reliability of tracking: map views degrade gracefully when GPS signal is stale — always show last-known
+    position with timestamp.
+
+
+                                  Intentionally Left Blank — Next Section: 09 Scope & Deliverables
+
+
+
+
+Confidential — Mtel (Thailand) Co., Ltd. and design partners only                                                Page 12
+MTEL | B2B FLEET MANAGEMENT PLATFORM — PRODUCT BRIEF                                                Design Kickoff · v1.5
+
+
+
+
+09 Scope & Deliverables
+
+ In scope for this design engagement
+  ■ Information architecture and navigation model for both portals.
+
+  ■ High-fidelity UI for: operations dashboard, fleet calendar, vehicle & driver management, client account CRUD,
+    client request flow, rental management, tracking map, revenue dashboard, and the full document module
+    including the split-screen A4 editor.
+
+  ■ Vehicle financing module: portfolio dashboard, per-vehicle financing detail page (payment progress, margin,
+    ROI countdown), and the acquisition simulator.
+
+  ■ A4 print/PDF templates for quotation, invoice, and tax invoice (bilingual).
+
+  ■ Design system: status colors, tables/lists, forms, notification patterns, empty states, Thai/English typography.
+
+  ■ Clickable prototype of the two hero flows: (a) client request → quotation → acceptance, (b) invoice → mark as
+    paid → tax invoice.
+
+
+ Next step: 90-minute kickoff workshop with design to walk this brief, align on the two hero flows, and agree the
+ wireframe milestone plan.
+
+
+
+
+Confidential — Mtel (Thailand) Co., Ltd. and design partners only                                               Page 13
+

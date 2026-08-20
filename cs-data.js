@@ -12,13 +12,28 @@
         { label: 'Platform', value: 'Mobile App' },
       ],
       storeChip: '<a class="store-chip" href="https://apps.apple.com/th/app/my-thaipass/id6761145502?l=th" target="_blank" rel="noopener noreferrer" aria-label="Get My ThaiPass on the App Store"><span>Available on</span><svg class="store-chip-logo" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.16162 6.50439L13.0004 13"/><path d="M6.5 2L8 4.53875"/><path d="M3.59063 12L3 13"/><path d="M9.49996 2L4.77246 10"/><path d="M11.2275 10H14.5"/><path d="M1.5 10H8.90438"/></svg><span class="store-chip-dot">·</span><svg class="store-chip-logo store-chip-logo--play" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.1582 12.6402C3.15941 12.7192 3.18132 12.7964 3.22172 12.8642C3.26213 12.932 3.31963 12.9881 3.38847 13.0267C3.45731 13.0654 3.53509 13.0853 3.61404 13.0845C3.69298 13.0836 3.77032 13.0621 3.83834 13.022L13.3039 7.60402C13.3739 7.56675 13.4324 7.51118 13.4732 7.44323C13.514 7.37528 13.5355 7.29752 13.5355 7.21826C13.5355 7.13901 13.514 7.06125 13.4732 6.9933C13.4324 6.92535 13.3739 6.86977 13.3039 6.83251L3.83834 1.4145C3.77032 1.37443 3.69298 1.3529 3.61404 1.35208C3.53509 1.35125 3.45731 1.37116 3.38847 1.4098C3.31963 1.44845 3.26213 1.50448 3.22172 1.5723C3.18132 1.64013 3.15941 1.71737 3.1582 1.79631V12.6402Z"/><path d="M3.29004 1.48535L10.8286 9.02387"/><path d="M3.29004 12.9529L10.8274 5.41553"/></svg></a>',
+      next: { id: 'anantara-concorso', title: 'Anantara Concorso Roma 2027 — Car Submission Portal' },
+    },
+
+    'anantara-concorso': {
+      accent:   '#C73564',
+      category: 'UX/UI',
+      num:      '02',
+      title:    'Anantara Concorso Roma 2027 — Car Submission Portal',
+      meta: [
+        { label: 'Role',     value: 'UX / UI Designer' },
+        { label: 'Timeline', value: '2 Months' },
+        { label: 'Type',     value: 'Production Project' },
+        { label: 'Platform', value: 'Responsive Web &amp; Email' },
+      ],
+      storeChip: '<a class="store-chip" href="https://www.anantaraconcorsoroma.com/en/enter-a-car/" target="_blank" rel="noopener noreferrer" aria-label="Open the Anantara Concorso Roma car submission portal"><span>Available on</span><svg class="store-chip-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></a>',
       next: { id: 'bcc', title: 'BCC — Calculation Program' },
     },
 
     'bcc': {
       accent:   '#4C91DB',
       category: 'UX/UI',
-      num:      '02',
+      num:      '03',
       title:    'BCC — Calculation Program',
       meta: [
         { label: 'Role',     value: 'UX / UI Designer & PO' },
@@ -27,13 +42,13 @@
         { label: 'Platform', value: 'Desktop & Mobile' },
       ],
       storeChip: '<a class="store-chip" href="https://www.bangkokcable.com/en" target="_blank" rel="noopener noreferrer" aria-label="Open the BCC website"><span>Available on</span><svg class="store-chip-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></a>',
-      next: { id: 'netzero', title: 'Net Zero — Government Carbon Platform' },
+      next: { id: 'parq-integration', title: 'The PARQ Integration to One Bangkok App' },
     },
 
     'netzero': {
       accent:   '#56AE7C',
       category: 'UX/UI',
-      num:      '03',
+      num:      '08',
       title:    'Net Zero — Government Carbon Platform',
       meta: [
         { label: 'Role',     value: 'UX / UI Designer & PO' },
@@ -41,13 +56,13 @@
         { label: 'Type',     value: 'Concept Project' },
         { label: 'Platform', value: 'Web Application' },
       ],
-      next: { id: 'myanmarpass', title: 'MyanmarPass — Migrant Worker Platform' },
+      next: { id: 'nipa', title: 'NIPA Payment System' },
     },
 
     'myanmarpass': {
       accent:   '#C4556A',
       category: 'UX/UI',
-      num:      '04',
+      num:      '05',
       title:    'MyanmarPass — Migrant Worker Platform',
       meta: [
         { label: 'Role',     value: 'UX / UI Designer' },
@@ -61,7 +76,7 @@
     'jaga': {
       accent:   '#58B05A',
       category: 'UX/UI',
-      num:      '05',
+      num:      '06',
       title:    'JAGA App — CometChat Feature',
       meta: [
         { label: 'Role',     value: 'UX / UI Designer' },
@@ -76,7 +91,7 @@
     'onebangkok': {
       accent:   '#D4A050',
       category: 'UX/UI',
-      num:      '06',
+      num:      '07',
       title:    'One Bangkok App — Showcase Video',
       meta: [
         { label: 'Role',     value: 'Motion Designer' },
@@ -84,13 +99,27 @@
         { label: 'Type',     value: 'Experimental Project' },
         { label: 'Platform', value: 'Web / Video' },
       ],
-      next: { id: 'nipa', title: 'NIPA Payment System' },
+      next: { id: 'netzero', title: 'Net Zero — Government Carbon Platform' },
+    },
+
+    'parq-integration': {
+      accent:   '#247A5A',
+      category: 'UX/UI',
+      num:      '04',
+      title:    'The PARQ Integration to One Bangkok App',
+      meta: [
+        { label: 'Role',     value: 'UX / UI Designer' },
+        { label: 'Timeline', value: '2 Weeks' },
+        { label: 'Type',     value: 'Concept / Proposal' },
+        { label: 'Platform', value: 'Mobile App' },
+      ],
+      next: { id: 'myanmarpass', title: 'MyanmarPass — Migrant Worker Platform' },
     },
 
     'nipa': {
       accent:   '#5B82D8',
       category: 'UX/UI',
-      num:      '07',
+      num:      '09',
       title:    'NIPA Payment System',
       meta: [
         { label: 'Role',     value: 'UX / UI Designer' },
@@ -105,7 +134,7 @@
     'nipalb': {
       accent:   '#30AECE',
       category: 'UX/UI',
-      num:      '08',
+      num:      '10',
       title:    'NIPA Load Balancing Service',
       meta: [
         { label: 'Role',     value: 'UX / UI Designer' },
@@ -931,6 +960,176 @@
       </div>
     `;
 
+    if (id === 'anantara-concorso') return `
+      <img class="cs-img" src="./projects/anantara-concorso/submission-cover.webp" alt="Anantara Concorso Roma My Submission portal showing an approved classic Ferrari" style="border-radius:16px;margin-top:60px;" />
+
+      <div class="cs-section">
+        <p class="section-label">Overview</p>
+        <h2 class="section-heading">From a crowded inbox to one trackable journey.</h2>
+        <p class="section-text">Anantara Concorso Roma invites owners of historic Italian automobiles to submit their cars for consideration. The existing process depended on paper forms and email, making applications difficult to track and vulnerable to missed messages. I designed the public-facing portal and transactional email system for the 2027 event &mdash; a guided production experience that keeps every owner informed from first entry to final decision.</p>
+        <div class="cs-tags">
+          <span class="cs-tag">Multi-Step Forms</span>
+          <span class="cs-tag">Account-Free Tracking</span>
+          <span class="cs-tag">Status Management</span>
+          <span class="cs-tag">Transactional Email</span>
+          <span class="cs-tag">Production</span>
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <p class="section-label">Problem</p>
+        <h2 class="section-heading">A prestigious event running on a fragile process.</h2>
+        <p class="section-text">Car owners had to complete long forms and coordinate by email, while the event team manually tracked submissions, missing information, and decisions. Spam filters could hide an application entirely, and owners had no reliable place to see what was happening after they pressed send.</p>
+        <ul class="cs-list">
+          <li>Email-based applications could be missed or lost to spam</li>
+          <li>Long personal and vehicle forms created a high-friction entry point</li>
+          <li>Owners had no persistent view of status or required actions</li>
+          <li>One owner could enter multiple vehicles with different decisions</li>
+          <li>Every status change needed a clear, vehicle-specific notification</li>
+        </ul>
+        <div class="cs-quote">
+          <p>How might we make a complex concours application feel effortless for owners while giving every submission a clear, traceable lifecycle?</p>
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <p class="section-label">Starting Point</p>
+        <h2 class="section-heading">Turning a paper packet into a digital service.</h2>
+        <p class="section-text">The original entry and owner-registration documents were comprehensive but built for printing. I mapped their information into smaller digital steps, preserved the required legal and vehicle detail, and removed the feeling of completing one endless form.</p>
+        <div class="cs-col2">
+          <img class="cs-img" src="./projects/anantara-concorso/legacy-form-cover.webp" alt="Original Anantara car entry form cover" />
+          <img class="cs-img" src="./projects/anantara-concorso/legacy-form-page.webp" alt="Original paper car entry form" />
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <p class="section-label">Experience Architecture</p>
+        <h2 class="section-heading">No account, but never anonymous.</h2>
+        <p class="section-text">A personal tracking link acts as the owner&rsquo;s key. It removes registration and password friction while still connecting every car, update, request, and decision to one submission.</p>
+        <div class="cs-col2">
+          <div class="cs-col2-item">
+            <span class="cs-col2-label">Apply</span>
+            <span class="cs-col2-text">Enter personal details, add one or more cars, review the information, and submit.</span>
+          </div>
+          <div class="cs-col2-item">
+            <span class="cs-col2-label">Track</span>
+            <span class="cs-col2-text">Open a private link to see every vehicle, reference number, and current status.</span>
+          </div>
+          <div class="cs-col2-item">
+            <span class="cs-col2-label">Respond</span>
+            <span class="cs-col2-text">Return to a pre-filled form when the event team requests additional information.</span>
+          </div>
+          <div class="cs-col2-item">
+            <span class="cs-col2-label">Decide</span>
+            <span class="cs-col2-text">Receive a specific email when each vehicle moves through review, waitlist, approval, or non-selection.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <p class="section-label">The Product</p>
+        <h2 class="section-heading">One continuous owner journey.</h2>
+        <p class="section-text">The portal breaks a long administrative process into clear moments, with the Anantara visual identity carrying consistently from the website into every status page and email.</p>
+        <div class="cs-features">
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">01</span>
+              <span class="cs-feature-name">Guided Application</span>
+            </div>
+            <h3 class="cs-feature-title">Progressive steps instead of one intimidating form.</h3>
+            <p class="cs-feature-text">Personal information, car details, and final review are separated into a visible three-step flow. Owners always know where they are, what is required, and what will happen next.</p>
+            <img class="cs-img" src="./projects/anantara-concorso/car-details.webp" alt="Car details step" />
+            <img class="cs-img" src="./projects/anantara-concorso/review-submit.webp" alt="Review and submit step" style="margin-top:16px;" />
+          </div>
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">02</span>
+              <span class="cs-feature-name">Personal Tracking</span>
+            </div>
+            <h3 class="cs-feature-title">Every car and status in one private view.</h3>
+            <p class="cs-feature-text">The submission page groups multiple vehicles under one owner while keeping status, references, dates, and next actions specific to each car. It is the single source of truth after submission.</p>
+            <img class="cs-img" src="./projects/anantara-concorso/submission-summary.webp" alt="Owner submission summary and vehicle statuses" />
+          </div>
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">03</span>
+              <span class="cs-feature-name">Submission Journey</span>
+            </div>
+            <h3 class="cs-feature-title">Two detailed forms, one consistent experience.</h3>
+            <p class="cs-feature-text">After a car progresses, owners complete two purpose-built follow-up journeys: a four-step registration for attendance and reservation details, and a five-step car-entry form for provenance, logistics, attachments, and technical support. Shared navigation keeps the handoff familiar, while package cards and conditional transport options adapt to each task.</p>
+            <div class="cs-col2">
+              <div class="cs-col2-item">
+                <span class="cs-col2-label">Owner Registration &middot; Step 3 of 4</span>
+                <img class="cs-img" src="./projects/anantara-concorso/owner-registration-packages.webp" alt="Owner Registration Form showing the reservation package selection step" />
+              </div>
+              <div class="cs-col2-item">
+                <span class="cs-col2-label">Car Entry Form &middot; Step 3 of 5</span>
+                <img class="cs-img" src="./projects/anantara-concorso/car-entry-logistics.webp" alt="Car Entry Form showing vehicle status, detailing, and transport options" />
+              </div>
+            </div>
+          </div>
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">04</span>
+              <span class="cs-feature-name">Link Recovery</span>
+            </div>
+            <h3 class="cs-feature-title">Account-free access with a safety net.</h3>
+            <p class="cs-feature-text">If an owner loses the tracking email, a focused recovery flow resends the personal link without exposing whether an address exists in the system.</p>
+            <div class="cs-col2">
+              <img class="cs-img" src="./projects/anantara-concorso/recovery-request.webp" alt="Request a lost tracking link" />
+              <img class="cs-img" src="./projects/anantara-concorso/recovery-success.webp" alt="Tracking link recovery confirmation" />
+            </div>
+          </div>
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">05</span>
+              <span class="cs-feature-name">Information Loop</span>
+            </div>
+            <h3 class="cs-feature-title">A request becomes a clear action, not another email thread.</h3>
+            <p class="cs-feature-text">When more information is needed, the owner sees the exact vehicle, the team&rsquo;s message, and a direct route back to the pre-filled form. After resubmission, the status page confirms that the application has been updated.</p>
+            <img class="cs-img" src="./projects/anantara-concorso/more-info-required.webp" alt="More information required submission state" />
+            <img class="cs-img" src="./projects/anantara-concorso/application-updated.webp" alt="Application updated confirmation" style="margin-top:16px;" />
+          </div>
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">06</span>
+              <span class="cs-feature-name">Lifecycle Emails</span>
+            </div>
+            <h3 class="cs-feature-title">The right message at every decision point.</h3>
+            <p class="cs-feature-text">Transactional emails mirror the portal and give each outcome an appropriate tone: reassuring during review, direct when action is required, celebratory on approval, and considerate for waitlist or non-selection.</p>
+            <div class="cs-col2">
+              <img class="cs-img" src="./projects/anantara-concorso/email-confirmed.webp" alt="Submission confirmed email" />
+              <img class="cs-img" src="./projects/anantara-concorso/email-more-info.webp" alt="More information required email" />
+              <img class="cs-img" src="./projects/anantara-concorso/email-approved.webp" alt="Application approved email" />
+              <img class="cs-img" src="./projects/anantara-concorso/email-waitlisted.webp" alt="Application waitlisted email" />
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="cs-accent-band">
+        <p class="section-label">Outcome</p>
+        <h2 class="section-heading">One connected journey from first submission to event readiness.</h2>
+        <p class="section-text">The 2027 portal replaces a fragmented email workflow with one coherent system: guided submission, private tracking, structured owner registration and car entry, recoverable access, clear updates, and status-specific communication. Owners gain clarity without creating an account, while the event receives consistent, trackable applications instead of scattered attachments.</p>
+      </div>
+
+      <div class="cs-section">
+        <p class="section-label">Reflection</p>
+        <h2 class="section-heading">Designing the journey beyond the form.</h2>
+        <p class="section-text">The most important work was not an individual form field or email. It was maintaining clarity and continuity across the gaps &mdash; after submission, during a long review, when information is missing, and when the final answer arrives. Mapping the complete lifecycle made every screen feel like part of the same service.</p>
+        <div class="cs-quote">
+          <p>A complex process feels simple when every transition answers two questions: what just happened, and what should I do next?</p>
+        </div>
+      </div>
+    `;
+
     if (id === 'thaipass') return `
       <img class="cs-img" src="./projects/thaipass/cover.webp" alt="ThaiPass cover" style="border-radius:16px;margin-top:60px;" />
 
@@ -1683,6 +1882,176 @@
         <p class="section-text">Choosing the right tool isn&rsquo;t about what&rsquo;s most powerful &mdash; it&rsquo;s about what lets you focus on design rather than fighting software. Switching from After Effects to Jitter unlocked the whole project.</p>
         <div class="cs-quote">
           <p>The right tool can make a huge difference &mdash; choosing simplicity over complexity helped me focus on design, not just software.</p>
+        </div>
+      </div>
+    `;
+
+    if (id === 'parq-integration') return `
+      <img class="cs-img" src="./projects/parq-integration/product-cover.webp" alt="The PARQ workplace app and QR identity screens" style="border-radius:16px;margin-top:60px;" />
+
+      <div class="cs-section">
+        <p class="section-label">Overview</p>
+        <h2 class="section-heading">One app, two property contexts.</h2>
+        <p class="section-text">The PARQ workplace ecosystem needed to become a native part of the existing One Bangkok app without feeling like a separate product bolted onto it. In a two-week concept sprint, I designed the proposal for a unified mobile experience that lets retail and workplace users move between property contexts while keeping one identity, one loyalty framework, and one familiar app shell.</p>
+        <div class="cs-tags">
+          <span class="cs-tag">Persona Architecture</span>
+          <span class="cs-tag">Context Switching</span>
+          <span class="cs-tag">Workplace Access</span>
+          <span class="cs-tag">Parking</span>
+          <span class="cs-tag">Concept Proposal</span>
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <p class="section-label">Challenge</p>
+        <h2 class="section-heading">Unify the ecosystem without erasing either identity.</h2>
+        <p class="section-text">The concept had to support existing The PARQ users, current One Bangkok retail users, and people entitled to multiple properties. Each audience enters with different permissions and expectations, but everyone should experience the result as one coherent product.</p>
+        <ul class="cs-list">
+          <li>Bring The PARQ workplace services into the existing One Bangkok app</li>
+          <li>Preserve familiar One Bangkok navigation and visual patterns</li>
+          <li>Make property and persona changes visible without adding account friction</li>
+          <li>Surface only the actions allowed by each user&rsquo;s workplace entitlement</li>
+          <li>Connect QR access, parking, visitors, elevators, and profile information</li>
+        </ul>
+        <div class="cs-quote">
+          <p>How might we make The PARQ feel native to One Bangkok while giving every user the right property, identity, and workplace tools at the right moment?</p>
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <p class="section-label">Design Direction</p>
+        <h2 class="section-heading">The PARQ becomes a native workplace context.</h2>
+        <p class="section-text">Rather than introducing a second app structure, the proposal reuses the established One Bangkok shell and adapts the identity card, quick actions, property branding, and workplace services. This keeps the interaction model familiar while making the active context unmistakable.</p>
+        <img class="cs-img" src="./projects/parq-integration/design-direction.webp" alt="Design direction for The PARQ workplace inside the One Bangkok app" />
+      </div>
+
+      <div class="cs-section">
+        <p class="section-label">Experience Architecture</p>
+        <h2 class="section-heading">A stable shell with a context-aware core.</h2>
+        <p class="section-text">The concept separates what should remain consistent from what must adapt. Navigation, interaction patterns, and the shared loyalty layer stay stable; property identity, available actions, access permissions, and parking details change with the selected context.</p>
+        <img class="cs-img" src="./projects/parq-integration/concept-overview.webp" alt="Comparison of stable and adaptive elements across One Bangkok and The PARQ contexts" />
+        <img class="cs-img" src="./projects/parq-integration/context-switching.webp" alt="Persona-based transition from One Bangkok to The PARQ" style="margin-top:16px;" />
+      </div>
+
+      <div class="cs-section">
+        <p class="section-label">User Scenarios</p>
+        <h2 class="section-heading">One model for three starting points.</h2>
+        <p class="section-text">I mapped the proposal around three entitlement scenarios so the transition works for migrated workplace users, existing One Bangkok members, and people who belong to more than one property.</p>
+        <div class="cs-features">
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">01</span>
+              <span class="cs-feature-name">Existing PARQ User</span>
+            </div>
+            <h3 class="cs-feature-title">A familiar workplace identity inside a new home.</h3>
+            <p class="cs-feature-text">Existing workplace users enter One Bangkok with their The PARQ context available, then continue into QR access and profile tools without rebuilding their identity from scratch.</p>
+            <img class="cs-img" src="./projects/parq-integration/existing-parq-user.webp" alt="Journey for an existing The PARQ workplace user" />
+          </div>
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">02</span>
+              <span class="cs-feature-name">OBK Retail + PARQ</span>
+            </div>
+            <h3 class="cs-feature-title">Retail and workplace personas live together.</h3>
+            <p class="cs-feature-text">A One Bangkok retail member with The PARQ access can move into the workplace context while retaining the shared account, rewards, and existing app behavior.</p>
+            <img class="cs-img" src="./projects/parq-integration/retail-user.webp" alt="Journey for a One Bangkok retail user with The PARQ workplace access" />
+          </div>
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">03</span>
+              <span class="cs-feature-name">Multi-Property User</span>
+            </div>
+            <h3 class="cs-feature-title">Property switching scales beyond one building.</h3>
+            <p class="cs-feature-text">Users with multiple workplace entitlements can change property context and receive the correct identity, permissions, and quick actions for each location.</p>
+            <img class="cs-img" src="./projects/parq-integration/multi-property-user.webp" alt="Journey for a multi-property workplace user" />
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <p class="section-label">Feature Concept</p>
+        <h2 class="section-heading">Workplace essentials, adapted to context.</h2>
+        <p class="section-text">The feature set brings the most important physical-building interactions into the unified app while keeping each flow focused and permission-aware.</p>
+        <div class="cs-features">
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">01</span>
+              <span class="cs-feature-name">The PARQ Identity</span>
+            </div>
+            <h3 class="cs-feature-title">The active property is always visible.</h3>
+            <p class="cs-feature-text">A dedicated identity card anchors the selected context and brings property-specific quick actions within immediate reach.</p>
+            <img class="cs-img" src="./projects/parq-integration/parq-identity.webp" alt="The PARQ identity card and quick actions" />
+          </div>
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">02</span>
+              <span class="cs-feature-name">QR &amp; Profile</span>
+            </div>
+            <h3 class="cs-feature-title">Identity and authorization stay connected.</h3>
+            <p class="cs-feature-text">The workplace QR supports building access, while profile details expose the user&rsquo;s active organization and authorized floor information.</p>
+            <div class="cs-col2">
+              <img class="cs-img" src="./projects/parq-integration/my-qr.webp" alt="The PARQ workplace QR identity" />
+              <img class="cs-img" src="./projects/parq-integration/my-profile.webp" alt="The PARQ workplace profile and authorization information" />
+            </div>
+          </div>
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">03</span>
+              <span class="cs-feature-name">Visitor Access</span>
+            </div>
+            <h3 class="cs-feature-title">Invite, review, and manage guests.</h3>
+            <p class="cs-feature-text">The visitor flow supports creating an invitation, reviewing visitor details, and managing active or expired access from one place.</p>
+            <img class="cs-img" src="./projects/parq-integration/visitor-access.webp" alt="Visitor access management flow" />
+          </div>
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">04</span>
+              <span class="cs-feature-name">Parking &amp; Traffic</span>
+            </div>
+            <h3 class="cs-feature-title">Property-aware information before the journey.</h3>
+            <p class="cs-feature-text">Users can view The PARQ parking identity, live availability, and traffic conditions without leaving the active workplace context.</p>
+            <img class="cs-img" src="./projects/parq-integration/parking.webp" alt="The PARQ parking availability and traffic screens" />
+          </div>
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">05</span>
+              <span class="cs-feature-name">Elevator Calling</span>
+            </div>
+            <h3 class="cs-feature-title">A digital call linked to authorized floors.</h3>
+            <p class="cs-feature-text">The elevator concept moves from floor selection to an active call and arrival state, using the same clear interaction language as the surrounding app.</p>
+            <img class="cs-img" src="./projects/parq-integration/elevator.webp" alt="Elevator calling flow for The PARQ" />
+          </div>
+
+          <div class="cs-feature">
+            <div class="cs-feature-head">
+              <span class="cs-feature-num">06</span>
+              <span class="cs-feature-name">Directory</span>
+            </div>
+            <h3 class="cs-feature-title">Discover what is available across the property.</h3>
+            <p class="cs-feature-text">The directory reuses the One Bangkok discovery pattern for The PARQ retail and workplace context, keeping search, categories, and place details familiar.</p>
+            <img class="cs-img" src="./projects/parq-integration/directory.webp" alt="The PARQ directory and place details" />
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-accent-band">
+        <p class="section-label">Outcome</p>
+        <h2 class="section-heading">A clear blueprint for one connected workplace experience.</h2>
+        <p class="section-text">The two-week sprint translated a complex integration scope into a visible experience model: who enters, how contexts change, which elements stay consistent, and how essential workplace services appear inside the One Bangkok app. The concept gave product and technical teams a shared artifact for discussing Phase 1 scope, dependencies, and future expansion.</p>
+      </div>
+
+      <div class="cs-section">
+        <p class="section-label">Reflection</p>
+        <h2 class="section-heading">Integration design is really boundary design.</h2>
+        <p class="section-text">The challenge was not drawing a new set of screens. It was deciding where one property experience ends, where another begins, and what must remain stable between them. Designing those boundaries made the proposal feel unified without making the contexts indistinguishable.</p>
+        <div class="cs-quote">
+          <p>A successful integration preserves the user&rsquo;s mental model while quietly changing the systems underneath it.</p>
         </div>
       </div>
     `;

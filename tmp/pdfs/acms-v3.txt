@@ -1,0 +1,941 @@
+                                                                       MTEL (THAILAND) CO., LTD.
+                                                                                       JUNE 2026
+                                                                               INFO@MTEL.CO.TH
+
+
+
+
+                            Anantara Concorso Roma
+                                                 Website Platform Enhancement
+
+
+
+
+    PREPARED FOR:
+    Minor Hotel Group Limited (Head Office) ​
+​   88 The Parq Building, 12th Fl, Ratchadaphisek Road, ​
+​   Khlongtoey Subdistrict, Khlongtoey District, Bangkok 10110
+
+
+
+    PREPARED BY:
+    Mtel (Thailand) Co., Ltd.
+    Athicha Supasaringkarn | [Product Owner]
+    +66832717766, Athicha.sup@mtel.co.th
+
+
+
+
+    Any inquiries with respect to this proposal may be directed to:​
+​   Athicha Supasaringkarn | [Product Owner]​
+​   +66832717766, Athicha.sup@mtel.co.th
+1. Overview, Goals & Objectives
+
+This project delivers two core enhancements to the existing Anantara Concorso Roma web platform: a Content
+Management System (CMS) and a structured Car Submission Portal. These improvements will enable the
+Anantara editorial team to manage website content independently and replace the current email-based car
+submission process with a robust, trackable digital workflow.
+
+
+
+The Anantara Concorso Roma is a prestigious Italian classic car concours event held in Rome, organized by
+Anantara Hotels & Resorts. The platform serves both public visitors and internal administrators managing event
+content, car submissions, volunteer registrations, and partner communications.
+
+
+
+Goals
+
+ Goal                        Description
+
+ Editorial                   Empower the Anantara team to manage and update website content
+ Independence                independently, reducing back-and-forth cycles and deployment dependencies.
+
+ Structured Car              Replace the email-based submission process (which frequently results in
+ Submissions                 missed applications due to spam filters) with a structured, trackable portal.
+
+ Lightweight Access          Enable car owners to submit and track their applications without creating a full
+ Control                     user account — using a personal tracking link for simplicity.
+
+ Platform Extensibility      Establish shared patterns that can be reused across volunteer registration,
+                             Cars & Coffee, and future event modules.
+
+                                                           ​
+                                              <Intentionally Left Blank>​
+                                             <Next Page for Objectives>
+
+
+
+
+Anantara Concorso Roma Website Platform Enhancement​                ​        ​        ​        ​        ​       2
+Objectives
+
+ #     Objective
+
+ 1     Implement a CMS enabling all staff to manage all website content sections independently, with
+       bilingual (EN/IT) support and a Draft/Publish workflow.
+
+ 2     Deliver a structured Car Submission Portal with public-facing form, personal tracking link, and admin
+       review dashboard replacing the current email submission flow.
+
+ 3     Implement Volunteer Registration and Cars & Coffee registration modules using the same personal
+       tracking link approach as the Car Submission Portal.
+
+ 4     Add a Shop page for merchandise display and restore the Ticket Sales page once the 2027 venue is
+       confirmed.
+
+
+
+                                              <Intentionally Left Blank>​
+                                     <Next Page for Section 2: Scope of Work>
+
+
+
+
+Anantara Concorso Roma Website Platform Enhancement​                ​       ​       ​        ​         ​       3
+2. Scope of Work
+
+The scope covers seven modules across the CMS and website platform. Modules 1–2 address editorial
+infrastructure. Modules 3–5 deliver submission and registration portals sharing a common approach. Modules 6–7
+cover the shop display and ticket page restoration.
+
+Module Overview
+
+ #    Module                   Category               Description
+
+ 1    Login System             CMS                    Secure login for CMS staff, all with the same
+                                                      full-access permission level.
+
+ 2    CMS Platform &           CMS                    An easy-to-use content editor for all website sections
+      Content                                         in English and Italian, with a draft-before-publish
+      Management                                      workflow.
+
+ 3    Car Submission           CMS + Website          Online application portal for car owners. Submissions
+      Portal                                          tracked via a personal link — no account required.
+                                                      Anantara staff manage all entries from a central
+                                                      dashboard.
+
+ 4    Volunteer                CMS + Website          Volunteer application portal using the same personal
+      Registration                                    tracking link approach as Module 3, with a tailored
+                                                      form and dashboard.
+
+ 5    Cars & Coffee            CMS + Website          Monthly event registration portal using the same
+                                                      personal tracking link approach as Module 3, with a
+                                                      per-event form and dashboard.
+
+ 6    Shop Page                CMS + Website          Merchandise display page with images, descriptions,
+                                                      and links to an external store. No payment processing
+                                                      on this website.
+
+ 7    Ticket Sales             Website                Restore the existing ticket sales page and navigation
+      (Re-activation)                                 link once the 2027 venue is confirmed. No new
+                                                      functionality.
+
+
+
+
+Anantara Concorso Roma Website Platform Enhancement​                   ​     ​         ​        ​           ​   4
+Module 1 — Login System
+
+Covers how CMS staff sign in, manage their password, and what each role can access.
+
+
+
+ #       Scope of Work                       Requirements
+
+ 1.1     Staff Login                          •​ Sign in with email and password
+         Secure sign-in for CMS staff         •​ Clear error message shown for incorrect credentials
+         using email and password.            •​ Session stays active until logout or automatic timeout
+                                              •​ Redirected to CMS dashboard on successful login
+
+ 1.2     Account Access                       •​ Car Submission Portal
+         All CMS staff accounts have the      •​ All staffs have full access to all CMS sections
+         same permission level, with full     •​ No per-section permission restrictions
+         access to all CMS sections.          •​ New staff accounts are created by Mtel with full access by default
+
+ 1.3     Change Password                      •​ Must enter current password before setting a new one
+         Staff can update their own           •​ New password must meet minimum security requirements
+         password from within the CMS.        •​ Confirmation email sent automatically on successful change
+
+ 1.4     Forgotten Password                   •​ Staff request a reset link from the login page
+         Self-service password reset via      •​ Link sent to registered email, valid for 1 hour, single use only
+         a link sent to the staff member's    •​ Neutral response shown if email is not recognised — no account
+         email.                                 details revealed
+
+
+
+                                               <Intentionally Left Blank>
+
+                          <Next Page for Module 2 — CMS Platform & Content Management>
+
+
+
+
+Anantara Concorso Roma Website Platform Enhancement​                   ​         ​        ​         ​        ​        5
+Module 2 — CMS Platform & Content Management
+
+Covers all content sections that Anantara staff can manage through the CMS.
+
+
+
+ #       Scope of Work                    Requirements
+
+ 2.1     Draft & Publish Workflow          •​ Save changes as a draft without affecting the live website
+         Content can be saved as a         •​ Every save logged with date, time, and account name
+         draft before going live on the    •​ Published content is pushed to both the website and the mobile
+         website and application.            application, except for News and Press published to the
+                                             application only, and Gallery which are published to the website
+                                             only.
+                                           •​ The application displays English content only.
+
+ 2.2     Bilingual Content (EN/IT)         •​ English and Italian fields managed independently
+         Every section has separate        •​ Changing one language does not affect the other
+         fields for English and Italian    •​ Website shows the correct language based on visitor's
+         content.                            preference
+                                           •​ A section can be published with only one language complete
+
+ 2.3     Cars, Awards & Classes            •​ Add, edit, reorder, or remove car entries
+         Manage all car entries, award     •​ Each entry: name, class, description, and photos
+         categories, and car classes.      •​ Award categories and class definitions are editable
+                                           •​ Published to: Website & Application
+
+ 2.4     Sponsors                          •​ Add, edit, reorder, or remove sponsor entries
+         Manage the list of sponsors.      •​ Each entry: name, logo, tier or category, optional website link
+                                           •​ Published to: Website & Application
+
+ 2.5     Agenda                            •​ Add, edit, reorder, or remove agenda items
+         Manage the event agenda.          •​ Each item: date, time, title, and short description
+                                           •​ Published to: Website & Application
+
+ 2.6     Judges                            •​ Add, edit, reorder, or remove judge profiles
+         Manage the judges panel.          •​ Each profile: name, title, biography, and photo
+                                           •​ Published to: Website & Application
+
+ 2.7     News                              •​ Create, edit, and delete news articles
+         Write and manage news             •​ Each article: title, body text, cover image, and publish date
+         articles.                         •​ Articles listed in reverse chronological order
+                                           •​ English and Italian fields; draft and publish workflow applies
+                                           •​ Published to: Application only
+
+
+
+
+Anantara Concorso Roma Website Platform Enhancement​                ​          ​       ​            ​      ​    6
+ #      Scope of Work                      Requirements
+
+ 2.8    Press                               •​ Add, edit, reorder, or remove press entries
+        Manage press coverage               •​ Each entry: publication name, headline, date, external link,
+        entries.                              optional thumbnail
+                                            •​ English and Italian fields; draft and publish workflow applies
+                                            •​ Published to: Application only
+
+ 2.9    Static Pages                        •​ Update body text and images on each page independently
+        Edit the content of fixed pages:    •​ Published to: Website & Application
+        About, How to Get There,
+        Charities, What to Wear, and
+        Venue.
+
+ 2.10   Gallery                             •​ Upload, reorder, and delete gallery images
+        Manage the photo gallery.           •​ Upload multiple images at once
+                                            •​ Draft and publish workflow applies
+                                            •​ Published to: Website only
+
+
+
+                                             <Intentionally Left Blank>​
+                                 <Next Page for Module 3 — Car Submission Portal>
+
+
+
+
+Anantara Concorso Roma Website Platform Enhancement​                 ​          ​       ​        ​        ​     7
+Module 3 — Car Submission Portal
+
+Replaces the current email-based submission process with a structured online portal. Car owners apply through a
+form and receive a personal tracking link — no account required. Anantara staff manage all submissions from a
+central dashboard.
+
+
+
+ #         Scope of Work                    Requirements
+
+ 3.1       Submission Form                   •​ Attendee fills in personal and vehicle details
+           Public-facing application form    •​ Terms & conditions acceptance: required before submitting
+           for car owners. No account or     •​ All required fields validated before submission is accepted
+           login required.
+                                             •​ Owner can add one or more vehicles within the same submission
+                                               ("Add another car")
+                                             •​ Each vehicle entry collects the same vehicle detail fields (name,
+                                               class, photos, etc.)
+
+ 3.2       Personal Tracking Link            •​ Unique personal link created on successful submission
+           A unique link generated for       •​ No account or password needed — link is the owner's identity
+           each submission — the             •​ Same link used for status tracking, information requests, and
+           owner's key throughout the          editing
+           entire process.
+                                             •​ One personal tracking link covers the entire submission,
+                                               including all vehicles registered under it
+
+ 3.3       Submission Confirmation           •​ Sent to the email address provided on the form
+           Email                             •​ Contains: owner name, car details, reference number
+           Confirmation email sent to the    •​ Contains: personal tracking link
+           car owner immediately after       •​ Each vehicle in the submission is listed separately with its own
+           submitting.                         reference number.
+
+ 3.4       Owner Status Page                 •​ Accessible at any time via the personal tracking link
+           The car owner can check           •​ Shows: car summary, reference number, submission date,
+           their submission status at any      current status
+           time via their personal link.     •​ Possible statuses: Pending, Under review, More Information
+                                               Requested, Approved, Waitlisted, Not Selected
+                                             •​ Status is shown per vehicle (each vehicle can have a different
+                                               outcome)
+
+ 3.5       Request for More                  •​ Admin writes a comment explaining what is needed
+           Information                       •​ Owner receives email with the comment and a link to their
+           Admin can request additional        pre-filled form
+           details; owner is notified and    •​ Owner updates and resubmits
+           can update their submission.
+
+
+Anantara Concorso Roma Website Platform Enhancement​                  ​        ​            ​    ​         ​        8
+ #       Scope of Work                      Requirements
+
+                                             •​ Admin notified automatically when the updated submission
+                                               arrives
+
+ 3.6     Recover Lost Tracking               •​ Owner enters the email address used when applying
+         Link                                •​ If matched: original personal link resent within 60 seconds
+         Owners who cannot find their        •​ If not matched: neutral response shown
+         personal link can request it to
+         be resent.
+
+ 3.7     Admin Submissions                   •​ Dashboard needs to show multiple vehicles under one
+         Dashboard                             owner/submission (e.g., expandable rows, or one row per vehicle
+         Central view for Anantara             linked to the same owner reference)
+         staff to see and manage all         •​ List view: owner name, reference number, vehicle, nationality,
+         car submissions.                      date submitted, status, last update
+                                             •​ Filter by status; search by name, car, or reference number
+                                             •​ New or updated submissions highlighted with a badge
+                                             •​ Auto-refreshes every 60 seconds
+                                             •​ Summary counts: Total, Pending, Under Review, Approved, Not
+                                               Selected
+
+ 3.8     Submission Review &                 •​ Detail view: owner info, vehicle info, photos, documents, vehicle
+         Decision                              history, status timeline, internal notes
+         Staff can review a submission       •​ Five decision options:, Under review, Request More Information,
+         in full, add internal notes, and      Add to Waitlist, Not Selected, Approve
+         record a decision.                  •​ Decision saved first, then owner notified by email
+                                             •​ Internal notes are not visible to the owner
+                                             •​ Decisions are made per vehicle. Each vehicle's decision is saved
+                                               independently and triggers its own email to the owner.
+
+ 3.9     Decision Notification               •​ Owner receives a separate email for each vehicle every time its
+         Emails                                status changes. Each email references the specific vehicle by
+         Owner receives an email               name and reference number.
+         when a decision is recorded.        •​ Under Review: notification that the submission is currently being
+                                               reviewed, with personal link
+                                             •​ Approved: congratulations message with next steps and personal
+                                               link
+                                             •​ More Information Requested: admin comment and link to update
+                                               the submission
+                                             •​ Waitlisted: reserve list confirmation and personal link
+                                             •​ Not Selected: polite notification and personal link
+
+
+Anantara Concorso Roma Website Platform Enhancement​                  ​        ​          ​       ​       ​         9
+ #       Scope of Work                     Requirements
+
+ 3.10    Waitlist Expiry & Bulk              •​ Staff sets a waitlist expiry date in settings
+         Close                               •​ System checks each night whether the expiry date has passed
+         Staff sets a cut-off date; the      •​ On expiry: dashboard alert shows a checklist of all waitlisted
+         system handles the bulk               submissions
+         close automatically.
+                                             •​ Staff selects entries to close; system updates status and sends
+                                               emails in one action
+                                             •​ Alert can be snoozed to the following day if admin is not ready
+
+ 3.11    Portal On/Off                       •​ When turned off: the submission form is hidden and replaced
+         Staff can open or close the           with a "Submissions are now closed" message
+         Car Submission Portal at any        •​ When turned on: the form is immediately accessible to the public
+         time from the CMS settings.         •​ Existing submissions and tracking links are not affected by the
+                                               toggle
+                                             •​ Status visible on the admin dashboard settings panel
+
+
+
+                                              <Intentionally Left Blank>​
+                                  <Next Page for Module 4 — Volunteer Registration>
+
+
+
+
+Anantara Concorso Roma Website Platform Enhancement​                   ​         ​         ​     ​         ​       10
+Module 4 — Volunteer Registration
+
+A dedicated registration portal for event volunteers. Uses the same personal tracking link approach as the Car
+Submission Portal, with a separate form and dashboard tailored to volunteer applications.
+
+
+
+ #        Scope of Work                     Requirements
+
+ 4.1      Volunteer Registration             •​ Attendee fills in personal details
+          Form                               •​ Terms & conditions acceptance: required before submitting
+          Public-facing application form     •​ All required fields validated before submission is accepted
+          for volunteers. No account or
+          login required.
+
+ 4.2      Personal Tracking Link             •​ Unique personal link created on successful submission
+          A unique link generated for        •​ No account or password needed — link is the volunteer's identity
+          each registration — the            •​ Same link used for status tracking, information requests, and
+          volunteer's key throughout the       editing
+          entire process.
+
+ 4.3      Registration Confirmation          •​ Sent to the email address provided on the form
+          Email                              •​ Contains: name, selected roles, reference number
+          Confirmation email sent to the     •​ Contains: personal tracking link
+          volunteer immediately after
+          submitting.
+
+ 4.4      Volunteer Status Page              •​ Accessible at any time via the personal tracking link
+          The volunteer can check their      •​ Shows: name, reference number, date submitted, current status
+          application status at any time     •​ Possible statuses: Pending, Under review, More Information
+          via their personal link.             Requested, Approved, Waitlisted, Not Selected
+
+ 4.5      Request for More                   •​ Admin writes a comment explaining what is needed
+          Information                        •​ Volunteer receives email with the comment and a link to their
+          Admin can request additional         pre-filled form
+          details; volunteer is notified     •​ Volunteer updates and resubmits
+          and can update their
+                                             •​ Admin notified automatically when the updated application
+          application.
+                                               arrives
+
+ 4.6      Recover Lost Tracking Link         •​ Volunteer enters the email address used when registering
+          Volunteers who cannot find         •​ If matched: original personal link resent within 60 seconds
+          their personal link can request    •​ If not matched: neutral response shown
+          it to be resent.
+
+          Volunteer Dashboard                •​ List view: name, reference number, preferred role, nationality,
+                                               date submitted, status, last update
+
+
+Anantara Concorso Roma Website Platform Enhancement​                  ​         ​       ​        ​         ​       11
+ #       Scope of Work                      Requirements
+
+ 4.7     Central view for Anantara staff     •​ Filter by status or role; search by name or reference number
+         to see and manage all               •​ New or updated applications highlighted with a badge
+         volunteer applications.
+                                             •​ Auto-refreshes every 60 seconds
+
+ 4.8     Application Review &                •​ Detail view: personal info, role preferences, experience notes,
+         Decision                              availability, consent responses, status timeline, internal notes
+         Staff can review an application     •​ Five decision options:, Under review, Request More Information,
+         in full, add internal notes, and      Add to Waitlist, Not Selected, Approve
+         record a decision.                  •​ Decision saved first, then volunteer notified by email
+                                             •​ Internal notes are not visible to the volunteer
+
+ 4.9     Decision Notification               •​ Under Review: notification that the application is currently being
+         Emails                                reviewed, with personal link
+         Volunteer receive an email          •​ Approved: congratulations message with briefing details and
+         when a decision is recorded.          personal link
+                                             •​ More Information Requested: admin comment and link to update
+                                               the application
+                                             •​ Waitlisted: reserve list confirmation and personal link
+                                             •​ Not Selected: polite notification and personal link
+
+ 4.10    Waitlist Expiry & Bulk              •​ Staff sets a waitlist expiry date in settings
+         Close                               •​ System checks each night whether the expiry date has passed
+         Staff sets a cut-off date; the      •​ On expiry: dashboard alert shows a checklist of all waitlisted
+         system handles the bulk close         applications
+         automatically.
+                                             •​ Admin selects entries to close; system updates status and sends
+                                               emails in one action
+                                             •​ Alert can be snoozed to the following day if admin is not ready
+
+ 4.11    Portal On/Off                       •​ When turned off: the submission form is hidden and replaced
+         Staff can open or close the Car       with a "Submissions are now closed" message
+         Submission Portal at any time       •​ When turned on: the form is immediately accessible to the public
+         from the CMS settings.              •​ Existing submissions and tracking links are not affected by the
+                                               toggle
+                                             •​ Status visible on the admin dashboard settings panel
+
+
+
+
+Anantara Concorso Roma Website Platform Enhancement​                   ​         ​         ​      ​        ​         12
+Module 5 — Cars & Coffee
+
+A registration portal for the monthly Cars & Coffee event. Uses the same personal tracking link approach as the
+Car Submission Portal, with a separate form and dashboard per event.
+
+
+
+ #         Scope of Work                     Requirements
+
+ 5.1       Cars & Coffee Event                •​ Attendee fills in personal and vehicle details
+           Registration Form                  •​ Terms & conditions acceptance: required before submitting
+           Public-facing registration form    •​ Form linked to a specific event
+           for each Cars & Coffee event.      •​ All required fields validated before submission is accepted
+           No account or login required.      •​ Dropdown to select which event to register for, displaying event
+                                                name and month.
+                                              •​ Events at full capacity are shown as 'Full' and cannot be
+                                                selected.
+                                              •​ One registration per person per event is enforced.
+
+ 5.2       Cars & Coffee Event CMS            •​ Add or update the event description, date, time, and location
+           Anantara staff can manage          •​ Upload or replace the event cover image
+           the Cars & Coffee event            •​ English and Italian fields; draft and publish workflow applies
+           description displayed on the       •​ View the full list of registered participants from the CMS
+           website.                             dashboard
+                                              •​ Staff can create and manage multiple events simultaneously,
+                                                each assigned to a specific month.
+                                              •​ Participant quota can be set per event; once reached, the event
+                                                is automatically marked 'Full' on the registration form.
+
+ 5.3       Registration Confirmation          •​ Sent to the email address provided on the form
+           Email                              •​ Contains: name and registration details
+           Confirmation email sent to the     •​ No personal tracking link included
+           attendee immediately after
+           registering.
+
+ 5.4       Portal On/Off                      •​ When turned off: the submission form is hidden and replaced
+           Staff can open or close the          with a "Submissions are now closed" message
+           Car Submission Portal at any       •​ When turned on: the form is immediately accessible to the public
+           time from the CMS settings.        •​ Status visible on the admin dashboard settings panel
+
+
+
+
+Anantara Concorso Roma Website Platform Enhancement​                   ​        ​          ​       ​          ​     13
+Module 6 — Shop Page
+
+A public merchandise display page managed through the CMS. No payment processing on this website.
+
+
+
+ #       Scope of Work                    Requirements
+
+ 6.1     Shop Page                          •​ Each item shows: product image, name, description, display
+         Public merchandise display           price, and external purchase link
+         page. No payment processing        •​ Only published items are visible
+         on this website.                   •​ All purchase links open in a new browser tab
+                                            •​ Content available in English and Italian
+
+ 6.2     CMS Shop Item                      •​ Add, edit, reorder, or remove products
+         Management                         •​ Each product: name, description, image, display price, and
+         Anantara staff can manage all        external purchase link
+         merchandise items from the         •​ Items can be hidden without being deleted
+         CMS.
+                                            •​ English and Italian fields; draft and publish workflow applies
+
+ 6.3     Shop On/Off                        •​ When turned off: the Shop page is hidden and the navigation link
+         Admin can show or hide the           is removed
+         Shop page at any time from         •​ When turned on: the Shop page and navigation link are
+         the CMS settings.                    immediately visible
+                                            •​ Existing product listings are not affected by the toggle
+                                            •​ Toggle is available to staff only
+
+
+
+                                             <Intentionally Left Blank>
+
+                              <Next Page for Module 7 — Ticket Sales (Re-activation)>
+
+
+
+
+Anantara Concorso Roma Website Platform Enhancement​                  ​        ​          ​      ​        ​       14
+Module 7 — Ticket Sales (Re-activation)
+
+Restores the existing ticket sales page that was previously hidden, once the 2027 venue is confirmed.
+
+
+
+ #       Scope of Work                       Requirements
+
+ 7.1     Ticket Page Re-activation            •​ Ticket page and navigation link re-enabled once the 2027 venue
+         Restore the existing ticket sales       is confirmed
+         page that was previously             •​ All ticket transactions handled by the existing external ticket
+         hidden.                                 provider
+                                              •​ No new payment functionality built as part of this work
+
+ 7.2     Ticket Sales On/Off                  •​ When turned on: the ticket page and navigation link are
+         Staff can show or hide the ticket       immediately visible.
+         sales page at any time from the      •​ When turned off: the ticket page and navigation link are removed
+         CMS settings — no developer
+                                              •​ All ticket transactions continue to be handled by the existing
+         involvement needed.
+                                                 external provider
+                                              •​ Toggle is available to staff only
+                                              •​ Published to: Website & Application
+
+
+
+                                                <Intentionally Left Blank>​
+                                <Next Page for Section 3: Deliverables & Success Metrics>
+
+
+
+
+Anantara Concorso Roma Website Platform Enhancement​                    ​        ​        ​         ​        ​      15
+3. Deliverables & Success Metrics
+
+The table below lists each deliverable and the criteria used to confirm it has been completed successfully.
+
+
+
+ #       Deliverable                      Success Criteria
+
+ 1       CMS Login & Access                 •​ All CMS staff can log in with full access to all sections.
+         Control                            •​ Confirmation email sent on password change.
+
+ 2       CMS Content Management             •​ All website sections — Cars, Awards, Sponsors, Agenda,
+                                               Judges, News, Press, static pages, Gallery — editable by
+                                               Anantara staff.
+                                            •​ Content published in CMS appears on the live website and
+                                               mobile application
+                                            •​ English and Italian managed independently.
+                                            •​ Draft and publish workflow confirmed in testing.
+                                            •​ The application displays English content only.
+
+ 3       Car Submission Portal              •​ Form submits successfully with all fields validated.
+                                            •​ Personal tracking link delivered within 60 seconds.
+                                            •​ All five admin decisions work correctly.
+                                            •​ Correct email sent per decision.
+                                            •​ Waitlist auto-close runs on the set expiry date.
+                                            •​ Toggle on/off feature
+
+ 4       Volunteer Registration             •​ Registration form submits and creates a Pending record.
+                                            •​ Personal tracking link delivered within 60 seconds.
+                                            •​ Status page displays correctly for all statuses.
+                                            •​ Waitlist management works identically to Module 3.
+                                            •​ Toggle on/off feature
+
+ 5       Cars & Coffee                      •​ Registration form submits successfully with all required fields
+                                               validated.
+                                            •​ Add or update the event description, date, time, location and
+                                               cover image
+                                            •​ Multiple events manageable simultaneously, each with a
+                                               month and participant quota.
+                                            •​ Events at capacity shown as 'Full' in the dropdown and
+                                               cannot be selected.
+                                            •​ One registration per person per event is enforced.
+
+
+
+Anantara Concorso Roma Website Platform Enhancement​                 ​       ​        ​         ​           ​    16
+ #      Deliverable                      Success Criteria
+
+                                           •​ Confirmation email sent to participants on submission.
+                                           •​ Admin can view the full list of registrations.
+                                           •​ Toggle on/off feature
+
+ 6      Shop Page                          •​ Published items display with images, descriptions, and
+                                             prices.
+                                           •​ Purchase links open in a new tab.
+                                           •​ Staff can add, edit, and remove items without Mtel
+                                             involvement.
+                                           •​ Toggle on/off feature
+
+ 7      Ticket Sales Re-activation         •​ Ticket page and navigation link visible on the website and
+                                             application once activated.
+                                           •​ Toggle on/off feature
+
+ 8      Project Documentation              •​ Scope of Work reviewed and approved by both Anantara
+                                             and Mtel.
+
+ 9      User Manual                        •​ Step-by-step guide to the CMS and submission portals
+                                             delivered.
+
+ 10     Technical Documentation            •​ System architecture, API specifications, and integration
+                                             details documented and shared with relevant technical
+                                             teams.
+
+
+
+                                            <Intentionally Left Blank>​
+                                     <Next Page for Section 4: Out of scope>
+
+
+
+
+Anantara Concorso Roma Website Platform Enhancement​               ​        ​        ​         ​    ​      17
+4. Out of Scope
+
+The following items are explicitly excluded from this engagement and will not be delivered under this Scope of
+Work.
+
+ Item                              Notes
+
+ User Account System               No full login accounts for car owners, volunteers, or event attendees.
+                                   All public-facing portals use a personal tracking link only.
+
+ Payment Gateway                   No payment processing for ticket sales or merchandise. Ticket sales
+ Implementation                    use the existing external ticket provider. The shop page shows external
+                                   purchase links only.
+
+ Mobile Application                This engagement covers the website only. No iOS, Android, or mobile
+ Development                       app development is included.
+
+ Design System Creation            No new design system will be created. All screens follow the existing
+                                   Anantara Concorso Roma visual identity.
+
+ Third-Party CMS Integration       No external CMS platforms (e.g. Contentful, Strapi). The CMS is built
+                                   on the existing Mtel stack.
+
+ Email Marketing Platform          No email marketing tools (e.g. Mailchimp). All emails sent by the
+ Integration                       system are transactional notifications only.
+
+ Data Migration of Legacy          Historical car submission data from previous email or other sources will
+ Submissions                       not be migrated.
+
+ SEO Optimisation                  No SEO audit, keyword work, or structured data improvements are
+                                   included.
+
+ Multi-Language Support            Content is supported in English and Italian only. No additional
+ Beyond EN/IT                      languages in this phase.
+
+ Event Management or               Ticket inventory and event capacity are managed by the external ticket
+ Ticketing Backend                 provider. Only the page and navigation link are in scope.
+
+ Cars & Coffee Event               Registration form and admin list view are in scope. Status tracking ,
+ Logistics                         physical event logistics and direct attendee communications beyond
+                                   automated emails are not included.
+
+ Ongoing Post-Launch               A maintenance and support agreement will be discussed separately
+ Support (beyond UAT)              after the initial launch period.
+
+
+
+
+Anantara Concorso Roma Website Platform Enhancement​                  ​     ​         ​           ​    ​      18
+5. Assumptions & Risks
+
+The following assumptions underpin this scope. Deviations may result in timeline or scope adjustments subject to
+mutual agreement.
+
+Assumptions
+
+ Assumption                      Detail
+
+ Existing Platform Stability     The existing website, hosting, database, email service, and file storage
+                                 remain operational and accessible throughout the project.
+
+ Content Readiness               Anantara provides all required English and Italian content before the
+                                 agreed content milestone. Late content may affect the go-live date.
+
+ Stakeholder Availability        Anantara assigns at least one staff member to review, test, and sign off on
+                                 the work within agreed timelines.
+
+ Design Assets Provided          Where screen designs exist, Anantara provides final approved designs
+                                 before development of that section begins.
+
+ CMS Accounts Created by         All CMS staff accounts are set up by Mtel. There is no self-registration for
+ Mtel                            CMS access.
+
+ Personal Tracking Link          The personal tracking link approach for all public portals is agreed as the
+ Approach Approved               access method. No full user account system will be built.
+
+ 2027 Venue Confirmation         The ticket sales page (Module 7) will only be restored once Anantara
+                                 confirms the 2027 event venue.
+
+ Email Service                   The existing email service can handle all transactional emails described in
+ Compatibility                   this scope.
+
+ File Storage Configuration      File storage for uploads is already in place or will be set up by Mtel at
+                                 project kickoff.
+
+ Sender Email Domain &           All emails sent by the platform will come from
+ Service                         @anantaraconcorsoroma.com via AWS SES (Simple Email Service).
+                                 Anantara must allow Mtel to configure the domain before testing begins to
+                                 ensure emails reach recipients' inboxes.
+
+
+
+
+Anantara Concorso Roma Website Platform Enhancement​                 ​       ​        ​        ​        ​       19
+Risks
+
+ Category         Risk                         Impact                  Mitigation
+
+ Content          English and Italian          CMS sections            Set a firm content deadline 2 weeks
+ Delivery         content not delivered on     cannot be tested;       before testing. Use English-only
+                  time                         go-live delayed         placeholder if Italian content is
+                                                                       delayed.
+
+ Scope Creep      New sections or form         Budget and              All changes follow a formal change
+                  fields requested during      timeline overrun        request process. Written approval
+                  development                                          and revised estimate required
+                                                                       before work begins.
+
+ Design           Screen designs not           Rework and              Require signed-off designs for each
+ Ambiguity        finalised before a           delayed delivery        module before its development
+                  module's development                                 sprint starts.
+                  begins
+
+ Stakeholder      Delayed feedback,            Timeline delays         Agree on review windows, response
+ Availability     testing participation, or                            timeframes, and an escalation path
+                  sign-off from Anantara                               at kickoff.
+
+ Venue            2027 venue not               Module 7 cannot         Module 7 is independent — all other
+ Confirmation     confirmed before project     be activated            modules are unaffected. Activated
+ Delay            go-live                                              when confirmation is received.
+
+ Email Delivery   Notification emails          Owners and              Test email delivery during system
+                  landing in spam or failing   volunteers miss         testing. Configure standard email
+                  to send                      their personal          authentication. Provide 'Resend my
+                                               tracking link           link' fallback.
+
+ File Upload      Large photo or document      Poor experience         Enforce file size limits on the form.
+ Issues           uploads causing slow         on submission
+                  performance or               forms; higher
+                  unexpected storage           than expected
+                  costs                        costs
+
+
+
+
+Anantara Concorso Roma Website Platform Enhancement​               ​       ​            ​    ​         ​       20
+6. Implementation Roadmap
+
+The project is structured across four phases to prioritise foundational infrastructure, then submission portals, then
+ancillary features. A staggered approach allows UAT on stable modules before new ones are introduced.
+
+
+
+
+Phase 1: CMS Platform (Week 1 – 8)
+
+Kick-off and environment setup run in the first two weeks, followed immediately by CMS development. The goal is
+full editorial independence for the Anantara team.
+
+
+
+ Scope                        Content editor, image & gallery management, news & page management,
+                              role-based access control.
+
+ Mechanism                    A CMS interface integrated into the existing website — editors can publish,
+                              update, and schedule content without touching code.
+
+ Objective                    Anantara manages and publishes website content entirely on their own — no
+                              Mtel involvement needed.
+
+
+Design Confirmation Milestone:
+
+    -​   28 Jun: CMS Part 1
+
+
+Anantara Concorso Roma Website Platform Enhancement​                ​       ​        ​       ​        ​      21
+Phase 2: Submission & Registration Portal (Week 1 – 8)
+
+Runs in parallel with Phase 1. Replaces email-based submissions with a structured, trackable portal — extended
+to cover Volunteer and Cars & Coffee registrations on the same framework.
+
+
+
+ Scope                      Public submission form, token-based tracking, admin dashboard,
+                            approval-gated access, Volunteer & Cars & Coffee registration.
+
+ Mechanism                  Account-free submission with a magic link for status tracking. Staff manage
+                            everything from one dashboard.
+
+ Objective                  Every submission is captured, trackable, and manageable — no more lost
+                            emails, no more manual follow-up.
+
+
+Design Confirmation Milestone:
+
+   -​   3 Jul: CMS Part 2 & Car Submission
+   -​   10 Jul: Volunteer, Cars & Coffee
+
+
+
+
+Phase 3: Shop & Ticket Reactivation (Week 7 – 10)
+
+ Scope                      CMS-managed product catalogue, ticket sales on/off toggle.
+
+ Mechanism                  Product content editable via CMS. Ticket sales activated or deactivated
+                            instantly via toggle — no developer needed.
+
+ Objective                  Anantara controls when products and tickets go live, independently, at any
+                            time.
+
+
+Design Confirmation Milestone:
+
+   -​   17 Jul: Shop Design Confirmation
+
+
+
+
+Total: ~80 Mandays · 10 Weeks · 3 Phases
+
+Phases 1 and 2 run in parallel to compress delivery. Each phase closes with QA and UAT before go-live.
+
+
+
+
+Anantara Concorso Roma Website Platform Enhancement​             ​        ​        ​         ​        ​   22
+7. Acceptance
+
+This Scope of Work is considered accepted when signed by authorized representatives of both Anantara Hotels &
+Resorts and Mtel (Thailand) Co., Ltd. By signing below, both parties confirm that they have read, understood, and
+agreed to the scope, deliverables, assumptions, and exclusions described in this document.
+
+Any changes to the agreed scope after acceptance must be documented in a formal Change Request, reviewed,
+and signed by both parties before additional work commences.
+
+
+
+For and on behalf of                                   For and on behalf of
+
+Minor Hotel Group Limited                              Mtel (Thailand) Co., Ltd.
+
+
+
+Authorized Signature                                   Authorized Signature
+
+
+
+Name & Title                                           Name & Title
+
+
+
+Date                                                   Date
+
+
+
+
+Authorized Signature                                   Authorized Signature
+
+
+
+Name & Title                                           Name & Title
+
+
+
+Date                                                   Date
+
+
+
+Witness                                                Witness
+
+
+Authorized Signature                                   Authorized Signature
+
+
+
+Name & Title                                           Name & Title
+
+
+
+Date                                                   Date
+
+
+
+
+Anantara Concorso Roma Website Platform Enhancement​              ​           ​    ​     ​       ​       23
+

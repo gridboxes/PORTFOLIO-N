@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Divider styles</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  @font-face {
+    font-family: 'KyivTypeSerif';
+    src: url('fonts/KyivTypeSerif-Regular.woff2') format('woff2'),
+         url('fonts/KyivTypeSerif-Regular.woff') format('woff');
+    font-weight: 400; font-style: normal; font-display: swap;
+  }
+  :root {
+    --bg-tab-active: #2e2e2e;
+    --text-pri: #f8f8f8;
+    --text-sec: rgba(248,248,248,0.72);
+    --border: rgba(248,248,248,0.07);
+    --border-mid: rgba(248,248,248,0.12);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #191919;
+    color: var(--text-pri);
+    font-family: 'DM Mono', monospace;
+    padding: 48px 56px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  .h3 { font-family: 'KyivTypeSerif', Georgia, serif; font-size: 30px; font-weight: 400; }
+  .opt { margin-bottom: 44px; }
+  .opt-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 0.08em;
+    color: var(--text-sec); text-transform: uppercase;
+    margin-bottom: 14px; display: block;
+  }
+  .title-row { display: flex; align-items: baseline; }
+
+  /* A — plain full-width line */
+  .d-plain { height: 1px; background: var(--border-mid); margin-top: 12px; }
+
+  /* B — line fading out to the right */
+  .d-fade { height: 1px; margin-top: 12px;
+    background: linear-gradient(90deg, var(--border-mid), rgba(248,248,248,0)); }
+
+  /* C — dashed line */
+  .d-dashed { height: 0; margin-top: 12px;
+    border-top: 1px dashed var(--border-mid); }
+
+  /* D — dotted line */
+  .d-dotted { height: 0; margin-top: 12px;
+    border-top: 2px dotted var(--border-mid); }
+
+  /* E — short bright accent bar under title (left) */
+  .d-accent { width: 44px; height: 3px; border-radius: 2px;
+    background: var(--text-pri); margin-top: 14px; opacity: 0.85; }
+
+  /* F — line with a small centered diamond node */
+  .d-node { position: relative; height: 1px; background: var(--border-mid); margin-top: 16px; }
+  .d-node::after { content: ''; position: absolute; left: 50%; top: 50%;
+    width: 6px; height: 6px; transform: translate(-50%,-50%) rotate(45deg);
+    background: var(--text-sec); }
+
+  /* G — line with a leading dot on the left */
+  .d-leaddot { display: flex; align-items: center; gap: 10px; margin-top: 14px; }
+  .d-leaddot .dot { width: 6px; height: 6px; border-radius: 50%;
+    background: var(--text-sec); flex: none; }
+  .d-leaddot .ln { flex: 1; height: 1px; background: var(--border-mid); }
+
+  /* H — icon node + line (chip family, no text) */
+  .d-iconnode { display: flex; align-items: center; gap: 14px; margin-top: 14px; }
+  .d-iconnode .node { width: 30px; height: 30px; border-radius: 50%;
+    background: var(--bg-tab-active); box-shadow: 0 0 0 1px var(--border);
+    display: flex; align-items: center; justify-content: center; flex: none; }
+  .d-iconnode .node svg { width: 14px; height: 14px; stroke: var(--text-pri);
+    fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .d-iconnode .ln { flex: 1; height: 1px; background: var(--border-mid); }
+
+  /* baseline reference — the existing group chip */
+  .chip-ref { display: flex; align-items: center; gap: 14px; margin-top: 16px; }
+  .chip-ref .chip { display: inline-flex; align-items: center; gap: 6px; height: 32px;
+    padding: 0 14px; border-radius: 20px; background: var(--bg-tab-active);
+    color: var(--text-pri); box-shadow: 0 0 0 1px var(--border);
+    font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 0.05em; }
+  .chip-ref .chip svg { width: 14px; height: 14px; stroke: var(--text-pri);
+    fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .chip-ref .ln { flex: 1; height: 1px; background: var(--border-mid); }
+</style>
+</head>
+<body>
+
+  <div class="opt">
+    <span class="opt-tag">A · Plain line (already tried)</span>
+    <div class="title-row"><span class="h3">Experience</span></div>
+    <div class="d-plain"></div>
+  </div>
+
+  <div class="opt">
+    <span class="opt-tag">B · Fading line</span>
+    <div class="title-row"><span class="h3">Experience</span></div>
+    <div class="d-fade"></div>
+  </div>
+
+  <div class="opt">
+    <span class="opt-tag">C · Dashed line</span>
+    <div class="title-row"><span class="h3">Experience</span></div>
+    <div class="d-dashed"></div>
+  </div>
+
+  <div class="opt">
+    <span class="opt-tag">D · Dotted line</span>
+    <div class="title-row"><span class="h3">Experience</span></div>
+    <div class="d-dotted"></div>
+  </div>
+
+  <div class="opt">
+    <span class="opt-tag">E · Short accent bar</span>
+    <div class="title-row"><span class="h3">Experience</span></div>
+    <div class="d-accent"></div>
+  </div>
+
+  <div class="opt">
+    <span class="opt-tag">F · Line with centered diamond</span>
+    <div class="title-row"><span class="h3">Experience</span></div>
+    <div class="d-node"></div>
+  </div>
+
+  <div class="opt">
+    <span class="opt-tag">G · Leading dot + line</span>
+    <div class="title-row"><span class="h3">Experience</span></div>
+    <div class="d-leaddot"><span class="dot"></span><span class="ln"></span></div>
+  </div>
+
+  <div class="opt">
+    <span class="opt-tag">H · Icon node + line (chip family, no text)</span>
+    <div class="title-row"><span class="h3">Experience</span></div>
+    <div class="d-iconnode">
+      <span class="node"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span>
+      <span class="ln"></span>
+    </div>
+  </div>
+
+  <div class="opt">
+    <span class="opt-tag">Reference · current group chip (with text)</span>
+    <div class="chip-ref">
+      <span class="chip"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>Work Experiences</span>
+      <span class="ln"></span>
+    </div>
+  </div>
+
+</body>
+</html>
